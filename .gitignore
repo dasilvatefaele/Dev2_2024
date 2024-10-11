@@ -1,0 +1,4 @@
+# dependencies
+bin
+obj
+.DS_Store 
