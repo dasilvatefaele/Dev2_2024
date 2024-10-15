@@ -4,8 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "esercitazioni", "esercitazioni", "{F953D8FA-AC9F-416C-A3AF-0955C63C33B9}"
-EndProject
+EndProjectv
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01_metodi_console", "esercitazioni\01_metodi_console\01_metodi_console.csproj", "{F72A9E93-F128-4C24-ACAD-03922ACBA35B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02_tipi_di_dati", "esercitazioni\02_tipi_di_dati\02_tipi_di_dati.csproj", "{9203F087-34D9-4631-870C-F37CB7728C76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,8 +26,13 @@ Global
 		{F72A9E93-F128-4C24-ACAD-03922ACBA35B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F72A9E93-F128-4C24-ACAD-03922ACBA35B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F72A9E93-F128-4C24-ACAD-03922ACBA35B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9203F087-34D9-4631-870C-F37CB7728C76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9203F087-34D9-4631-870C-F37CB7728C76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9203F087-34D9-4631-870C-F37CB7728C76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9203F087-34D9-4631-870C-F37CB7728C76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F72A9E93-F128-4C24-ACAD-03922ACBA35B} = {F953D8FA-AC9F-416C-A3AF-0955C63C33B9}
+		{9203F087-34D9-4631-870C-F37CB7728C76} = {F953D8FA-AC9F-416C-A3AF-0955C63C33B9}
 	EndGlobalSection
 EndGlobal
