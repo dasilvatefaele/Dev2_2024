@@ -10,7 +10,6 @@ OPERATORI:
 
 */ 
 
-
 //pulisce la console
 Console.Clear();    
 
@@ -30,7 +29,7 @@ c = b % a;
 
 Console.WriteLine(c);
 /*******************************************************/
-//      OPERATORI DI CONFRONTO
+//      OPERATORI DI CONFRONTO : Restituisce un bool
 /*******************************************************/
 
 int f = 10;
@@ -43,7 +42,7 @@ Console.WriteLine(i);
 
 // > , >= , <, <=
 /*******************************************************/
-//      OPERATORI LOGICI
+//      OPERATORI LOGICI : Restituisce un bool
 /*******************************************************/
 
 bool p = true;
@@ -61,6 +60,8 @@ Console.WriteLine(r);
 //NOT - Opposto
 r = !r;
 Console.WriteLine(r);
+
+// && , || , !=
 
 /*******************************************************/
 //      OPERATORI DI ASSEGNAZIONE
@@ -83,7 +84,7 @@ v++;
 Console.WriteLine(v);
 
 /*******************************************************/
-//      OPERATORI DI CONCATENAZIONE
+//      OPERATORI DI CONCATENAZIONE : stringhe 
 /*******************************************************/
 
 string w = "ciao ";
@@ -91,10 +92,4 @@ string x = "mondo";
 string y = w + x;
 
 Console.WriteLine(y);
-
-
-
-
-
-
 
