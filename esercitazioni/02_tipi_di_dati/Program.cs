@@ -88,6 +88,17 @@ Dictionary<string, int> catalogo = new Dictionary<string, int>();
 /****************************************************************/
 
 
+// BEST PRACTICES: Come dichiarare le variabili
+
+// DICHIARARE LE VARIABILI IN MODO SPECIFICO 
+// DICHIARARE LE VARIABILI CON LA NOTAZIONE CamelCase o PascalCase
+// ESEMPIO CamelCase:    etaStudente
+// ESEMPIO PascalCase:   EtaStudente
+
+
+
+
+
 
 
 
