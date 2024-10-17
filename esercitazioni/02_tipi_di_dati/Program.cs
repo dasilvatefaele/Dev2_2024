@@ -53,7 +53,7 @@ int[] numeri2 = new int[]{10, 20, 30, 40, 50};
 
 /****************************************************************/
 
-// LISTA - quando la lunghezza della lista è variabile, non sono enumerabili
+// LISTA - quando la lunghezza della lista è variabile, 
 // SINTASSI: List<tipo> nome variabile = new List<tipo>();
 List<int> numeri3 = new List<int>();
 

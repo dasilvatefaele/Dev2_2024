@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "calcolatrice", "esercitazio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "calcolatrice_v2", "esercitazioni_mackbook\calcolatrice_v2\calcolatrice_v2.csproj", "{7EA43BBD-4E17-4F51-B1CA-A6219C046833}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "calcolatrice_v3", "esercitazioni_mackbook\calcolatrice_v3\calcolatrice_v3.csproj", "{7747B8A6-D467-429D-B3CD-B796D0DC1793}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{7EA43BBD-4E17-4F51-B1CA-A6219C046833}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EA43BBD-4E17-4F51-B1CA-A6219C046833}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EA43BBD-4E17-4F51-B1CA-A6219C046833}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7747B8A6-D467-429D-B3CD-B796D0DC1793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7747B8A6-D467-429D-B3CD-B796D0DC1793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7747B8A6-D467-429D-B3CD-B796D0DC1793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7747B8A6-D467-429D-B3CD-B796D0DC1793}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CA0EEA04-5509-4E23-88B4-B86FE7EC9D43} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
@@ -60,5 +66,6 @@ Global
 		{0CA64243-B16C-4DEF-B814-D2295A84FCA3} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
 		{55E77AA6-096D-48B9-BD77-259CE0835DA3} = {5D997FAF-5A30-4C67-912C-CA9B16D5AD29}
 		{7EA43BBD-4E17-4F51-B1CA-A6219C046833} = {5D997FAF-5A30-4C67-912C-CA9B16D5AD29}
+		{7747B8A6-D467-429D-B3CD-B796D0DC1793} = {5D997FAF-5A30-4C67-912C-CA9B16D5AD29}
 	EndGlobalSection
 EndGlobal
