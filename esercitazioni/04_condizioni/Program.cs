@@ -68,5 +68,34 @@ ELSE
 
 */
 
-
 // modifica arbitraria
+
+/***********************************/
+//           SWITCH CASE
+/***********************************/
+
+int y = 10;
+
+switch (v){
+    case 5:
+        Console.WriteLine("La variabile è 5");
+        break;
+    case 10:
+        Console.WriteLine("La variabile è 10");
+        break;
+    case 15:
+        Console.WriteLine("La variabile è 15");
+        break;
+    default: // quando nessuna delle condizioni è soddisfatta esegue default
+        Console.WriteLine("La variabile è non è presente nel menù");
+        break;
+}
+
+// il switch case è utilizzabile con ogni tipo di variabile, (int, bool, string, char)
+
+
+
+
+
+
+

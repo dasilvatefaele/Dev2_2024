@@ -40,7 +40,7 @@ Console.WriteLine(h);
 bool i = f != g;
 Console.WriteLine(i);
 
-// > , >= , <, <=
+// > , >= , <, <=. ==, !=
 /*******************************************************/
 //      OPERATORI LOGICI : Restituisce un bool
 /*******************************************************/
@@ -61,7 +61,7 @@ Console.WriteLine(r);
 r = !r;
 Console.WriteLine(r);
 
-// && , || , !=
+// && , || , !
 
 /*******************************************************/
 //      OPERATORI DI ASSEGNAZIONE
