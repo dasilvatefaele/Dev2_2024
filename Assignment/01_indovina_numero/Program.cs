@@ -1,9 +1,11 @@
 ﻿/******************************************************************************/
-//                            INDOVINA NUMERO v1.1
+//                            INDOVINA NUMERO v1.2
 /******************************************************************************/
 // v1.1 : pulizia codice, console più pulita, formattazione più omogenea
 // v1.2 : possibilità di scegliere Facile (1-20), Medio (1-50), Difficile (1-100)
-// v1.3 : dopo 5 tentativi sbagliati propone 3 indizi (maggiore o minore, pari o dispari)
+// v1.3 : dopo 5 tentativi sbagliati propone 3 indizi 
+//        maggiore o minore / pari o dispari / sbagli di circa nDifferenza
+// v1.4 : Acqua (differenza > 50%) fuoco (differenza < 25%) fuochissmo (differenza < 10%)
 
 Console.Clear();
 Random random = new Random();
