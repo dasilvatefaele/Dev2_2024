@@ -6,6 +6,19 @@
 // v1.3 : dopo 5 tentativi sbagliati propone 3 indizi 
 //        maggiore o minore / pari o dispari /
 // v1.4 : Oceano (differenza > 50%), Acqua (25% > differenza < 50% )  Fuoco (differenza < 25%) Fuochissmo (differenza < 10%)
+// v1.5 : Sessione di gioco prolungata. Sistema di punteggio
+
+/*
+SISTEMA DI PUNTEGGIO: 
+
+Quando si indovina un numero, i tentativi rimasti vengono moltiplicati per x10
+e sommati alla variabile int valPunteggio.
+
+La sessione avrà 3 Round. 
+
+Alla fine sarà possibile salvare in un file un punteggio associato al nome di un giocatore 
+
+*/
 
 using System.Security.Principal;
 
@@ -31,12 +44,24 @@ Random random = new Random();
  int numeroDaIndovinare = 0; 
  bool sceltaValida = false;
  double intervallo = 0;
+ int sceltaModalita = 0;
 
 // Stampa e acquisisce Modalità di gioco
 do{
     Console.WriteLine("Modalità di gioco:\n1 - Facile\n2 - Medio\n3 - Difficile");
     Console.Write("===>");
-    int sceltaModalita = int.Parse(Console.ReadLine());
+
+    do{
+        try{
+            sceltaModalita = int.Parse(Console.ReadLine());
+            sceltaValida = true;
+        }
+        catch (System.FormatException){
+            Console.WriteLine("Serve inserire un valore valido :( riprova...");
+            Console.Write("===>");
+            sceltaValida = false;
+        }
+    }while(sceltaValida=false);
 
     switch (sceltaModalita){
         case 1:
