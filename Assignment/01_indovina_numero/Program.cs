@@ -1,6 +1,8 @@
 ﻿/******************************************************************************/
-//                            INDOVINA NUMERO v1.5
+//                            INDOVINA NUMERO v1.5b
 /******************************************************************************/
+
+// punteggio alternativo
 
 using System.Security.Principal;
 
@@ -12,7 +14,7 @@ int numeroDaIndovinare = 0;
 bool sceltaValida = false;
 double intervallo = 0;
 int sceltaModalita = 0;
-int punteggioGiocatore = 0;
+int punteggioGiocatore = 20;
 List<int> numeriTentati = new List<int>();
 
 // Ciclo di controllo inserimento modalità di gioco
@@ -97,22 +99,26 @@ while(true){
     }while(sceltaValida==false);
     // FINE Acquisizione numeroUtente e controllo validità
 
-    // Confronto numeri - UGUALE
+    // Confronto numeri ---> UGUALE
     if (numeroUtente == numeroDaIndovinare){ 
         // Stampa messaggio - "Hai indovinato!" - Fine sessione con vittoria
         Console.WriteLine($"\nHai indovinato! Avevo pensato proprio al {numeroDaIndovinare}\n");
-        punteggioGiocatore += numeroTentativi*10;
+        //punteggioGiocatore += numeroTentativi*10;
         break;
 
-    // Confronto numero - DIVERSO - 
-    // **** La sessione di gioco si svolge qui ****
+    // Confronto numero ---> DIVERSO 
+    // La sessione di gioco si svolge qui <==========================
     } else {     
 
         // Decremento tentativi
         numeroTentativi--; 
 
+        // Decremento punteggio
+        punteggioGiocatore--;
+
         // Stampa messaggio  "Sbagliato :(" 
         Console.Clear(); 
+        Console.WriteLine($"Punteggio: {punteggioGiocatore}\n");
         Console.WriteLine($"Mmm... Sbagliato :( Ora hai {numeroTentativi} tentativi...");
 
         // Aggiungi numero alla lista dei numeri tentati e stampa 
@@ -124,7 +130,6 @@ while(true){
         // Calcolo Differenza 
         int diffNumero = Math.Abs(numeroDaIndovinare - numeroUtente);
         
-
         if (diffNumero > intervallo / 2){                                           // differenza > 50% dell'intervallo (molto distanti)
             Console.WriteLine("Indizio: Oceano!");
         } else if (diffNumero < intervallo / 2 && diffNumero > intervallo / 4 ){    // differenza tra 50%  e 25% dell'intervallo (distanti)
