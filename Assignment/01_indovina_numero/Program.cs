@@ -1,50 +1,18 @@
 ﻿/******************************************************************************/
-//                            INDOVINA NUMERO v1.4b
+//                            INDOVINA NUMERO v1.4c
 /******************************************************************************/
-// v1.1 : pulizia codice, console più pulita, formattazione più omogenea
-// v1.2 : possibilità di scegliere Facile (1-20), Medio (1-50), Difficile (1-100)
-// v1.3 : dopo 5 tentativi sbagliati propone 3 indizi 
-//        maggiore o minore / pari o dispari /
-// v1.4 : Oceano (differenza > 50%), Acqua (25% > differenza < 50% )  Fuoco (differenza < 25%) Fuochissmo (differenza < 10%)
-// v1.5 : Sessione di gioco prolungata. Sistema di punteggio
-
-/*
-SISTEMA DI PUNTEGGIO: 
-
-Quando si indovina un numero, i tentativi rimasti vengono moltiplicati per x10
-e sommati alla variabile int valPunteggio.
-
-La sessione avrà 3 Round. 
-
-Alla fine sarà possibile salvare in un file un punteggio associato al nome di un giocatore 
-
-*/
 
 using System.Security.Principal;
 
 Console.Clear();
 Random random = new Random();
-
-/*
-//new è il costruttore della classe Random(); che istanzia un oggetto Random
-//random è l'oggetto Random che possiamo utilizzare per generare numeri casuali
-*/
-/*
-// Next è il metodo che genera un numero casuale
-//l'intervallo del metodo .Next è semi aperto tra 1 e 101 
-//comprende il numero iniziale 1 ma esclude quello finale 101
-//dunque l'intervallo è da 1 a 100
-// int numeroDaIndovinare = random.Next(1,101); 
-//verifico numero - OK
-//Console.WriteLine(numeroDaIndovinare);
-// int numeroUtente = Convert.ToInt32(Console.ReadLine()); // conversione alternativa
-*/
  
  // Dichiarazione e inizializzazione
  int numeroDaIndovinare = 0; 
  bool sceltaValida = false;
  double intervallo = 0;
  int sceltaModalita = 0;
+List<int> numeriTentati = new List<int>();
 
 // Stampa e acquisisce Modalità di gioco
 do{
@@ -61,7 +29,7 @@ do{
             Console.Write("===>");
             sceltaValida = false;
         }
-    }while(sceltaValida=false);
+    }while(sceltaValida==false);
 
     switch (sceltaModalita){
         case 1:
@@ -100,13 +68,28 @@ Console.ReadKey();
 
 // Dichiarazione e inizializzazione tentativi
 int numeroTentativi = 10;
+int numeroUtente = 0;
 
 //Inizio sessione di gioco
 Console.Clear();
 Console.Write($"Ho in mente un numero... Indovinalo! Hai {numeroTentativi} tentativi\n--> ");
 
 while(true){
-    int numeroUtente = int.Parse(Console.ReadLine()); // Acquisizione 
+     //numeroUtente = int.Parse(Console.ReadLine()); // Acquisizione 
+
+
+    do{
+        try{
+            numeroUtente = int.Parse(Console.ReadLine());
+            sceltaValida = true;
+        }
+        catch (System.FormatException){
+            Console.WriteLine("Serve inserire un valore valido :( riprova...");
+            Console.Write("===>");
+            sceltaValida = false;
+        }
+    }while(sceltaValida==false);
+
 
     // confronto numeri
     if (numeroUtente == numeroDaIndovinare){ // "Hai indovinato!" - Fine sessione con vittoria
@@ -114,12 +97,18 @@ while(true){
         break;
     } else {    // <----- "Sbagliato :(" - La sessione di gioco si svolge qui 
         
+        
+
         numeroTentativi--; // Decremento tentativi
 
         Console.Clear(); 
         Console.WriteLine($"Mmm... Sbagliato :( Ora hai {numeroTentativi} tentativi...");
 
+        numeriTentati.Add(numeroUtente);
+        Console.Write("I tuoi numeri (");
+        Console.Write(string.Join(", ", numeriTentati));
         int diffNumero = Math.Abs(numeroDaIndovinare - numeroUtente);
+        Console.Write(")\n");
 
         if (diffNumero > intervallo / 2){ // differenza > 50% dell'intervallo (molto distanti)
             Console.WriteLine("Indizio: Oceano!");
