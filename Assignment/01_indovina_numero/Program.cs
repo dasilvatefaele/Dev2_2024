@@ -13,8 +13,7 @@ bool sceltaValida = false;
 double intervallo = 0;
 int sceltaModalita = 0;
 int punteggioGiocatore = 0;
-List<
-int> numeriTentati = new List<int>();
+List<int> numeriTentati = new List<int>();
 
 // Ciclo di controllo inserimento modalità di gioco
 do{ 
@@ -72,11 +71,12 @@ Console.WriteLine("Istruzioni di gioco: Hai 10 tentativi per indovinare un numer
 Console.WriteLine("Premere un tasto per iniziare...");
 Console.ReadKey();
 
+//Inizio sessione di gioco   <==========================
+
 // Dichiarazione e inizializzazione tentativi
 int numeroTentativi = 10;
 int numeroUtente = 0;
 
-//Inizio sessione di gioco   <==========================
 Console.Clear();
 Console.Write($"Ho in mente un numero... Indovinalo! Hai {numeroTentativi} tentativi\n--> ");
 
@@ -119,10 +119,11 @@ while(true){
         numeriTentati.Add(numeroUtente);
         Console.Write("I tuoi numeri (");
         Console.Write(string.Join(", ", numeriTentati));
+        Console.Write(")\n");
 
         // Calcolo Differenza 
         int diffNumero = Math.Abs(numeroDaIndovinare - numeroUtente);
-        Console.Write(")\n");
+        
 
         if (diffNumero > intervallo / 2){                                           // differenza > 50% dell'intervallo (molto distanti)
             Console.WriteLine("Indizio: Oceano!");
