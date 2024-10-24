@@ -178,7 +178,7 @@ do
 
             // Stampa messaggio  "Sbagliato :(" 
             Console.Clear();
-            Console.WriteLine($"Punteggio: {punteggioGiocatore}\n");
+            //Console.WriteLine($"Punteggio: {punteggioGiocatore}\n");
             Console.WriteLine($"Mmm... Sbagliato :( Ora hai {numeroTentativi} tentativi...");
 
             // Aggiungi numero alla lista dei numeri tentati e stampa 
