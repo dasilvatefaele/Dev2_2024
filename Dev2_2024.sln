@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment", "Assignment", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01_indovina_numero", "Assignment\01_indovina_numero\01_indovina_numero.csproj", "{9ACBA89A-F330-4A90-9F0F-12A606614C40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08_metodi_dizionari", "esercitazioni\08_metodi_dizionari\08_metodi_dizionari.csproj", "{894F1042-3C3A-40F6-BEE7-171C3128929C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,6 +92,10 @@ Global
 		{9ACBA89A-F330-4A90-9F0F-12A606614C40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9ACBA89A-F330-4A90-9F0F-12A606614C40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9ACBA89A-F330-4A90-9F0F-12A606614C40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{894F1042-3C3A-40F6-BEE7-171C3128929C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{894F1042-3C3A-40F6-BEE7-171C3128929C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{894F1042-3C3A-40F6-BEE7-171C3128929C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{894F1042-3C3A-40F6-BEE7-171C3128929C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CA0EEA04-5509-4E23-88B4-B86FE7EC9D43} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
@@ -104,5 +110,6 @@ Global
 		{BACF627A-E719-4876-B21D-4E854F206ECC} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
 		{B6BAD06F-7453-4DF8-8B31-F79D0950B69E} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
 		{9ACBA89A-F330-4A90-9F0F-12A606614C40} = {2E32A539-E6CA-4A43-8142-12F138192BBC}
+		{894F1042-3C3A-40F6-BEE7-171C3128929C} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
 	EndGlobalSection
 EndGlobal
