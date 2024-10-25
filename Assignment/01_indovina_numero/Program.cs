@@ -1,5 +1,5 @@
 ﻿/******************************************************************************/
-//                            INDOVINA NUMERO v1.7
+//                            INDOVINA NUMERO v1.8
 /******************************************************************************/
 
 using System.Security.Principal;
@@ -18,6 +18,7 @@ int nRound = 0;
 bool fineRound = false;
 string risposta = "";
 List<int> numeriTentati = new List<int>();
+Dictionary<string,int> Score = new Dictionary<string,int>();
 
 
 do{ // Gioca
@@ -35,7 +36,7 @@ do{ // Gioca
     do
     {
         // Stampa Modalità di gioco
-        Console.WriteLine("Modalità di gioco:\n1 - Facile\n2 - Medio\n3 - Difficile");
+        Console.WriteLine("Modalità di gioco:\n[1] Facile\t[2] Medio\t[3] Difficile");
         Console.Write("===>");
 
         // Acquisizione Modalità di gioco e controllo validità inserimento
@@ -263,8 +264,22 @@ do{ // Gioca
     } while (fineRound == false);
 
 // Fine dei Round
-    Console.WriteLine($"Fine del gioco! Hai totalizzato {punteggioGiocatore} punti");
-    Console.WriteLine("Vuoi giocare di nuovo? s/n");
+    Console.WriteLine($"Fine del gioco! Hai totalizzato {punteggioGiocatore} punti!\n");
+    Console.Write("Player: ");
+    string nomePlayer = Console.ReadLine();
+    
+    Score.Add(nomePlayer,punteggioGiocatore);
+
+    Console.WriteLine("****************************************");
+    Console.WriteLine("                SCORE:");
+    Console.WriteLine("PLAYER\t\t\tPUNTEGGIO");
+       foreach (var player in Score){
+        Console.WriteLine($"{player.Key}\t\t\t{player.Value}");
+    }
+    Console.WriteLine("****************************************");
+ 
+
+    Console.WriteLine("\nVuoi giocare di nuovo? s/n");
     
     risposta = Console.ReadLine();
 
@@ -285,5 +300,12 @@ do{ // Gioca
     
 } while (risposta == "S");
 Console.Clear();
-Console.WriteLine("Grazie per aver giocato!");
+Console.WriteLine("****************************************");
+    Console.WriteLine("                SCORE:");
+    Console.WriteLine("PLAYER\t\t\tPUNTEGGIO");
+       foreach (var player in Score){
+        Console.WriteLine($"{player.Key}\t\t\t{player.Value}");
+    }
+    Console.WriteLine("****************************************");
+Console.WriteLine("\nGrazie per aver giocato!");
 Console.ReadKey();
