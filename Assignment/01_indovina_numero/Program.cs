@@ -18,6 +18,7 @@ int nRound = 0;
 bool fineRound = false;
 string risposta = "";
 int tempSomma = 0;
+int bonus = 0;
 //int sessione = 0;
 List<int> sommaTentativi = new List<int>();
 List<int> numeriTentati = new List<int>();
@@ -115,21 +116,24 @@ do
             case 1:
                 numeroDaIndovinare = random.Next(1, 21);
                 intervallo = 19;
+                bonus = 50;
                 break;
             case 2:
 
                 numeroDaIndovinare = random.Next(1, 51);
                 intervallo = 49;
+                bonus = 100;
                 break;
             case 3:
                 numeroDaIndovinare = random.Next(1, 101);
                 intervallo = 99;
+                bonus = 200;
                 break;
             default:
                 break;
         }
 
-        // Console.WriteLine(numeroDaIndovinare); // Esponi numero da indovinare per Debug
+        Console.WriteLine($"Debug: {numeroDaIndovinare}"); // Esponi numero da indovinare per Debug
         Console.WriteLine($"*** Round {nRound + 1} ***");
         Console.WriteLine("Premi un tasto per continuare...");
         Console.ReadKey();
@@ -195,7 +199,7 @@ do
                 tempSomma = tempSomma + (10 - numeroTentativi);
                 tuttiTentativi.AddRange(numeriTentati);
 
-                punteggioTemp += numeroTentativi * 10;
+                punteggioTemp += numeroTentativi * 10 + bonus;
 
 
                 break;
@@ -355,7 +359,7 @@ do
 
 
 } while (risposta == "S");
-int i = 0;
+//int i = 0;
 Console.Clear();
 /*
 Console.WriteLine("**************************************************************");
@@ -374,7 +378,7 @@ Console.WriteLine("                SCORE:");
 Console.WriteLine("PUNTEGGIO\t\tTENTATIVI");
 foreach (var player in ScoreTentativi)
 {
-    Console.WriteLine($"{player.Key}\t\\tt{player.Value}");
+    Console.WriteLine($"{player.Key}\t\t\t{player.Value}");
     //j++;
 }
 Console.WriteLine("******************************************");
