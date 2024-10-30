@@ -2187,4 +2187,15 @@ git commit -m "Ultima versione"
 git push -u origin main
 ```
 
+```mermaid
+    flowchart TD
 
+id0((inizio)) --> id20([Tentativi = 10]) -->
+id1[Genera N_casuale]  --> id2[Acquisizione N_utente]
+id2[Acquisisci N_utente] --> id3{N_casuale == N_utente ?} --> |NO|id4{Tentativi == 0 ?} -->|SI| id7
+id4 --> |NO|id6[tentativi - 1]
+id6 --> id2
+id3 --> |SI|id5[Hai vinto] --> id10[visualizza risultati] --> id8{Vuoi giocare di nuovo?}--> |NO|id9((Fine))
+id8 -->|SI|id1
+id7[Hai perso] --> id10[visualizza risultati]
+```

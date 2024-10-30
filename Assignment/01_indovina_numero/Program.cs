@@ -41,7 +41,7 @@ do
     Console.Clear();
     Console.Write("Player: ");
     string nomePlayer = Console.ReadLine();
-    //newScore.Add(nomePlayer,null);
+    
 
     // Gestione Modalità
     do
@@ -133,7 +133,7 @@ do
                 break;
         }
 
-        Console.WriteLine($"Debug: {numeroDaIndovinare}"); // Esponi numero da indovinare per Debug
+        //Console.WriteLine($"Debug: {numeroDaIndovinare}"); // Esponi numero da indovinare per Debug
         Console.WriteLine($"*** Round {nRound + 1} ***");
         Console.WriteLine("Premi un tasto per continuare...");
         Console.ReadKey();
