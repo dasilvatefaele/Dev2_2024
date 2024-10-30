@@ -18,13 +18,13 @@ int nRound = 0;
 bool fineRound = false;
 string risposta = "";
 int tempSomma = 0;
-int sessione = 0;
-List<int> sommaTentativi= new List<int>();
+//int sessione = 0;
+List<int> sommaTentativi = new List<int>();
 List<int> numeriTentati = new List<int>();
 Dictionary<string, int> Score = new Dictionary<string, int>();
-Dictionary<int,int> ScoreTentativi = new Dictionary<int,int>();
+Dictionary<int, int> ScoreTentativi = new Dictionary<int, int>();
 List<int> tuttiTentativi = new List<int>();
-Dictionary<string,List<int>> newScore = new Dictionary<string,List<int>>();
+Dictionary<string, List<int>> newScore = new Dictionary<string, List<int>>();
 
 do
 { // Gioca
@@ -190,13 +190,13 @@ do
             {
                 // Stampa messaggio - "Hai indovinato!" - Fine sessione con vittoria
                 Console.WriteLine($"\nHai indovinato! Avevo pensato proprio al {numeroDaIndovinare}\n");
-                
-                
-                        tempSomma = tempSomma + (10-numeroTentativi);
-                        tuttiTentativi.AddRange(numeriTentati);
+
+
+                tempSomma = tempSomma + (10 - numeroTentativi);
+                tuttiTentativi.AddRange(numeriTentati);
 
                 punteggioTemp += numeroTentativi * 10;
-                
+
 
                 break;
 
@@ -271,8 +271,8 @@ do
         }
 
         Console.WriteLine($"Hai totalizzato {punteggioTemp} punti nel {nRound + 1}^ round");
-        
-        newScore.Add(nomePlayer,tuttiTentativi);
+
+        newScore.Add(nomePlayer, tuttiTentativi);
         //newScore[nomePlayer].Add(tuttiTentativi);
 
         foreach (var score in newScore)
@@ -280,7 +280,7 @@ do
             Console.WriteLine($"\nPlayer: {score.Key}\nHai provato: [{string.Join(", ", score.Value)}]\n");
         }
         newScore.Clear();
-        
+
 
 
         Console.WriteLine("Premi un tasto per continuare...");
@@ -305,11 +305,7 @@ do
     //string nomePlayer = Console.ReadLine();
 
     Score.Add(nomePlayer, punteggioGiocatore);
-
-
-            ScoreTentativi.Add(punteggioGiocatore,tempSomma);
-    
-
+    ScoreTentativi.Add(punteggioGiocatore, tempSomma);
     sommaTentativi.Add(tempSomma);
     /*
     int j = 0;
@@ -324,7 +320,7 @@ do
     Console.WriteLine("**************************************************************");
     //sessione++;
     */
-    
+
 
     Console.WriteLine("******************************************");
     Console.WriteLine("                SCORE:");
@@ -334,7 +330,7 @@ do
         Console.WriteLine($"{player.Key}\t\t\t{player.Value}");
         //j++;
     }
-                                                            
+
     Console.WriteLine("******************************************");
     Console.WriteLine("\nVuoi giocare di nuovo? s/n");
 
@@ -354,9 +350,9 @@ do
     numeriTentati.Clear();
     punteggioGiocatore = 0;
     punteggioTemp = 0;
-    tempSomma= 0;
+    tempSomma = 0;
     //sessione++;
-    
+
 
 } while (risposta == "S");
 int i = 0;
@@ -373,14 +369,14 @@ Console.WriteLine("*************************************************************
     Console.WriteLine("**************************************************************");
     */
 
-    Console.WriteLine("******************************************");
-    Console.WriteLine("                SCORE:");
-    Console.WriteLine("PUNTEGGIO\t\tTENTATIVI");
-    foreach (var player in ScoreTentativi)
-    {
-        Console.WriteLine($"{player.Key}\t\\tt{player.Value}");
-        //j++;
-    }
-    Console.WriteLine("******************************************");
+Console.WriteLine("******************************************");
+Console.WriteLine("                SCORE:");
+Console.WriteLine("PUNTEGGIO\t\tTENTATIVI");
+foreach (var player in ScoreTentativi)
+{
+    Console.WriteLine($"{player.Key}\t\\tt{player.Value}");
+    //j++;
+}
+Console.WriteLine("******************************************");
 Console.WriteLine("\nGrazie per aver giocato!");
 Console.ReadKey();
