@@ -54,7 +54,6 @@ Console.ReadKey();
 Console.WriteLine(dizionario1.ContainsValue(1));
 Console.WriteLine(dizionario1.ContainsValue(2));
 
-
 //Metodo .TryGetValue
 Console.WriteLine("Vedi TryGetValue");
 Console.ReadKey();
@@ -66,7 +65,6 @@ if(dizionario1.TryGetValue("tre", out valore)){
 } else{
     Console.WriteLine("Chiave non trovata.");
 }
-
 
 //Metodo .Clear
 Console.WriteLine("Vedi Clear");

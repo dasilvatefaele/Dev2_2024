@@ -1484,8 +1484,8 @@ git add --all
 git commit -m "Indovina Numero v1.7"
 git push -u origin main
 ```
-##V1.8
-###Obiettivo:
+## V1.8
+### Obiettivo:
 Aggiungere sezione SCORE, dove alla fine dei tre round il player inserisce il proprio nome, che verrà memorizzato in una variabile Dizionario associandolo al punteggio. 
 
 >Esempio di codice:

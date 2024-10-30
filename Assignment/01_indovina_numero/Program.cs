@@ -17,11 +17,16 @@ int punteggioTemp = 0;
 int nRound = 0;
 bool fineRound = false;
 string risposta = "";
+int tempSomma = 0;
+int sessione = 0;
+List<int> sommaTentativi= new List<int>();
 List<int> numeriTentati = new List<int>();
-Dictionary<string,int> Score = new Dictionary<string,int>();
+Dictionary<string, int> Score = new Dictionary<string, int>();
+Dictionary<int,int> ScoreTentativi = new Dictionary<int,int>();
 
 
-do{ // Gioca
+do
+{ // Gioca
 
     Console.Clear();
 
@@ -32,7 +37,7 @@ do{ // Gioca
     Console.ReadKey();
     Console.Clear();
 
-// Gestione Modalità
+    // Gestione Modalità
     do
     {
         // Stampa Modalità di gioco
@@ -56,17 +61,20 @@ do{ // Gioca
             }
         } while (sceltaValida == false);
         */
-        do{
+        do
+        {
             bool successo = int.TryParse(Console.ReadLine(), out sceltaModalita);
-            if(successo == true){
+            if (successo == true)
+            {
                 sceltaValida = true;
             }
-            else{
+            else
+            {
                 Console.WriteLine("Serve inserire un valore valido :( riprova...");
-                    Console.Write("===>");
-                    sceltaValida = false;
+                Console.Write("===>");
+                sceltaValida = false;
             }
-        }while(sceltaValida==false);
+        } while (sceltaValida == false);
 
         // Stampo e imposto la modalità (Facile, Medio, Difficile)
         switch (sceltaModalita)
@@ -94,7 +102,7 @@ do{ // Gioca
         }
     } while (sceltaValida == false);
 
-// Sessione di Gioco (3 Round)
+    // Sessione di Gioco (3 Round)
     do
     {
         switch (sceltaModalita)
@@ -104,11 +112,11 @@ do{ // Gioca
                 intervallo = 19;
                 break;
             case 2:
-                
+
                 numeroDaIndovinare = random.Next(1, 51);
                 intervallo = 49;
                 break;
-            case 3: 
+            case 3:
                 numeroDaIndovinare = random.Next(1, 101);
                 intervallo = 99;
                 break;
@@ -117,7 +125,7 @@ do{ // Gioca
         }
 
         // Console.WriteLine(numeroDaIndovinare); // Esponi numero da indovinare per Debug
-        Console.WriteLine($"*** Round {nRound+1} ***");
+        Console.WriteLine($"*** Round {nRound + 1} ***");
         Console.WriteLine("Premi un tasto per continuare...");
         Console.ReadKey();
         Console.Clear();
@@ -157,10 +165,13 @@ do{ // Gioca
                     sceltaValida = false;
                 }
                 */
-                bool successoNumeroUtente = int.TryParse(Console.ReadLine(),out numeroUtente);
-                if (successoNumeroUtente == true && numeroUtente >= 1 && numeroUtente <= intervallo+1){
+                bool successoNumeroUtente = int.TryParse(Console.ReadLine(), out numeroUtente);
+                if (successoNumeroUtente == true && numeroUtente >= 1 && numeroUtente <= intervallo + 1)
+                {
                     sceltaValida = true;
-                }else{
+                }
+                else
+                {
                     Console.WriteLine("Serve inserire un valore valido :( riprova...");
                     Console.Write("===>");
                     sceltaValida = false;
@@ -174,7 +185,12 @@ do{ // Gioca
             {
                 // Stampa messaggio - "Hai indovinato!" - Fine sessione con vittoria
                 Console.WriteLine($"\nHai indovinato! Avevo pensato proprio al {numeroDaIndovinare}\n");
+                
+                
+                tempSomma = tempSomma + (10-numeroTentativi);
                 punteggioTemp += numeroTentativi * 10;
+                
+
                 break;
 
                 // Confronto numero ---> DIVERSO 
@@ -247,10 +263,11 @@ do{ // Gioca
             }
         }
 
-        Console.WriteLine($"Hai totalizzato {punteggioTemp} punti nel {nRound+1}^ round");
+        Console.WriteLine($"Hai totalizzato {punteggioTemp} punti nel {nRound + 1}^ round");
         Console.WriteLine("Premi un tasto per continuare...");
         Console.ReadKey();
         Console.Clear();
+
         punteggioGiocatore += punteggioTemp;
         punteggioTemp = 0;
         numeriTentati.Clear();
@@ -263,24 +280,40 @@ do{ // Gioca
 
     } while (fineRound == false);
 
-// Fine dei Round
+    // Fine dei Round
     Console.WriteLine($"Fine del gioco! Hai totalizzato {punteggioGiocatore} punti!\n");
     Console.Write("Player: ");
     string nomePlayer = Console.ReadLine();
-    
-    Score.Add(nomePlayer,punteggioGiocatore);
 
-    Console.WriteLine("****************************************");
+    Score.Add(nomePlayer, punteggioGiocatore);
+    ScoreTentativi.Add(punteggioGiocatore,tempSomma);
+    sommaTentativi.Add(tempSomma);
+    /*
+    int j = 0;
+    Console.WriteLine("**************************************************************");
     Console.WriteLine("                SCORE:");
-    Console.WriteLine("PLAYER\t\t\tPUNTEGGIO");
-       foreach (var player in Score){
-        Console.WriteLine($"{player.Key}\t\t\t{player.Value}");
+    Console.WriteLine("PLAYER\t\t\tPUNTEGGIO\t\tTENTATIVI");
+    foreach (var player in Score)
+    {
+        Console.WriteLine($"{player.Key}\t\t\t{player.Value}\t\t\t{sommaTentativi[j]}");
+        j++;
     }
-    Console.WriteLine("****************************************");
- 
-
-    Console.WriteLine("\nVuoi giocare di nuovo? s/n");
+    Console.WriteLine("**************************************************************");
+    //sessione++;
+    */
     
+
+    Console.WriteLine("**************************************************************");
+    Console.WriteLine("                SCORE:");
+    Console.WriteLine("PUNTEGGIO\t\tTENTATIVI");
+    foreach (var player in ScoreTentativi)
+    {
+        Console.WriteLine($"{player.Key}\t\t{player.Value}");
+        //j++;
+    }
+    Console.WriteLine("**************************************************************");
+    Console.WriteLine("\nVuoi giocare di nuovo? s/n");
+
     risposta = Console.ReadLine();
 
     while (risposta != "s" && risposta != "S" && risposta != "n" && risposta != "N")
@@ -297,15 +330,32 @@ do{ // Gioca
     numeriTentati.Clear();
     punteggioGiocatore = 0;
     punteggioTemp = 0;
+    tempSomma= 0;
     
+
 } while (risposta == "S");
+int i = 0;
 Console.Clear();
-Console.WriteLine("****************************************");
+/*
+Console.WriteLine("**************************************************************");
     Console.WriteLine("                SCORE:");
-    Console.WriteLine("PLAYER\t\t\tPUNTEGGIO");
-       foreach (var player in Score){
-        Console.WriteLine($"{player.Key}\t\t\t{player.Value}");
+    Console.WriteLine("PLAYER\t\t\tPUNTEGGIO\t\tTENTATIVI");
+    foreach (var player in Score)
+    {
+        Console.WriteLine($"{player.Key}\t\t\t{player.Value}\t\t\t{sommaTentativi[i]}");
+        i++;
     }
-    Console.WriteLine("****************************************");
+    Console.WriteLine("**************************************************************");
+    */
+
+    Console.WriteLine("**************************************************************");
+    Console.WriteLine("                SCORE:");
+    Console.WriteLine("PUNTEGGIO\t\tTENTATIVI");
+    foreach (var player in ScoreTentativi)
+    {
+        Console.WriteLine($"{player.Key}\t\t{player.Value}");
+        //j++;
+    }
+    Console.WriteLine("**************************************************************");
 Console.WriteLine("\nGrazie per aver giocato!");
 Console.ReadKey();
