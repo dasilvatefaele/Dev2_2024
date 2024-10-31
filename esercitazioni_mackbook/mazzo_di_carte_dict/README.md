@@ -684,3 +684,16 @@ git add --all
 git commit -m "Studio dei Dizionari - mazzo_di_carte_dict con array (working!)"
 git push -u origin main
 ```
+## Update
+
+- [X] 11: stampa "Jack"
+- [x] 12: stampa "Regina"
+- [x] 13: stampa "Re"
+- [ ] Risoluzione Bug Minore
+
+ > Comandi di versionamento:
+ ```bash
+git add --all
+git commit -m "Studio dei Dizionari - Asso, J, Q K (Update)"
+git push -u origin main
+```
