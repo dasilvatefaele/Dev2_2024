@@ -33,7 +33,23 @@ foreach (var seme in mazzoDiCarte)
 {
     foreach (var carta in seme)
     {
-        Console.Write($"{carta.Key} {carta.Value}\t");
+        switch (carta.Key){
+            case 1:
+                Console.Write($"A {carta.Value}\t");
+            break;
+            case 11:
+                Console.Write($"J {carta.Value}\t");
+            break;
+            case 12:
+                Console.Write($"Q {carta.Value}\t");
+            break;
+            case 13:
+                Console.Write($"K {carta.Value}\t");
+            break;
+            default:
+                Console.Write($"{carta.Key} {carta.Value}\t");
+            break;
+        };
     }
     Console.WriteLine("\n");
 }
@@ -103,7 +119,24 @@ do
     {
         foreach (var carta in seme)
         {
-            Console.WriteLine($"{carta.Key} {carta.Value}\t");
+            switch (carta.Key)
+            {
+                case 1:
+                    Console.Write($"A {carta.Value}\t");
+                break;
+                case 11:
+                    Console.Write($"J {carta.Value}\t");
+                break;
+                case 12:
+                    Console.Write($"Q {carta.Value}\t");
+                break;
+                case 13:
+                    Console.Write($"K {carta.Value}\t");
+                break;
+                default:
+                    Console.Write($"{carta.Key} {carta.Value}\t");
+                break;
+            };
         }
         // Console.WriteLine("\n");
     }
@@ -114,7 +147,24 @@ do
     {
         foreach (var carta in seme)
         {
-            Console.Write($"{carta.Key} {carta.Value}\t");
+            switch (carta.Key)
+            {
+                case 1:
+                    Console.Write($"A {carta.Value}\t");
+                break;
+                case 11:
+                    Console.Write($"J {carta.Value}\t");
+                break;
+                case 12:
+                    Console.Write($"Q {carta.Value}\t");
+                break;
+                case 13:
+                    Console.Write($"K {carta.Value}\t");
+                break;
+                default:
+                    Console.Write($"{carta.Key} {carta.Value}\t");
+                break;
+            };
         }
         Console.WriteLine("\n");
     }

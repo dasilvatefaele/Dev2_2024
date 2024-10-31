@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "esercitazione_dizionari", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mazzo_di_carte_dict", "esercitazioni_mackbook\mazzo_di_carte_dict\mazzo_di_carte_dict.csproj", "{FD5B0062-DE3F-4669-ABEE-42DF64CDFB63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test_console_new_repository", "..\prova_creazione_repository\test_console_new_repository\test_console_new_repository.csproj", "{24F4DAC8-4409-4E32-8727-7437660AA1D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,6 +110,10 @@ Global
 		{FD5B0062-DE3F-4669-ABEE-42DF64CDFB63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD5B0062-DE3F-4669-ABEE-42DF64CDFB63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD5B0062-DE3F-4669-ABEE-42DF64CDFB63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24F4DAC8-4409-4E32-8727-7437660AA1D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24F4DAC8-4409-4E32-8727-7437660AA1D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24F4DAC8-4409-4E32-8727-7437660AA1D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24F4DAC8-4409-4E32-8727-7437660AA1D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CA0EEA04-5509-4E23-88B4-B86FE7EC9D43} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
