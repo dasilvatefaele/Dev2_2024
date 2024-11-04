@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mazzo_di_carte_dict", "eser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test_console_new_repository", "..\prova_creazione_repository\test_console_new_repository\test_console_new_repository.csproj", "{24F4DAC8-4409-4E32-8727-7437660AA1D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sasso_carta_forbice", "esercitazioni_mackbook\sasso_carta_forbice\sasso_carta_forbice.csproj", "{43DCB061-8F09-49F9-A71E-61C763A26A4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,6 +116,10 @@ Global
 		{24F4DAC8-4409-4E32-8727-7437660AA1D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24F4DAC8-4409-4E32-8727-7437660AA1D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24F4DAC8-4409-4E32-8727-7437660AA1D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43DCB061-8F09-49F9-A71E-61C763A26A4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43DCB061-8F09-49F9-A71E-61C763A26A4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43DCB061-8F09-49F9-A71E-61C763A26A4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43DCB061-8F09-49F9-A71E-61C763A26A4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CA0EEA04-5509-4E23-88B4-B86FE7EC9D43} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
@@ -131,5 +137,6 @@ Global
 		{894F1042-3C3A-40F6-BEE7-171C3128929C} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
 		{C86D93E7-B5FD-4A74-B9EB-8FC13E734887} = {5D997FAF-5A30-4C67-912C-CA9B16D5AD29}
 		{FD5B0062-DE3F-4669-ABEE-42DF64CDFB63} = {5D997FAF-5A30-4C67-912C-CA9B16D5AD29}
+		{43DCB061-8F09-49F9-A71E-61C763A26A4F} = {5D997FAF-5A30-4C67-912C-CA9B16D5AD29}
 	EndGlobalSection
 EndGlobal
