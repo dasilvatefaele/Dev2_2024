@@ -61,21 +61,21 @@ nomePartecipante [5] = "Ivan";
 nomePartecipante [6] = "Sofia";
 nomePartecipante [7] = "Tamer";
 
-int nStudenti = nomePartecipante.Length; // potevo anche scriverci 8
+int nStudenti = nomePartecipante.Length;                // Salvo la lunghezza dell'array in una variabile decrementabile 
 
 Console.WriteLine ("*** Sorteggio Partecipanti ***");
 
-while (nStudenti != 0)                                  
+while (nStudenti != 0)                                  // nomePartecipante.Length è sempre 8 !!! andrebbe avanti all'infinito...                   
 {
     estrazione = random.Next(nomePartecipante.Length);  
-    if (nomePartecipante[estrazione] != null)           // esegue solo se il nome non è già stato estratto
+    if (nomePartecipante[estrazione] != null)           // *esegue solo se il nome non è già stato estratto (cioè != null)
     {
-        // Console.WriteLine($"DEBUG: {nomePartecipante.Length}");
-        Console.WriteLine ("Premi un tasto per iniziare l'estrazione...");
+        // Console.WriteLine($"DEBUG: {nomePartecipante.Length}"); // sempre 8...
+        Console.WriteLine ("Premi un tasto per estrarre...");
         Console.ReadKey ();
         Console.WriteLine($"Il computer ha estratto... {nomePartecipante[estrazione]}!");
-        Array.Clear (nomePartecipante, estrazione,1);   // Array.Clear rende "null" l'elemento ma la lunghezza dell'array non varia
-        nStudenti--;                                    // quindi decremento nStudenti e ripeto while != 0, non super efficente ma funziona LOL
+        Array.Clear (nomePartecipante, estrazione,1);   // Array.Clear rende "null" l'elemento ma la lunghezza dell'array non varia dunque (riga 22*)
+        nStudenti--;                                    // quindi decremento e ripeto while nStudenti != 0 (non stra performante ma funziona LOL)
     }
 }
 
@@ -89,8 +89,8 @@ git add --all
 git commit -m "Sorteggio Partecipanti v2"
 git push -u origin main
 ```
-
-## Versione 2b
+<!--
+## Versione 2b (alternativa)
 ### Obiettivo:
 
 - Scrivere un programma che permetta di sorteggiare più volte i partecipanti del corso da una lista di nomi.
@@ -98,7 +98,7 @@ git push -u origin main
 - Scegliere casualmente due caposquadra tramite due invii e memorizzarli.
 
 <details>
-<summary>Esempio di codice versione 2</summary>
+<summary>Esempio di codice versione 2b (alternativa)</summary>
 
 ```csharp
 Console.Clear();
@@ -156,3 +156,4 @@ git add --all
 git commit -m "Sorteggio Partecipanti v2b"
 git push -u origin main
 ```
+-->
