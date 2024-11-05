@@ -22,7 +22,7 @@ while (nStudenti != 0)
     if (nomePartecipante[estrazione] != null)           // esegue solo se il nome non è già stato estratto
     {
         // Console.WriteLine($"DEBUG: {nomePartecipante.Length}");
-        Console.WriteLine ("Premi un tasto per iniziare l'estrazione...");
+        Console.WriteLine ("Premi un tasto per estrarre...");
         Console.ReadKey ();
         Console.WriteLine($"Il computer ha estratto... {nomePartecipante[estrazione]}!");
         Array.Clear (nomePartecipante, estrazione,1);   // Array.Clear rende "null" l'elemento ma la lunghezza dell'array non varia
