@@ -2,14 +2,18 @@
 ## Versione 1
 
 ### Obiettivo
-- Scrivere un programma che permetta di sorteggiare i partecipanti deel corso da una lista di nomi.
+- Scrivere un programma che permetta di sorteggiare i partecipanti del corso da una lista di nomi.
+
 - Il programma estrae un partecipante singolo alla volta e lo stampa a video.
+
+<details>
+<summary>Esempio di codice versione 1</summary>
 
 ```csharp
 Console.Clear();
 string[] nomePartecipante = new string [8];
 Random random = new Random();
-int estrai;
+int estrazione;
 
 nomePartecipante [0] = "Andrea";
 nomePartecipante [1] = "Anita";
@@ -20,14 +24,135 @@ nomePartecipante [5] = "Ivan";
 nomePartecipante [6] = "Sofia";
 nomePartecipante [7] = "Tamer";
 
-estrai = random.Next(0,8);
+estrazione = random.Next(nomePartecipante.Length);
 
-Console.WriteLine($"Il computer ha estratto... {nomePartecipante[estrai]}!");
+Console.WriteLine($"Il computer ha estratto... {nomePartecipante[estrazione]}!");
 ```
+</details>
 
 > Comandi di versionamento
 ```powershell
 git add --all
 git commit -m "Sorteggio Partecipanti v1.0"
+git push -u origin main
+```
+## Versione 2
+### Obiettivo:
+
+- Scrivere un programma che permetta di sorteggiare più volte i partecipanti del corso da una lista di nomi.
+- Chiedere all'utente di sorteggiare un nuovo partecipante
+- Rimuovere il sorteggiato dalla lista dei partecipanti
+
+<details>
+<summary>Esempio di codice versione 2</summary>
+
+```csharp
+Console.Clear();
+Random random = new Random();
+int estrazione;
+
+string[] nomePartecipante = new string [8]; 
+nomePartecipante [0] = "Andrea";
+nomePartecipante [1] = "Anita";
+nomePartecipante [2] = "Diego";
+nomePartecipante [3] = "Felipe";
+nomePartecipante [4] = "Giorgio";
+nomePartecipante [5] = "Ivan";
+nomePartecipante [6] = "Sofia";
+nomePartecipante [7] = "Tamer";
+
+int nStudenti = nomePartecipante.Length; // potevo anche scriverci 8
+
+Console.WriteLine ("*** Sorteggio Partecipanti ***");
+
+while (nStudenti != 0)                                  
+{
+    estrazione = random.Next(nomePartecipante.Length);  
+    if (nomePartecipante[estrazione] != null)           // esegue solo se il nome non è già stato estratto
+    {
+        // Console.WriteLine($"DEBUG: {nomePartecipante.Length}");
+        Console.WriteLine ("Premi un tasto per iniziare l'estrazione...");
+        Console.ReadKey ();
+        Console.WriteLine($"Il computer ha estratto... {nomePartecipante[estrazione]}!");
+        Array.Clear (nomePartecipante, estrazione,1);   // Array.Clear rende "null" l'elemento ma la lunghezza dell'array non varia
+        nStudenti--;                                    // quindi decremento nStudenti e ripeto while != 0, non super efficente ma funziona LOL
+    }
+}
+
+Console.WriteLine ("Hai estratto tutti i partecipanti.");
+```
+</details>
+
+> Comandi di versionamento
+```powershell
+git add --all
+git commit -m "Sorteggio Partecipanti v2"
+git push -u origin main
+```
+
+## Versione 2b
+### Obiettivo:
+
+- Scrivere un programma che permetta di sorteggiare più volte i partecipanti del corso da una lista di nomi.
+-
+- Scegliere casualmente due caposquadra tramite due invii e memorizzarli.
+
+<details>
+<summary>Esempio di codice versione 2</summary>
+
+```csharp
+Console.Clear();
+Random random = new Random();
+int estrazione;
+string[] nomeCapoSquadra = new string [2];
+
+// array per operazioni
+string[] nomePartecipante = new string [8]; 
+nomePartecipante [0] = "Andrea";
+nomePartecipante [1] = "Anita";
+nomePartecipante [2] = "Diego";
+nomePartecipante [3] = "Felipe";
+nomePartecipante [4] = "Giorgio";
+nomePartecipante [5] = "Ivan";
+nomePartecipante [6] = "Sofia";
+nomePartecipante [7] = "Tamer";
+
+// backup
+string [] listaClasse = new string [nomePartecipante.Length];
+nomePartecipante.CopyTo (listaClasse, 0); 
+
+//  estrazione nomeCaposquadra index 0
+estrazione = random.Next(0,nomePartecipante.Length);
+Console.WriteLine ("*** Sorteggio Partecipanti ***");
+Console.WriteLine ("Premi un tasto per iniziare l'estrazione del primo caposquadra...");
+Console.ReadKey ();
+Console.Clear ();
+Console.WriteLine($"Il computer ha estratto... {nomePartecipante[estrazione]}!");
+
+nomeCapoSquadra[0] = nomePartecipante[estrazione];
+
+//  rimozione dalla lista temporanea
+Array.Clear (nomePartecipante, estrazione,1);
+
+//  estrazione nomeCaposquadra index 1
+Console.WriteLine ("Premi un tasto per iniziare l'estrazione del secondo caposquadra...");
+Console.ReadKey ();
+estrazione = random.Next(0,nomePartecipante.Length);
+Console.WriteLine($"Il computer ha estratto... {nomePartecipante[estrazione]}!");
+nomeCapoSquadra[1] = nomePartecipante[estrazione];
+Array.Clear (nomePartecipante, estrazione,1);
+Console.WriteLine ("Premi un tasto per continuare...");
+Console.ReadKey();
+Console.Clear();
+
+Console.WriteLine($"{nomeCapoSquadra[0]}\t\t\t{nomeCapoSquadra[1]}");
+//Console.WriteLine("");
+```
+</details>
+
+> Comandi di versionamento
+```powershell
+git add --all
+git commit -m "Sorteggio Partecipanti v2b"
 git push -u origin main
 ```
