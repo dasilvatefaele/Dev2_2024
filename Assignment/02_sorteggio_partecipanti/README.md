@@ -89,6 +89,31 @@ git add --all
 git commit -m "Sorteggio Partecipanti v2"
 git push -u origin main
 ```
+
+## Versione 3
+### Obiettivo:
+- Scrivere un programma che permetta di sorteggia i partecipanti del corso da una lista di nomi dividendoli in gruppi.
+- Il programma deve chiedere all'utente il numero di quadre.
+- Se il numero dei partecipanti non è divisibile per il numero di squadre, i partecipanti rimanenti vengono assegnati ad un gruppo in modo casuale.
+
+<details>
+<summary>Esempio di codice versione 3</summary>
+
+```csharp
+// Scrivi qui il codice
+```
+</details>
+
+
+
+> Comandi di versionamento
+```powershell
+git add --all
+git commit -m "Sorteggio Partecipanti v3 (ancora non funzionante)"
+git push -u origin main
+```
+
+
 <!--
 ## Versione 2b (alternativa)
 ### Obiettivo:
