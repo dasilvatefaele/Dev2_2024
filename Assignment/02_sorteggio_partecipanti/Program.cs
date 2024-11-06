@@ -3,7 +3,11 @@
 // Dichiarazioni
 int nSquadre;
 int estrazione;
+string risposta;
+string editLista;
 bool convertito;
+bool esci = false;
+bool ritenta = false;
 string[] nomePartecipante = new string[8];
 nomePartecipante[0] = "Andrea";
 nomePartecipante[1] = "Anita";
@@ -24,12 +28,177 @@ nomePartecipanteList = nomePartecipante.ToList();
 
 // Inizio Dialogo
 Console.WriteLine("*** Sorteggio Partecipanti ***");
+Console.WriteLine("Premi un tasto per continuare...");
+Console.ReadKey();
+Console.Clear();
 
+
+// Stampo lista partecipanti
+Console.WriteLine("Lista partecipanti:\n");
+foreach(var partecipante in nomePartecipanteList)
+{
+    Console.WriteLine(partecipante);
+}
+
+
+do
+{
+
+    Console.WriteLine("\nVuoi modificare la lista? [si/no]");
+    Console.Write("> ");
+    risposta = Console.ReadLine();
+    risposta = risposta.ToUpper();
+
+    //Console.WriteLine(risposta);
+
+
+    if (risposta != "SI" && risposta != "NO")
+    {
+        Console.WriteLine("Risposta non valida.");
+    }
+
+}while (risposta != "SI" && risposta != "NO");
+
+
+if (risposta == "SI")
+{
+
+    do
+    {
+
+        //Dialogo
+        Console.WriteLine("\nVuoi INSERIRE o ELIMINARE dalla lista?");
+        Console.Write("> ");
+        risposta = Console.ReadLine();
+        risposta = risposta.ToUpper();
+
+        if (risposta != "INSERIRE" && risposta != "ELIMINARE")
+        {
+
+            do
+            {
+                Console.WriteLine("Risposta non valida.");
+                Console.WriteLine("\nVuoi INSERIRE o ELIMINARE dalla lista?");
+                Console.Write("> ");
+                risposta = Console.ReadLine();
+                risposta = risposta.ToUpper();
+            } while (risposta != "INSERIRE" && risposta != "ELIMINARE");
+
+        }
+
+        switch (risposta)
+        {
+
+            case "INSERIRE":
+
+                Console.Clear();
+                // Stampo lista partecipanti
+                Console.WriteLine("Lista partecipanti:\n");
+                foreach(var partecipante in nomePartecipanteList)
+                {
+                    Console.WriteLine(partecipante);
+                }
+
+                // Dialogo
+                Console.WriteLine("\nInserisci il nome del nuovo partecipante:");
+                Console.Write("> ");
+                string nuovoPartecipante = Console.ReadLine();
+                nomePartecipanteList.Add(nuovoPartecipante);
+
+            break;
+
+            case "ELIMINARE":
+
+                Console.Clear();
+                // Stampo lista partecipanti
+                Console.WriteLine("Lista partecipanti:\n");
+                foreach(var partecipante in nomePartecipanteList)
+                {
+                    Console.WriteLine(partecipante);
+                }
+
+                do
+                {
+                    // Dialogo
+                    Console.WriteLine("\nInserisci il nome del partecipante da eliminare:");
+                    Console.Write("> ");
+                    string partecipante = Console.ReadLine();
+
+                    if (nomePartecipanteList.Contains(partecipante))
+                    {
+                        nomePartecipanteList.Remove(partecipante);
+                        Console.WriteLine($"{partecipante} è stato eliminato dalla lista.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{partecipante} non c'è nella lista.");
+                        Console.WriteLine("Vuoi riprovare?[si/no]");
+                        Console.Write("> ");
+                        string risposta2 = Console.ReadLine();
+                        risposta2 = risposta2.ToUpper();
+                        if (risposta2 == "SI")
+                        {
+                            ritenta = true;
+                        }
+                        else
+                        {
+                            ritenta = false;
+                        }
+                    }
+                }while(ritenta==true);
+            break;
+
+            default:
+            break;
+            
+        }
+
+        
+
+        // Dialogo
+        Console.WriteLine("Vuoi continuare ad editare la lista?");
+        Console.Write("> ");
+        string risposta3 = Console.ReadLine();
+        risposta3 = risposta3.ToUpper();
+        
+
+        if (risposta3 == "SI")
+        {
+            esci = true;
+            Console.Clear();
+
+
+            // Stampo lista partecipanti
+            Console.WriteLine("Lista partecipanti:\n");
+            foreach(var partecipante in nomePartecipanteList)
+            {
+                Console.WriteLine(partecipante);
+            }
+        }
+        else
+        {
+            esci = false;
+        }
+
+
+    }while (risposta != "INSERIRE" && risposta != "ELIMINARE" || esci == true);
+    
+}
+
+Console.Clear();
+
+// Stampo lista partecipanti
+Console.WriteLine("Lista partecipanti:\n");
+foreach(var partecipante in nomePartecipanteList)
+{
+    Console.WriteLine(partecipante);
+}
 
 //Inserimento numero di squadre
 do
 {
-    Console.WriteLine("> Inserisci il numero di quadre: ");
+    Console.WriteLine("\nInserisci il numero di quadre: ");
+    Console.Write("> ");
     convertito = int.TryParse(Console.ReadLine(), out  nSquadre);
 } while (!convertito);
 
