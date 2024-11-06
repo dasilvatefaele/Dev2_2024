@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks.Dataflow;
 
-Console.Clear();
-Random random = new Random();
+// Dichiarazioni
+int nSquadre;
 int estrazione;
-
+bool convertito;
 string[] nomePartecipante = new string[8];
 nomePartecipante[0] = "Andrea";
 nomePartecipante[1] = "Anita";
@@ -13,43 +13,69 @@ nomePartecipante[4] = "Giorgio";
 nomePartecipante[5] = "Ivan";
 nomePartecipante[6] = "Sofia";
 nomePartecipante[7] = "Tamer";
+Random random = new Random();
+List<string> nomePartecipanteList = new List<string>{};
+Dictionary<int, List<string>> dictSquadre = new Dictionary<int, List<string>>(); // Creo un dizionario di Squadre
 
-int nStudenti = nomePartecipante.Length;                // Salvo la lunghezza dell'array in una variabile decrementabile 
-Dictionary<int, List<string>> dictSquadre = new Dictionary<int, List<string>>();
 
+// Converto l'array della versione precedente in una lista
+nomePartecipanteList = nomePartecipante.ToList();
+
+
+// Inizio Dialogo
 Console.WriteLine("*** Sorteggio Partecipanti ***");
-//Console.ReadKey();
-Console.WriteLine("> Inserisci il numero di quadre: ");
-int nSquadre = int.Parse(Console.ReadLine());
 
-while (nStudenti != 0)                                  // nomePartecipante.Length è sempre 8 !!! andrebbe avanti all'infinito...                   
+
+//Inserimento numero di squadre
+do
 {
-    // Console.WriteLine($"DEBUG: {nomePartecipante.Length}"); // sempre 8...
-    for (int i = 0; i < nSquadre; i++)
-    {
-        estrazione = random.Next(nomePartecipante.Length);
-        if (nomePartecipante[estrazione] != null)           // *esegue solo se il nome non è già stato estratto (cioè != null)
-        {
-            Console.WriteLine($"Il computer ha estratto... {nomePartecipante[estrazione]}!");
-            if (!dictSquadre.ContainsKey(i))
-            {
-                List<string> temp = new List<string>();
-                temp.Add(nomePartecipante[estrazione]);
-                dictSquadre.Add(i, temp);
-                temp.Clear ();
-            }
-            else
-            {
-                dictSquadre[i].Add(nomePartecipante[estrazione]);
-            }
-            Array.Clear(nomePartecipante, estrazione, 1);   // Array.Clear rende "null" l'elemento ma la lunghezza dell'array non varia dunque (riga 22*)
-            nStudenti--;
-        }                                  // quindi decremento e ripeto while nStudenti != 0 (non stra performante ma funziona LOL)
-    }
+    Console.WriteLine("> Inserisci il numero di quadre: ");
+    convertito = int.TryParse(Console.ReadLine(), out  nSquadre);
+} while (!convertito);
+
+
+// Inizializzo Dizionario Squadre
+for (int i = 0; i < nSquadre; i++)
+{
+    dictSquadre.Add(i+1, new List<string>());
 }
 
+
+int partecipantiInPiu = nomePartecipanteList.Count % nSquadre;
+int partecipantiPerSquadra = nomePartecipanteList.Count / nSquadre;
+
+
+for (int i = 0; i < nSquadre; i++)  // ciclo per ogni squadra
+{
+
+    for (int j = 0; j < partecipantiPerSquadra; j++)  // ciclo per ogni partecipante per squadra
+    {
+        estrazione = random.Next(nomePartecipanteList.Count);     
+        dictSquadre[i+1].Add(nomePartecipanteList[estrazione]);
+        nomePartecipanteList.RemoveAt(estrazione);    
+    }
+
+    if (partecipantiInPiu > 0)      // se ci sono partecipanti in più, distribuiscili in un'estrazione dedicata
+    {
+        estrazione = random.Next(nomePartecipanteList.Count);;
+        dictSquadre[i+1].Add(nomePartecipanteList[estrazione]);
+        nomePartecipanteList.RemoveAt(estrazione);
+        partecipantiInPiu--; 
+    }
+
+}
+
+
+// Pulizia Console
+Console.Clear();
+
+
+// Stampa le squadre
 foreach (var squadra in dictSquadre)
 {
-    Console.WriteLine(string.Join(",", squadra.Value));
+    Console.Write($"Squadra {squadra.Key}: ");
+    Console.WriteLine(string.Join(", ", squadra.Value));
 }
+
+
 Console.WriteLine("Hai estratto tutti i partecipanti.");
