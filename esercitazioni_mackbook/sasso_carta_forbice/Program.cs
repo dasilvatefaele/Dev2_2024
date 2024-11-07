@@ -22,7 +22,7 @@ allPunteggio[1] = 0; // Utente
 
 // Dialogo iniziale
 Console.WriteLine("*** SASSO, CARTA FORBICE! ***");
-Console.WriteLine("Versione: 1.2");
+Console.WriteLine("Versione: 1.3");
 Console.WriteLine("\nPremi un tasto per giocare...");
 Console.ReadKey();
 
@@ -104,14 +104,14 @@ do
     if (manoUser == "CARTA" && manoPC == "SASSO" || manoUser == "FORBICE" && manoPC == "CARTA" || manoUser == "SASSO" && manoPC == "FORBICE")
     {
 
-        // Vittoria
-        Console.Clear();
-        Console.WriteLine($"Tu\t\tAvversario");
-        Console.WriteLine($"{manoUser}\t\t{manoPC}\n");
-        Console.WriteLine("Hai vinto!\n");
-
         // Aggiornamento punteggio
         allPunteggio[Utente]++;
+
+        // Vittoria
+        Console.Clear();
+        Console.WriteLine($"Tu({allPunteggio[Utente]})\t\tAvversario({allPunteggio[Avversario]})");
+        Console.WriteLine($"{manoUser}\t\t{manoPC}\n");
+        Console.WriteLine("Hai vinto!\n");
 
     }
     else if (manoUser == manoPC)
@@ -119,7 +119,7 @@ do
 
         // Pareggio
         Console.Clear();
-        Console.WriteLine($"Tu\t\tAvversario");
+        Console.WriteLine($"Tu({allPunteggio[Utente]})\t\tAvversario({allPunteggio[Avversario]})");
         Console.WriteLine($"{manoUser}\t\t{manoPC}\n");
         Console.WriteLine("Pareggio!\n");
 
@@ -127,14 +127,14 @@ do
     else 
     {
 
-        // Sconfitta
-        Console.Clear();
-        Console.WriteLine($"Tu\t\tAvversario");
-        Console.WriteLine($"{manoUser}\t\t{manoPC}\n");
-        Console.WriteLine("Hai perso!\n");
-        
         // Aggiornamento punteggio
         allPunteggio[Avversario]++;
+
+        // Sconfitta
+        Console.Clear();
+        Console.WriteLine($"Tu({allPunteggio[Utente]})\t\tAvversario({allPunteggio[Avversario]})");
+        Console.WriteLine($"{manoUser}\t\t{manoPC}\n");
+        Console.WriteLine("Hai perso!\n");
 
     }
 
