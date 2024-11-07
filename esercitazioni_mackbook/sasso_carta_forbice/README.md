@@ -799,20 +799,48 @@ git commit -m "Sasso, Carta, Forbice (v1.3)"
 git push -u origin main
 ```
 ---
-### Obiettivi per la v1.4
+### Obiettivi per la v1.4 (funzioni già implementate nella v1.2)
 - Quando esce dal ciclo `do{}While();` Compara i risultati per decretare il vincitore.
+
+> Codice implementato
 ```csharp
-if (allPunteggio[0] > allPunteggio[1])
+// Dialogo risultati
+Console.WriteLine("--------------------------");
+Console.WriteLine("Fine partita!\n");
+Console.WriteLine("Ecco i punteggi...");
+Console.WriteLine($"\nTu\t\tAvversario");
+Console.WriteLine($"{allPunteggio[Utente]}\t\t{allPunteggio[Avversario]}\n");
+
+
+// Logica di comparazione dei risultati
+if (allPunteggio[Utente] > allPunteggio[Avversario])
 {
-    Console.WriteLine("Il tuo avversario ha vinto più mani, hai perso la sfida");
-} 
-else if (allPunteggio[0] < allPunteggio[1])
-{
-    Console.WriteLine("Grande! Hai vinto più mani del tuo avversario");
-} else {
-    Console.WriteLine ("Abbiamo un pareggio!");
+
+    // Hai battuto il tuo avversario!
+    Console.WriteLine("CONGRATULAZIONI! HAI BATTUTO IL TUO AVVERSARIO!");
+
 }
+else if (allPunteggio[Utente] == allPunteggio[Avversario])
+{
+
+    // Avete pareggiato!
+    Console.WriteLine("ABBIAMO UN PAREGGIO!");
+
+}
+else
+{
+
+    Console.WriteLine("MI DISPIACE, SEI STATO SCONFITTO!");
+
+}
+
+
+// Dialogo
+Console.WriteLine("Grazie per aver giocato!\n");
 ```
+
+
+
 > Comandi di versionamento:
 ``` powershell
 git add --all

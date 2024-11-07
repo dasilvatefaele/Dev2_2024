@@ -22,7 +22,7 @@ allPunteggio[1] = 0; // Utente
 
 // Dialogo iniziale
 Console.WriteLine("*** SASSO, CARTA FORBICE! ***");
-Console.WriteLine("Versione: 1.3");
+Console.WriteLine("Versione: 1.4");
 Console.WriteLine("\nPremi un tasto per giocare...");
 Console.ReadKey();
 
