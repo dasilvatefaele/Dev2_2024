@@ -12,8 +12,7 @@ Sviluppa un semplice gioco di "Sasso, Carta, Forbici" contro il computer. Genera
 ### Traduzione della logica di comparazione in codice
 
 
-<details>
-<summary>Versione 1.0</summary>
+
 
 
 ```csharp
@@ -66,7 +65,7 @@ if (manoUser == "CARTA" && manoPC == "SASSO" || manoUser == "FORBICE" && manoPC 
     Console.WriteLine("Hai perso!");
 }
 ```
-</details>
+
 
 > Comandi di versionamento:
 ``` powershell
@@ -80,8 +79,7 @@ git push -u origin main
 - Console più pulita
 - Commenti
 
-<details>
-<summary>Versione 1.09</summary>
+
 
 ```csharp
 // Pulizia Console
@@ -184,7 +182,7 @@ else
 }
 ```
 
-</details>
+
 
 > Comandi di versionamento:
 ``` powershell
@@ -201,8 +199,7 @@ git push -u origin main
     - `contatoreRound--` alla fine di ogni ciclo.
 
 
-<details>
-<summary>Versione 1.1</summary>
+
 
 ```csharp
 // Pulizia Console
@@ -355,7 +352,7 @@ do
 Console.WriteLine("Fine partita!\n");
 ```
 
-</details>
+
 
 > Comandi di versionamento:
 ``` powershell
@@ -369,8 +366,7 @@ git push -u origin main
     - In `allPunteggio [0]++;` incremento punteggio Avversario 
     - In `allPunteggio [1]++;` incremento punteggio Utente
 
-<details>
-<summary>Versione 1.2</summary>
+
 
 ```csharp
 // Pulizia Console
@@ -570,7 +566,7 @@ else
 Console.WriteLine("Grazie per aver giocato!\n");
 ```
 
-</details>
+
 
 > Comandi di versionamento:
 ``` powershell
@@ -588,8 +584,7 @@ CARTA       SASSO
 Hai vinto!
 ```
 
-<details>
-<summary>Versione 1.3</summary>
+
 
 ```csharp
 // Pulizia Console
@@ -789,7 +784,7 @@ else
 Console.WriteLine("Grazie per aver giocato!\n");
 ```
 
-</details>
+
 
 
 > Comandi di versionamento:
@@ -859,8 +854,7 @@ git push -u origin main
     - Con azzeramento e inizializzazioni di variabili
 
 
-<details>
-<summary>Versione 2</summary>
+
 
 ```csharp
 // Pulizia Console
@@ -1118,11 +1112,69 @@ do{     // ! PLAY AGAIN inizia QUI
 Console.WriteLine("Grazie per aver giocato!\n");
 ```
 
-</details>
+
 
 > Comandi di versionamento:
 ``` powershell
 git add --all
 git commit -m "Sasso, Carta, Forbice (v2)"
+git push -u origin main
+```
+
+> Flowchart della versione 2
+
+```mermaid
+flowchart TD
+
+id1((Inizio))-->id2[display dialogo]-->id3{modalita?}
+id3-->|A|id4[default 5 round]-->id6
+id3-->|B|id5[/int input: 
+numero di round/]-->id6
+
+id6[/int input: 
+carta, sasso, forbice/]
+
+id6-->id7[PC genera random 
+int carta, sasso forbice]
+id7-->id8[logica di comparazione]
+id8-->id9{vittoria?}
+
+id9-->|si|id10[ VITTORIA, 
+punteggio_Utente++]
+
+id9-->|no|id11[ SCONFITTA, 
+punteggio_PC++]
+
+id9-->|pareggio|id12[PAREGGIO, 
+punteggio invariato]
+
+id10 --> id13[decremento numero round]
+id11 --> id13
+id12 --> id13
+id13-->id14{round terminati?}
+id14-->|no|id6
+id14-->|si|id15[fine partita]
+
+id15-->id19[compara punteggi
+TOTALI]
+
+id16-->|si|id17
+id17[inizializza variabili di gioco]-->id2
+id16-->|no|id18[grazie per aver giocato]
+
+id19-->id20{chi ha vinto?}
+id20-->|punti_utente > punti_pc|id21[VITTORIA TOTALE]
+id20-->|punti_utente < punti_pc|id22[SCONFITTA TOTALE]
+id20-->|punti_utente = punti_pc|id23[PAREGGIO]
+
+id21-->id16{play again?}
+id22-->id16
+id23-->id16
+```
+
+> Comandi di versionamento:
+``` powershell
+git add --all
+git commit -m "Sasso, Carta, Forbice (v2) - Flowchart Mermaid"
 git push -u origin main
 ```
