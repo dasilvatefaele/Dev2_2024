@@ -54,12 +54,13 @@ namespace ArkanoidClone
 
                 switch (isCircleTurn){
                     case true:
-                        DrawXO.DrawCircle(mousePositionX,mousePositionY,isCircleVisible, circle, isCircleTurn); 
+                        isCircleTurn = DrawXO.DrawCircle(mousePositionX,mousePositionY,isCircleVisible, circle, isCircleTurn); 
+                        //isCircleTurn = !isCircleTurn;
                         
                         break;
                     case false:
-                        DrawXO.DrawCross(mousePositionX,mousePositionY,isCrossVisible, cross, isCircleTurn);  
-                        isCircleTurn = !isCircleTurn;
+                        isCircleTurn = DrawXO.DrawCross(mousePositionX,mousePositionY,isCrossVisible, cross, isCircleTurn);  
+                        //isCircleTurn = !isCircleTurn;
                         break;
                 }
                 

@@ -51,6 +51,8 @@ public class DrawXO
         if (mousePositionX > 0 && mousePositionX < 300 && mousePositionY > 300 && mousePositionY < 600 && Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
         {
             isCircleVisible[3] = true;
+            isCircleTurn = false;
+
         }
         if (isCircleVisible[3])
         {
@@ -63,6 +65,8 @@ public class DrawXO
         if (mousePositionX > 300 && mousePositionX < 600 && mousePositionY > 300 && mousePositionY < 600 && Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
         {
             isCircleVisible[4] = true;
+            isCircleTurn = false;
+
         }
         if (isCircleVisible[4])
         {
@@ -73,6 +77,7 @@ public class DrawXO
         if (mousePositionX > 600 && mousePositionX < 900 && mousePositionY > 300 && mousePositionY < 600 && Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
         {
             isCircleVisible[5] = true;
+            isCircleTurn = false;
         }
         if (isCircleVisible[5])
         {
@@ -83,6 +88,7 @@ public class DrawXO
         if (mousePositionX > 0 && mousePositionX < 300 && mousePositionY > 0 && mousePositionY < 300 && Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
         {
             isCircleVisible[6] = true;
+            isCircleTurn = false;
         }
         if (isCircleVisible[6])
         {
@@ -93,6 +99,7 @@ public class DrawXO
         if (mousePositionX > 300 && mousePositionX < 600 && mousePositionY > 0 && mousePositionY < 300 && Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
         {
             isCircleVisible[7] = true;
+            isCircleTurn = false;
         }
         if (isCircleVisible[7])
         {
@@ -103,6 +110,7 @@ public class DrawXO
         if (mousePositionX > 600 && mousePositionX < 900 && mousePositionY > 0 && mousePositionY < 300 && Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
         {
             isCircleVisible[8] = true;
+            isCircleTurn = false;
         }
         if (isCircleVisible[8])
         {
@@ -110,7 +118,7 @@ public class DrawXO
         }
         // *========================================================
 
-       return isCircleTurn = false;
+       return isCircleTurn;
     }
 
     public static bool DrawCross (int mousePositionX, int mousePositionY,bool[] isCrossVisible, Texture cross, bool isCircleTurn)
@@ -156,6 +164,7 @@ public class DrawXO
         if (mousePositionX > 0 && mousePositionX < 300 && mousePositionY > 300 && mousePositionY < 600 && Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
         {
             isCrossVisible[3] = true;
+            isCircleTurn = true;
         }
         if (isCrossVisible[3])
         {
@@ -168,6 +177,7 @@ public class DrawXO
         if (mousePositionX > 300 && mousePositionX < 600 && mousePositionY > 300 && mousePositionY < 600 && Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
         {
             isCrossVisible[4] = true;
+            isCircleTurn = true;
         }
         if (isCrossVisible[4])
         {
@@ -178,6 +188,7 @@ public class DrawXO
         if (mousePositionX > 600 && mousePositionX < 900 && mousePositionY > 300 && mousePositionY < 600 && Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
         {
             isCrossVisible[5] = true;
+            isCircleTurn = true;
         }
         if (isCrossVisible[5])
         {
@@ -188,6 +199,7 @@ public class DrawXO
         if (mousePositionX > 0 && mousePositionX < 300 && mousePositionY > 0 && mousePositionY < 300 && Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
         {
             isCrossVisible[6] = true;
+            isCircleTurn = true;
         }
         if (isCrossVisible[6])
         {
@@ -198,6 +210,7 @@ public class DrawXO
         if (mousePositionX > 300 && mousePositionX < 600 && mousePositionY > 0 && mousePositionY < 300 && Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
         {
             isCrossVisible[7] = true;
+            isCircleTurn = true;
         }
         if (isCrossVisible[7])
         {
@@ -208,6 +221,7 @@ public class DrawXO
         if (mousePositionX > 600 && mousePositionX < 900 && mousePositionY > 0 && mousePositionY < 300 && Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
         {
             isCrossVisible[8] = true;
+            isCircleTurn = true;
         }
         if (isCrossVisible[8])
         {

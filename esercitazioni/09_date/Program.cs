@@ -20,6 +20,9 @@
     using System.Globalization;;
     DateTime date2 = DateTime.ParseExact("2024-12-31", "yyyy,MM,dd", CultureInfo.InvariantCulture);
 
+    ! Note:
+    Funziona sia col costruttore new che come funzione.metodo
+
 */
 
 using System.Data.Common;
@@ -29,9 +32,10 @@ Console.Clear();
 
 DateTime birthDate = new DateTime(1993,2,27);
 // ? "DateTime" è una struttura che rappresenta un istante di tempo
+// ? SINTASSI: (ANNO, MESE, GIORNO)
 
 DateTime today = DateTime.Today; 
-// ? "DateTime.Today" Restituisce la data di oggi
+// ? "DateTime.Today" metodo che restituisce la data di oggi
 
 TimeSpan age = today - birthDate;
 // ? "TimeSpan" è una struttura che rappresenta un intervallo di tempo
@@ -207,8 +211,8 @@ Console.WriteLine($"Differenza in minuti: {daysLeft.TotalMinutes}");
 
 daysLeft = date2.Subtract(date1);
 
-Console.WriteLine($"Differenza in giorni: {daysLeft.Days}");
-Console.WriteLine($"Differenza in ore: {daysLeft.TotalHours}");
+Console.WriteLine($"Differenza in giorni: {daysLeft.Days}");  // restituisce numero di giorni interi
+Console.WriteLine($"Differenza in ore: {daysLeft.TotalHours}");  // restituisce numero di giorni con i decimali
 Console.WriteLine($"Differenza in minuti: {daysLeft.TotalMinutes}");
 
 /*======================
@@ -217,7 +221,7 @@ Console.WriteLine($"Differenza in minuti: {daysLeft.TotalMinutes}");
 
 // ? Metodo .Add(*TimeSpan Type*)
 
-TimeSpan timeSpan = new TimeSpan (1,3,5,10,0); //3d,5h,10min, 0sec
+TimeSpan timeSpan = new TimeSpan (3,5,10,0); //3d,5h,10min,0sec
 
 DateTime resultDate = today.Add(timeSpan);
 Console.WriteLine($"Tra {timeSpan.ToString()} sarà il giorno {resultDate.ToLongDateString()} ");
