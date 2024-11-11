@@ -28,7 +28,6 @@ Console.WriteLine("\n+\t-\t*\t/\n");
 Console.Write("> ");
 string operatore = Console.ReadLine();
 
-
 //* esegui l'operazione selezionata
 switch (operatore)
 {
