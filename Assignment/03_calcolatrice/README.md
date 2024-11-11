@@ -26,21 +26,24 @@ numero2 = double.Parse(Console.ReadLine());
 Console.WriteLine("Scegli l'operatore:");
 Console.WriteLine("\n+\t-\t*\t/\n");
 Console.Write("> ");
-string operatore = Console.ReadLine();
+char operatore = Console.ReadKey().KeyChar; 
+// acquisizione char singolo, non richiede l'invio per l'inserimento
+Console.WriteLine(); 
+// a capo
 
 //* esegui l'operazione selezionata
 switch (operatore)
 {
-    case "+":
+    case '+':
         risultato = numero1+numero2;
         break;
-    case "-":
+    case '-':
         risultato = numero1-numero2;
         break;
-    case "*":
+    case '*':
         risultato = numero1*numero2;
         break;
-    case "/":
+    case '/':
         risultato = numero1/numero2;
         break;
     default:
@@ -62,3 +65,15 @@ git push -u origin main
 ## Versione 2
 ### Obiettivo
 - Gestione degli errori
+
+Inserimento in variabile double:
+```
+inserimento carattere
+- FormatException
+```
+
+inserimento in variabile int:
+```
+divisione per 0
+- System.DivideByZeroException:
+```
