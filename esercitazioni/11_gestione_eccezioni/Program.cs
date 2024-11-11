@@ -74,14 +74,12 @@ catch (Exception e)
 try
 {
     int number4 = int.Parse("abc");
-    
-    
+    //  a cosa serve il throw??? 
+    //  throw new Exception ("Errore generico"); // ? FARE RICERCHE
 }
 catch (Exception e)
 {
     Console.WriteLine($"Errore: {e.Message}");
-    // uso il throw 
-    throw new Exception ("Errore generico"); // ? FARE RICERCHE
     Console.WriteLine(e.HResult);
 }
 finally
