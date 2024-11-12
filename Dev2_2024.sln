@@ -39,8 +39,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "esercitazione_dizionari", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mazzo_di_carte_dict", "esercitazioni_mackbook\mazzo_di_carte_dict\mazzo_di_carte_dict.csproj", "{FD5B0062-DE3F-4669-ABEE-42DF64CDFB63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test_console_new_repository", "..\prova_creazione_repository\test_console_new_repository\test_console_new_repository.csproj", "{24F4DAC8-4409-4E32-8727-7437660AA1D9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sasso_carta_forbice", "esercitazioni_mackbook\sasso_carta_forbice\sasso_carta_forbice.csproj", "{43DCB061-8F09-49F9-A71E-61C763A26A4F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02_sorteggio_partecipanti", "Assignment\02_sorteggio_partecipanti\02_sorteggio_partecipanti.csproj", "{82B18F2D-453C-4EFA-9522-9D6444C65DA7}"
@@ -62,6 +60,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03_calcolatrice", "Assignment\03_calcolatrice\03_calcolatrice.csproj", "{BB857799-A23D-401B-B632-AF5AFD646C25}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "esercizio_date", "esercitazioni_mackbook\esercizio_date\esercizio_date.csproj", "{23414572-6832-48F0-A94D-48F7F905BF5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "12_funzioni", "esercitazioni\12_funzioni\12_funzioni.csproj", "{EA61D213-9FCD-4A97-9E79-619A8A688925}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04_calcolatrice_con_funzioni", "Assignment\04_calcolatrice_con_funzioni\04_calcolatrice_con_funzioni.csproj", "{916059D4-5D99-45DD-B805-7FB2F9D25788}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -180,6 +182,14 @@ Global
 		{23414572-6832-48F0-A94D-48F7F905BF5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23414572-6832-48F0-A94D-48F7F905BF5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23414572-6832-48F0-A94D-48F7F905BF5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA61D213-9FCD-4A97-9E79-619A8A688925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA61D213-9FCD-4A97-9E79-619A8A688925}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA61D213-9FCD-4A97-9E79-619A8A688925}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA61D213-9FCD-4A97-9E79-619A8A688925}.Release|Any CPU.Build.0 = Release|Any CPU
+		{916059D4-5D99-45DD-B805-7FB2F9D25788}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{916059D4-5D99-45DD-B805-7FB2F9D25788}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{916059D4-5D99-45DD-B805-7FB2F9D25788}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{916059D4-5D99-45DD-B805-7FB2F9D25788}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CA0EEA04-5509-4E23-88B4-B86FE7EC9D43} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
@@ -209,5 +219,7 @@ Global
 		{9CA83BC5-5C43-414E-8B96-F03E4F0D5937} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
 		{BB857799-A23D-401B-B632-AF5AFD646C25} = {2E32A539-E6CA-4A43-8142-12F138192BBC}
 		{23414572-6832-48F0-A94D-48F7F905BF5E} = {5D997FAF-5A30-4C67-912C-CA9B16D5AD29}
+		{EA61D213-9FCD-4A97-9E79-619A8A688925} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
+		{916059D4-5D99-45DD-B805-7FB2F9D25788} = {2E32A539-E6CA-4A43-8142-12F138192BBC}
 	EndGlobalSection
 EndGlobal
