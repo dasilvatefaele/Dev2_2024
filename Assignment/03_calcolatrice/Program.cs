@@ -69,55 +69,66 @@ do
 Console.WriteLine(); // a capo
 
 // esegui l'operazione selezionata
-switch (operatore)
-{
-    case '+':
-        risultato = numero1+numero2;
-        break;
-    case '-':
-        risultato = numero1-numero2;
-        break;
-    case '*':
-        risultato = numero1*numero2;
-        break;
-    case '/':
-        //! controllo: double numero2
-        //*     if == 0 --> NUMERO NON VALIDO, INSERISCI DI NUOVO FINCHé != 0
-        //*     else    --> NUMERO VALIDO, ESEGUI OPERAZIONE
-        do
-        {
-            if (numero2 == 0)
-            {
-                Console.WriteLine("Errore: Divisione per 0 non consentita");
-                numero2Valido = false;
-                //! controllo: double numero2
-                //* reinserimento e check che sia un numero con try-catch / do-while
-                do
-                {
-                    Console.Write("n2 => ");
-                    try
-                    {
-                        numero2 = double.Parse(Console.ReadLine());
-                        numeroConvertito = true;
-                    }
-                    catch (FormatException e)
-                    {
-                        Console.WriteLine("Errore: inserire valore valido");
-                        numeroConvertito = false;
-                    }
-                }while(!numeroConvertito);
-            }
-            else
-            {
-                risultato = numero1/numero2;
-                numero2Valido = true;
-            }
-        } while (!numero2Valido);
-        break;
-    default:
-        Console.WriteLine("Operatore non valido");
-        break;
-}
 
+try
+{
+
+
+    switch (operatore)
+    {
+        case '+':
+            risultato = numero1+numero2;
+            break;
+        case '-':
+            risultato = numero1-numero2;
+            break;
+        case '*':
+            risultato = numero1*numero2;
+            break;
+        case '/':
+            //! controllo: double numero2
+            //*     if == 0 --> NUMERO NON VALIDO, INSERISCI DI NUOVO FINCHé != 0
+            //*     else    --> NUMERO VALIDO, ESEGUI OPERAZIONE
+            do
+            {
+                if (numero2 == 0)
+                {
+                    throw new DivideByZeroException ();
+                    Console.WriteLine("Errore: Divisione per 0 non consentita");
+                    numero2Valido = false;
+                    //! controllo: double numero2
+                    //* reinserimento e check che sia un numero con try-catch / do-while
+                    do
+                    {
+                        Console.Write("n2 => ");
+                        try
+                        {
+                            numero2 = double.Parse(Console.ReadLine());
+                            numeroConvertito = true;
+                        }
+                        catch (FormatException e)
+                        {
+                            Console.WriteLine("Errore: inserire valore valido");
+                            numeroConvertito = false;
+                        }
+                    }while(!numeroConvertito);
+                }
+                else
+                {
+                    risultato = numero1/numero2;
+                    numero2Valido = true;
+                }
+            } while (!numero2Valido);
+            break;
+        default:
+            Console.WriteLine("Operatore non valido");
+            break;
+    }
+}
+catch (DivideByZeroException e)
+{
+    Console.WriteLine ("Impossibile dividere per 0");
+
+}
 // stampa risultato
 Console.WriteLine($"= {risultato}");
