@@ -271,6 +271,48 @@ StampaSquadre (dictSquadre);
 Console.WriteLine("Hai estratto tutti i partecipanti.");
 ```
 
+
+
+
+
+> Logica
+- visualizza lista
+- vuoi modificare lista (si / no)
+    - Si:
+        - Inserire / Eliminare? (id4)
+            - Inserisci
+            - Elimina
+        - Visualizza lista aggiornata
+        - Continuare a modificare?
+            - Si: (ripeti da id4)
+            - No: esci
+    - No: esci
+- inserire numero di squadre
+- crea squadre
+- stampa squadre
+- termina il programma 
+
+> FlowChart
+```Mermaid
+flowchart LR
+id1((inizio))-->id2[visualizza lista]
+id2-->id3{modifica lista?}
+id3-->|si|id4{cosa vuoi fare?}
+id4-->id5[/inserisci/]
+id4-->id6[/elimina/]
+id6-->id7[aggiorna lista]
+id5-->id7
+id7-->id8{Continua a modificare?}
+id8-->|si|id4
+id8-->|no|id9[/inserimento 
+numero squadre/]
+id3-->|no|id9
+id9-->id10[crea squadre]
+id10-->id11[stampa squadre]
+id11-->id12((fine))
+
+```
+
 > Codice di versionamento:
 ```powershell
 git add --all
