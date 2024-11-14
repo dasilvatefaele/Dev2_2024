@@ -69,9 +69,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05_sorteggio_partecipanti_c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06_indovina_numero_con_funzioni", "Assignment\06_indovina_numero_con_funzioni\06_indovina_numero_con_funzioni.csproj", "{75EE7705-FF58-4AA1-843D-7F2077CCAEC4}"
 EndProject
+<<<<<<< HEAD
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TRIS_BACKEND", "esercitazioni_mackbook\TRIS_BACKEND\TRIS_BACKEND.csproj", "{7BE66260-2DEA-4508-89BB-29134B8AF2F5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TRIS_UI", "esercitazioni_mackbook\TRIS_UI\TRIS_UI.csproj", "{05EC4F3B-AB9E-455B-8E7C-4CFFE4A56857}"
+=======
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TRIS_BACKEND", "esercitazioni_mackbook\TRIS_BACKEND\TRIS_BACKEND.csproj", "{6779F398-B3A6-4DF1-A440-01A8CF1C362A}"
+>>>>>>> b25ca74 (Unione delle modifiche locali e remote)
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -206,6 +210,7 @@ Global
 		{75EE7705-FF58-4AA1-843D-7F2077CCAEC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75EE7705-FF58-4AA1-843D-7F2077CCAEC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75EE7705-FF58-4AA1-843D-7F2077CCAEC4}.Release|Any CPU.Build.0 = Release|Any CPU
+<<<<<<< HEAD
 		{7BE66260-2DEA-4508-89BB-29134B8AF2F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7BE66260-2DEA-4508-89BB-29134B8AF2F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BE66260-2DEA-4508-89BB-29134B8AF2F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -214,6 +219,12 @@ Global
 		{05EC4F3B-AB9E-455B-8E7C-4CFFE4A56857}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05EC4F3B-AB9E-455B-8E7C-4CFFE4A56857}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05EC4F3B-AB9E-455B-8E7C-4CFFE4A56857}.Release|Any CPU.Build.0 = Release|Any CPU
+=======
+		{6779F398-B3A6-4DF1-A440-01A8CF1C362A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6779F398-B3A6-4DF1-A440-01A8CF1C362A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6779F398-B3A6-4DF1-A440-01A8CF1C362A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6779F398-B3A6-4DF1-A440-01A8CF1C362A}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> b25ca74 (Unione delle modifiche locali e remote)
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CA0EEA04-5509-4E23-88B4-B86FE7EC9D43} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
@@ -247,7 +258,11 @@ Global
 		{916059D4-5D99-45DD-B805-7FB2F9D25788} = {2E32A539-E6CA-4A43-8142-12F138192BBC}
 		{EC869E30-8E95-4208-998A-00E219935AB6} = {2E32A539-E6CA-4A43-8142-12F138192BBC}
 		{75EE7705-FF58-4AA1-843D-7F2077CCAEC4} = {2E32A539-E6CA-4A43-8142-12F138192BBC}
+<<<<<<< HEAD
 		{7BE66260-2DEA-4508-89BB-29134B8AF2F5} = {5D997FAF-5A30-4C67-912C-CA9B16D5AD29}
 		{05EC4F3B-AB9E-455B-8E7C-4CFFE4A56857} = {5D997FAF-5A30-4C67-912C-CA9B16D5AD29}
+=======
+		{6779F398-B3A6-4DF1-A440-01A8CF1C362A} = {5D997FAF-5A30-4C67-912C-CA9B16D5AD29}
+>>>>>>> b25ca74 (Unione delle modifiche locali e remote)
 	EndGlobalSection
 EndGlobal
