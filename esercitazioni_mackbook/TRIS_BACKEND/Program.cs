@@ -214,6 +214,21 @@ void ControlloGRIGLIA(string [,] GRIGLIA, out bool TRIS)
     }
 }
 
+
+void ChiHafattoTris(bool TRIS, bool ilTuoTurno)
+ {   
+    if (TRIS && !ilTuoTurno)
+    {
+        Console.WriteLine("X: HA VINTO!");
+    } 
+    else if (TRIS && ilTuoTurno)
+    {
+        Console.WriteLine("O: HA VINTO!");
+    }   
+}
+
+
+
 bool ScriviNellaGriglia(string [,] GRIGLIA, bool ilTuoTurno)
 {    
     if (ilTuoTurno)
@@ -230,17 +245,6 @@ bool ScriviNellaGriglia(string [,] GRIGLIA, bool ilTuoTurno)
     return ilTuoTurno;
 }
 
-void ChiHafattoTris(bool TRIS, bool ilTuoTurno)
- {   
-    if (TRIS && !ilTuoTurno)
-    {
-        Console.WriteLine("X: HA VINTO!");
-    } 
-    else if (TRIS && ilTuoTurno)
-    {
-        Console.WriteLine("O: HA VINTO!");
-    }   
-}
 
 bool XOStartCasuale(bool ilTuoTurno)
 {
