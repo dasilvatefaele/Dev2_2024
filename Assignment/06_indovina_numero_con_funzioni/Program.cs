@@ -1,4 +1,4 @@
-﻿/******************************************************************************/
+/******************************************************************************/
 //                      INDOVINA NUMERO v1.8 con funzioni
 /******************************************************************************/
 
@@ -64,7 +64,7 @@ do //>  LOOP MAIN
                 bonus = 100;
                 break;
             case 3:
-                numeroDaIndovinare = NumeroCasualeFinoA(101);;
+                numeroDaIndovinare = NumeroCasualeFinoA(101);
                 intervallo = 99;
                 bonus = 200;
                 break;
