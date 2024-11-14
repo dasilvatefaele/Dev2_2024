@@ -1,30 +1,38 @@
 ﻿Console.Clear();
 
-Random random = new Random();
 int dadoComputer;
 int dadoUtente;
 char risposta = ' ';
 
-
 do
 {
     Console.Clear();
+    risposta = ' '; // inizializzo risposta
 
     // DIALOGO
     Console.WriteLine("*** GIOCO: LANCIA DADO ***");
     Console.WriteLine("Premi un tasto per lanciare il dado...");
     Console.ReadKey();
-    risposta = ' '; // inizializzo risposta
+    
+    dadoUtente = LancioDado(); // UTENTE lancia dado
+    dadoComputer = LancioDado(); // COMPUTER lancia dado
 
-    dadoUtente = random.Next(1,7);
-    // UTENTE lancia dado
+    StampaLancio(dadoComputer, dadoUtente);    
+    Confronto(dadoComputer, dadoUtente);
+    risposta = PlayAgain(risposta);
+    
+}while (risposta == 's');
 
-    dadoComputer = random.Next(1,7);
-    // COMPUTER lancia dado
+Console.WriteLine("\nGrazie per aver giocato!");
 
-    Console.WriteLine($"IL TUO DADO\t\tDADO COMPUTER\n{dadoUtente}\t\t\t{dadoComputer}");
-    // DISPLAY DADI
+int LancioDado()
+{
+    Random random = new Random();
+    return random.Next(1,7);
+}
 
+void Confronto(int dadoComputer, int dadoUtente)
+{
     // CONFRONTO
     if(dadoUtente > dadoComputer)
     {
@@ -39,16 +47,20 @@ do
         Console.WriteLine("Hai perso!");
     }
 
+}
+
+void StampaLancio(int dadoComputer, int dadoUtente)
+{
+    Console.WriteLine($"IL TUO DADO\t\tDADO COMPUTER\n{dadoUtente}\t\t\t{dadoComputer}");
+}
+
+char PlayAgain(char risposta)
+{
     do
     {
         Console.WriteLine("\nVuoi giocare di nuovo? [s/n]");
         Console.Write("> ");
         risposta = Console.ReadKey().KeyChar;
     }while (risposta != 's' && risposta != 'n');
-
-
-}while (risposta == 's');
-
-Console.WriteLine("\nGrazie per aver giocato!");
-
-
+    return risposta;
+}

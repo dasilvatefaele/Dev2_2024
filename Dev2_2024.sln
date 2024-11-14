@@ -69,8 +69,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05_sorteggio_partecipanti_c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06_indovina_numero_con_funzioni", "Assignment\06_indovina_numero_con_funzioni\06_indovina_numero_con_funzioni.csproj", "{75EE7705-FF58-4AA1-843D-7F2077CCAEC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TRIS_BACKEND", "esercitazioni_mackbook\TRIS_BACKEND\TRIS_BACKEND.csproj", "{7BE66260-2DEA-4508-89BB-29134B8AF2F5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TRIS_UI", "esercitazioni_mackbook\TRIS_UI\TRIS_UI.csproj", "{05EC4F3B-AB9E-455B-8E7C-4CFFE4A56857}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07_gioco_di_dadi", "Assignment\07_gioco_di_dadi\07_gioco_di_dadi.csproj", "{B6430915-90B2-458A-9903-EB0B26D03F37}"
