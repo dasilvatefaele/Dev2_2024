@@ -291,17 +291,17 @@ namespace Tris
 
                 DrawXO(GRIGLIA, cross, circle);
 
-                if (slotLiberi <= 5)
-                {
-                    if (TRIS && !ilTuoTurno)
-                    {
-                        Raylib.DrawText("HAI VINTO!", 450, 450, 36, Raylib.GREEN);
-                    }
-                    else if (TRIS && ilTuoTurno)
-                    {
-                        Raylib.DrawText("HAI PERSO!", 450, 450, 36, Raylib.RED);
-                    }
-                }
+                // if (slotLiberi <= 5)
+                // {
+                //     if (TRIS && !ilTuoTurno)
+                //     {
+                //         Raylib.DrawText("HAI VINTO!", 450, 450, 36, Raylib.GREEN);
+                //     }
+                //     else if (TRIS && ilTuoTurno)
+                //     {
+                //         Raylib.DrawText("HAI PERSO!", 450, 450, 36, Raylib.RED);
+                //     }
+                // }
                 
                 Raylib.EndDrawing();
 
