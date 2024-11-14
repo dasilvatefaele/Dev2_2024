@@ -6,7 +6,6 @@ using System.Collections;
 using System.Diagnostics;
 
 
-
 namespace Tris
 {
     class Program
@@ -62,7 +61,7 @@ namespace Tris
 
                 #region 1^ RIGA
 
-                
+
                 // CASELLA 1A
                 if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)
                     && (mousePositionX > 100 && mousePositionY < 300)
@@ -291,18 +290,19 @@ namespace Tris
 
                 DrawXO(GRIGLIA, cross, circle);
 
-                // if (slotLiberi <= 5)
-                // {
-                //     if (TRIS && !ilTuoTurno)
-                //     {
-                //         Raylib.DrawText("HAI VINTO!", 450, 450, 36, Raylib.GREEN);
-                //     }
-                //     else if (TRIS && ilTuoTurno)
-                //     {
-                //         Raylib.DrawText("HAI PERSO!", 450, 450, 36, Raylib.RED);
-                //     }
-                // }
-                
+                //TRIS = false;
+                if (slotLiberi <= 5)
+                {
+                    if (TRIS && !ilTuoTurno)
+                    {
+                        Raylib.DrawText("HAI VINTO!", 450, 450, 36, Raylib.GREEN);
+                    }
+                    else if (TRIS && ilTuoTurno)
+                    {
+                        Raylib.DrawText("HAI PERSO!", 450, 450, 36, Raylib.RED);
+                    }
+                }
+
                 Raylib.EndDrawing();
 
 
@@ -315,13 +315,13 @@ namespace Tris
         public static bool TrisPerRiga(string[,] GRIGLIA)
         {
             bool flag = false;
-            if (GRIGLIA[0, 0] == GRIGLIA[0, 1] && GRIGLIA[0, 1] == GRIGLIA[0, 2] ||
+            if (GRIGLIA[0, 0] != "_" && GRIGLIA[0, 1] != "_" && GRIGLIA[0, 2] != "_" &&
+                GRIGLIA[1, 0] != "_" && GRIGLIA[1, 1] != "_" && GRIGLIA[1, 2] != "_" &&
+                GRIGLIA[2, 0] != "_" && GRIGLIA[2, 1] != "_" && GRIGLIA[2, 2] != "_")
+            {
+                if (GRIGLIA[0, 0] == GRIGLIA[0, 1] && GRIGLIA[0, 1] == GRIGLIA[0, 2] ||
                 GRIGLIA[1, 0] == GRIGLIA[1, 1] && GRIGLIA[1, 1] == GRIGLIA[1, 2] ||
                 GRIGLIA[2, 0] == GRIGLIA[2, 1] && GRIGLIA[2, 1] == GRIGLIA[2, 2])
-            {
-                if (GRIGLIA[0, 0] != "_" && GRIGLIA[0, 1] != "_" && GRIGLIA[0, 2] != "_" ||
-                    GRIGLIA[1, 0] != "_" && GRIGLIA[1, 1] != "_" && GRIGLIA[1, 2] != "_" ||
-                    GRIGLIA[2, 0] != "_" && GRIGLIA[2, 1] != "_" && GRIGLIA[2, 2] != "_")
                 {
                     flag = true;
                     return flag;
@@ -333,48 +333,48 @@ namespace Tris
         public static bool TrisPerColonna(string[,] GRIGLIA)
         {
             bool flag = false;
-            if (GRIGLIA[0, 0] == GRIGLIA[1, 0] && GRIGLIA[1, 0] == GRIGLIA[2, 0] ||
+            if (GRIGLIA[0, 0] != "_" && GRIGLIA[1, 0] != "_" && GRIGLIA[2, 0] != "_" &&
+                    GRIGLIA[0, 1] != "_" && GRIGLIA[1, 1] != "_" && GRIGLIA[2, 1] != "_" &&
+                    GRIGLIA[0, 2] != "_" && GRIGLIA[1, 2] != "_" && GRIGLIA[2, 2] != "_")
+            {
+                if (GRIGLIA[0, 0] == GRIGLIA[1, 0] && GRIGLIA[1, 0] == GRIGLIA[2, 0] ||
                 GRIGLIA[0, 1] == GRIGLIA[1, 1] && GRIGLIA[1, 1] == GRIGLIA[2, 1] ||
                 GRIGLIA[0, 2] == GRIGLIA[1, 2] && GRIGLIA[1, 2] == GRIGLIA[2, 2])
-            {
-                if (GRIGLIA[0, 0] != "_" && GRIGLIA[1, 0] != "_" && GRIGLIA[2, 0] != "_" ||
-                    GRIGLIA[0, 1] != "_" && GRIGLIA[1, 1] != "_" && GRIGLIA[2, 1] != "_" ||
-                    GRIGLIA[0, 2] != "_" && GRIGLIA[1, 2] != "_" && GRIGLIA[2, 2] != "_")
                 {
                     flag = true;
                     return flag;
                 }
             }
 
-            return flag;
+            return flag = false;
         }
 
         public static bool Tris_LEFT_RIGHT(string[,] GRIGLIA)
         {
             bool flag = false;
-            if (GRIGLIA[0, 0] == GRIGLIA[1, 1] && GRIGLIA[1, 1] == GRIGLIA[2, 2])
+            if (!(GRIGLIA[0, 0] == "_" || GRIGLIA[1, 1] == "_" || GRIGLIA[2, 2] == "_"))
             {
-                if (!(GRIGLIA[0, 0] == "_" || GRIGLIA[1, 1] == "_" || GRIGLIA[2, 2] == "_"))
+                if (GRIGLIA[0, 0] == GRIGLIA[1, 1] && GRIGLIA[1, 1] == GRIGLIA[2, 2])
                 {
                     flag = true;
                     return flag;
                 }
             }
-            return flag;
+            return flag = false;
         }
 
         public static bool Tris_RIGHT_LEFT(string[,] GRIGLIA)
         {
             bool flag = false;
-            if (GRIGLIA[0, 2] == GRIGLIA[1, 1] && GRIGLIA[1, 1] == GRIGLIA[2, 0])
+            if (!(GRIGLIA[0, 2] == "_" || GRIGLIA[1, 1] == "_" || GRIGLIA[2, 0] == "_"))
             {
-                if (!(GRIGLIA[0, 2] == "_" || GRIGLIA[1, 1] == "_" || GRIGLIA[2, 0] == "_"))
+                if (GRIGLIA[0, 2] == GRIGLIA[1, 1] && GRIGLIA[1, 1] == GRIGLIA[2, 0])
                 {
                     flag = true;
                     return flag;
                 }
             }
-            return flag;
+            return flag = false;
         }
 
         public static void ControlloGRIGLIA(string[,] GRIGLIA, out bool TRIS, bool ilTuoTurno)
@@ -511,7 +511,7 @@ namespace Tris
 
         }
 
-        
+
 
 
     }
