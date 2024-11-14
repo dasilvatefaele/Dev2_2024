@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography.X509Certificates;
 
 Console.Clear();
 
@@ -264,7 +263,3 @@ bool XOStartCasuale(bool ilTuoTurno)
     return ilTuoTurno;
 }
 # endregion
-=======
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
->>>>>>> b25ca74 (Unione delle modifiche locali e remote)
