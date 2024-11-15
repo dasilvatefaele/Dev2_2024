@@ -419,13 +419,13 @@ id24-->id6{punteggi finiti?}
 id6-->|no - partitaContinua|id1
 
 id6-->|si|id22[Stampa Vincitore]
-id22-->id21
 
-id21{PlayAgain}
+id22-->id42
+id42[Stampa storico]-->id21
+
+id21{PlayAgain}-->|no - Grazie per aver giocato|id23((fine))
 id21-->|si - Pulisci Storico|id20
-id21-->|no|id42[Stampa Storico]
 
-id42-->id23((Fine))
 ```
 
 ### Obiettivo

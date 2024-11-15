@@ -1,6 +1,5 @@
 ﻿Console.Clear();
 
-char risposta = ' ';
 int dadoUtente;
 int dadoComputer;
 int [] punteggio = new int [2];
@@ -18,7 +17,6 @@ punteggio[COMPUTER] = PUNTEGGIO_INIZIALE;
 do
 {
     Console.Clear();
-    risposta = ' '; 
 
     StampaDialogo();
     
@@ -33,13 +31,11 @@ do
 
     storicoPunteggi.Add((int[])punteggio.Clone()); // Salva il punteggio nello storico
      
-    risposta = PlayAgain(risposta,  punteggio, storicoPunteggi);
+    partitaContinua = PlayAgain(punteggio, storicoPunteggi);
 
     Console.ReadKey();
     
 }while (partitaContinua);
-
-StampaStorico(storicoPunteggi);
 
 Console.WriteLine("\nGrazie per aver giocato!");
 Console.WriteLine();
@@ -72,20 +68,26 @@ void StampaLancio(int dadoComputer, int dadoUtente)
     Console.WriteLine($"IL TUO DADO\t\tDADO COMPUTER\n{dadoUtente}\t\t\t{dadoComputer}");
 }
 
-char PlayAgain(char risposta, int[] punteggio, List<int[]> storicoPunteggi)
+bool PlayAgain( int[] punteggio, List<int[]> storicoPunteggi) //storicoPunteggi mi serve in caso di inizializzazione
 {
     if(punteggio[COMPUTER] <= 0 || punteggio[UTENTE] <= 0)
     {
+        char risposta = ' ';
+
         Console.WriteLine("Fine partita!");
         if (punteggio[COMPUTER] > punteggio[UTENTE])
         {
             Console.WriteLine("Hai finito i punti. IL COMPUTER TI HA BATTUTO!");
             Console.WriteLine();
+            StampaStorico(storicoPunteggi);
+
         }
         else if(punteggio[UTENTE] > punteggio[COMPUTER])
         {
             Console.WriteLine("Il computer ha finito i punti. CONGRATULAZIONI! HAI VINTO!");
             Console.WriteLine();
+            StampaStorico(storicoPunteggi);
+
         }
 
         Console.WriteLine("===================================");
@@ -103,14 +105,14 @@ char PlayAgain(char risposta, int[] punteggio, List<int[]> storicoPunteggi)
             punteggio[COMPUTER] = PUNTEGGIO_INIZIALE;
             punteggio[UTENTE] = PUNTEGGIO_INIZIALE;
             storicoPunteggi.Clear();
-            partitaContinua = true;
+            return true;
         }
         else
         {
-            partitaContinua = false;
+            return false;
         }
     }
-    return risposta;
+    return partitaContinua;
 }
 
 void StampaPunteggio(int [] punteggio)
