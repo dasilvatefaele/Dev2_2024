@@ -11,6 +11,19 @@ bool maggiorenne = true;    //      TRUE / FALSE
 
 DateTime dataNascita = new DateTime(2000,1,1);      //      DATE
 
+var cognome = "Rossi";
+//> var è una parola chiave che deduce il tipo di dato senza senza specificare il tipo
+//> ma dev'essere dichiarata e inizializzata nello stesso momento
+
+dynamic altezza2 = 1.70;
+//> variabili di tipo dynamic
+//> parola chiave che permette di dichiarare una variabili il cui tipo viene 
+//> determinato in runtime. questo dato può cambiare durante l'esecuzione del programma
+
+//! DIFFERENZE var / dynamic
+//* var determina il tipo a compile time    (la variabile non può cambiare tipo e dev'essere inizializzata al momento della dichiarazione)
+//* dybamic determina il tipo a runtime     (la variabile può cambiare tipo)
+
 // Utilizzo variabile attraverso metodo di console e interpolazione:
 Console.WriteLine($"Il valore di nome è {nome}");
 Console.WriteLine($"Il valore di altezza è {altezza}");

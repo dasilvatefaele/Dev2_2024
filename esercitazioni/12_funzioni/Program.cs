@@ -98,6 +98,7 @@ void Divisione (int dividendo, int divisore, out int quoziente, out int resto)
     quoziente = dividendo / divisore;
     resto = dividendo % divisore;
 }
+
 int quoziente, resto;
 Divisione (10, 3, out quoziente, out resto);
 Console.WriteLine ($"Quoziente {quoziente}, Resto {resto}");

@@ -1,15 +1,16 @@
 ﻿Console.Clear();
 
-int dadoComputer;
-int dadoUtente;
-int [] punteggio = new int [2];
 char risposta = ' ';
-
+int dadoUtente;
+int dadoComputer;
+int [] punteggio = new int [2];
 bool partitaContinua = true;
 
-const int PUNTEGGIO_INIZIALE = 20;
 const int UTENTE = 0;
 const int COMPUTER = 1;
+const int PUNTEGGIO_INIZIALE = 20;
+
+List<int[]> storicoPunteggi = new List<int[]> ();
 
 punteggio[UTENTE] = PUNTEGGIO_INIZIALE;
 punteggio[COMPUTER] = PUNTEGGIO_INIZIALE;
@@ -17,26 +18,31 @@ punteggio[COMPUTER] = PUNTEGGIO_INIZIALE;
 do
 {
     Console.Clear();
-    risposta = ' '; // inizializzo risposta
+    risposta = ' '; 
 
     StampaDialogo();
     
-    dadoUtente =    LancioDado(); // UTENTE lancia dado
-    dadoComputer =  LancioDado(); // COMPUTER lancia dado
+    dadoUtente =    LancioDado(); 
+    dadoComputer =  LancioDado(); 
 
     StampaLancio(dadoComputer, dadoUtente);    
     Confronto(dadoComputer, dadoUtente);
 
     punteggio = AggiornaPunteggio(dadoComputer,dadoUtente,punteggio);
-    punteggio = StampaPunteggio(punteggio);
+    StampaPunteggio(punteggio);
 
-    risposta = PlayAgain(risposta, dadoComputer, dadoUtente);
+    storicoPunteggi.Add((int[])punteggio.Clone()); // Salva il punteggio nello storico
+     
+    risposta = PlayAgain(risposta,  punteggio, storicoPunteggi);
 
     Console.ReadKey();
     
 }while (partitaContinua);
 
+StampaStorico(storicoPunteggi);
+
 Console.WriteLine("\nGrazie per aver giocato!");
+Console.WriteLine();
 
 int LancioDado()
 {
@@ -66,7 +72,7 @@ void StampaLancio(int dadoComputer, int dadoUtente)
     Console.WriteLine($"IL TUO DADO\t\tDADO COMPUTER\n{dadoUtente}\t\t\t{dadoComputer}");
 }
 
-char PlayAgain(char risposta, int dadoComputer, int dadoUtente)
+char PlayAgain(char risposta, int[] punteggio, List<int[]> storicoPunteggi)
 {
     if(punteggio[COMPUTER] <= 0 || punteggio[UTENTE] <= 0)
     {
@@ -74,11 +80,15 @@ char PlayAgain(char risposta, int dadoComputer, int dadoUtente)
         if (punteggio[COMPUTER] > punteggio[UTENTE])
         {
             Console.WriteLine("Hai finito i punti. IL COMPUTER TI HA BATTUTO!");
+            Console.WriteLine();
         }
         else if(punteggio[UTENTE] > punteggio[COMPUTER])
         {
             Console.WriteLine("Il computer ha finito i punti. CONGRATULAZIONI! HAI VINTO!");
+            Console.WriteLine();
         }
+
+        Console.WriteLine("===================================");
 
         do
         {
@@ -92,6 +102,7 @@ char PlayAgain(char risposta, int dadoComputer, int dadoUtente)
         {
             punteggio[COMPUTER] = PUNTEGGIO_INIZIALE;
             punteggio[UTENTE] = PUNTEGGIO_INIZIALE;
+            storicoPunteggi.Clear();
             partitaContinua = true;
         }
         else
@@ -102,24 +113,11 @@ char PlayAgain(char risposta, int dadoComputer, int dadoUtente)
     return risposta;
 }
 
-int [] StampaPunteggio(int [] punteggio)
+void StampaPunteggio(int [] punteggio)
 {
-    if (punteggio[UTENTE] <= 0)
-    {
-        punteggio[UTENTE] = 0;
-        Console.WriteLine($"\nIL TUO PUNTEGGIO\tPUNTEGGIO COMPUTER\n{punteggio[UTENTE]}\t\t\t{punteggio[COMPUTER]}");
-    }
-    else if (punteggio[COMPUTER] <= 0)
-    {
-        punteggio[COMPUTER] = 0;
-        Console.WriteLine($"\nIL TUO PUNTEGGIO\tPUNTEGGIO COMPUTER\n{punteggio[UTENTE]}\t\t\t{punteggio[COMPUTER]}");
-    }
-    else
-    {
-        Console.WriteLine($"\nIL TUO PUNTEGGIO\tPUNTEGGIO COMPUTER\n{punteggio[UTENTE]}\t\t\t{punteggio[COMPUTER]}");
-    }
-
-    return punteggio;
+    Console.WriteLine("===================================");
+    Console.WriteLine($"\nIL TUO PUNTEGGIO\tPUNTEGGIO COMPUTER\n{punteggio[UTENTE]}\t\t\t{punteggio[COMPUTER]}");
+    Console.WriteLine();
 }
 
 int [] AggiornaPunteggio(int dadoComputer, int dadoUtente, int [] punteggio)
@@ -154,5 +152,19 @@ void StampaDialogo()
 {
     Console.WriteLine("*** GIOCO: LANCIA DADO ***");
     Console.WriteLine("Premi un tasto per lanciare il dado...");
+    Console.WriteLine();
     Console.ReadKey();
+}
+
+void StampaStorico(List<int[]>storicoPunteggi)
+{
+    Console.WriteLine();
+    Console.WriteLine("\tStorico punteggi:");
+    Console.WriteLine();
+    Console.WriteLine("\t\tTU\tCOMPUTER");
+    for (int i = 0; i < storicoPunteggi.Count; i++)
+    {
+        Console.Write($"Partita {i+1}:\t");
+        Console.WriteLine(string.Join("\t", storicoPunteggi[i]));
+    }
 }
