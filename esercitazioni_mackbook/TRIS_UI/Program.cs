@@ -30,6 +30,18 @@ namespace Tris
 
             }
 
+            float wiggleSpeed = 5f; // Velocità dell'animazione
+            float wiggleAmount = 10f; // Intensità del movimento
+            float time = 0f; // Tempo per il movimento
+
+
+   
+
+            
+
+            // Incrementa il tempo per continuare l'animazione
+            time += Raylib.GetFrameTime();
+
             int mousePositionX;
             int mousePositionY;
             bool ilTuoTurno = false;
@@ -47,6 +59,8 @@ namespace Tris
             Texture cross = Raylib.LoadTexture("2D_images/X.png");
             Texture circle = Raylib.LoadTexture("2D_images/O.png");
             Texture bg = Raylib.LoadTexture("2D_images/bg.png");
+            Texture gameOver = Raylib.LoadTexture("2D_images/game_over.png");
+            Texture youWon = Raylib.LoadTexture("2D_images/you_won.png");
 
 
             for (int i = 0; i < 3; i++)
@@ -63,6 +77,8 @@ namespace Tris
                 mousePositionX = Raylib.GetMouseX();
                 mousePositionY = Raylib.GetMouseY();
 
+
+                // Input da mouse
                 #region 1^ RIGA
 
 
@@ -299,12 +315,27 @@ namespace Tris
                 {
                     if (!ilTuoTurno)
                     {
-                        Raylib.DrawText("HAI VINTO!", 450, 450, 36, Raylib.GREEN);
+                        //Raylib.DrawText("HAI VINTO!", 450, 450, 36, Raylib.GREEN);
+
+                        //! ANIMAZIONE: DA CAPIRE
+                        double offset = Math.Sin(time * wiggleSpeed) * wiggleAmount;
+                        // Incrementa il tempo per continuare l'animazione
+                        time += Raylib.GetFrameTime();
+
+
+                        Raylib.DrawTextureEx(youWon, new Vector2((int) (0 + offset) ,0),0f,1.02f,Raylib.WHITE);
                         soundOn--;
                     }
                     else if (ilTuoTurno)
                     {
-                        Raylib.DrawText("HAI PERSO!", 450, 450, 36, Raylib.RED);
+                        //Raylib.DrawText("HAI PERSO!", 450, 450, 36, Raylib.RED);
+
+                        //! ANIMAZIONE: DA CAPIRE
+                        double offset = Math.Sin(time * wiggleSpeed) * wiggleAmount;
+                        // Incrementa il tempo per continuare l'animazione
+                        time += Raylib.GetFrameTime();
+
+                        Raylib.DrawTextureEx(gameOver, new Vector2((int) (0 + offset) ,0),0f,1.02f,Raylib.WHITE);
                         soundOn--;
                     }
                 }
