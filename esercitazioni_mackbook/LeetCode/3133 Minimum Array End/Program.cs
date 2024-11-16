@@ -1,16 +1,38 @@
-﻿//public class Solution {
-//    public long MinEnd(int n, int x) {
+﻿using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.VisualBasic;
 
-        int n = 3;
-        int x = 4;
+string s = "bbcc";
+string t = "ccbc";
 
-        int[]nums=new int[n];
-        for(int i = 0; i < nums.Length; i++)
+string test = t;
+
+if (s.Length == t.Length) // check length
+{
+    for (int i = 0; i < s.Length; i++)
+    {
+        string c = s[i].ToString();
+        int indexToRemove = test.IndexOf(c);
+        if (indexToRemove != -1)
         {
-            nums[i]=x+i;
+            test = test.Remove(indexToRemove,1);
         }
+    }
+}
+else if (s.Length != t.Length)
+{
+    Console.WriteLine("False");
+    // return false;
+}
 
-//        return nums[n-1];
+if (string.IsNullOrEmpty(test))
+{
+    Console.WriteLine("True");
+    // return true;
+}
 
-//    }
-//}
+    //Console.WriteLine(test);
+    //return false;
+
+/*********************************************************/
+
