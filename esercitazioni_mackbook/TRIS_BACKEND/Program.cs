@@ -117,33 +117,31 @@ void ResetGRIGLIA(string[,]GRIGLIA)
 bool TrisPerRiga (string[,] GRIGLIA)
 {
     bool flag = false;
-    if (GRIGLIA[0,0] == GRIGLIA [0,1] && GRIGLIA [0,1] == GRIGLIA [0,2] ||
-        GRIGLIA[1,0] == GRIGLIA [1,1] && GRIGLIA [1,1] == GRIGLIA [1,2] ||
-        GRIGLIA[2,0] == GRIGLIA [2,1] && GRIGLIA [2,1] == GRIGLIA [2,2])
+    if (GRIGLIA[0,0] == GRIGLIA [0,1] && GRIGLIA [0,1] == GRIGLIA [0,2] && 
+        GRIGLIA[0,0] != "_" && GRIGLIA [0,1] != "_" && GRIGLIA [0,2] != "_" ||
+        GRIGLIA[1,0] == GRIGLIA [1,1] && GRIGLIA [1,1] == GRIGLIA [1,2] &&
+        GRIGLIA[1,0] != "_" && GRIGLIA [1,1] != "_" && GRIGLIA [1,2] != "_" ||
+        GRIGLIA[2,0] == GRIGLIA [2,1] && GRIGLIA [2,1] == GRIGLIA [2,2] &&
+        GRIGLIA[2,0] != "_" && GRIGLIA [2,1] != "_" && GRIGLIA [2,2] != "_")
         {
-            if (GRIGLIA[0,0] != "_" && GRIGLIA [0,1] != "_" && GRIGLIA [0,2] != "_" ||
-                GRIGLIA[1,0] != "_" && GRIGLIA [1,1] != "_" && GRIGLIA [1,2] != "_" ||
-                GRIGLIA[2,0] != "_" && GRIGLIA [2,1] != "_" && GRIGLIA [2,2] != "_")
-                {
                     flag = true;
-                }
         }
+
     return flag;
 }
 
 bool TrisPerColonna(string[,] GRIGLIA)
 {
     bool flag = false;
-    if (GRIGLIA[0,0] == GRIGLIA [1,0] && GRIGLIA [1,0] == GRIGLIA [2,0] ||
-        GRIGLIA[0,1] == GRIGLIA [1,1] && GRIGLIA [1,1] == GRIGLIA [2,1] ||
-        GRIGLIA[0,2] == GRIGLIA [1,2] && GRIGLIA [1,2] == GRIGLIA [2,2])
+    if (GRIGLIA[0,0] == GRIGLIA [1,0] && GRIGLIA [1,0] == GRIGLIA [2,0] && 
+        GRIGLIA[0,0] != "_" && GRIGLIA [1,0] != "_" && GRIGLIA [2,0] != "_" ||
+        GRIGLIA[0,1] == GRIGLIA [1,1] && GRIGLIA [1,1] == GRIGLIA [2,1] &&
+        GRIGLIA[0,1] != "_" && GRIGLIA [1,1] != "_" && GRIGLIA [2,1] != "_" ||
+        GRIGLIA[0,2] == GRIGLIA [1,2] && GRIGLIA [1,2] == GRIGLIA [2,2] &&
+        GRIGLIA[0,2] != "_" && GRIGLIA [1,2] != "_" && GRIGLIA [2,2] != "_")
         {
-            if(GRIGLIA[0,0] != "_" && GRIGLIA [1,0] != "_" && GRIGLIA [2,0] != "_" ||
-               GRIGLIA[0,1] != "_" && GRIGLIA [1,1] != "_" && GRIGLIA [2,1] != "_" ||
-               GRIGLIA[0,2] != "_" && GRIGLIA [1,2] != "_" && GRIGLIA [2,2] != "_")
-            {
+          
                 flag = true;
-            }
         }
 
     return flag;

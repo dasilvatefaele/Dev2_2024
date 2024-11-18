@@ -30,19 +30,37 @@ namespace Tris
 
             }
 
+            float wiggleSpeed = 5f; // Velocità dell'animazione
+            float wiggleAmount = 10f; // Intensità del movimento
+            float time = 0f; // Tempo per il movimento
+
+
+   
+
+            
+
+            // Incrementa il tempo per continuare l'animazione
+            time += Raylib.GetFrameTime();
+
             int mousePositionX;
             int mousePositionY;
             bool ilTuoTurno = false;
             bool TRIS = false;
+            int soundOn = 1;
             int maniMinime = 0;
             string[,] GRIGLIA = new string[3, 3];
             int slotLiberi = 9;
 
             Raylib.InitAudioDevice();
             Sound popSound = Raylib.LoadSound("sounds/pop.ogg");
+            Sound win = Raylib.LoadSound("sounds/win.ogg");
+            Sound lose = Raylib.LoadSound("sounds/lose.ogg");
+
             Texture cross = Raylib.LoadTexture("2D_images/X.png");
             Texture circle = Raylib.LoadTexture("2D_images/O.png");
             Texture bg = Raylib.LoadTexture("2D_images/bg.png");
+            Texture gameOver = Raylib.LoadTexture("2D_images/game_over.png");
+            Texture youWon = Raylib.LoadTexture("2D_images/you_won.png");
 
 
             for (int i = 0; i < 3; i++)
@@ -59,6 +77,8 @@ namespace Tris
                 mousePositionX = Raylib.GetMouseX();
                 mousePositionY = Raylib.GetMouseY();
 
+
+                // Input da mouse
                 #region 1^ RIGA
 
 
@@ -231,7 +251,7 @@ namespace Tris
                             break;
                     }
                 }
-
+// void InputDaMouse (mousePositionX, mousePositionX, out occupato, out ilTuoTurno, out slotLiberi, popSound, out GRIGLIA);
                 // CASELLA 3B
                 if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)
                     && (mousePositionX > 300 && mousePositionX < 490)
@@ -295,15 +315,48 @@ namespace Tris
                 {
                     if (!ilTuoTurno)
                     {
-                        Raylib.DrawText("HAI VINTO!", 450, 450, 36, Raylib.GREEN);
+                        //Raylib.DrawText("HAI VINTO!", 450, 450, 36, Raylib.GREEN);
+
+                        //! ANIMAZIONE: DA CAPIRE
+                        double offset = Math.Sin(time * wiggleSpeed) * wiggleAmount;
+                        // Incrementa il tempo per continuare l'animazione
+                        time += Raylib.GetFrameTime();
+
+
+                        Raylib.DrawTextureEx(youWon, new Vector2((int) (0 + offset) ,0),0f,1.02f,Raylib.WHITE);
+                        soundOn--;
                     }
                     else if (ilTuoTurno)
                     {
-                        Raylib.DrawText("HAI PERSO!", 450, 450, 36, Raylib.RED);
+                        //Raylib.DrawText("HAI PERSO!", 450, 450, 36, Raylib.RED);
+
+                        //! ANIMAZIONE: DA CAPIRE
+                        double offset = Math.Sin(time * wiggleSpeed) * wiggleAmount;
+                        // Incrementa il tempo per continuare l'animazione
+                        time += Raylib.GetFrameTime();
+
+                        Raylib.DrawTextureEx(gameOver, new Vector2((int) (0 + offset) ,0),0f,1.02f,Raylib.WHITE);
+                        soundOn--;
                     }
                 }
 
                 Raylib.EndDrawing();
+
+                // output audio:
+                if (soundOn == 0)
+                {
+                    if (!ilTuoTurno)
+                    {
+                        Raylib.PlaySoundMulti(win);
+                        soundOn-=2;
+                    }
+                    else if (ilTuoTurno)
+                    {
+                        Raylib.PlaySoundMulti(lose);
+                        soundOn-=2;
+
+                    }
+                }
 
 
 
@@ -312,64 +365,61 @@ namespace Tris
             Raylib.CloseWindow();
         }
 
-        public static bool TrisPerRiga (string[,] GRIGLIA)
+        public static bool TrisPerRiga(string[,] GRIGLIA)
         {
             bool flag = false;
-            if (GRIGLIA[0,0] == GRIGLIA [0,1] && GRIGLIA [0,1] == GRIGLIA [0,2] ||
-                GRIGLIA[1,0] == GRIGLIA [1,1] && GRIGLIA [1,1] == GRIGLIA [1,2] ||
-                GRIGLIA[2,0] == GRIGLIA [2,1] && GRIGLIA [2,1] == GRIGLIA [2,2])
-                {
-                    if (GRIGLIA[0,0] != "_" && GRIGLIA [0,1] != "_" && GRIGLIA [0,2] != "_" ||
-                        GRIGLIA[1,0] != "_" && GRIGLIA [1,1] != "_" && GRIGLIA [1,2] != "_" ||
-                        GRIGLIA[2,0] != "_" && GRIGLIA [2,1] != "_" && GRIGLIA [2,2] != "_")
-                        {
-                            flag = true;
-                        }
-                }
+            if (GRIGLIA[0, 0] == GRIGLIA[0, 1] && GRIGLIA[0, 1] == GRIGLIA[0, 2] &&
+                GRIGLIA[0, 0] != "_" && GRIGLIA[0, 1] != "_" && GRIGLIA[0, 2] != "_" ||
+                GRIGLIA[1, 0] == GRIGLIA[1, 1] && GRIGLIA[1, 1] == GRIGLIA[1, 2] &&
+                GRIGLIA[1, 0] != "_" && GRIGLIA[1, 1] != "_" && GRIGLIA[1, 2] != "_" ||
+                GRIGLIA[2, 0] == GRIGLIA[2, 1] && GRIGLIA[2, 1] == GRIGLIA[2, 2] &&
+                GRIGLIA[2, 0] != "_" && GRIGLIA[2, 1] != "_" && GRIGLIA[2, 2] != "_")
+            {
+                flag = true;
+            }
+
             return flag;
         }
 
         public static bool TrisPerColonna(string[,] GRIGLIA)
         {
             bool flag = false;
+            if (GRIGLIA[0, 0] == GRIGLIA[1, 0] && GRIGLIA[1, 0] == GRIGLIA[2, 0] &&
+                GRIGLIA[0, 0] != "_" && GRIGLIA[1, 0] != "_" && GRIGLIA[2, 0] != "_" ||
+                GRIGLIA[0, 1] == GRIGLIA[1, 1] && GRIGLIA[1, 1] == GRIGLIA[2, 1] &&
+                GRIGLIA[0, 1] != "_" && GRIGLIA[1, 1] != "_" && GRIGLIA[2, 1] != "_" ||
+                GRIGLIA[0, 2] == GRIGLIA[1, 2] && GRIGLIA[1, 2] == GRIGLIA[2, 2] &&
+                GRIGLIA[0, 2] != "_" && GRIGLIA[1, 2] != "_" && GRIGLIA[2, 2] != "_")
+            {
 
-            if (GRIGLIA[0,0] == GRIGLIA [1,0] && GRIGLIA [1,0] == GRIGLIA [2,0] ||
-                GRIGLIA[0,1] == GRIGLIA [1,1] && GRIGLIA [1,1] == GRIGLIA [2,1] ||
-                GRIGLIA[0,2] == GRIGLIA [1,2] && GRIGLIA [1,2] == GRIGLIA [2,2])
-                {
-                    if(GRIGLIA[0,0] != "_" && GRIGLIA [1,0] != "_" && GRIGLIA [2,0] != "_" ||
-                    GRIGLIA[0,1] != "_" && GRIGLIA [1,1] != "_" && GRIGLIA [2,1] != "_" ||
-                    GRIGLIA[0,2] != "_" && GRIGLIA [1,2] != "_" && GRIGLIA [2,2] != "_")
-                    {
-                        flag = true;
-                    }
-                }
+                flag = true;
+            }
 
             return flag;
         }
 
-        public static bool Tris_LEFT_RIGHT (string[,] GRIGLIA)
+        public static bool Tris_LEFT_RIGHT(string[,] GRIGLIA)
         {
             bool flag = false;
-            if (GRIGLIA[0,0] == GRIGLIA [1,1] && GRIGLIA [1,1] == GRIGLIA [2,2])
+            if (GRIGLIA[0, 0] == GRIGLIA[1, 1] && GRIGLIA[1, 1] == GRIGLIA[2, 2] &&
+                GRIGLIA[0, 0] != "_" && GRIGLIA[1, 1] != "_" && GRIGLIA[2, 2] != "_")
             {
-                    if ( !(GRIGLIA[0,0] == "_" || GRIGLIA[1,1] == "_" || GRIGLIA[2,2] == "_") )
-                    {            
-                        flag = true;
-                    }
+
+                flag = true;
+
             }
             return flag;
         }
 
-        public static bool Tris_RIGHT_LEFT (string[,] GRIGLIA)
+        public static bool Tris_RIGHT_LEFT(string[,] GRIGLIA)
         {
             bool flag = false;
-            if( GRIGLIA[0,2] == GRIGLIA [1,1] && GRIGLIA [1,1] == GRIGLIA [2,0])
+            if (GRIGLIA[0, 2] == GRIGLIA[1, 1] && GRIGLIA[1, 1] == GRIGLIA[2, 0] &&
+                GRIGLIA[0, 2] != "_" && GRIGLIA[1, 1] != "_" && GRIGLIA[2, 0] != "_")
             {
-                if ( !(GRIGLIA[0,2] == "_" || GRIGLIA[1,1] == "_" || GRIGLIA[2,0] == "_") )
-                {      
-                    flag = true;      
-                }        
+
+                flag = true;
+
             }
             return flag;
         }
