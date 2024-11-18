@@ -1,24 +1,42 @@
-﻿Console.Clear();
+﻿
+Console.Clear();
 
-int[] array3 = { 1, 2, 3, 4, 5 }; // dichiara e inizializza un array di interi
-Array.Clear(array3, 0, 5); // cancella gli elementi di array3 da 0 a array3.Length
-Console.WriteLine($"Lunghezza Array {array3.Length}"); // 5
+//! MAIN
+var provaDizionario = new Dictionary<string, int>
+{
+    {"default", 0},
+};
+bool provaBooleana = false;
 
-// lunghezza array = 5, ma gli indici sono 0, 1, 2, 3, 4 
-// quindi Array.Clear(array3, 0, array3.Length);   gli argomenti sono ([nome_array],[index di inizio],[???QUANTO CANCELLARE])
+Console.WriteLine("***************************");
+Console.WriteLine("PRE Funzioni:");
+foreach(var elementi in provaDizionario)
+{
+    Console.WriteLine(elementi);
+}
+Console.WriteLine(provaBooleana);
 
-Console.WriteLine(string.Join(", ", array3));
+ModificaDizionario(provaDizionario);
+ModificaBooleana(provaBooleana);
+
+Console.WriteLine("***************************");
+Console.WriteLine("POST Funzioni:");
+foreach(var elementi in provaDizionario)
+{
+    Console.WriteLine(elementi);
+}
+Console.WriteLine(provaBooleana);
 
 
-// LISTA - ESEMPIO DI METODO TRIMEXCESS
-// riduce la capacita di una lista al numero di elementi presenti
-List<int> lista12 = new List<int> { 1, 2, 3, 4, 5 }; // dichiara e inizializza una lista di interi
+//! FUNZIONI
 
-Console.WriteLine(lista12.Capacity); // stampa la capacita di lista12
+void ModificaDizionario (Dictionary<string, int> b)
+{
+    b["aggiunta"] = 1;
+    //Console.WriteLine(b["default"]);
+}
 
-// La capacità non è una caratteristica degli ARRAY dato che la lunghezza della lista è variabile?
-// La lista ha 5 elementi ma capacità 8 [???]
-
-
-lista12.TrimExcess(); // riduce la capacita di lista12 al numero di elementi presenti
-Console.WriteLine(lista12.Capacity); // stampa la capacita di lista12
+void ModificaBooleana (bool c)
+{
+    c = true;
+}
