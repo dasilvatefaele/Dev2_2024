@@ -1,10 +1,17 @@
-﻿List<string> prodotti = new List<string>
+﻿List<string> prodotti = new List<string>();
+
+Dictionary<string, double> prodottiConPrezzo = new Dictionary<string, double>
 {
-    "Latte intero", "Pane Integrale", "Mela", "Banana", "Acqua Naturale",
-    "Biscotti al cioccolato", "Riso Basmati", "Formaggio Grattuggiato"
+    {"LATTE INTERO", 1.59},{"MELA", 0.89},{"PANE INTEGRALE", 1.69}, {"BANANA", 2.19}, {"ACQUA NATURALE", 2.70}, {"BISCOTTI AL CIOCCOLATO" , 3.49},
+    {"RISO BASMATI", 1.99}, {"FORMAGGIO GRATTUGGIATO", 2.89}
 };
 
-var carrello = new Dictionary<string, int>();
+// {
+//     "Latte intero", "Pane Integrale", "Mela", "Banana", "Acqua Naturale",
+//     "Biscotti al cioccolato", "Riso Basmati", "Formaggio Grattuggiato"
+// };
+
+var carrello = new Dictionary<string, double[]>();
 bool continua = true;
 int scelta;
 bool disponibile;
@@ -28,13 +35,13 @@ while (continua)
     switch (scelta)
     {
         case 1:
-            VisualizzaProdotti(prodotti);
+            VisualizzaProdotti(prodottiConPrezzo);
             break;
         case 2:
-            disponibile = CercaUnPrototto(prodotti, out prodottoDaCercare);
+            disponibile = CercaUnPrototto(prodottiConPrezzo, out prodottoDaCercare);
             break;
         case 3:
-            AggiungiAlCarrello(prodotti, carrello);
+            AggiungiAlCarrello(prodottiConPrezzo, carrello);
             break;
         case 4:
             RimuoviDalCarrello(carrello);
@@ -54,54 +61,51 @@ while (continua)
     }
 }
 
-void VisualizzaProdotti(List<string> prodotti)
+void VisualizzaProdotti(Dictionary<string, double> prodottiConPrezzo)
 {
     Console.WriteLine("--- PRODOTTI DISPONIBILI ---");
-    foreach (var prodotto in prodotti)
+    foreach (var prodotto in prodottiConPrezzo)
     {
         Console.WriteLine(prodotto);
     }
     Console.WriteLine();
 }
 
-bool CercaUnPrototto(List<string> prodotti, out string prodottoDaCercare)
+bool CercaUnPrototto(Dictionary<string, double> prodottiConPrezzo, out string prodottoDaCercare)
 {
     Console.WriteLine("--- SCEGLI IL PRODOTTO ---");
     Console.Write("> ");
     prodottoDaCercare = Console.ReadLine();
-    prodottoDaCercare = prodottoDaCercare.ToLower();
-    var prodottiToLower = new List<string>();
-    foreach (var prodotto in prodotti)
-    {
-        prodottiToLower.Add(prodotto.ToLower());
-    }
+    prodottoDaCercare = prodottoDaCercare.ToUpper();
+  
 
-    if (prodottiToLower.Contains(prodottoDaCercare))
+    if (prodottiConPrezzo.ContainsKey(prodottoDaCercare))
     {
         Console.WriteLine("Il prodotto è disponibile.");
-        return prodottiToLower.Contains(prodottoDaCercare);
+        return true;
     }
     else
     {
         Console.WriteLine("Il prodotto non è disponibile.");
-        return prodottiToLower.Contains(prodottoDaCercare);
+        return false;
     }
 }
 
-void AggiungiAlCarrello(List<string> prodotti, Dictionary<string, int> carrello)
+void AggiungiAlCarrello(Dictionary<string, double> prodottiConPrezzo,  Dictionary<string, double[]> carrello)
 {
     string prodottoDaAggiungere;
     Console.WriteLine("--- AGGIUNGI AL CARRELLO ---");
-    VisualizzaProdotti(prodotti);
-    bool disponibile = CercaUnPrototto(prodotti, out prodottoDaAggiungere);
+    VisualizzaProdotti(prodottiConPrezzo);
+    bool disponibile = CercaUnPrototto(prodottiConPrezzo, out prodottoDaAggiungere);
 
     if (disponibile)
     {
-        if (!carrello.ContainsKey(prodottoDaAggiungere.ToUpper()))
+        if (!carrello.ContainsKey(prodottoDaAggiungere))
         {
-            carrello[prodottoDaAggiungere.ToUpper()] = 0;
+            carrello[prodottoDaAggiungere.ToUpper()][0] = prodottiConPrezzo[prodottoDaAggiungere];
         }
-        carrello[prodottoDaAggiungere.ToUpper()]++;
+        carrello[prodottoDaAggiungere.ToUpper()][0] = prodottiConPrezzo[prodottoDaAggiungere];
+        carrello[prodottoDaAggiungere.ToUpper()][1]++;
         Console.WriteLine("--- AGGIUNTO AL CARRELLO ---");
     }
     else
@@ -111,7 +115,7 @@ void AggiungiAlCarrello(List<string> prodotti, Dictionary<string, int> carrello)
     //return carrello;
 }
 
-void RimuoviDalCarrello(Dictionary<string, int> carrello)
+void RimuoviDalCarrello( Dictionary<string, double[]> carrello)
 {
     Console.WriteLine("--- RIMUOVI DAL CARRELLO ---");
     VisualizzaCarrello(carrello);
@@ -129,18 +133,18 @@ void RimuoviDalCarrello(Dictionary<string, int> carrello)
     //return carrello;
 }
 
-void VisualizzaCarrello(Dictionary<string, int> carrello)
+void VisualizzaCarrello( Dictionary<string, double[]> carrello)
 {
     Console.WriteLine("--- IL TUO CARRELLO ---");
 
     Console.WriteLine("PROOTTO:\t\tQUANTITA:");
     foreach (var prodotto in carrello)
     {
-        Console.WriteLine($"{prodotto.Key}\t\t\t{prodotto.Value}");
+        Console.WriteLine($"{prodotto.Key}\t\t\t{prodotto.Value[1]}");
     }
 }
 
-bool ProcediAlPagamento(bool continua, Dictionary<string, int> carrello)
+bool ProcediAlPagamento(bool continua, Dictionary<string, double[]> carrello)
 {
     Console.WriteLine("Sei Arrivato al pagamento.");
     return !continua;
