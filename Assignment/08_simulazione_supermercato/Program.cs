@@ -1,26 +1,33 @@
-﻿List<string> prodotti = new List<string>();
+﻿// todo: ************ SIMULAZIONE SUPERMERCATO Versione 2 ************
+//* ------------------------------------------------------------------ 
+//* ------------------------------ MAIN ------------------------------ 
+//* ------------------------------------------------------------------ 
 
-Dictionary<string, double> prodottiConPrezzo = new Dictionary<string, double>
-{
-    {"LATTE INTERO", 1.59},{"MELA", 0.89},{"PANE INTEGRALE", 1.69}, {"BANANA", 2.19}, {"ACQUA NATURALE", 2.70}, {"BISCOTTI AL CIOCCOLATO" , 3.49},
-    {"RISO BASMATI", 1.99}, {"FORMAGGIO GRATTUGGIATO", 2.89}
-};
-
-// {
-//     "Latte intero", "Pane Integrale", "Mela", "Banana", "Acqua Naturale",
-//     "Biscotti al cioccolato", "Riso Basmati", "Formaggio Grattuggiato"
-// };
-
-var carrello = new Dictionary<string, double[]>();
-bool continua = true;
+// Dichiarazioni 
+const int PREZZO = 0;
+const int QUANTITA = 1;
 int scelta;
+bool continua = true;
+bool convertito;
 bool disponibile;
 string prodottoDaCercare;
+var carrello = new Dictionary<string, double[]>();
+var prodottiConPrezzo = new Dictionary<string, double[]>
+{
+    {"LATTE INTERO",            new double [] {2.89,1}},
+    {"MELA",                    new double [] {0.89,1}},
+    {"PANE INTEGRALE",          new double [] {1.69,1}},
+    {"BANANA",                  new double [] {2.19,1}},
+    {"ACQUA NATURALE",          new double [] {2.70,1}},
+    {"BISCOTTI AL CIOCCOLATO" , new double [] {3.49,1}},
+    {"RISO BASMATI",            new double [] {1.99,1}},
+    {"FORMAGGIO GRATTUGGIATO",  new double [] {2.89,1}}
+};
 
 Console.Clear();
-while (continua)
+while (continua)        //* MAIN LOOP {
 {
-    Console.WriteLine("\n--- MENU ---:");
+    Console.WriteLine("\n-------------- MENU ---------------");
     Console.WriteLine("1. Visualizza i prodotti");
     Console.WriteLine("2. Cerca un prodotto");
     Console.WriteLine("3. Aggiungi un prodotto al carello");
@@ -28,10 +35,19 @@ while (continua)
     Console.WriteLine("5. Visualizza il carrello");
     Console.WriteLine("6. Procedi al pagamento");
     Console.WriteLine("0. Esci\n");
-    Console.Write("> ");
-    scelta = int.Parse(Console.ReadLine());
-    Console.Clear();
 
+    // input: scelta
+    do
+    {
+        Console.Write("> ");
+        convertito = int.TryParse(Console.ReadLine(), out scelta);
+        if (!convertito)
+        {
+            Console.WriteLine("Inserire un numero presente nel MENU");
+        }
+    } while (!convertito || scelta > 6 && scelta < 0);
+
+    Console.Clear();
     switch (scelta)
     {
         case 1:
@@ -59,103 +75,153 @@ while (continua)
             Console.WriteLine("Opzione non valida");
             break;
     }
-}
+}                       //* MAIN LOOP }
 
-void VisualizzaProdotti(Dictionary<string, double> prodottiConPrezzo)
+// dialogo finale
+Console.WriteLine("L'acquisto è andato a buon fine! Arrivederci!\n");
+
+//* ------------------------------------------------------------------ 
+//* ---------------------------- FUNZIONI ---------------------------- 
+//* ------------------------------------------------------------------ 
+
+void VisualizzaProdotti(Dictionary<string, double[]> prodottiConPrezzo)
 {
     Console.WriteLine("--- PRODOTTI DISPONIBILI ---");
+    Console.WriteLine("[Prezzo]\t[Prodotto]");
     foreach (var prodotto in prodottiConPrezzo)
     {
-        Console.WriteLine(prodotto);
+        Console.WriteLine($"€ {prodotto.Value[PREZZO]:F2}\t\t{prodotto.Key}");
     }
     Console.WriteLine();
 }
 
-bool CercaUnPrototto(Dictionary<string, double> prodottiConPrezzo, out string prodottoDaCercare)
+bool CercaUnPrototto(Dictionary<string, double[]> prodottiConPrezzo, out string prodottoDaCercare)
 {
     Console.WriteLine("--- SCEGLI IL PRODOTTO ---");
     Console.Write("> ");
     prodottoDaCercare = Console.ReadLine();
     prodottoDaCercare = prodottoDaCercare.ToUpper();
-  
 
     if (prodottiConPrezzo.ContainsKey(prodottoDaCercare))
     {
-        Console.WriteLine("Il prodotto è disponibile.");
+        Console.WriteLine("- disponibile");
         return true;
     }
     else
     {
-        Console.WriteLine("Il prodotto non è disponibile.");
+        Console.WriteLine("- non disponibile");
         return false;
     }
 }
 
-void AggiungiAlCarrello(Dictionary<string, double> prodottiConPrezzo,  Dictionary<string, double[]> carrello)
+void AggiungiAlCarrello(Dictionary<string, double[]> prodottiConPrezzo, Dictionary<string, double[]> carrello)
 {
     string prodottoDaAggiungere;
     Console.WriteLine("--- AGGIUNGI AL CARRELLO ---");
     VisualizzaProdotti(prodottiConPrezzo);
     bool disponibile = CercaUnPrototto(prodottiConPrezzo, out prodottoDaAggiungere);
+    int quantitaDiProdotto = 0;
 
     if (disponibile)
     {
         if (!carrello.ContainsKey(prodottoDaAggiungere))
         {
-            carrello[prodottoDaAggiungere.ToUpper()][0] = prodottiConPrezzo[prodottoDaAggiungere];
+            quantitaDiProdotto = QuantitaProdotto(quantitaDiProdotto);
+            carrello[prodottoDaAggiungere] = prodottiConPrezzo[prodottoDaAggiungere];
+            carrello[prodottoDaAggiungere][QUANTITA] = quantitaDiProdotto;
+            Console.WriteLine("* AGGIUNTO");
         }
-        carrello[prodottoDaAggiungere.ToUpper()][0] = prodottiConPrezzo[prodottoDaAggiungere];
-        carrello[prodottoDaAggiungere.ToUpper()][1]++;
-        Console.WriteLine("--- AGGIUNTO AL CARRELLO ---");
+        else
+        {
+            quantitaDiProdotto = QuantitaProdotto(quantitaDiProdotto);
+            carrello[prodottoDaAggiungere][QUANTITA] += quantitaDiProdotto;
+        }
     }
-    else
-    {
-        Console.WriteLine("Prodotto non disponibile.");
-    }
-    //return carrello;
 }
 
-void RimuoviDalCarrello( Dictionary<string, double[]> carrello)
+void RimuoviDalCarrello(Dictionary<string, double[]> carrello)
 {
     Console.WriteLine("--- RIMUOVI DAL CARRELLO ---");
     VisualizzaCarrello(carrello);
     Console.Write("> ");
     string prodottoDaRimuovere = Console.ReadLine();
-
-    if (carrello.ContainsKey(prodottoDaRimuovere.ToUpper()))
+    prodottoDaRimuovere = prodottoDaRimuovere.ToUpper();
+    int quantitaDiProdotto = 0;
+    if (carrello.ContainsKey(prodottoDaRimuovere))
     {
-        carrello.Remove(prodottoDaRimuovere.ToUpper());
+        if (carrello[prodottoDaRimuovere][QUANTITA] > 1)
+        {
+            quantitaDiProdotto = QuantitaProdotto(quantitaDiProdotto);
+            if (carrello[prodottoDaRimuovere][QUANTITA] - quantitaDiProdotto <= 0)
+            {
+                carrello.Remove(prodottoDaRimuovere);
+            }
+            else
+            {
+                carrello[prodottoDaRimuovere][QUANTITA] -= quantitaDiProdotto;
+            }
+        }
     }
     else
     {
-        Console.WriteLine("Questo prodotto non è nel tuo carrello.");
+        Console.WriteLine("Questo prodotto non è presente nel tuo carrello");
     }
-    //return carrello;
 }
 
-void VisualizzaCarrello( Dictionary<string, double[]> carrello)
+void VisualizzaCarrello(Dictionary<string, double[]> carrello)
 {
     Console.WriteLine("--- IL TUO CARRELLO ---");
-
-    Console.WriteLine("PROOTTO:\t\tQUANTITA:");
+    Console.WriteLine("QUANTITA:\t\tPROOTTO:");
     foreach (var prodotto in carrello)
     {
-        Console.WriteLine($"{prodotto.Key}\t\t\t{prodotto.Value[1]}");
+        Console.WriteLine($"x{prodotto.Value[QUANTITA]}\t\t\t{prodotto.Key}");
     }
 }
 
 bool ProcediAlPagamento(bool continua, Dictionary<string, double[]> carrello)
 {
-    Console.WriteLine("Sei Arrivato al pagamento.");
+    double totale = 0;
+    Console.WriteLine("--------------------- CASSA ---------------------");
+    Console.WriteLine("PREZZO\t\tQUANTITA\tPRODOTTO");
+
+    foreach (var prodotto in carrello)
+    {
+        Console.WriteLine($"€ {prodotto.Value[PREZZO]:F2}\t\tx{prodotto.Value[QUANTITA]}\t\t{prodotto.Key}");
+        if (prodotto.Value[QUANTITA] == 1)
+        {
+            totale += prodotto.Value[PREZZO];
+        }
+        else if (prodotto.Value[QUANTITA] > 1)
+        {
+            totale += prodotto.Value[PREZZO] * prodotto.Value[QUANTITA];
+        }
+    }
+
+    Console.WriteLine("--------------------- TOTALE --------------------\n");
+    Console.WriteLine($"\t\t     € {totale:F2}\n");
+    Console.WriteLine("Prosegui al pagamento...");
+    Console.Write("> ");
+    Console.ReadKey();
     return !continua;
+}
+
+int QuantitaProdotto(int quantitaDiProdotto)
+{
+    bool check = false;
+    while (!check)
+    {
+        Console.WriteLine("Quanti?");
+        Console.Write("> ");
+        check = int.TryParse(Console.ReadLine(), out quantitaDiProdotto);
+    }
+    return quantitaDiProdotto;
 }
 
 bool Esci(bool continua)
 {
     //continua = false;
     bool riuscito = true;
-    Console.WriteLine();
-    Console.WriteLine("Sicuro di voler uscire?\n[1] Procedi al pagamento\n[2] Continua la spesa\n[3] Abbandona ed esci");
+    Console.WriteLine("\nSicuro di voler uscire?\n[1] Procedi al pagamento\n[2] Continua la spesa\n[3] Abbandona ed esci");
     do
     {
         Console.Write("> ");
