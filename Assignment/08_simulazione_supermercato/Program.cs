@@ -214,7 +214,7 @@ int QuantitaProdotto(int quantitaDiProdotto)
         Console.Write("> ");
         check = int.TryParse(Console.ReadLine(), out quantitaDiProdotto);
     }
-    return quantitaDiProdotto;
+    return quantitaDiProdotto; // ? ottimizzabile
 }
 
 bool Esci(bool continua)
