@@ -69,7 +69,3 @@ static string GeneraPassword (int lunghezza)
     return passwordGenerata;
   
 }
-    
-
-
-

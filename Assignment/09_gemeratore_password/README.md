@@ -11,6 +11,5 @@
 ## Suggerimenti
 - classe Random per generare caratteri casuali. - puoi creare gruppo di caratteri (maiuscole, minuscole, numeri, simboli)
 
-```
-
-```mermad
+# NOTE IMPORTANTI 
+string.Join funziona solo su oggetti iterabili come liste, array e dizionari
