@@ -7,7 +7,7 @@ int dato = 0;
 bool convertito;
 double somma = 0;
 double media;
-var listaSondaggio = new List <int>(); 
+var listaSondaggio = new List<int>();
 
 do
 {
@@ -34,15 +34,15 @@ do
         convertito = true;
         // error
     }
-    
+
     if (dato >= 0)
-    { 
+    {
         listaSondaggio.Add(dato);
-        convertito=!convertito;
+        convertito = !convertito;
     }
     else if (dato < 0)
     {
-        convertito = true;
+        convertito = false;
     }
 }
 while (convertito);
@@ -52,7 +52,7 @@ while (convertito);
 
 int maggiore = 0;
 int minore = listaSondaggio[0];
-foreach(var numero in listaSondaggio)
+foreach (var numero in listaSondaggio)
 {
     maggiore = Math.Max(maggiore, numero);
 }
