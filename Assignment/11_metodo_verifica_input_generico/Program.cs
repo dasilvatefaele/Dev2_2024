@@ -86,7 +86,7 @@ double InputDouble()
 
         Console.Write("Inserisci numero decimale > ");
         s_numero = Console.ReadLine();
-        s_numero = s_numero.Replace(",", ".");
+        s_numero = s_numero.Replace(".", ",");
 
         try
         {
