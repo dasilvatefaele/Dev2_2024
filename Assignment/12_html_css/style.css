@@ -1,65 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
-@media screen and (max-width: 600px) {
-    main {
-        margin-left: 64px;
-        margin-right: 64px;
-        /* margin: 0;
-        padding:0; */
-        /* background-color: #fdb041; */
-    }
-
-}
-
-
-@media screen and (min-width: 601px) and (max-width: 900px) {
-    main {
-        margin-left: 128px;
-        margin-right: 128px;
-
-        
-        
-        /* width: 80%;
-        margin: 0 auto; */
-         /* background-color: aqua;  */
-    }
-}
-
-@media screen and (min-width: 901px) and (max-width: 1400px){
-    main{
-        margin-left: 128px;
-        margin-right: 128px;
-        
-        /* background-color: rgb(229, 0, 0);  */
-    }
-}
-
-@media screen and (min-width: 1401px){
-    main{
-        margin-left: 360px;
-        margin-right: 360px;
-        /* background-color: black;  */
-    }
-}
 
 #loghi{
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 12px;
+}
+
+
+#gallery{
+    display: flex;
+    flex-direction: column;
     
 }
 
 
- #UMGLOGO{
+/* #gitlogo{
+    justify-content: flex-end;
+} */
+
+ #brandlogos{
     display: flex;
     align-items: center;
     justify-content: center;
     margin-inline: auto;
     width: 128px;
-    gap: 8px;
-    
-  
+    margin: 16px 16px;
  }
 
 
@@ -94,7 +59,7 @@ li {
 
 #menu {
     display:flex;
-    justify-content: center; /* Centro orizzontale */
+    justify-content: space-between; /* Centro orizzontale */
     align-items: center;   /* Centro verticale */
     padding: 0;
     margin: 0;
