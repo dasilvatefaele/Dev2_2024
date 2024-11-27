@@ -1,4 +1,5 @@
 # LANDING PAGE
+## Versione 1
 
 Creazione di una landing page con HTML e CSS
 
@@ -17,4 +18,11 @@ Creazione di una landing page con HTML e CSS
 - la pagina deve contenere i google fonts 
 - la pagina deve contenere qualche icona fontaw
 
-# Versione 1
+## Versione 2
+
+- standardizzazione suddivisione struttura HTML
+- Hero page call to action 
+- utilizzo flexbox e gestione media query
+- loghi
+- footer
+

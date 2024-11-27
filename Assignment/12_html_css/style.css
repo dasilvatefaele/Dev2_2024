@@ -1,5 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-#loghi{
+html {
+    scroll-behavior: smooth; /* Abilita lo scorrimento morbido */
+  }
+
+/* a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+} */
+
+#loghi {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,93 +24,217 @@
 }
 
 
-#gallery{
+.gallery {
     display: flex;
     flex-direction: column;
-    
+    justify-content: space-between;
+}
+
+#video{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center;
+    flex-direction: column; */
 }
 
 
-/* #gitlogo{
-    justify-content: flex-end;
-} */
 
- #brandlogos{
+#brandlogos {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-inline: auto;
     width: 128px;
     margin: 16px 16px;
- }
+}
 
 
 body {
     font-family: 'Roboto', sans-serif;
-     background-color: #18131a ;  
+    background-color: #18131a;
 }
 
-a {
+/* a {
     text-decoration: none;
     font-weight: 100;
     margin-left: 8px;
     margin-right: 8px;
+} */
+
+h1,
+h2
+ {
+    color: #fdb041;
+    display: flex;
+    text-align: center;
+    text-decoration: none;
 }
 
-h1, h2,h3,h4,a{
+a{
+    display: flex;
+    justify-content: space-around;
+    color: #fdb041;
+    text-decoration: none;
+    /* margin: 10px 10px; */
+}
+
+h3, h4 {
+    display: flex;
+    justify-content: center;
     color: #fdb041;
     
 }
 
-p {
-    color:antiquewhite;
-    margin-bottom: 32px;
-    margin-top: -12px;
+.spacing{
+    margin-bottom: 10%;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+}
+
+.calltoaction{
+    margin-top: 3%;
+    height: 48px;
+    width: 30%;
+    border-radius: 24px;
+    background-color: #03b44d;
+    font-weight:bolder;
+    box-shadow: none;
+
+    color: antiquewhite;
     
+}
+textarea {
+    border-radius: 30px;
+    background-color: #18131a;
+    color: antiquewhite;
+}
+
+/* button {
+    margin-top: 3%;
+    height: 48px;
+    border-radius: 30px;
+    background-color: #18131a;
+    color: antiquewhite;
+} */
+
+p {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    color: antiquewhite;
+    /* margin-bottom: 32px; */
+    /* margin-top: -12px; */
+
 }
 
 li {
-    color:antiquewhite;
- 
+    color: antiquewhite;
+    text-decoration: none;
+
 }
 
-#menu {
-    display:flex;
-    justify-content: space-between; /* Centro orizzontale */
-    align-items: center;   /* Centro verticale */
-    padding: 0;
-    margin: 0;
+footer{
+    background-color: rgb(14, 14, 15);
+    
+    
+    height: 24px;
+    width: 100%;
+}
+
+footer >p{
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     text-align: center;
-    background-color: #18131a ;  
+}
+
+.separator {
+    display: flex;
+    justify-content:center;
+    flex-direction: row;
+    background-color: #fdb041;
+    height: 10%;
+    /* width: 50px; */
+    /* width: 10%; */
+    margin-top: 10px; 
+    margin-bottom: 10px;
+
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 15% 15%;
+}
+
+.githubcontainer{
+    display: flex;
+    justify-content: flex-end;
+}
+
+nav{
+    display: flex;
+    justify-content: center;
+    /* Centro orizzontale */
+    align-items: center;
+    /* Centro verticale */
+    text-align: center;
+
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    /* Centro orizzontale */
+    align-items: center;
+    /* Centro verticale */
+    text-align: center;
+    background-color: #18131a;
     width: 100%;
     height: 36px;
-    margin-bottom: 32px;
+    /* margin-bottom: 32px; */
     box-shadow: 0 10px 16px rgba(0, 0, 0, 0.5);
 }
 
-#corpo {
+.heropage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* background-image: url("pics/bghero.jpg") ; */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(24, 19, 26,1)), 
+    url("pics/bghero.jpg");
     
-    
+    background-color: rgba(24, 19, 26,1);
+    height: 100vh;
+    width: 100vw;
 }
 
-#intestazione {
-    display: flexbox;
-    margin-top: 64px;
-    margin-bottom: 64px;
-    justify-content:center;
-    align-items:normal;
-    flex-direction:row;
-    flex-wrap:wrap;
-    flex-grow:unset;
-    flex-shrink:unset;
-    align-self:center;  
-    text-align: center;
-    background-color: #18131a;
-}
-
-#userpic
-{
-    display: flexbox;
+#userpic {
+    display: flex;
     align-items: center;
     width: 150px;
 }
+
+.logo-titolo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2%;
+    margin-bottom: 2%;
+}
+
+.tabella{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 25%;
+
+}
+

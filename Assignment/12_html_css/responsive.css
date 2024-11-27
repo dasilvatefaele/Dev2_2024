@@ -18,9 +18,17 @@
 
     #UMGLOGO{
         display: flex;
-        
+    }
 
-
+    nav{
+        font-size: x-small;
+        display: flex;
+        justify-content: center;
+        /* Centro orizzontale */
+        align-items: center;
+        /* Centro verticale */
+        text-align: center;
+    
     }
 }
 
