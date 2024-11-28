@@ -8,19 +8,19 @@
         /* background-color: #fdb041; */
     }
 
-    #loghi{
+    #loghi {
         display: flex;
         flex-direction: column;
         margin-left: 1px;
         margin-right: 1px;
-        
+
     }
 
-    #UMGLOGO{
+    #UMGLOGO {
         display: flex;
     }
 
-    nav{
+    nav {
         font-size: x-small;
         display: flex;
         justify-content: center;
@@ -28,7 +28,7 @@
         align-items: center;
         /* Centro verticale */
         text-align: center;
-    
+
     }
 }
 
@@ -39,21 +39,21 @@
         margin-right: 128px;
         /* width: 80%;
         margin: 0 auto; */
-         /* background-color: aqua;  */
+        /* background-color: aqua;  */
     }
 }
 
 
-@media screen and (min-width: 901px) and (max-width: 1400px){
-    main{
+@media screen and (min-width: 901px) and (max-width: 1400px) {
+    main {
         margin-left: 128px;
         margin-right: 128px;
         /* background-color: rgb(229, 0, 0);  */
     }
 }
 
-@media screen and (min-width: 1401px){
-    main{
+@media screen and (min-width: 1401px) {
+    main {
         margin-left: 360px;
         margin-right: 360px;
         /* background-color: black;  */

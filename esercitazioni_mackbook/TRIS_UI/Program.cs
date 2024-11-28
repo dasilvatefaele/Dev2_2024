@@ -35,9 +35,9 @@ namespace Tris
             float time = 0f; // Tempo per il movimento
 
 
-   
 
-            
+
+
 
             // Incrementa il tempo per continuare l'animazione
             time += Raylib.GetFrameTime();
@@ -251,7 +251,7 @@ namespace Tris
                             break;
                     }
                 }
-// void InputDaMouse (mousePositionX, mousePositionX, out occupato, out ilTuoTurno, out slotLiberi, popSound, out GRIGLIA);
+                // void InputDaMouse (mousePositionX, mousePositionX, out occupato, out ilTuoTurno, out slotLiberi, popSound, out GRIGLIA);
                 // CASELLA 3B
                 if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)
                     && (mousePositionX > 300 && mousePositionX < 490)
@@ -323,7 +323,7 @@ namespace Tris
                         time += Raylib.GetFrameTime();
 
 
-                        Raylib.DrawTextureEx(youWon, new Vector2((int) (0 + offset) ,0),0f,1.02f,Raylib.WHITE);
+                        Raylib.DrawTextureEx(youWon, new Vector2((int)(0 + offset), 0), 0f, 1.02f, Raylib.WHITE);
                         soundOn--;
                     }
                     else if (ilTuoTurno)
@@ -335,7 +335,7 @@ namespace Tris
                         // Incrementa il tempo per continuare l'animazione
                         time += Raylib.GetFrameTime();
 
-                        Raylib.DrawTextureEx(gameOver, new Vector2((int) (0 + offset) ,0),0f,1.02f,Raylib.WHITE);
+                        Raylib.DrawTextureEx(gameOver, new Vector2((int)(0 + offset), 0), 0f, 1.02f, Raylib.WHITE);
                         soundOn--;
                     }
                 }
@@ -348,12 +348,12 @@ namespace Tris
                     if (!ilTuoTurno)
                     {
                         Raylib.PlaySoundMulti(win);
-                        soundOn-=2;
+                        soundOn -= 2;
                     }
                     else if (ilTuoTurno)
                     {
                         Raylib.PlaySoundMulti(lose);
-                        soundOn-=2;
+                        soundOn -= 2;
 
                     }
                 }
@@ -455,10 +455,7 @@ namespace Tris
 
         public static void ChiHafattoTris(bool TRIS, bool ilTuoTurno)
         {
-
-
-
-
+            //? obsoleto
         }
 
         public static void DrawXO(string[,] GRIGLIA, Texture cross, Texture circle)
@@ -554,13 +551,6 @@ namespace Tris
             {
                 Raylib.DrawTexture(circle, 490, 505, Raylib.WHITE);
             }
-
-
         }
-
-
-
-
     }
-
 }

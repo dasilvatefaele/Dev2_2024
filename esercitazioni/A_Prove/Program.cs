@@ -1,6 +1,6 @@
-﻿
-Console.Clear();
+﻿// TEST CASES
 
+Console.Clear();
 //! MAIN
 var provaDizionario = new Dictionary<string, int>
 {
@@ -8,9 +8,9 @@ var provaDizionario = new Dictionary<string, int>
 };
 bool provaBooleana = false;
 
-Console.WriteLine("***************************");
+Console.Write("\n***************************");
 Console.WriteLine("PRE Funzioni:");
-foreach(var elementi in provaDizionario)
+foreach (var elementi in provaDizionario)
 {
     Console.WriteLine(elementi);
 }
@@ -21,7 +21,7 @@ ModificaBooleana(provaBooleana);
 
 Console.WriteLine("***************************");
 Console.WriteLine("POST Funzioni:");
-foreach(var elementi in provaDizionario)
+foreach (var elementi in provaDizionario)
 {
     Console.WriteLine(elementi);
 }
@@ -30,13 +30,13 @@ Console.WriteLine(provaBooleana);
 
 //! FUNZIONI
 
-void ModificaDizionario (Dictionary<string, int> b)
+void ModificaDizionario(Dictionary<string, int> b)
 {
     b["aggiunta"] = 1;
     //Console.WriteLine(b["default"]);
 }
 
-void ModificaBooleana (bool c)
+void ModificaBooleana(bool c)
 {
     c = true;
 }
