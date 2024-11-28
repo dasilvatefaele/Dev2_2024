@@ -46,52 +46,66 @@ Il tag `<body>` contiene il contenuto del documento.
 Il tag `<head>` potrebbe contenere:
 
 - `<title>`: il titolo della pagina che viene visualizzato nella barra del browser
-```html
-<title>Titolo del documento</title>
-```
+  
+  ```html
+  <title>Titolo del documento</title>
+  ```
+
 - `<link>`: collegamento a un foglio di stile esterno gestito separatamente
-```html
-<link rel="stylesheet" type="text/css" href="style.css">
-```
+  
+  ```html
+  <link rel="stylesheet" type="text/css" href="style.css">
+  ```
+
 - `<style>`: foglio di stile interno nel quale definire le regole di stile
-```html
-<style>
+  
+  ```html
+  <style>
     body {
         background-color: lightblue;
     }
-</style>
-```
+  </style>
+  ```
+
 - `<script>`: collegamento a uno script esterno o script interno
-```html
-<script src="script.js"></script>
-```
+  
+  ```html
+  <script src="script.js"></script>
+  ```
+
 - `<meta>`: informazioni sul documento, come l'encoding dei caratteri, la descrizione, le parole chiave, ecc.
-```html
-<meta charset="UTF-8">
-```
-# CDN e collegamento a font (https://cdnjs.com)
+  
+  ```html
+  <meta charset="UTF-8">
+  ```
+  
+  # CDN e collegamento a font (https://cdnjs.com)
 
 Questo tipo di collegamento prende il nome di CDN (Content Delivery Network) e permette di collegarsi a risorse esterne come.
 
 - collegamento a font specifici come ad esempio quelli di google font
-```html
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-```
+  
+  ```html
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  ```
 
 - collegamento a librerie javascript come ad esempio jquery
-```html
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-```
+  
+  ```html
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  ```
 
 - collegamento ad icone come ad esempio quelle di fontawesome
-```html
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-```
+  
+  ```html
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  ```
 
 - collegamento a framework css come ad esempio bootstrap
-```html
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-```
+  
+  ```html
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  ```
 
 # BODY cosa contiene
 
@@ -109,45 +123,51 @@ Il tag `<body>` contiene il contenuto del documento, come testo, immagini, link,
 # TAG HTML SPECIFICI
 
 - `<h1>`, `<h2>`, `<h3>`, `<h4>`, `<h5>`, `<h6>`: titoli di primo, secondo, terzo, quarto, quinto e sesto livello
-```html
-<h1>Titolo di primo livello</h1>
-<h2>Titolo di secondo livello</h2>
-<h3>Titolo di terzo livello</h3>
-<h4>Titolo di quarto livello</h4>
-<h5>Titolo di quinto livello</h5>
-<h6>Titolo di sesto livello</h6>
-```
+  
+  ```html
+  <h1>Titolo di primo livello</h1>
+  <h2>Titolo di secondo livello</h2>
+  <h3>Titolo di terzo livello</h3>
+  <h4>Titolo di quarto livello</h4>
+  <h5>Titolo di quinto livello</h5>
+  <h6>Titolo di sesto livello</h6>
+  ```
 
 - `<p>`: paragrafo
-```html
-<p>Questo è un paragrafo.</p>
-```
+  
+  ```html
+  <p>Questo è un paragrafo.</p>
+  ```
 
 - `<img>`: immagine
-```html
-<img src="immagine.jpg" alt="Testo alternativo">
-```
+  
+  ```html
+  <img src="immagine.jpg" alt="Testo alternativo">
+  ```
 
 - `<a>`: link
-```html
-<a href="https://www.google.com">Questo è un link</a>
-```
+  
+  ```html
+  <a href="https://www.google.com">Questo è un link</a>
+  ```
 
 - `<ul>`, `<ol>`, `<li>`: elenco non ordinato, elenco ordinato, elemento dell'elenco
-```html
-<ul>
+  
+  ```html
+  <ul>
     <li>Elemento 1</li>
     <li>Elemento 2</li>
-</ul>
-<ol>
+  </ul>
+  <ol>
     <li>Elemento 1</li>
     <li>Elemento 2</li>
-</ol>
-```
+  </ol>
+  ```
 
 - `<table>`, `<tr>`, `<th>`, `<td>`: tabella, riga, intestazione di colonna, cella
-```html
-<table>
+  
+  ```html
+  <table>
     <tr>
         <th>Intestazione 1</th>
         <th>Intestazione 2</th>
@@ -158,124 +178,136 @@ Il tag `<body>` contiene il contenuto del documento, come testo, immagini, link,
         <td>Cella 2</td>
         <td>Cella 3</td>
     </tr>
-</table>
-```
+  </table>
+  ```
 
 - `<div>`, `<span>`: divisione, span
-```html
-<div>Questo è un blocco di testo.</div>
-<span>Questo è un testo in linea.</span>
-```
+  
+  ```html
+  <div>Questo è un blocco di testo.</div>
+  <span>Questo è un testo in linea.</span>
+  ```
 
 - collegamenti a sezioni specifiche della pagina come in caso di landing page
-```html
-<a href="#sezione1">Vai alla sezione 1</a>
-<a name="sezione1">Sezione 1</a>
-```
+  
+  ```html
+  <a href="#sezione1">Vai alla sezione 1</a>
+  <a name="sezione1">Sezione 1</a>
+  ```
 
 La differenza tra `<div>` e `<span>` è che `<div>` è un blocco di testo e `<span>` è un testo in linea.
 
 # TAG HTML PER FORM
 
 - `<form>`, `<input>`, `<textarea>`, `<button>`, `<select>`, `<option> : form, input, textarea, button, select, option
-```html
-<form action="/action_page.php">
+  
+  ```html
+  <form action="/action_page.php">
     <label for="fname">Nome:</label>
     <input type="text" id="fname" name="fname"><br><br>
     <label for="lname">Cognome:</label>
     <input type="text" id="lname" name="lname"><br><br>
     <input type="submit" value="Invia">
-</form>
-```
+  </form>
+  ```
 
 # IMPOSTAZIONE ATTRIBUTI TRAMITE HTML
 
 Gli attributi sono informazioni aggiuntive sui tag HTML che possono modificare il comportamento o l'aspetto del tag.
 
 - `id`: identificatore univoco per un elemento
-```html
-<p id="paragrafo">Questo è un paragrafo.</p>
-```
+  
+  ```html
+  <p id="paragrafo">Questo è un paragrafo.</p>
+  ```
 
 - `class`: classe di un elemento
-```html
-<p class="paragrafo">Questo è un paragrafo.</p>
-```
+  
+  ```html
+  <p class="paragrafo">Questo è un paragrafo.</p>
+  ```
 
 - `style`: stile CSS per un elemento
-```html
-<p style="color: red;">Questo è un paragrafo rosso.</p>
-```
+  
+  ```html
+  <p style="color: red;">Questo è un paragrafo rosso.</p>
+  ```
 
 - `src`: per immagini, collegamento a un'immagine
-```html
-<img src="immagine.jpg" alt="Testo alternativo">
-```
+  
+  ```html
+  <img src="immagine.jpg" alt="Testo alternativo">
+  ```
 
 - `href`: per link, collegamento a un URL
-```html
-<a href="https://www.google.com">Questo è un link</a>
-```
+  
+  ```html
+  <a href="https://www.google.com">Questo è un link</a>
+  ```
 
 - `alt`: testo alternativo per immagini
-```html
-<img src="immagine.jpg" alt="Testo alternativo">
-```
+  
+  ```html
+  <img src="immagine.jpg" alt="Testo alternativo">
+  ```
 
 - `title`: testo che appare quando si passa il mouse sopra un elemento
-```html
-<p title="Testo di descrizione">Questo è un paragrafo.</p>
-```
+  
+  ```html
+  <p title="Testo di descrizione">Questo è un paragrafo.</p>
+  ```
 
 - `type`: tipo di input per gli elementi `<input>`
-```html
-<input type="text">
-<input type="password">
-<input type="submit">
-<input type="checkbox">
-<input type="radio">
-<input type="file">
-<input type="hidden">
-<input type="reset">
-<input type="button">
-```
+  
+  ```html
+  <input type="text">
+  <input type="password">
+  <input type="submit">
+  <input type="checkbox">
+  <input type="radio">
+  <input type="file">
+  <input type="hidden">
+  <input type="reset">
+  <input type="button">
+  ```
 
 - `value`: valore di input per gli elementi `<input>`
-```html
-<input type="text" value="Valore di input">
-```
+  
+  ```html
+  <input type="text" value="Valore di input">
+  ```
 
 - `name`: nome di input per gli elementi `<input>`
-```html
-<input type="text" name="nome">
-```
+  
+  ```html
+  <input type="text" name="nome">
+  ```
 
 # CSS
+
 **Cascading Style Sheets**
 
 > Selettori:
 
-|HTML|CSS|
---|--
-|id="paragrafo"|#paragrafo { color: red; }
-class="paragrafo"| .paragrafo{ color: red; }
-Universali|*{ color: red; }
-Specifici|div{}, p{ color: red; }
-Nidificati| div p{ color: red; }
-Child| div> p { color: red; }
+| HTML              | CSS                        |
+| ----------------- | -------------------------- |
+| id="paragrafo"    | #paragrafo { color: red; } |
+| class="paragrafo" | .paragrafo{ color: red; }  |
+| Universali        | *{ color: red; }           |
+| Specifici         | div{}, p{ color: red; }    |
+| Nidificati        | div p{ color: red; }       |
+| Child             | div> p { color: red; }     |
 
 ## PROPRIETA' DEI CSS
 
-|SELETTORE|PROPRIETA|
---|--
-color:|red;
-background-color:|lightblue;
-font-family:|Arial, sans-serif;
-margin:|10px;
-padding:|10px;
-width:|100px;
-
-
+| SELETTORE         | PROPRIETA          |
+| ----------------- | ------------------ |
+| color:            | red;               |
+| background-color: | lightblue;         |
+| font-family:      | Arial, sans-serif; |
+| margin:           | 10px;              |
+| padding:          | 10px;              |
+| width:            | 100px;             |
 
 # CSS
 
@@ -285,160 +317,184 @@ Questo include il layout, i colori e i font.
 I CSS possono essere applicati in tre modi:
 
 - Inline: applicato direttamente all'elemento
-```html
-<p style="color: red;">Questo è un paragrafo rosso.</p>
-```
+  
+  ```html
+  <p style="color: red;">Questo è un paragrafo rosso.</p>
+  ```
 
 - Internal: applicato all'interno del tag `<style>` nel tag `<head>`
-```html
-<style>
+  
+  ```html
+  <style>
     body {
         background-color: lightblue;
     }
-</style>
-```
+  </style>
+  ```
 
 - External: collegato a un file CSS esterno
-```html
-<link rel="stylesheet" type="text/css" href="style.css">
-```
+  
+  ```html
+  <link rel="stylesheet" type="text/css" href="style.css">
+  ```
 
 # SELETTORE CSS
 
 I selettori CSS vengono utilizzati per selezionare gli elementi HTML a cui si desidera applicare uno stile.
 
 - Selettore di tipo: seleziona tutti gli elementi di un determinato tipo
-```css
-p {
+  
+  ```css
+  p {
     color: red;
-}
-```
+  }
+  ```
 
 - Selettore di classe: seleziona tutti gli elementi con una determinata classe
-```css
-.paragrafo {
+  
+  ```css
+  .paragrafo {
     color: red;
-}
-```
+  }
+  ```
 
 - Selettore di ID: seleziona un elemento con un determinato ID
-```css
-#paragrafo {
+  
+  ```css
+  #paragrafo {
     color: red;
-}
-```
+  }
+  ```
 
 - Selettore universale: seleziona tutti gli elementi
-```css
+  ```css
 * {
     color: red;
     text-decoration: none;
-}
-```
-
+  }
+  
+  ```
+  
+  ```
 - Selettore discendente: seleziona un elemento figlio di un altro elemento 
-> il selettore selezionerà tutti i paragrafi figli di un div
-```css
-div p {
+  
+  > il selettore selezionerà tutti i paragrafi figli di un div
+  
+  ```css
+  div p {
     color: red;
-}
-```
+  }
+  ```
 
 - Selettore figlio: seleziona un elemento figlio di un altro elemento
-> il selettore selezionerà tutti i paragrafi figli diretti di un div
-```css
-div > p {
+  
+  > il selettore selezionerà tutti i paragrafi figli diretti di un div
+  
+  ```css
+  div > p {
     color: red;
-}
-```
+  }
+  ```
 
 # PROPRIETÀ CSS
 
 Le proprietà CSS vengono utilizzate per definire lo stile di un elemento HTML.
 
 - `color`: colore del testo
-```css
-p {
+  
+  ```css
+  p {
     color: red;
-}
-```
+  }
+  ```
 
 - `background-color`: colore di sfondo
-```css
-body {
+  
+  ```css
+  body {
     background-color: lightblue;
-}
-```
+  }
+  ```
 
 - `font-family`: famiglia di caratteri
-```css
-p {
+  
+  ```css
+  p {
     font-family: Arial, sans-serif;
-}
-```
+  }
+  ```
 
 - `font-size`: dimensione del carattere
-```css
-p {
+  
+  ```css
+  p {
     font-size: 16px;
-}
-```
+  }
+  ```
 
 - `font-weight`: spessore del carattere
-```css
-p {
+  
+  ```css
+  p {
     font-weight: bold;
-}
-```
+  }
+  ```
 
 - `text-align`: allineamento del testo
-```css
-p {
+  
+  ```css
+  p {
     text-align: center;
-}
-```
+  }
+  ```
 
 - `text-decoration`: decorazione del testo
-```css
-a {
+  
+  ```css
+  a {
     text-decoration: none;
-}
-```
+  }
+  ```
 
 - `border`: bordo
-```css
-div {
+  
+  ```css
+  div {
     border: 1px solid black;
-}
-```
+  }
+  ```
 
 - `margin`: margine esterno
-```css
-div {
+  
+  ```css
+  div {
     margin: 10px;
-}
-```
+  }
+  ```
 
 - `padding`: margine interno
-```css
-div {
+  
+  ```css
+  div {
     padding: 10px;
-}
-```
+  }
+  ```
 
 - `width`: larghezza
-```css
-div {
+  
+  ```css
+  div {
     width: 100px;
-}
-```
+  }
+  ```
 
 - `height`: altezza
-```css
-div {
+  
+  ```css
+  div {
     height: 100px;
-}
-```
+  }
+  ```
 
 # Tipi di unità di misura (il viewport e la parte visibile della pagina)
 

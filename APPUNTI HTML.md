@@ -1,8 +1,11 @@
 # HTML 5
 
+
+
 L'HTML 5 è dinamico, a differenza dell'HTML normale.
 
 Incorpora componenti aggiuntivi come:
+
 - Il canvas permette di inserire delle grafiche vettoriali (.svg)
 - base di dati (.txt, .json)
 
@@ -13,9 +16,8 @@ W3C è un organismo che da direttive/standard che i produttori dei browser vanno
 
 Dev'essere tutto relativo e non assoluto, come riferimento l'elemento che lo contiene.
 
-
 ## APPUNTI FLEXBOX FROGGY:
- 
+
 `justify-content`
 
 - `flex-start`: Allinea gli elementi alla sinistra del contenitore.
@@ -23,6 +25,7 @@ Dev'essere tutto relativo e non assoluto, come riferimento l'elemento che lo con
 - `center`: Allinea gli elementi al centro del contenitore.
 - `space-between`: Separa gli elementi con uguale spazio tra di loro.
 - `space-around`: Separa gli elementi con uguale spazio attorno ad essi.
+
 ---
 
 `align-items`
@@ -32,6 +35,7 @@ Dev'essere tutto relativo e non assoluto, come riferimento l'elemento che lo con
 - `center`: Centra gli elementi verticalmente.
 - `baseline`: Gli elementi vengono disposti in modo da allineare le loro linee di base.
 - `stretch`: Gli elementi sono allungati per occupare tutto il contenitore.
+
 ---
 
 `flex-direction`
@@ -43,7 +47,6 @@ Dev'essere tutto relativo e non assoluto, come riferimento l'elemento che lo con
 
 ---
 
-
 # Media Query più utilizzate
 
 - 576px: dispositivi mobili (max-width)
@@ -53,6 +56,7 @@ Dev'essere tutto relativo e non assoluto, come riferimento l'elemento che lo con
 - da 1400px (min-width: 1401px;)
 
 ---
+
 # Best practice CSS
 
 ```css
@@ -91,13 +95,14 @@ Dev'essere tutto relativo e non assoluto, come riferimento l'elemento che lo con
     </footer>
 </body>
 ```
+
 ---
+
 # ATTRIBUTI PERSONALIZZATI CSS
 
 `:nth-child(n)` - selettore dove `n` è l'indice dell'oggetto box (1 è il primo, 2 è il secondo, 3 è il terzo e così via)
 
 ```css
-
 .box{
     display: flex;
 }
@@ -114,3 +119,56 @@ Dev'essere tutto relativo e non assoluto, come riferimento l'elemento che lo con
     flex: 2;
 }
 ```
+
+# BOOTSTRAP
+
+E' un web framework (cioè ambiente di sviluppo dedicato a un task specifico). Ci mette a disposizione una serie di strumenti preformattati affinché la progettazione sia più rapida. **E' da considerare come un gestore di CSS.**
+
+
+
+Quando si usa Boostrats la divisione massima è di 12 colonne .
+
+
+
+Contiene componenti javascript già pronti ( esempio: menu dinamico e interattivo )
+
+
+
+Vantaggi:
+
+- Molto documentato
+
+[Get started with Bootstrap · Bootstrap v5.3](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
+
+
+
+### Passo 1: INSERIRE CDN
+
+- inserire i CDN links all'interno del tag `<head>` (versione attuale 5.3.3)
+  
+  | Description | URL                                                                            |
+  | ----------- | ------------------------------------------------------------------------------ |
+  | CSS         | `https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css`      |
+  | JS          | `https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js` |
+
+Per aggiornare bootstrap serve sostituire manualmente i CDN nell'HTML.
+
+
+
+Esistono CDN anche per le icone.
+
+
+
+### Da studiarsi:
+
+- Breakpoints
+
+- Grid
+
+- Columns
+
+- Select
+
+- Validation
+
+- Form
