@@ -892,3 +892,9 @@ if (Console.KeyAvailable) {
 ```
 
 </details>
+
+---
+
+# FILE
+
+> Da completare prossimamente con metodi di file, usando i .txt (leggi i README.md dei progetti che contiene l'implementazione della persistenza dei dati)

@@ -2,6 +2,7 @@
 //                      INDOVINA NUMERO v1.8 con funzioni
 /******************************************************************************/
 
+using System.ComponentModel;
 using System.Security.Principal;
 
 //! MAIN
@@ -27,6 +28,7 @@ Dictionary<string, int> Score = new Dictionary<string, int>();
 Dictionary<int, int> ScoreTentativi = new Dictionary<int, int>();
 Dictionary<string, List<int>> playerElencoNumeriSbagliati = new Dictionary<string, List<int>>();
 string nomeFile;
+bool primoAccesso = true;
 do //>  LOOP MAIN
 {
     Console.Clear();
@@ -44,7 +46,7 @@ do //>  LOOP MAIN
     string nomePlayer = Console.ReadLine();
 
     // creo funzione per inizializzare file .txt
-    nomeFile = CreoFile(nomePlayer);
+    // nomeFile = CreoFile(nomePlayer);
 
     do
     {
@@ -107,7 +109,7 @@ do //>  LOOP MAIN
             {
                 // Decremento tentativi
                 numeroTentativi--;
-                nomeFile = SalvaTentativi(numeroUtente, nomeFile);
+                //SalvaTentativi(numeroUtente, nomePlayer);
                 Console.Clear();
                 Console.WriteLine($"Mmm... Sbagliato :( Ora hai {numeroTentativi} tentativi...");
 
@@ -140,6 +142,16 @@ do //>  LOOP MAIN
         Console.WriteLine($"Hai totalizzato {punteggioTemp} punti nel {nRound + 1}^ round");
         playerElencoNumeriSbagliati.Add(nomePlayer, tuttiTentativi);
 
+        if (File.Exists($"{nomePlayer}.txt"))
+        {
+            SalvaTentativi(tuttiTentativi, nomePlayer, primoAccesso);
+        }
+        else
+        {
+            primoAccesso = true;
+            SalvaTentativi(tuttiTentativi, nomePlayer, primoAccesso);
+        }
+        
         foreach (var score in playerElencoNumeriSbagliati)
         {
             Console.WriteLine($"\nPlayer: {score.Key}\nHai provato: [{string.Join(", ", score.Value)}]\n");
@@ -189,6 +201,7 @@ do //>  LOOP MAIN
     punteggioGiocatore = 0;
     punteggioTemp = 0;
     sommaNumeroDiTentativi = 0;
+    
 
 } while (risposta == "S"); //> FINE MAIN LOOP
 
@@ -330,16 +343,30 @@ void StampaNumeriSbagliati(List<int> numeriTentatiSbagliati)
 
 }
 
-string CreoFile(string nomeUtente)
-{
-    string nomeFile = nomeUtente + ".txt";
-    File.Create(nomeFile).Close();
+// string CreoFile(string nomeUtente)
+// {
+//     string nomeFile = nomeUtente + ".txt";
+//     File.Create(nomeFile).Close();
 
-    return nomeFile;
-}
+//     return nomeFile;
+// }
 
-string SalvaTentativi(int numero, string file)
+void SalvaTentativi(List<int> numeri, string nomePlayer, bool primoAccesso)
 {
-    File.AppendAllText(file, numero + ", ");
-    return file;
+    using (StreamWriter sw = new StreamWriter($"{nomePlayer}.txt"))
+    {
+
+        foreach (int numero in numeri )
+        {
+            if (primoAccesso)
+            {
+            sw.WriteLine(DateTime.Now.ToString("dd-MM-yyyy-HH:mm"));
+            }
+            primoAccesso= false;
+            sw.WriteLine($"{numero}");
+        }
+        
+    }
+
+    // return file;
 }

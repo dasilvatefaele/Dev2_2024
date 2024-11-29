@@ -19,3 +19,35 @@ git push -u origin main
 ---
 
 > Versione 2
+
+## Implementazioni 
+- Usare lo `using` e il costruttore `new StreamWriter` per scrivere su un file.
+- Stampo il timestamp all'interno del file al primo accesso
+
+```csharp
+void SalvaTentativi(List<int> numeri, string nomePlayer, bool primoAccesso)
+{
+    using (StreamWriter sw = new StreamWriter($"{nomePlayer}.txt"))
+    {
+
+        foreach (int numero in numeri )
+        {
+            if (primoAccesso)
+            {
+            sw.WriteLine(DateTime.Now.ToString("dd-MM-yyyy-HH:mm"));
+            }
+            primoAccesso= false;
+            sw.WriteLine($"{numero}");
+        }
+        
+    }
+
+}
+```
+
+
+```powershell
+git add --all
+git commit -m "Indovina numero con txt v2"
+git push -u origin main
+```
