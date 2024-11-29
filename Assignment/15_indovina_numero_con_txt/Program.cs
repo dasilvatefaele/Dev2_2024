@@ -368,5 +368,4 @@ void SalvaTentativi(List<int> numeri, string nomePlayer, bool primoAccesso)
         
     }
 
-    // return file;
 }
