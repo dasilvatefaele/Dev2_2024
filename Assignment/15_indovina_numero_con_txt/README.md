@@ -10,6 +10,9 @@ Implementare la persistenza del gioco "indovina numero" su un file di testo (ver
 
 - Il programma chiede all'utente di inserire il proprio nome ed usa il nome (input utente) per creare un file di testo con il nome dell'utente (esempio "nomeutente.txt")
 
+
+> Versionamento:
+
 ```powershell
 git add --all
 git commit -m "Indovina numero con txt v1"
@@ -20,7 +23,7 @@ git push -u origin main
 
 > Versione 2
 
-## Implementazioni 
+## Implementazioni:
 - Usare lo `using` e il costruttore `new StreamWriter` per scrivere su un file.
 - Stampo il timestamp all'interno del file al primo accesso
 
@@ -45,9 +48,29 @@ void SalvaTentativi(List<int> numeri, string nomePlayer, bool primoAccesso)
 }
 ```
 
+> Versionamento:
 
 ```powershell
 git add --all
 git commit -m "Indovina numero con txt v2"
+git push -u origin main
+```
+
+---
+
+> Versione 3
+
+## Implementazioni:
+
+-
+-
+-
+
+
+> Versionamento:
+
+```powershell
+git add --all
+git commit -m "Indovina numero con txt v3"
 git push -u origin main
 ```

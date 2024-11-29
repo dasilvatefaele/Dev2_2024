@@ -84,6 +84,60 @@ else
 {
     //do that;
 }
+
+//Ottenere info su un file
+FileInfo info = new FileInfo (path);
+Console.WriteLine (info.Lenght);
+Console.WriteLine (info.CreationTime);
+
+// fare riferimento solo al nome del file senza il path
+string filename = Path.GetFileName(path);
+Console.WriteLine (fileName);
+
+// fare riferimento solo all'estensione del file
+string extension = Path.GetExtension(path);
+Console.WriteLine (extension);
+
+// fare riferimento solo al nome del file senza l'estensione
+string fileNameWithouthExtension = Path.GetFileNameWithoutExtension(path);
+Console.WriteLine (fileNameWithouthExtension);
+
+// creare la copia di un file
+string copyPath = Path.Combine (dir, "text.txt");
+File.Copy(path, copyPath);
+
+// spostare un file
+string movePath = Path.Combine(dir, "test2.txt");
+File.Move(copyPath, movePath);
+
+// Eliminare un file
+File.Delete(movePath);
+
+//eliminare una dir e tutti i file e dir che ci sono al suo interno
+Directory.Delete(dir, true);
+
+// eliminare tutti i file di una dir
+string[] files = Directory.GetFiles(dir);
+foreach (string file in files)
+{
+    File.Delete(file);
+}
+
+// eliminare tutti i file e le dir in una dir 
+string[] all = Directory.GetFileSystemEntries(dir);
+foreach (string a in all)
+{
+    if (File.Exist(a))
+    {
+        File.Delete(a);
+    }
+    else
+    {
+        Directory.Delete(a,true);
+    }
+}
+
+
 ```
 
 ## METODI DIRECTORY

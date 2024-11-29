@@ -353,19 +353,35 @@ void StampaNumeriSbagliati(List<int> numeriTentatiSbagliati)
 
 void SalvaTentativi(List<int> numeri, string nomePlayer, bool primoAccesso)
 {
-    using (StreamWriter sw = new StreamWriter($"{nomePlayer}.txt"))
+    if (!File.Exists(nomePlayer)) // se il file non esiste crealo, e usa il primo accesso
     {
+        using (StreamWriter sw = new StreamWriter($"{nomePlayer}.txt"))
+        {
 
+            foreach (int numero in numeri )
+            {
+                if (primoAccesso) // primo accesso
+                {
+                sw.WriteLine($"{DateTime.Now.ToString("dd-MM-yyyy-HH:mm")}");
+                }
+                primoAccesso= false;
+                sw.WriteLine($"{numero}");
+            }
+        }
+    }
+    else // se il file già esiste usa primo accesso come nuovo accesso, solo una volta
+    {   
+        primoAccesso = true;
         foreach (int numero in numeri )
         {
             if (primoAccesso)
             {
-            sw.WriteLine(DateTime.Now.ToString("dd-MM-yyyy-HH:mm"));
+                File.AppendAllText(nomePlayer, $"{DateTime.Now.ToString("dd-MM-yyyy-HH:mm")}");
             }
             primoAccesso= false;
-            sw.WriteLine($"{numero}");
+            File.AppendAllText(nomePlayer, numero.ToString());
         }
-        
     }
+    
 
 }
