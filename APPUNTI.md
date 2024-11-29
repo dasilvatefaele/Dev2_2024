@@ -1,12 +1,11 @@
 # Strutture Di Dati e Metodi
 
-
 <details>
 <Summary> 💬 </Summary>
 
 # STRINGHE
 
-### `VARIABILE_STRINGA.Length` 
+### `VARIABILE_STRINGA.Length`
 
 restituisce la lunghezza
 
@@ -14,8 +13,10 @@ restituisce la lunghezza
 string nome2 = "abcd";
 int lunghezza = nome2.Length; // lunghezza = 4
 ```
+
 ---
-### `string.isNullOrWhiteSpace( VARIABILE_STRINGA )` 
+
+### `string.isNullOrWhiteSpace( VARIABILE_STRINGA )`
 
 restituisce booleano se c'è o meno un valore null o uno spazio vuoto
 
@@ -23,34 +24,46 @@ restituisce booleano se c'è o meno un valore null o uno spazio vuoto
 string nome3 = "Nome1";
 bool check = string.IsNullOrWhiteSpace(nome3); // check = false
 ```
+
 ---
-### `VARIABILE_STRINGA.ToLower()` 
+
+### `VARIABILE_STRINGA.ToLower()`
 
 restituisce stringa in minuscolo
+
 ```csharp
 string nome4 = "NOME1";
 string minuscolo = nome4.ToLower();   //  minuscolo = "nome1"
 ```
+
 ---
-### `VARIABILE_STRINGA.ToUpper()` 
+
+### `VARIABILE_STRINGA.ToUpper()`
 
 restituisce stringa in maiuscolo
+
 ```csharp
 string minuscolo = "nome1";
 string maiuscolo = minuscolo.ToUpper();     // maiuscolo = "NOME1"
 ```
+
 ---
-### `VARIABILE_STRINGA.Trim()` 
+
+### `VARIABILE_STRINGA.Trim()`
 
 rimuove gli spazi bianchi all'inizio e alla fine di una stringa
+
 ```csharp
 string nome6 = "   Nome1   ";
 nome6 = nome6.Trim();        // nome6 = "Nome1"
 ```
+
 ---
-### `VARIABILE_STRINGA.Split( 'CARATTERE_CHAR' )` 
+
+### `VARIABILE_STRINGA.Split( 'CARATTERE_CHAR' )`
 
 separa la stringa usando l'argomento come punto di interruzione 
+
 ```csharp
 string nome7 = "Nome1,Nome2,Nome3";
 string[] nomi3 = nome7.Split(',');
@@ -59,14 +72,18 @@ foreach (string oggetto in nomi3)
     Console.WriteLine(oggetto);
 }
 ```
+
 > output:
+
 ```
 Nome1
 Nome2
 Nome3
 ```
+
 ---
-### `VARIABILE_STRINGA.Replace( "STRINGA_A","STRINGA_B" )` 
+
+### `VARIABILE_STRINGA.Replace( "STRINGA_A","STRINGA_B" )`
 
 sostituisce una sottostringa (STRINGA_A) con un altra sotostringa (STRINGA_B)
 
@@ -74,8 +91,10 @@ sostituisce una sottostringa (STRINGA_A) con un altra sotostringa (STRINGA_B)
 string nome8 = "Nome1";
 Console.WriteLine(nome8.Replace("Nome1","Nome2"));
 ```
+
 ---
-### `VARIABILE_STRINGA.SubString( int INDEX_INIZIALE, int LUNGHEZZA_STRINGA )` 
+
+### `VARIABILE_STRINGA.SubString( int INDEX_INIZIALE, int LUNGHEZZA_STRINGA )`
 
 restituisce una sottostringa (parte dallo 0 e lo fa per 3 caratteri)
 
@@ -83,24 +102,30 @@ restituisce una sottostringa (parte dallo 0 e lo fa per 3 caratteri)
 string nome9="Nome1";
 Console.WriteLine(nome9.Substring(0,3)); //output: Nom
 ```
+
 ---
 
-### `VARIABILE_STRINGA.Contains( "STRINGA_DA_CERCARE" )` 
+### `VARIABILE_STRINGA.Contains( "STRINGA_DA_CERCARE" )`
 
 Verifica se una string continuene una sottostringa
+
 ```csharp
 string nome10 = "Nome1";
 bool contiene = nome10.Contains("Nom"); // contiene = true
 ```
+
 ---
-### `VARIABILE_STRINGA.IndexOf( "subStringaDaCercare" )` 
+
+### `VARIABILE_STRINGA.IndexOf( "subStringaDaCercare" )`
 
 restituisce l'indice della prima occorrenza di una sottostringa. se lo trova restituisce 0. se non trova la sottostringa restituisce -1
+
 ```csharp
 string nome11 = "Nome1";
 Console.WriteLine(nome10.IndexOf("Nome1")); 
 // output: 0
 ```
+
 ---
 
 ### `VARIABILE_STRINGA.LastIndexOf("o") `
@@ -114,7 +139,9 @@ int index = nome12.LastIndexOf("o");
 // in questo caso la "o" si trova in posizione 3 
 // partendo dalla fine della stringa
 ```
+
 ---
+
 ### `VARIABILE_STRINGA.StartsWith( "C" )`
 
 restituisce true-false se la stringa inizia con la lettera stringa nell'argomento
@@ -123,7 +150,9 @@ restituisce true-false se la stringa inizia con la lettera stringa nell'argoment
 string nome13 = "Nome1";
 bool check = nome13.StartsWith("N"); // check = true
 ```
+
 ---
+
 ### `VARIABILE_STRINGA.EndsWith( "1" )`
 
 restituisce true-false se l'ultima lettera/substringa della stringa in esame è uguale all'argomento
@@ -132,7 +161,9 @@ restituisce true-false se l'ultima lettera/substringa della stringa in esame è 
 string nome14 = "Nome1";
 bool check = nome14.EndsWith("1"); // check = true
 ```
+
 ---
+
 ### `VARIABILE_NUMERICA.ToString()`
 
 converte un tipo di dato in stringa. dovrebbe funzionare con int, double, char ecc...
@@ -141,8 +172,8 @@ converte un tipo di dato in stringa. dovrebbe funzionare con int, double, char e
 int eta3 = 10;
 string etaInString = eta3.ToString(); // etaInString = "10"
 ```
----
 
+---
 
 ### `string.Join("SEPARATORE", DATO_REITERABILE)`
 
@@ -167,7 +198,6 @@ Console.WriteLine(int.Parse(eta4));
 
 ---
 
-
 ### `int.TryParse( STRINGA_DA_CONVERTITRE, out DATO_CONVERTITO )`
 
 converte una stringa in un tipo di dato e restituisce un valore booleano che indica la conversione riuscita. se la conversione è riuscita il valore viene salvata nella variabile di riferimento `datoConvertito`
@@ -180,9 +210,7 @@ bool riuscita = int.TryParse (eta4, out etaConvertita) // riuscita = true
 
 ---
 
-
 ### `Convert.ToInt32( STRINGA_CON_NUMERO_DA_CONVERTIRE )`
-
 
 converte un tipo di dato in un altro tipo di dato. se la conversione non è riuscita viene generata un'ecezzione di tipo InvalidCastException ed il programma si blocca
 
@@ -190,10 +218,10 @@ converte un tipo di dato in un altro tipo di dato. se la conversione non è rius
 string eta7 = "10";
 int convertito = Convert.ToInt32(eta7); // convertito = 10
 ```
+
 ---
 
-
-### `conversione implicita` : 
+### `conversione implicita` :
 
 possibile da `int` a `double`, non da `double` a `int`
 
@@ -208,7 +236,9 @@ double altezza3 = eta8;
 double altezza4 = 1.70;
 int eta9 = (int)altezza4;
 ```
+
 ---
+
 ### `tipi e concatenazioni`
 
 ```csharp
@@ -222,18 +252,15 @@ string cognome1 = "Rossi";
 Console.WriteLine(string.Format ("{0} {1}", nome15, cognome1));
 ```
 
-
-
 </details>
 
 ---
+
 <details>
 <summary>📝</summary>
 
 # LISTE
 
-
- 
 ### `VARIABILE_LISTA.Count`
 
 restituisce il numero di elementi di una lista
@@ -242,18 +269,19 @@ restituisce il numero di elementi di una lista
 var lista1 = new List<int> { 1, 2, 3, 4, 5 }; 
 int numeroDiElementi = lista1.Count; // <--
 ```
+
 ---
 
 ### `VARIABILE_LISTA.Add( ELEMENTO_DA_AGGIUNGERE )`
 
  aggiunge un elemento alla fine di una lista
 
-
 ```csharp
 var lista = new List<int> { 1, 2, 3, 4, 5 }; 
 lista.Add(6); // aggiunge 6 alla fine di lista2
 Console.WriteLine(string.Join(", ", lista2)); // stampa lista2
 ```
+
 ---
 
 ### `LISTA_CONTENITORE.AddRange( LISTA_IN_CODA )`
@@ -266,9 +294,10 @@ var lista4 = new List<int> { 6, 7, 8, 9, 10 };
 lista3.AddRange(lista4); 
 // lista3 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }
 ```
+
 ---
 
-### `VARIABILE_LISTA.Clear()`  
+### `VARIABILE_LISTA.Clear()`
 
 cancella gli elementi di una lista
 
@@ -277,10 +306,10 @@ var lista5 = new List<int> { 1, 2, 3, 4, 5 };
 lista5.Clear();
 // lista5 = { }
 ```
+
 ---
 
-
-### `VARIABILE_LISTA.Contains( VALORE )` 
+### `VARIABILE_LISTA.Contains( VALORE )`
 
 restituisce true-false se una lista contiene un elemento
 
@@ -289,9 +318,10 @@ var lista6 = new List<int> { 1, 2, 3, 4, 5 };
 bool check = lista6.Contains(3); 
 // check = true
 ```
+
  ---
 
-### `VARIABILE_LISTA.IndexOf( VALORE )` 
+### `VARIABILE_LISTA.IndexOf( VALORE )`
 
 restituisce l'indice di un elemento di una lista. se l'elemento non c'è restituisce -1
 
@@ -303,9 +333,10 @@ int index = lista7.IndexOf(3);
 int index = lista7.IndexOf(8);
 // index = -1
 ```
+
 ---
 
-### `VARIABILE_LISTA.Remove( VALORE )` 
+### `VARIABILE_LISTA.Remove( VALORE )`
 
 cancella la prima occorrenza di un elemento di una lista
 
@@ -314,6 +345,7 @@ var lista8 = new List<int> { 1, 2, 3, 4, 5 };
 lista8.Remove(3); 
 // lista8 = { 1, 2, 4, 5 } 
 ```
+
 ---
 
 ### `VARIABILE_LISTA.RemoveAt( INDEX )`
@@ -325,19 +357,19 @@ var lista9 = new List<int> { 1, 2, 3, 4, 5 };
 lista9.RemoveAt(2); 
 // lista9 = { 1, 2, 4, 5}
 ```
----
 
+---
 
 ### `VARIEBILE_LISTA.Sort();`
 
 ordina gli elementi di una lista
-
 
 ```csharp
 var lista10 = new List<int> { 5, 3, 1, 4, 2 }; 
 lista10.Sort(); 
 // lista10 = { 1, 2, 3, 4, 5}
 ```
+
  ---
 
 ### `var[] ARRAY = VARIABILE_LISTA.ToArray();`
@@ -349,6 +381,7 @@ var lista11 = new List<int> { 1, 2, 3, 4, 5 };
 int[] array = lista11.ToArray(); 
 // array = [ 1, 2, 3, 4, 5 ]
 ```
+
 ---
 
 ### `VARIABILE_LISTA.TrimExcess();`
@@ -361,7 +394,7 @@ lista12.TrimExcess();
 Console.WriteLine(lista12.Capacity); 
 ```
 
-</details> 
+</details>
 
 ---
 
@@ -378,6 +411,7 @@ Restituisce il numero di coppie chiave-valore in un dizionario.
 var dizionario = new Dictionary<string, int> { {"A", 1}, {"B", 2} };
 int count = dizionario.Count; // count = 2
 ```
+
 ---
 
 ### `VARIABILE_DIZIONARIO.Add( CHIAVE, VALORE )`
@@ -389,6 +423,7 @@ var dizionario = new Dictionary<string, int>();
 dizionario.Add("C", 3); 
 // dizionario = { {"C", 3} }
 ```
+
 ---
 
 ### `VARIABILE_DIZIONARIO.Remove( CHIAVE )`
@@ -400,6 +435,7 @@ var dizionario = new Dictionary<string, int> { {"A", 1}, {"B", 2} };
 dizionario.Remove("A");
 // dizionario = { {"B", 2} }
 ```
+
 ---
 
 ### `VARIABILE_DIZIONARIO.ContainsKey( CHIAVE )`
@@ -409,6 +445,7 @@ Verifica se una chiave è presente.
 ```csharp
 bool contiene = dizionario.ContainsKey("B"); // contiene = true
 ```
+
 ---
 
 ### `VARIABILE_DIZIONARIO.ContainsValue( VALORE )`
@@ -418,6 +455,7 @@ Verifica se un valore è presente.
 ```csharp
 bool contiene = dizionario.ContainsValue(2); // contiene = true
 ```
+
 ---
 
 ### `VARIABILE_DIZIONARIO.TryGetValue( CHIAVE, out VALORE )`
@@ -428,6 +466,7 @@ Restituisce `true` se trova la chiave, e assegna il valore corrispondente a `VAL
 int valore;
 bool trovato = dizionario.TryGetValue("B", out valore); // trovato = true, valore = 2
 ```
+
 ---
 
 ### `VARIABILE_DIZIONARIO.Clear()`
@@ -438,7 +477,6 @@ Rimuove tutte le coppie chiave-valore.
 dizionario.Clear();
 // dizionario = { }
 ```
-
 
 </details>
 
@@ -457,6 +495,7 @@ Restituisce la lunghezza dell'array.
 int[] numeri = {1, 2, 3};
 int lunghezza = numeri.Length; // lunghezza = 3
 ```
+
 ---
 
 ### `ARRAY.GetValue( INDICE )`
@@ -466,6 +505,7 @@ Restituisce il valore in un indice specifico.
 ```csharp
 int valore = numeri.GetValue(1); // valore = 2
 ```
+
 ---
 
 ### `ARRAY.SetValue( VALORE, INDICE )`
@@ -476,6 +516,7 @@ Assegna un valore a un indice specifico.
 numeri.SetValue(10, 1);
 // numeri = {1, 10, 3}
 ```
+
 ---
 
 ### `Array.Sort( ARRAY )`
@@ -486,6 +527,7 @@ Ordina un array in ordine crescente.
 Array.Sort(numeri);
 // numeri = {1, 2, 3}
 ```
+
 ---
 
 ### `Array.Reverse( ARRAY )`
@@ -496,6 +538,7 @@ Inverte l'ordine degli elementi.
 Array.Reverse(numeri);
 // numeri = {3, 2, 1}
 ```
+
 ---
 
 ### `Array.IndexOf( ARRAY, VALORE )`
@@ -505,6 +548,7 @@ Restituisce l'indice della prima occorrenza di un valore.
 ```csharp
 int index = Array.IndexOf(numeri, 2); // index = 1
 ```
+
 ---
 
 ### `Array.Clear( ARRAY, INDICE_INIZIALE, NUM_ELEMENTI )`
@@ -526,6 +570,7 @@ int[] array2 = new int[array1.Length];
 array1.CopyTo(array2, 0);
 // array2 = { 1, 2, 3, 4, 5 }
 ```
+
 </details>
 
 ---
@@ -542,6 +587,7 @@ Restituisce il valore assoluto.
 ```csharp
 int assoluto = Math.Abs(-5); // assoluto = 5
 ```
+
 ---
 
 ### `Math.Pow( BASE, ESPONENTE )`
@@ -551,6 +597,7 @@ Restituisce la potenza.
 ```csharp
 double potenza = Math.Pow(2, 3); // potenza = 8
 ```
+
 ---
 
 ### `Math.Sqrt( VALORE )`
@@ -560,6 +607,7 @@ Restituisce la radice quadrata.
 ```csharp
 double radice = Math.Sqrt(16); // radice = 4
 ```
+
 ---
 
 ### `Math.Round( VALORE, CIFRE_DECIMALI )`
@@ -569,6 +617,7 @@ Arrotonda un valore.
 ```csharp
 double arrotondato = Math.Round(3.14159, 2); // arrotondato = 3.14
 ```
+
 ---
 
 ### `Math.Max( VAL1, VAL2 )` e `Math.Min( VAL1, VAL2 )`
@@ -579,7 +628,6 @@ Restituisce il maggiore/minore tra due valori.
 int massimo = Math.Max(10, 20); // massimo = 20
 int minimo = Math.Min(10, 20);  // minimo = 10
 ```
-
 
 </details>
 
@@ -598,6 +646,7 @@ Restituisce l'orario attuale o solo la data.
 DateTime now = DateTime.Now;  
 DateTime oggi = DateTime.Today;
 ```
+
 ---
 
 ### `TimeSpan`
@@ -610,11 +659,10 @@ DateTime today = DateTime.Today;
 DateTime dataDiNascita = new DateTime (1990,2,1)
 TimeSpan eta = today - dataDiNascita;
 ```
+
 ---
 
 ### `VAR_TIMESPAN.Days`
-
-
 
 ```csharp
 TimeSpan eta = today - dataDiNascita;
@@ -644,6 +692,7 @@ int anni = eta.Days/365;
 
 // restituiscono un double
 ```
+
 ---
 
 ## Formattazione
@@ -654,13 +703,16 @@ int anni = eta.Days/365;
 Console.WriteLine($"{today.ToLongDateString()}");
 // lunedi 18 novembre 2024
 ```
+
 ---
 
 ### `DATE_VAR.ToShortDateString()`
+
 ```csharp
 Console.WriteLine($"{today.ToShortDateString()}");
 // 18/11/2024
 ```
+
 ---
 
 ### `VARIABILE_DATETIME.ToString( FORMATO )`
@@ -670,6 +722,7 @@ Converte una data in stringa con formato specifico.
 ```csharp
 string formato = oggi.ToString("dd/MM/yyyy");
 ```
+
 ---
 
 ### `DATE_VAR.ToString( "FORMATO_PERSONALIZZATO" )`
@@ -698,11 +751,10 @@ Console.WriteLine($"{today.ToString("dd-MM-yyyy")}");
 // 18/11/2024
 ```
 
-
 Si può inserire una data e farci restituire il giorno della settimana corrispondente
 
-
 `.DayOfWeek` restituisce in inglese
+
 ```csharp
 Console.WriteLine(today.DayOfWeek);
 // monday 
@@ -717,18 +769,18 @@ Console.WriteLine("Il giorno della settimana è: " + (int)birthDate.DayOfYear);
 // (int)birthDate.DayOfYear restituisce il numero giorno dell'anno
 ```
 
-
-
 ---
+
 ### `VARIABILE_DATETIME.AddDays( NUM_di_GIORNI )`
+
 Aggiunge giorni a una data.  
 
 ```csharp
 DateTime futuro = today.AddDays(5);  
 // futuro = oggi + 5 giorni
 ```
----
 
+---
 
 ### `VARIABILE_DATETIME.AddMonths( NUM_di_MESI )`
 
@@ -738,6 +790,7 @@ Aggiunge mesi a una data.
 DateTime traTotMesi = today.AddMonths(3);  
 // traTotMesi = oggi + 3 mesi
 ```
+
 ---
 
 ### `VARIABILE_DATETIME.AddYears( NUM_di_ANNI )`
@@ -801,6 +854,7 @@ Stampa un messaggio o legge un input.
 Console.WriteLine("Inserisci il tuo nome:");
 string nome = Console.ReadLine();
 ```
+
 ---
 
 ### `Console.Clear()`
@@ -810,6 +864,7 @@ Pulisce la console.
 ```csharp
 Console.Clear();
 ```
+
 ---
 
 ### `Console.ForegroundColor` e `Console.BackgroundColor`
@@ -822,6 +877,7 @@ Console.BackgroundColor = ConsoleColor.Black;
 Console.WriteLine("Testo verde su sfondo nero");
 Console.ResetColor();
 ```
+
 ---
 
 ### `Console.KeyAvailable` e `Console.ReadKey()`

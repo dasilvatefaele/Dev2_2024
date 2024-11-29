@@ -1,7 +1,5 @@
 # HTML 5
 
-
-
 L'HTML 5 è dinamico, a differenza dell'HTML normale.
 
 Incorpora componenti aggiuntivi come:
@@ -124,23 +122,15 @@ Dev'essere tutto relativo e non assoluto, come riferimento l'elemento che lo con
 
 E' un web framework (cioè ambiente di sviluppo dedicato a un task specifico). Ci mette a disposizione una serie di strumenti preformattati affinché la progettazione sia più rapida. **E' da considerare come un gestore di CSS.**
 
-
-
 Quando si usa Boostrats la divisione massima è di 12 colonne .
 
-
-
 Contiene componenti javascript già pronti ( esempio: menu dinamico e interattivo )
-
-
 
 Vantaggi:
 
 - Molto documentato
 
 [Get started with Bootstrap · Bootstrap v5.3](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
-
-
 
 ### Passo 1: INSERIRE CDN
 
@@ -153,11 +143,7 @@ Vantaggi:
 
 Per aggiornare bootstrap serve sostituire manualmente i CDN nell'HTML.
 
-
-
 Esistono CDN anche per le icone.
-
-
 
 ### Da studiarsi:
 

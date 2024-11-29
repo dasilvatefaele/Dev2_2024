@@ -95,6 +95,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "15_metodi_files", "esercita
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "14_sorteggio_partecipanti_txt", "Assignment\14_sorteggio_partecipanti_txt\14_sorteggio_partecipanti_txt.csproj", "{42F64A59-AA45-4978-8E92-7CB4646FEC79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "15_indovina_numero_con_txt", "Assignment\15_indovina_numero_con_txt\15_indovina_numero_con_txt.csproj", "{2D58D860-2285-421F-8B13-474290CB1D2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -284,6 +286,10 @@ Global
 		{42F64A59-AA45-4978-8E92-7CB4646FEC79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42F64A59-AA45-4978-8E92-7CB4646FEC79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42F64A59-AA45-4978-8E92-7CB4646FEC79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D58D860-2285-421F-8B13-474290CB1D2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D58D860-2285-421F-8B13-474290CB1D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D58D860-2285-421F-8B13-474290CB1D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D58D860-2285-421F-8B13-474290CB1D2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CA0EEA04-5509-4E23-88B4-B86FE7EC9D43} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
@@ -332,5 +338,6 @@ Global
 		{343D9AD6-B6D1-4EBE-BC34-307AF2438257} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
 		{F10138BF-2DDF-44B5-870A-BBA0E14DDFD4} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
 		{42F64A59-AA45-4978-8E92-7CB4646FEC79} = {2E32A539-E6CA-4A43-8142-12F138192BBC}
+		{2D58D860-2285-421F-8B13-474290CB1D2B} = {2E32A539-E6CA-4A43-8142-12F138192BBC}
 	EndGlobalSection
 EndGlobal
