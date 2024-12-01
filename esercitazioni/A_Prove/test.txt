@@ -1,0 +1,5 @@
+cane
+gatto
+topo
+gallina
+mucca

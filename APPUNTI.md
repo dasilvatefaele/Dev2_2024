@@ -895,6 +895,232 @@ if (Console.KeyAvailable) {
 
 ---
 
+<details>
+<summary>📂</summary>
+
 # FILE
 
-> Da completare prossimamente con metodi di file, usando i .txt (leggi i README.md dei progetti che contiene l'implementazione della persistenza dei dati)
+
+### Task: Creare, Leggere, Scrivere da un file .txt
+
+NOTA: file deve essere contenuto/viene creato all'interno della directory del progetto
+
+---
+
+## LETTURA DI UN FILE
+
+```csharp
+string path = @"test.txt";
+// collego ad una variabile stringa il collegamento
+
+string[] lines = File.ReadAllLines(path);
+// legge tutte le righe e le mette in un array di stringhe
+
+foreach (string line in lines)
+{
+    Console.WriteLine(line); // stampo la riga
+}
+```
+
+<!-- OPPURE creo un nuovo array della stessa lunghezza
+
+```csharp
+//OPPURE creo un nuovo array della stessa lunghezza 
+string [] nomi = new string[lines.Length]; 
+for (int i = 0; i < lines.Length; i++)
+{
+    nomi[i] = lines[i];
+}
+
+foreach (string nome in nomi)
+{
+    Console.WriteLine(nome);
+}
+``` -->
+
+---
+
+## METODI DI FILE
+
+#### CREARE UN FILE
+
+### `File.Create(STRINGA_CON_NOME_FILE).Close()`
+
+```csharp
+// Creare un file - 
+// NOTA: "path" è un nome a qualsiasi che diamo noi a piacere 
+// alla nostra variabile stringa che contine il nome vero e proprio del file
+
+string path = @"test.txt"; // come string STRINGA_CON_NOME_FILE = @"test.txt", solo che qui la chiamo path
+File.Create(path).Close(); // creo il file chiamato test.txt, perché dentro "path" c'è scritto "text.txt"
+
+```
+
+#### CREARE UN FILE CON UN NOME PERSONALIZZATO
+
+
+
+```c#
+string nomeUtente = Console.ReadLine();     // leggo inserimento dell'utente e lo salvo in nomeUtente
+
+// ATTENZIONE AI PROSSIMI PASSAGGI: 
+string nomeFile = nomeUtente + ".txt"; 
+//     nomeFile è il nome della variabile stringa, che contiente nomeUtente (come l'esempio di string path)
+//     nomeUtente è il nome del file inserito dall'utente con Console.ReadLine(), poi concatenato con + ".txt"
+
+File.Create(nomeFile).Close(); // <---- creo il file (QuelloCheHaScrittolUtente).txt
+
+
+// STESSA OPERAZIONE, MODO ALTERNATIVO
+string nomeFile2 = $"@{nomeUtente}.txt"     // stessa identica cosa ma con la concatenazione di stringe usando il $
+File.Create(nomeFile2).Close();
+
+
+```
+---
+#### SOVRASCRIVERE UN FILE
+
+### `File.WriteAllText(STRING_NOME_FILE, VAR_DA_SCRIVERE); `
+
+```c#
+string path = @"test.txt";                      // "path" è una stringa che contiene il nome del file
+File.Create(path).Close();                      // creo il file chiamato "test.txt"
+File.WriteAllText(path, "Hello World!");        // sovrascrivo "Hello World!" dentro "test.txt"
+```
+
+#### SCRIVERE ALLA FINE DI UN FILE
+
+### `File.AppendAllText(STRING_NOME_FILE, VAR_DA_SCRIVERE);`
+```c#
+File.AppendAllText(path, "Hello World! \n" );   
+
+// se voglio AGGIUNGERE un testo alla fine di ciò che c'è già dentro "test.txt"
+// uso .AppendAllText
+// "\n" è come andare a capo premendo invio
+```
+#### STESSA OPERAZIONE, MODO ALTERNATIVO
+```c#
+File.AppendAllText(path, numero + "\n");  
+
+// IN QUESTO CASO viene scritto nel file qualunque numero ci sia scritto dentro la variabile "numero" 
+```
+---
+#### SCRIVO UNA LISTA DENTRO UN FILE
+
+### `File.AppendAllLines(STRING_NOME_FILE, VAR_LISTA);`
+
+```c#
+string path = @"test.txt";
+File.Create(path).Close();
+List<string> elencoDiAnimali = new List<string> { "cane", "gatto", "topo", "gallina", "mucca" };
+
+File.AppendAllLines(path, elencoDiAnimali); // <---
+// nel mio file chiamato "text.txt" troverò scritta la lista elencoDiAnimali
+```
+
+#### OPERAZIONI CON I FILE
+```C#
+// Leggere da un file
+string content = File.ReadAllText(path);
+
+// Copiare un file 
+string path2 = @"test2.txt";
+
+// Eliminare un file
+File.Delete(path2);
+
+// Controlla se un file esiste
+if(File.Exists(path))
+{
+    //do this;
+}
+else
+{
+    //do that;
+}
+
+//Ottenere info su un file
+FileInfo info = new FileInfo (path);
+Console.WriteLine (info.Lenght);
+Console.WriteLine (info.CreationTime);
+
+// fare riferimento solo al nome del file senza il path
+string filename = Path.GetFileName(path);
+Console.WriteLine (fileName);
+
+// fare riferimento solo all'estensione del file
+string extension = Path.GetExtension(path);
+Console.WriteLine (extension);
+
+// fare riferimento solo al nome del file senza l'estensione
+string fileNameWithouthExtension = Path.GetFileNameWithoutExtension(path);
+Console.WriteLine (fileNameWithouthExtension);
+
+// creare la copia di un file
+string copyPath = Path.Combine (dir, "text.txt");
+File.Copy(path, copyPath);
+
+// spostare un file
+string movePath = Path.Combine(dir, "test2.txt");
+File.Move(copyPath, movePath);
+
+// Eliminare un file
+File.Delete(movePath);
+
+//eliminare una dir e tutti i file e dir che ci sono al suo interno
+Directory.Delete(dir, true);
+
+// eliminare tutti i file di una dir
+string[] files = Directory.GetFiles(dir);
+foreach (string file in files)
+{
+    File.Delete(file);
+}
+
+// eliminare tutti i file e le dir in una dir 
+string[] all = Directory.GetFileSystemEntries(dir);
+foreach (string a in all)
+{
+    if (File.Exist(a))
+    {
+        File.Delete(a);
+    }
+    else
+    {
+        Directory.Delete(a,true);
+    }
+}
+
+
+```
+
+## METODI DIRECTORY
+
+```csharp
+//Ottenere info su una directory
+string dir = "."; // parto dalla cartella del progetto dotnet nel quale sono 
+DirectoryInfo dirInfo = new DirectoryInfo(dir);
+Console.WriteLine(dirInfo.CreationTime);
+
+// Ottenere info su tutti i file in una directory (SOLO FILE)
+string[] files = Directory.GetFiles(dir);
+foreach(string file in files)
+{
+    Console.WriteLine(file);
+}
+
+// ottenere info su tutti i file e le dir in una dir (FILE E CARTELLE)
+string[] all = Directory.GetFileSystemEntries(dir);
+foreach( string a in all)
+{
+    Console.WriteLine(a);
+}
+
+// ottenere informazioni su tutti i file e dir in una dir con un filtro
+string[] txtFiles = Directory.GetFiles(dir,"*.txt");
+foreach (string txtFile in txtFiles)
+{
+    Console.WriteLine(txtFile);
+}
+```
+</details>
