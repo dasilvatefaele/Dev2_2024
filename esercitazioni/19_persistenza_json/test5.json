@@ -1,0 +1,27 @@
+{
+  "nome": "Mario Rossi",
+  "eta": 30,
+  "impiegato": true,
+  "indirizzo": {
+    "via": "Via Roma 10",
+    "citta": "Roma",
+    "CAP": "00100"
+  },
+  "numeroDiTelefono": [
+    {
+      "tipo": "casa",
+      "numero": "123-5678"
+    },
+    {
+      "tipo": "ufficio",
+      "numero": "876-54321"
+    }
+  ],
+  "lingueparlate": [
+    "italiano",
+    "inglese",
+    "spagnolo"
+  ],
+  "sposato": false,
+  "patente": null
+}
