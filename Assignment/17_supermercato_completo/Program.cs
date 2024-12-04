@@ -1,40 +1,53 @@
 ﻿// todo: ************ SIMULAZIONE SUPERMERCATO Versione 3 ************
-//* ------------------------------------------------------------------ 
-//* ------------------------------ MAIN ------------------------------ 
-//* ------------------------------------------------------------------ 
 
+using System.ComponentModel.DataAnnotations;
+using System.Net;
+using Microsoft.Win32;
 using Newtonsoft.Json;
-
-// Dichiarazioni 
-const int PREZZO = 0;
-const int QUANTITA = 1;
-int scelta = -1;
-bool continua = true;
-bool convertito;
-bool disponibile;
-string prodottoDaCercare;
-string passwordAdmin = "admin";
-string linkCatalogoSupermercato = @"catalogo supermercato.json";
-string linkCarrello = @"carrello Utente.json";
-var carrelloSalvato = new List<dynamic>();
-var carrello = new Dictionary<string, double[]>();
-var prodottiConPrezzo = new Dictionary<string, double[]>
-{
-    {"LATTE INTERO",            new double [] {2.89,1}},
-    {"MELA",                    new double [] {0.89,1}},
-    {"PANE INTEGRALE",          new double [] {1.69,1}},
-    {"BANANA",                  new double [] {2.19,1}},
-    {"ACQUA NATURALE",          new double [] {2.70,1}},
-    {"BISCOTTI AL CIOCCOLATO" , new double [] {3.49,1}},
-    {"RISO BASMATI",            new double [] {1.99,1}},
-    {"FORMAGGIO GRATTUGGIATO",  new double [] {2.89,1}}
-};
-
-    string carrelloUtente = @"carrello Utente.json";
-
-
 Console.Clear();
-while (continua)        //* MAIN LOOP {
+
+//* ------------------------------------------------------------------
+//* ------------------------------ MAIN ------------------------------
+//* ------------------------------------------------------------------
+
+#region DICHIARAZIONE VARIABILI
+
+int     scelta = -1;
+bool    continua = true;
+bool    convertito;
+bool    disponibile;
+double  somma = 0;
+string  prodottoDaCercare;
+string  passwordAdmin       = "admin";
+string  pathCatalogoMain    = @"catalogo supermercato.json";
+string  pathCarrelloUser    = @"carrello Utente.json";
+string  dirProdotti         = @"ADMIN dir";
+string  dirFatture          = @"ADMIN fatture";
+string  pathRegistro        = @"registro fatture.json";
+
+
+var carrello        = new Dictionary<string, double[]>();
+var carrelloSalvato = new List<dynamic>();
+
+#endregion
+
+#region MAIN
+
+if (!Directory.Exists(dirProdotti))
+{
+    Directory.CreateDirectory(dirProdotti);
+}
+
+if (!Directory.Exists(dirFatture))
+{
+    Directory.CreateDirectory(dirFatture);
+}
+
+pathCatalogoMain = Path.Combine(dirProdotti, pathCatalogoMain);
+pathCarrelloUser = Path.Combine(dirProdotti, pathCarrelloUser);
+pathRegistro     = Path.Combine(dirFatture, pathRegistro);
+
+while (continua)                                                        // MAIN LOOP {
 {
     Console.WriteLine("\n-------------- MENU ---------------");
     Console.WriteLine("1. Visualizza i prodotti");
@@ -46,35 +59,39 @@ while (continua)        //* MAIN LOOP {
     Console.WriteLine("7. ADMIN MODE");
     Console.WriteLine("0. Esci\n");
 
-    // input: scelta
-    // Console.Write("> ");
     scelta = NumberInRange(0, 7);
 
     Console.Clear();
+
+    //switch Menu
     switch (scelta)
     {
         case 1:
-            Console.WriteLine($"-------- COOP: I Nostri Prodotti ---------");
-            VisualizzaProdotti(linkCatalogoSupermercato);
+            Console.WriteLine("-------- COOP: I Nostri Prodotti ---------");
+            VisualizzaProdottiComeUSER(pathCatalogoMain);
             break;
         case 2:
-            disponibile = CercaUnPrototto(prodottiConPrezzo, out prodottoDaCercare);
+            Console.WriteLine("---------- COOP: CERCA PRODOTTO ----------");
+            CercaProdotto();
             break;
         case 3:
-            Console.WriteLine($"-------- COOP: I Nostri Prodotti ---------");
+            Console.WriteLine("-------- COOP: I Nostri Prodotti ---------");
             AggiungiAlCarrello();
             break;
         case 4:
-            RimuoviDalCarrello(carrello);
+            Console.WriteLine("---------- RIMUOVI DAL CARRELLO ----------");
+            RimuoviDalCarrello();
             break;
         case 5:
-            Console.WriteLine($"-------- IL TUO CARRELLO ---------");
-            VisualizzaCarrello(linkCarrello);
+            Console.WriteLine("------------- IL TUO CARRELLO -------------");
+            VisualizzaCarrello(pathCarrelloUser, ref somma);
             break;
         case 6:
-            continua = ProcediAlPagamento(continua, carrello);
+            continua = ProcediAlPagamento();
             break;
         case 7:
+
+            // verifica se operatore
             Console.Write("Inserisci il tuo Codice Operatore > ");
             string inputPassword = Console.ReadLine();
             if (inputPassword == passwordAdmin)
@@ -85,271 +102,211 @@ while (continua)        //* MAIN LOOP {
             {
                 Console.WriteLine("ATTENZIONE: Non hai i permessi per accedere.\n");
             }
+            break;
 
-            break;
         case 0:
-            continua = Esci(continua);
+
+            continua = Esci();
             break;
+
         default:
+        
             Console.WriteLine("Opzione non valida");
             break;
     }
-}                       //* MAIN LOOP }
+
+}                                                                       // MAIN LOOP }
 
 // dialogo finale
-Console.WriteLine("L'acquisto è andato a buon fine! Arrivederci!\n");
+Console.WriteLine("\nArrivederci!\n");
 
-//* ------------------------------------------------------------------ 
-//* ---------------------------- FUNZIONI ---------------------------- 
-//* ------------------------------------------------------------------ 
+#endregion
 
-void VisualizzaProdotti(string link)
+//* ------------------------------------------------------------------
+//* ------------------------------ USER ------------------------------
+//* ------------------------------------------------------------------
+
+#region USER
+
+void VisualizzaProdottiComeUSER(string link)
 {
+    dynamic jsonDeserializzato = DeserializzaJSON(link);
 
-    dynamic localCurrentState = leggiFileJson(link);
-
-    
-    foreach (var line in localCurrentState)
+    foreach (var item in jsonDeserializzato)
     {
         Console.WriteLine($"=====================================");
-        Console.WriteLine($"NOME PRODOTTO:\t\t{line.NomeProdotto}");
-        Console.WriteLine($"PREZZO:\t\t\t€{line.Prezzo}");
+        Console.WriteLine($"NOME PRODOTTO:\t\t{item.NomeProdotto}");
+        Console.WriteLine($"PREZZO:\t\t\t€{item.Prezzo}");
     }
     Console.WriteLine($"------------------------------------------");
-
-    // Console.WriteLine("--- PRODOTTI DISPONIBILI ---");
-    // Console.WriteLine("[Prezzo]\t[Prodotto]");
-    // foreach (var prodotto in prodottiConPrezzo)
-    // {
-    //     Console.WriteLine($"€ {prodotto.Value[PREZZO]:F2}\t\t{prodotto.Key}");
-    // }
-    // Console.WriteLine();
-
-
 }
 
-bool CercaUnPrototto(Dictionary<string, double[]> prodottiConPrezzo, out string prodottoDaCercare)
+void CercaProdotto()
 {
-    Console.WriteLine("--- SCEGLI IL PRODOTTO ---");
-    Console.Write("> ");
-    prodottoDaCercare = Console.ReadLine();
-    prodottoDaCercare = prodottoDaCercare.ToUpper();
+    // converto in una lista dinamica 
+    dynamic jsonDeserializzato = DeserializzaJSON(pathCatalogoMain);
+    List<dynamic> catalogoDes = jsonDeserializzato.ToObject<List<dynamic>>();
+    //---------------------------------------------------------------------------
 
-    if (prodottiConPrezzo.ContainsKey(prodottoDaCercare))
+    bool trovato = false; 
+    // controlla se ha trovato o meno l'articolo
+    Console.Write("> ");
+    string prodottoDaAggiungere;
+    prodottoDaAggiungere = Console.ReadLine();
+    prodottoDaAggiungere = prodottoDaAggiungere.ToUpper();
+
+    // cerco corrispondenza tra tutti gli item
+    foreach (var item in catalogoDes)
     {
-        Console.WriteLine("- disponibile");
-        return true;
+        if ((string)item.NomeProdotto.ToString() == prodottoDaAggiungere.ToString())
+        {
+            trovato = true;
+            Console.WriteLine($"Prodotto trovato! Prezzo {item.Prezzo} - Vuoi acquistare? [s/n]");
+            string scelta = Inserimentofrase();
+            scelta = scelta.ToLower();
+            switch (scelta)
+            {
+                case "s":
+                    SpostoItem(prodottoDaAggiungere);
+                    break;
+                case "n":
+                    break;
+                default:
+                    Console.WriteLine("Inserimento non valido");
+                    Console.WriteLine($"(premi un tasto per uscire...)");
+                    Console.ReadKey();
+                    Console.Clear();
+                break;
+            }
+        }
     }
-    else
+    //---------------------------------------------------------------------------------
+
+    if (trovato == false)
     {
-        Console.WriteLine("- non disponibile");
-        return false;
+        Console.WriteLine($"'{prodottoDaAggiungere}': prodotto non trovato!");
+        Console.WriteLine($"(premi un tasto per uscire...)");
+        Console.ReadKey();
+        Console.Clear();
     }
 }
 
 void AggiungiAlCarrello()
 {
-    string prodottoDaAggiungere;
-
-    dynamic catalogo = leggiFileJson(linkCatalogoSupermercato);
-    List<dynamic> catalogoLocale = catalogo.ToObject<List<dynamic>>();
-
-    dynamic carrelloSalvato = leggiFileJson(linkCarrello);
-    List<dynamic> carrelloSalvatoLocale = carrelloSalvato.ToObject<List<dynamic>>();
-
-
     Console.WriteLine("--- AGGIUNGI AL CARRELLO ---");
-    VisualizzaProdotti(linkCatalogoSupermercato);
+    VisualizzaProdottiComeUSER(pathCatalogoMain);
     Console.Write("> ");
+    string prodottoDaAggiungere;
     prodottoDaAggiungere = Console.ReadLine();
     prodottoDaAggiungere = prodottoDaAggiungere.ToUpper();
 
-    foreach (var prodotto in catalogoLocale) 
-    {
-        if (prodotto.NomeProdotto == prodottoDaAggiungere)
-        {
-            Console.Write("Quantita > ");
-            int quantita = NumberInRange (1,100);
-
-            if (prodotto.Quantita >= quantita)
-            {
-                int temp = prodotto.Quantita;
-                prodotto.Quantita = quantita;
-                carrelloSalvatoLocale.Add(prodotto);
-                SalvaSuJson(carrelloSalvatoLocale,linkCarrello);
-                prodotto.Quantita = temp - quantita;
-                SalvaSuJson(catalogoLocale,linkCatalogoSupermercato);
-            }
-            else
-            {
-                Console.WriteLine($"Mi dispiace, la quantità non è disponibile. IN STOCK: {prodotto.Quantita}");
-            }
-        }
-
-    }
-    
-    // SalvaSuJson(carrelloSalvatoLocale,linkCarrello);
-    
-
-    // bool disponibile = CercaUnPrototto(prodottiConPrezzo, out prodottoDaAggiungere);
-    // int quantitaDiProdotto = 0;
-
-    // if (disponibile)
-    // {
-    //     if (!carrello.ContainsKey(prodottoDaAggiungere))
-    //     {
-    //         quantitaDiProdotto = QuantitaProdotto(quantitaDiProdotto);
-    //         carrello[prodottoDaAggiungere] = prodottiConPrezzo[prodottoDaAggiungere];
-    //         carrello[prodottoDaAggiungere][QUANTITA] = quantitaDiProdotto;
-    //         Console.WriteLine("* AGGIUNTO");
-    //     }
-    //     else
-    //     {
-    //         quantitaDiProdotto = QuantitaProdotto(quantitaDiProdotto);
-    //         carrello[prodottoDaAggiungere][QUANTITA] += quantitaDiProdotto;
-    //     }
-    // }
+    SpostoItem (prodottoDaAggiungere);
 }
 
-void RimuoviDalCarrello(Dictionary<string, double[]> carrello)
+void RimuoviDalCarrello()
 {
-    Console.WriteLine("--- RIMUOVI DAL CARRELLO ---");
-    VisualizzaCarrello(linkCarrello);
-    Console.Write("> ");
-    string prodottoDaRimuovere = Console.ReadLine();
-    prodottoDaRimuovere = prodottoDaRimuovere.ToUpper();
-    int quantitaDiProdotto = 0;
-    if (carrello.ContainsKey(prodottoDaRimuovere))
+    dynamic jsonDeserializzato = DeserializzaJSON(pathCarrelloUser);
+    List<dynamic> localList = jsonDeserializzato.ToObject<List<dynamic>>();
+    var newList = new List<dynamic>();
+    bool trovato = false;
+    VisualizzaProdottiComeUSER(pathCarrelloUser);
+    Console.Write("Cosa elimini dal carrello? > ");
+    string elimina = Inserimentofrase();
+    elimina = elimina.ToUpper();
+
+    foreach (var item in localList)
     {
-        if (carrello[prodottoDaRimuovere][QUANTITA] > 1)
+        if (item.NomeProdotto != elimina)
         {
-            quantitaDiProdotto = QuantitaProdotto(quantitaDiProdotto);
-            if (carrello[prodottoDaRimuovere][QUANTITA] - quantitaDiProdotto <= 0)
-            {
-                carrello.Remove(prodottoDaRimuovere);
-            }
-            else
-            {
-                carrello[prodottoDaRimuovere][QUANTITA] -= quantitaDiProdotto;
-            }
+            newList.Add(item);
+            trovato = true;
         }
     }
-    else
+
+    if (trovato)
     {
-        Console.WriteLine("Questo prodotto non è presente nel tuo carrello");
+        SerializzaJSON(newList, pathCarrelloUser);
+    }
+
+    if (!trovato)
+    {
+        Console.WriteLine("Attenzione: prodotto non trovato.");
+        Console.WriteLine("Premi un tasto per tornare indietro...");
+        Console.ReadKey();
     }
 }
 
-void VisualizzaCarrello(string link)
+void VisualizzaCarrello(string link, ref double somma)
 {
+    dynamic jsonDeserializzato = DeserializzaJSON(pathCarrelloUser);
+    List<dynamic> carrelloDes = jsonDeserializzato.ToObject<List<dynamic>>();
+    somma = 0;
 
-    Console.WriteLine("--- IL TUO CARRELLO ---");
-    dynamic localCurrentState = leggiFileJson(linkCarrello);
-    double somma = 0;
-    
-    foreach (var line in localCurrentState)
+    foreach (var item in carrelloDes)
     {
         Console.WriteLine($"=====================================");
-        Console.WriteLine($"NOME PRODOTTO:\t\t{line.NomeProdotto}");
-        Console.WriteLine($"PREZZO:\t\t\t€{line.Prezzo}");
-        Console.WriteLine($"QNT.:\t\t\tx{line.Quantita}");
-        somma += (double)line.Prezzo;
+        Console.WriteLine($"NOME PRODOTTO:\t\t{item.NomeProdotto}");
+        Console.WriteLine($"PREZZO:\t\t\t€{item.Prezzo}");
+        Console.WriteLine($"QNT.:\t\t\tx{item.Quantita}");
+        if (item.Quantita == 1)
+            somma += (double)item.Prezzo;
+        else if(item.Quantita >= 2)
+        {
+            somma = somma + (double)item.Prezzo*(double)item.Quantita;
+        }
     }
 
     Console.WriteLine($"------------------------------------------");
     Console.WriteLine($"TOTALE:\t\t\t€{somma:f2}");
 }
 
-bool ProcediAlPagamento(bool continua, Dictionary<string, double[]> carrello)
+bool ProcediAlPagamento()
 {
-    double totale = 0;
     Console.WriteLine("--------------------- CASSA ---------------------");
-    Console.WriteLine("PREZZO\t\tQUANTITA\tPRODOTTO");
+    VisualizzaCarrello(pathCarrelloUser, ref somma);
 
-    foreach (var prodotto in carrello)
-    {
-        Console.WriteLine($"€ {prodotto.Value[PREZZO]:F2}\t\tx{prodotto.Value[QUANTITA]}\t\t{prodotto.Key}");
-        if (prodotto.Value[QUANTITA] == 1)
-        {
-            totale += prodotto.Value[PREZZO];
-        }
-        else if (prodotto.Value[QUANTITA] > 1)
-        {
-            totale += prodotto.Value[PREZZO] * prodotto.Value[QUANTITA];
-        }
-    }
+    Console.WriteLine("Premi un tasto per effettuare il pagamento");
+    Console.ReadLine();
+    Console.WriteLine($"*** Pagati:€{somma:f2} ***");
+    Console.WriteLine("Grazie per aver acquistato da noi!");
 
-    Console.WriteLine("--------------------- TOTALE --------------------\n");
-    Console.WriteLine($"\t\t     € {totale:F2}\n");
-    Console.WriteLine("Prosegui al pagamento...");
-    Console.Write("> ");
-    Console.ReadKey();
-    return !continua;
+    SalvaScontrino(pathCarrelloUser);
+
+
+    return false;
+
 }
 
-int QuantitaProdotto(int quantitaDiProdotto)
+bool Esci()
 {
-    bool check = false;
-    while (!check)
-    {
-        Console.WriteLine("Quanti?");
-        Console.Write("> ");
-        check = int.TryParse(Console.ReadLine(), out quantitaDiProdotto);
-    }
-    return quantitaDiProdotto; // ? ottimizzabile
-}
-
-bool Esci(bool continua)
-{
-    //continua = false;
-    bool riuscito = true;
+    bool continua = true;
     Console.WriteLine("\nSicuro di voler uscire?\n[1] Procedi al pagamento\n[2] Continua la spesa\n[3] Abbandona ed esci");
-    do
-    {
-        Console.Write("> ");
-        try
-        {
-            riuscito = int.TryParse(Console.ReadLine(), out scelta);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("Inserimento non valido");
-        }
-        if (scelta > 4 || scelta <= 0)
-        {
-            Console.WriteLine("Inserimento non valido");
-            riuscito = false;
-        }
-    } while (!riuscito);
+    int scelta = NumberInRange(1,3);
 
     switch (scelta)
     {
         case 1:
-            return ProcediAlPagamento(continua, carrello);
-            //continua = !continua;
+            return ProcediAlPagamento();
             break;
         case 2:
-            //continua = !continua;
-            return continua;
+            return continua = true;
             break;
         case 3:
-            //continua = !continua;
-            return !continua;
+            return continua = false;
             break;
     }
-    return !continua;
+    return true;
 }
 
 int NumberInRange(int min, int max)
 {
     bool repeat = false;
     int num = 0;
-    // Console.Write($"Inserisci intero tra {min} e {max} ");
+// Console.Write($"Inserisci intero tra {min} e {max} ");
     do
     {
         do
         {
-            // Console.Write("> ");
             repeat = false;
             try
             {
@@ -369,7 +326,7 @@ int NumberInRange(int min, int max)
 
         if (num >= min && num <= max)
         {
-            //Console.WriteLine("*Numero nel range corretto*");
+//Console.WriteLine("*Numero nel range corretto*");
             return num;
         }
         else
@@ -390,7 +347,7 @@ double InputDouble()
     {
         repeat = false;
 
-        // Console.Write("Inserisci numero decimale > ");
+// Console.Write("Inserisci numero decimale > ");
         s_numero = Console.ReadLine();
         s_numero = s_numero.Replace(".", ",");
 
@@ -405,14 +362,11 @@ double InputDouble()
         }
     } while (repeat);
 
-    //Console.WriteLine("*Decimale insierito*");
     return numero;
 }
 
 string Inserimentofrase()
 {
-
-    //Console.Write("Inserisci una stringa > ");
     string frase;
     frase = Console.ReadLine();
     bool ripeti = false;
@@ -420,23 +374,27 @@ string Inserimentofrase()
     {
         ripeti = string.IsNullOrWhiteSpace(frase);
 
-        if (ripeti) // if true
+        if (ripeti) 
         {
+            // if true
             Console.WriteLine("#Errore: stringa vuota");
             frase = Console.ReadLine();
         }
         else
         {
-            //Console.WriteLine("*Stringa inserita*");
             return frase;
         }
     } while (ripeti);
     return frase;
 }
 
-//* ------------------------------------------------------------------ 
-//* ------------------------------ ADMIN ----------------------------- 
-//* ------------------------------------------------------------------ 
+#endregion
+
+//* ------------------------------------------------------------------
+//* ------------------------------ ADMIN -----------------------------
+//* ------------------------------------------------------------------
+
+#region ADMIN
 
 void AdminMode()
 {
@@ -481,30 +439,28 @@ void AdminMode()
                 break;
 
             case 5:
+                //todo: visualizza scontrini
                 break;
 
             case 6:
+                //todo: calcola incasso
                 break;
 
             case 0:
+                //esci: 
                 break;
         }
-
     } while (sceltaAdmin != 0);
-
-
-
 }
 
 void AggiungiProdottoADMIN()
 {
-    dynamic localCurrentState = leggiFileJson(linkCatalogoSupermercato);
+// deserializzo catalogo e lo converto in una lista dinamica
+    dynamic jsonDeserializzato = DeserializzaJSON(pathCatalogoMain);
+    List<dynamic> catalogo = jsonDeserializzato.ToObject<List<dynamic>>();
+//--------------------------------------------------------------------
 
     Console.WriteLine("--- ADMIN [ INSERISCI PRODOTTO ] ---");
-
-    Console.Write("ID > ");
-    string newId = Console.ReadLine();
-    newId = newId.ToUpper();
 
     Console.Write("Nome Prodotto > ");
     string newProdotto = Console.ReadLine();
@@ -515,38 +471,52 @@ void AggiungiProdottoADMIN()
 
     Console.Write("Prezzo > ");
     double newPrezzo = InputDouble();
+ 
+// calcolo ID progressivo
+    int ultimoID = 0;
+    foreach (var item in catalogo)
+    {
 
+         ultimoID = item.ID;
+    }
+
+    int numeroID = ultimoID +1 ;
+//----------------------------
+
+//creo nuovo prodotto
     var newItem = new
     {
-        ID = newId,
+        ID = numeroID,
         NomeProdotto = newProdotto,
         Quantita = newQuantita,
         Prezzo = newPrezzo
     };
+//----------------------------
 
-    List<dynamic> localList = localCurrentState.ToObject<List<dynamic>>();
+// serializzo
+    List<dynamic> localList = jsonDeserializzato.ToObject<List<dynamic>>();
     localList.Add(newItem);
-    SalvaSuJson(localList, linkCatalogoSupermercato);
+    SerializzaJSON(localList, pathCatalogoMain);
 }
 
 void ModificaProdottoADMIN()
 {
-    dynamic localCurrentState = leggiFileJson(linkCatalogoSupermercato);
+    dynamic jsonDeserializzato = DeserializzaJSON(pathCatalogoMain);
     Console.WriteLine("--- [ADMIN] : MODIFICA PRODOTTO ---");
     VisualizzaCatalogoADMIN();
 
     bool repeat = false;
 
-    List<dynamic> prodottiEdit = localCurrentState.ToObject<List<dynamic>>();
+    List<dynamic> prodottiEdit = jsonDeserializzato.ToObject<List<dynamic>>();
 
     do
     {
         Console.Write("Inserisci ID prodotto da editare > ");
-        string editProdotto = Console.ReadLine();
-        editProdotto = editProdotto.ToUpper();
-        foreach (var line in prodottiEdit)
+        int editProdotto = NumberInRange(0,9999);
+        // editProdotto = editProdotto.ToUpper();
+        foreach (var item in prodottiEdit)
         {
-            if (line.ID == editProdotto)
+            if (item.ID == editProdotto)
             {
                 Console.WriteLine("Seleziona");
                 Console.WriteLine("1. ID");
@@ -561,25 +531,26 @@ void ModificaProdottoADMIN()
                 {
                     case 1:
                         Console.Write("nuovo ID > ");
-                        line.ID = Inserimentofrase();
+                        item.ID = Inserimentofrase();
                         break;
                     case 2:
                         Console.Write("nuovo NOME PRODOTTO > ");
-                        line.NomeProdotto = Inserimentofrase();
+                        item.NomeProdotto = Inserimentofrase();
                         break;
                     case 3:
                         Console.WriteLine("nuova QUANTITA > ");
-                        line.Quantita = NumberInRange(1, 10000);
+                        item.Quantita = NumberInRange(1, 10000);
                         break;
                     case 4:
                         Console.WriteLine("nuovo PREZZO > ");
-                        line.Quantita = InputDouble();
+                        item.Quantita = InputDouble();
                         break;
                     case 5:
                         repeat = true;
                         break;
                     case 0:
                         repeat = false;
+                        Console.Clear();
                         continue;
                         break;
                 }
@@ -589,29 +560,29 @@ void ModificaProdottoADMIN()
 
     } while (repeat);
 
-    SalvaSuJson(prodottiEdit, linkCatalogoSupermercato);
+    SerializzaJSON(prodottiEdit, pathCatalogoMain);
 }
 
 void VisualizzaCatalogoADMIN()
 {
-    dynamic localCurrentState = leggiFileJson(linkCatalogoSupermercato);
+    dynamic jsonDeserializzato = DeserializzaJSON(pathCatalogoMain);
 
     Console.WriteLine($"-------- [ CATALOGO ADMIN ] ---------");
-    foreach (var line in localCurrentState)
+    foreach (var item in jsonDeserializzato)
     {
         Console.WriteLine($"=====================================");
-        Console.WriteLine($"ID:\t\t\t{line.ID}");
-        Console.WriteLine($"NOME PRODOTTO:\t\t{line.NomeProdotto}");
-        Console.WriteLine($"QUANTITA:\t\t{line.Quantita}");
-        Console.WriteLine($"PREZZO:\t\t\t€{line.Prezzo}");
+        Console.WriteLine($"ID:\t\t\t{item.ID}");
+        Console.WriteLine($"NOME PRODOTTO:\t\t{item.NomeProdotto}");
+        Console.WriteLine($"QUANTITA:\t\t{item.Quantita}");
+        Console.WriteLine($"PREZZO:\t\t\t€{item.Prezzo}");
     }
     Console.WriteLine($"-------------------------------------");
 }
 
 void EliminaProdottoADMIN()
 {
-    dynamic localCurrentState = leggiFileJson(linkCatalogoSupermercato);
-    List<dynamic> localList = localCurrentState.ToObject<List<dynamic>>();
+    dynamic jsonDeserializzato = DeserializzaJSON(pathCatalogoMain);
+    List<dynamic> localList = jsonDeserializzato.ToObject<List<dynamic>>();
     var newList = new List<dynamic>();
     bool trovato = false;
 
@@ -619,34 +590,120 @@ void EliminaProdottoADMIN()
     string elimina = Inserimentofrase();
     elimina = elimina.ToUpper();
 
-    foreach (var line in localList)
+    foreach (var item in localList)
     {
-        if (line.ID != elimina)
+        if (item.ID != elimina)
         {
-            newList.Add(line);
+            newList.Add(item);
             trovato = true;
         }
     }
 
     if (trovato)
     {
-        SalvaSuJson(newList, linkCatalogoSupermercato);
+        SerializzaJSON(newList, pathCatalogoMain);
     }
 }
 
-//* ------------------------------------------------------------------ 
-//* ------------------------------- JSON ----------------------------- 
-//* ------------------------------------------------------------------ 
+#endregion
 
-void SalvaSuJson(List<dynamic> list, string link)
+//* ------------------------------------------------------------------
+//* ------------------------------- JSON -----------------------------
+//* ------------------------------------------------------------------
+
+#region JSON
+
+void SerializzaJSON(List<dynamic> list, string link)
 {
     string item = JsonConvert.SerializeObject(list, Formatting.Indented);
     File.WriteAllText(link, item);
 }
 
-dynamic leggiFileJson(string linkCatalogoSupermercato)
+dynamic DeserializzaJSON(string pathCatalogoMain)
 {
-    string currentState = File.ReadAllText(linkCatalogoSupermercato);
-    dynamic localCurrentState = JsonConvert.DeserializeObject(currentState)!;
-    return localCurrentState;
+    string currentState = File.ReadAllText(pathCatalogoMain);
+    dynamic jsonDeserializzato = JsonConvert.DeserializeObject(currentState)!;
+    return jsonDeserializzato;
 }
+
+void SpostoItem (string prodottoDaAggiungere)
+{
+    dynamic catalogo = DeserializzaJSON(pathCatalogoMain);
+    List<dynamic> catalogoLocale = catalogo.ToObject<List<dynamic>>();
+
+    dynamic carrelloSalvato = DeserializzaJSON(pathCarrelloUser);
+    List<dynamic> carelloDeserializzato = carrelloSalvato.ToObject<List<dynamic>>();
+
+    bool trovato = false;
+
+    foreach (var item in catalogoLocale)
+    {
+        if (item.NomeProdotto.ToString() == prodottoDaAggiungere)
+        {
+            Console.Write("Quantita > ");
+            int quantita = NumberInRange (1,100);
+
+            if (item.Quantita >= quantita)
+            {
+                int temp = item.Quantita;
+                item.Quantita = quantita;
+                carelloDeserializzato.Add(item);
+                SerializzaJSON(carelloDeserializzato,pathCarrelloUser);
+                item.Quantita = temp - quantita;
+                SerializzaJSON(catalogoLocale,pathCatalogoMain);
+                trovato = true;
+                break;
+            }
+            else
+            {
+                Console.WriteLine($"Mi dispiace, la quantità non è disponibile. IN STOCK: {item.Quantita}");
+                Console.WriteLine("Premi un tasto per uscire...");
+                Console.ReadLine();
+                trovato = true;
+            }
+        }
+    }
+
+    if (trovato == false)
+    {
+        Console.WriteLine($"Mi dispiace, '{prodottoDaAggiungere}' non trovato.");
+        Console.WriteLine("Premi un tasto per tornare indietro...");
+        Console.ReadKey();
+    }
+}
+
+ void SalvaScontrino(string link)
+{
+    dynamic local = DeserializzaJSON(link);
+    List<dynamic> scontrino = local.ToObject<List<dynamic>>();
+
+    dynamic registro = DeserializzaJSON(pathRegistro);
+
+    string path;
+
+
+        int num = registro.numeroFattura;
+        num++;
+
+        registro.numeroFattura = num;
+        path = @$"Fattura {registro.numeroFattura}.json";
+
+   
+    // serializza registro fatture
+    string update = JsonConvert.SerializeObject(registro, Formatting.Indented);
+    File.WriteAllText(pathRegistro, update);
+
+    string newPath = Path.Combine(dirFatture, pathRegistro);
+
+    // serializza scontrino
+    SerializzaJSON(scontrino,newPath);
+
+    // svuota carrello
+    File.Delete(link);
+    File.Create(link).Close();
+    File.WriteAllText(link,"[\n\n]");
+
+
+}
+
+#endregion

@@ -1,0 +1,32 @@
+[
+  {
+    "ID": 6581,
+    "NomeProdotto": "BURRO",
+    "Quantita": 1,
+    "Prezzo": 1.39
+  },
+  {
+    "ID": "1248",
+    "NomeProdotto": "ACQUA",
+    "Quantita": 1,
+    "Prezzo": 1.0
+  },
+  {
+    "ID": 6582,
+    "NomeProdotto": "BISCOTTI",
+    "Quantita": 1,
+    "Prezzo": 2.99
+  },
+  {
+    "ID": 6580,
+    "NomeProdotto": "BIRRA",
+    "Quantita": 1,
+    "Prezzo": 3.49
+  },
+  {
+    "ID": "1248",
+    "NomeProdotto": "ACQUA",
+    "Quantita": 1,
+    "Prezzo": 1.0
+  }
+]
