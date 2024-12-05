@@ -681,19 +681,17 @@ void SpostoItem (string prodottoDaAggiungere)
 
     string path;
 
-
-        int num = registro.numeroFattura;
-        num++;
-
-        registro.numeroFattura = num;
-        path = @$"Fattura {registro.numeroFattura}.json";
-
-   
+    int num = registro.numeroFattura;
+    num++;
+    path = @$"Fattura {num}.json";
+    registro.numeroFattura = num;
+        
     // serializza registro fatture
     string update = JsonConvert.SerializeObject(registro, Formatting.Indented);
     File.WriteAllText(pathRegistro, update);
 
-    string newPath = Path.Combine(dirFatture, pathRegistro);
+
+    string newPath = Path.Combine(dirFatture, path);
 
     // serializza scontrino
     SerializzaJSON(scontrino,newPath);
