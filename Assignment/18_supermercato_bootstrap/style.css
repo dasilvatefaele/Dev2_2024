@@ -1,0 +1,77 @@
+:root{
+    --bs-primary: #1b3d79 !important;
+    --bs-secondary: #1b3d79 !important;
+    --blue-hover: #5278be !important;
+}
+
+.btn-outline-primary{
+    background-color: var(--bs-primary) !important;
+    color: white !important;
+    border: white  !important;
+}
+
+.btn-outline-primary:hover{
+    background-color: var(--blue-hover) !important;
+    color: white !important;
+    border: white  !important;
+}
+
+
+#blue:hover {
+    color: #1b3d79 !important;
+}
+
+.primary {
+    color: #1b3d79 !important;
+}
+
+p{
+    text-decoration: none !important;
+}
+
+#custombutton{
+    background-color: #1b3d79;
+    border: none;
+    padding: 15px 20px 15px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+#custombutton:hover{
+    background-color: #5278be;
+    border: none;
+    /* padding: 20px 25px 20px 25px; */
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+#promoNatale{
+    background-image: url(img/pexels-george-dolgikh-551816-1303085.jpg);
+    background-position: center;
+    background-size:cover;
+    background-repeat: none;
+}
+
+#accedi{
+    background-color: #bc1c1c;
+    border: none;
+    padding: 15px 25px 15px 25px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+#accedi:hover{
+    background-color: #b95050;
+    border: none;
+    padding: 15px 25px 15px 25px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+/* div{
+    border: 1px solid greenyellow;
+} */
+
