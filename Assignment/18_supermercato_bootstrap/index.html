@@ -28,7 +28,7 @@
 
 
   </header>
-  <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary" id="navbarcustom">
+  <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary" id="customShadow">
     <div class="container-fluid ">
 
       <!-- <a class="navbar-brand" href="#">Bootstrap Supermarket</a> -->
@@ -38,6 +38,7 @@
         aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
           <li class="nav-item">
@@ -66,10 +67,20 @@
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-primary"  type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button class="btn btn-outline-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
 
-          <i class="fa-solid fa-user d-flex align-items-center ms-3" style="font-size: 1.5em;" id="blue"></i>
-          <i class="fa-solid fa-cart-shopping d-flex align-items-center ms-3" style="font-size: 1.5em;" id="blue"></i>
+          <button type="button" id="bottoneTrasparente"> <a href="login.html" target="_self"> <i
+              class="fa-solid fa-user d-flex align-items-center ms-3" style="font-size: 1.5em;" id="blue" "></i> </a></button>
+          <!-- <i class="fa-solid fa-user d-flex align-items-center ms-3" style="font-size: 1.5em;" id="blue"></i> -->
+          <!-- <i class="fa-solid fa-cart-shopping d-flex align-items-center ms-3" style="font-size: 1.5em;" id="blue"></i> -->
+
+
+          <button class="ms-2" type="button" id="bottoneTrasparente" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight"><i
+              class="fa-solid fa-cart-shopping d-flex align-items-center" style="font-size: 1.5em;"
+              id="blue"></i></button>
+
+
 
         </form>
       </div>
@@ -85,13 +96,14 @@
       <button id="custombutton">Scopri la selezione</button>
     </div>
 
-    <!-- PRIMA SEZIONE -->
+    <!-- SEZIONE CARD -->
     <div class="ps-5 pe-5 pt-3 pb-3 " style="background-color: white(0, 255, 76); width: 100vw;">
       <div>
-        <h1 style="color:rgb(0, 110, 255); font-weight: bold;" class="mb-4">PRODOTTI IN EVIDENZA</h1>
-
+        <div class="container">
+          <h1 style="color: var(--bs-primary); font-weight: bold;" class="mb-4">PRODOTTI IN EVIDENZA</h1>
+        </div>
         <div class="row row-cols-1 row-cols-md-4 row-cols-xl-5 g-4 sm d-flex justify-content-center ">
-         
+
           <!-- CARD OK -->
           <div class="col" style="width: fit-content;">
             <div class="card" style="width: 13rem;">
@@ -107,7 +119,7 @@
             </div>
           </div>
           <!-- FINE CARD OK -->
-                     <!-- CARD OK -->
+          <!-- CARD OK -->
           <div class="col" style="width: fit-content;">
             <div class="card" style="width: 13rem;">
               <img src="img/PANDOROBAULI-8001720011033-1.webp" class="card-img-top" alt="...">
@@ -122,7 +134,7 @@
             </div>
           </div>
           <!-- FINE CARD OK -->
-                     <!-- CARD OK -->
+          <!-- CARD OK -->
           <div class="col" style="width: fit-content;">
             <div class="card" style="width: 13rem;">
               <img src="img/PANDOROBAULI-8001720011033-1.webp" class="card-img-top" alt="...">
@@ -137,7 +149,7 @@
             </div>
           </div>
           <!-- FINE CARD OK -->
-                     <!-- CARD OK -->
+          <!-- CARD OK -->
           <div class="col" style="width: fit-content;">
             <div class="card" style="width: 13rem;">
               <img src="img/PANDOROBAULI-8001720011033-1.webp" class="card-img-top" alt="...">
@@ -152,7 +164,7 @@
             </div>
           </div>
           <!-- FINE CARD OK -->
-                     <!-- CARD OK -->
+          <!-- CARD OK -->
           <div class="col" style="width: fit-content;">
             <div class="card" style="width: 13rem;">
               <img src="img/PANDOROBAULI-8001720011033-1.webp" class="card-img-top" alt="...">
@@ -167,61 +179,147 @@
             </div>
           </div>
           <!-- FINE CARD OK -->
-                     <!-- CARD OK -->
-          <div class="col" style="width: fit-content;">
-            <div class="card" style="width: 13rem;">
-              <img src="img/PANDOROBAULI-8001720011033-1.webp" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title" style="font-weight: bold;">Bauli Il Pandoro Di Verona 1</h5>
-                <p class="card-text" style="color:grey">Offerta speciale</p>
-                <div class="d-flex justify-content-between">
-                  <h3 class="card-title d-flex align-items-center" style="font-weight: bold;">€ 6,89</h3>
-                  <button id="custombutton" style="font-weight: bold;"><i class="fa-solid fa-cart-plus"></i></button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- FINE CARD OK -->
-                     <!-- CARD OK -->
-          <div class="col" style="width: fit-content;">
-            <div class="card" style="width: 13rem;">
-              <img src="img/PANDOROBAULI-8001720011033-1.webp" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title" style="font-weight: bold;">Bauli Il Pandoro Di Verona 1</h5>
-                <p class="card-text" style="color:grey">Offerta speciale</p>
-                <div class="d-flex justify-content-between">
-                  <h3 class="card-title d-flex align-items-center" style="font-weight: bold;">€ 6,89</h3>
-                  <button id="custombutton" style="font-weight: bold;"><i class="fa-solid fa-cart-plus"></i></button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- FINE CARD OK -->
-          
+  
 
-         
+
+
+
+
         </div>
       </div>
     </div>
 
-    <!-- SECONDA SEZIONE -->
-    <div style="height: 80vh;"> NUOVA SEZIONE</div>
-    <!-- TERZA SEZIONE -->
-    <div style="height: 80vh;"> NUOVA SEZIONE </div>
-    <!-- QUARTA SEZIONE -->
-    <div style="height: 80vh;"> NUOVA SEZIONE</div>
-  </main>
+    <!-- SEZIONE 2 BANNER RESPONSIVE -->
+    <div class="container">
+      <div class="row" style="height: 300px;">
+        <div class="col-md-6 col-12 d-flex align-items-center justify-content-center text-white" id="carne"
+          style="background-color: rgb(216, 90, 0);">
+          <h1>BANNER PROMO 1</h1>
+        </div>
 
+        <div class="col-md-6 col-12 d-flex align-items-center justify-content-center text-white"
+          id="vegetale" style="background-color: rgb(30, 138, 210);  ">
+          <h1>BANNER PROMO 2</h1>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- OFF CANVAS CARRELLO-->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">Il tuo carrello</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body d-flex align-items-center flex-column gap-5">
+            <!-- CARD OK -->
+            <div class="col" style="width: fit-content;">
+              <div class="card" style="width: 13rem;">
+                <img src="img/PANDOROBAULI-8001720011033-1.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title" style="font-weight: bold;">Bauli Il Pandoro Di Verona 1</h5>
+                  <p class="card-text" style="color:grey">Offerta speciale</p>
+                  <div class="d-flex justify-content-between">
+                    <h3 class="card-title d-flex align-items-center" style="font-weight: bold;">€ 6,89</h3>
+                    <!-- <button id="custombutton" style="font-weight: bold;"><i class="fa-solid fa-cart-plus"></i></button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- FINE CARD OK -->
+            
+            <!-- CARD OK -->
+            <div class="col" style="width: fit-content;">
+              <div class="card" style="width: 13rem;">
+                <img src="img/PANDOROBAULI-8001720011033-1.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title" style="font-weight: bold;">Bauli Il Pandoro Di Verona 1</h5>
+                  <p class="card-text" style="color:grey">Offerta speciale</p>
+                  <div class="d-flex justify-content-between">
+                    <h3 class="card-title d-flex align-items-center" style="font-weight: bold;">€ 6,89</h3>
+                    <!-- <button id="custombutton" style="font-weight: bold;"><i class="fa-solid fa-cart-plus"></i></button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- FINE CARD OK -->
+            
+            <button id="custombutton">Procedi all'acquisto</button>
+
+            
+      </div>
+    </div>
+
+    <!-- SEZIONE 3 -->
+
+    <!-- 
+     
+      ...
+
+     -->
+
+    <!-- SECONDA SEZIONE -->
+    <!-- <div style="height: 80vh;"> NUOVA SEZIONE</div> -->
+    <!-- TERZA SEZIONE -->
+    <!-- <div style="height: 80vh;"> NUOVA SEZIONE </div> -->
+    <!-- QUARTA SEZIONE -->
+    <!-- <div style="height: 80vh;"> NUOVA SEZIONE</div> -->
+  </main>
 
 
   <footer>
     <!-- place footer here -->
-    <div style="background-color: #1b3d79; height: 300px;"
-      class="d-flex align-items-center justify-content-center flex-column">
-      <h1 style="color: white;"> Footer </h1>
+    <div class="p-0 m-0 mt-4" style="background-color: rgba(223, 223, 223, 0.322); width: 100%;">
+      <!-- <h1 style="color: white;"> Footer </h1> -->
+      <div class="container">
+        <div class="row" style="height: 100%;">
+          <div class="col-3 p-5 text-white d-none d-lg-block">
+          </div>
+          <div
+            class="col-lg-3 col-md-6 p-5 p-sm-3 text-white d-flex align-items-md-start align-items-center flex-column">
+            <a href="#">
+              <p>Chi siamo</p>
+            </a>
+            <a href="#">
+              <p>Lavora con noi</p>
+            </a>
+            <a href="#">
+              <p>Sostenibilità</p>
+            </a>
+            <a href="#">
+              <p>Franchising</p>
+            </a>
+            <a href="#">
+              <p>Volantini</p>
+            </a>
+          </div>
+
+          <div class="col-lg-3 col-md-6 p-3 p-md-5" style="color: var(--bs-primary);">
+
+            <div class="row d-none d-md-block " style="height: 50%;"></div>
+            <div class="row d-flex justify-content-sm-center justify-content-md-start">
+              <p class="d-flex justify-content-center justify-content-md-start"> I nostri social:</p>
+              <div class="col-12 fs-2 flex-row d-flex justify-content-center justify-content-md-start"
+                style="white-space: no-wrap; gap: 10px;">
+                <i class="fa-brands fa-square-facebook"></i>
+                <i class="fa-brands fa-x-twitter"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-linkedin"></i>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-3 p-5 text-white d-none d-lg-block"></div>
+
+        </div>
+
+      </div>
 
     </div>
   </footer>
+
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

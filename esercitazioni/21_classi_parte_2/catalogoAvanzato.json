@@ -1,0 +1,14 @@
+[
+  {
+    "Id": 1,
+    "NomeProdotto": "esempio",
+    "PrezzoProdotto": 12.50,
+    "GiacenzaProdotto": 100
+  },
+  {
+    "Id": 2,
+    "NomeProdotto": "esempio2",
+    "PrezzoProdotto": 19.99,
+    "GiacenzaProdotto": 150
+  }
+]

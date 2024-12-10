@@ -67,11 +67,29 @@
 //     Console.WriteLine(txtFile);
 // }
 
-string path = @"test.txt";
-File.Create(path).Close();
-List<string> elencoDiAnimali = new List<string> { "cane", "gatto", "topo", "gallina", "mucca" };
-File.AppendAllLines(path, elencoDiAnimali);
+// string path = @"test.txt";
+// File.Create(path).Close();
+// List<string> elencoDiAnimali = new List<string> { "cane", "gatto", "topo", "gallina", "mucca" };
+// File.AppendAllLines(path, elencoDiAnimali);
 
-string content = File.ReadAllText(path);
+// string content = File.ReadAllText(path);
 
-Console.WriteLine(content);
+// Console.WriteLine(content);
+
+
+
+class Program
+{
+    static void Main (string[] args)  // <--- Entry Point
+    {
+        Pokemon pokemon = new Pokemon(); // <--- Creazione dell'oggetto pokemon
+
+        Console.WriteLine($"{pokemon.nome} usa {pokemon.attacco}");
+    }
+}
+
+public class Pokemon // <--- Definizione Classe di un oggetto
+{
+    public string nome = "Pikachu";
+    public string attacco = "Elettroshock!";
+}
