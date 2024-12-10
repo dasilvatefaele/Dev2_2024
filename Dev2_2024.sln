@@ -119,6 +119,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "24_classi_parte_4", "eserci
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "24_classi_parte_5", "esercitazioni\24_classi_parte_5\24_classi_parte_5.csproj", "{8B00DDF1-7ED7-49F8-A884-01587B41B999}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "comprensione_Classi_pt1", "esercitazioni_mackbook\comprensione_Classi_pt1\comprensione_Classi_pt1.csproj", "{48585CC5-E827-4432-BF15-76B6F202CCF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -356,6 +358,10 @@ Global
 		{8B00DDF1-7ED7-49F8-A884-01587B41B999}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B00DDF1-7ED7-49F8-A884-01587B41B999}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B00DDF1-7ED7-49F8-A884-01587B41B999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48585CC5-E827-4432-BF15-76B6F202CCF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48585CC5-E827-4432-BF15-76B6F202CCF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48585CC5-E827-4432-BF15-76B6F202CCF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48585CC5-E827-4432-BF15-76B6F202CCF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CA0EEA04-5509-4E23-88B4-B86FE7EC9D43} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
@@ -416,5 +422,6 @@ Global
 		{13F9C424-79D1-4CE4-8AEF-3F221B47EAC8} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
 		{5D951172-128A-45DE-8335-8C78AD88248C} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
 		{8B00DDF1-7ED7-49F8-A884-01587B41B999} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}
+		{48585CC5-E827-4432-BF15-76B6F202CCF6} = {5D997FAF-5A30-4C67-912C-CA9B16D5AD29}
 	EndGlobalSection
 EndGlobal
