@@ -14,6 +14,9 @@ class Program
 }
 
 */
+
+
+#region MAIN
 class Program // <--- (standard/default)
 {
     static void Main(string[] args) // <--- Entry point (standard/default)
@@ -32,7 +35,6 @@ class Program // <--- (standard/default)
             Console.WriteLine("3. Trova per ID");
             Console.WriteLine("4. Aggiorna");
             Console.WriteLine("5. Elimina");
-            Console.WriteLine("6. Salva");
             Console.WriteLine("0. Esci");
         
             Console.Write("> ");
@@ -55,8 +57,8 @@ class Program // <--- (standard/default)
                     }
                 break;
                 case "2":
-                    Console.Write("ID > ");
-                    int id = int.Parse(Console.ReadLine());
+                    // Console.Write("ID > ");
+                    // int id = int.Parse(Console.ReadLine());
                     Console.Write("Nome > ");
                     string nome ="";
                     nome = Console.ReadLine();
@@ -64,7 +66,7 @@ class Program // <--- (standard/default)
                     decimal prezzo = decimal.Parse(Console.ReadLine());
                     Console.Write("Giacenza > ");
                     int giacenza = int.Parse(Console.ReadLine());
-                    manager.AggiungiProdotto(new ProdottoAdvanced {Id = id, NomeProdotto = nome, PrezzoProdotto = prezzo, GiacenzaProdotto = giacenza});
+                    manager.AggiungiProdotto(new ProdottoAdvanced {NomeProdotto = nome, PrezzoProdotto = prezzo, GiacenzaProdotto = giacenza});
                 break;
                 case "3":
                     Console.Write("ID > ");
@@ -81,7 +83,7 @@ class Program // <--- (standard/default)
                     }
                 break;
                 case "4":
-                    Console.Write("ID > ");
+                    Console.Write("ID da aggiornare> ");
                     int idProdottoDaAggiornare = int.Parse(Console.ReadLine());
                     ProdottoAdvanced prodottoTrovato2 = manager.TrovaProdotto(idProdottoDaAggiornare);
                     if (prodottoTrovato2 != null)
@@ -94,7 +96,7 @@ class Program // <--- (standard/default)
                         decimal prezzoAggiornato = decimal.Parse(Console.ReadLine());
                         Console.Write("Giacenza > ");
                         int giacenzaAggiornata = int.Parse(Console.ReadLine());
-                        manager.AggiungiProdotto(new ProdottoAdvanced {Id = idBackup, NomeProdotto = nomeAggiornato, PrezzoProdotto = prezzoAggiornato, GiacenzaProdotto = giacenzaAggiornata});
+                        manager.AggiungiProdotto(new ProdottoAdvanced {NomeProdotto = nomeAggiornato, PrezzoProdotto = prezzoAggiornato, GiacenzaProdotto = giacenzaAggiornata});
                     }
                     else
                     {
@@ -106,33 +108,39 @@ class Program // <--- (standard/default)
                     int idProdottoDaEliminare = int.Parse(Console.ReadLine());
                     manager.EliminaProdotto(idProdottoDaEliminare);
                 break;
-                case "6":
-                    repository.SalvaProdotti(manager.OttieniProdotti());
-                break;
                 case "0":
                     continua = false;
+                    repository.SalvaProdotti(manager.OttieniProdotti());
                     Console.WriteLine("Arrivederci!\n");
                 break;
             }
         }
     }
 }
+#endregion
 
+#region PRODOTTO ADVANCE
 public class ProdottoAdvanced
 {
+    // private static ProdottoRepository localRepository = new ProdottoRepository();
+    // private static List<ProdottoAdvanced> prodotti = localRepository.CaricaProdotti();
+
+    
+
+    private static int ultimoId = 0; // Campo statico per tracciare l'ultimo ID generato
+                                     // è privata perché non voglio che venga modificata dall'esterno
+                                     // è static perché voglio che sia condiviso con tutte le istanze della classe
     private int id; // campo privato
     
     public int Id 
     { 
         get { return id; } 
-        set
-        {
-            if (value <= 0)
-            {
-                throw new ArgumentException("Il valore dell'ID deve essere maggiore di zero.");
-            }
-            id = value; 
-        }
+        private set { id = value; } // Rende il setter privato per impedire modifiche manuali all'Id
+                                    // value è definito implicitamente dal compilatore 
+                                    // e rappresenta il valore assegnato alla proprietà
+                                    // value è una variabile locale e non può essere utilizzata nel setter
+                                    // value è quello che si chiama parametro implicito, 
+                                    // cioè non lo devo dichiarare io ma è già dichiarato dal compilatore
     }
 
     private string nomeProdotto;  // campo privato
@@ -175,11 +183,38 @@ public class ProdottoAdvanced
             giacenzaProdotto = value;
         }
     }
-}
 
+    // Costruttore per generare automaticamente l'Id
+    // quando viene creato un nuovo oggetto ProdottoAdvaned con il costruttore vuoto (senza parametri)
+    // viene chiamato questo costruttore (cistruttore di default)
+    // che genera un nuovo ID e lo assegna all'oggetto usando il metodo GeneraId
+    // invece gli altri parametri (NomeProdotto, GiacenzaProdotto, PrezzoProdotto), vengono inizializzati con valori di default (null, 0,0)
+    // ed in seguito vengono assegnati i valori inseriti dall'utente
+    public ProdottoAdvanced()
+    {
+        Id = GeneraId();
+    }
+
+    // Metodo statico per generare un ID progressivo
+    // è statico perché in questo caso mi serve che sia condiviso tra tutte le istanze della classe
+    // in modo che l'ID sia univoco per ogni prodotto
+    private static int GeneraId()
+    {
+        // foreach (var prodotto in prodotti)
+        // {
+        //     ultimoId = prodotto.Id;
+        // }
+        ultimoId++;
+        return ultimoId;
+    }
+}
+#endregion
+
+#region PRODOTTO ADVANCED MANAGER
 public class ProdottoAdvancedManager
 {  
     private List<ProdottoAdvanced> prodotti; // prodotti e' private perche non voglio che venga modificato dall'esterno
+    
 
     public ProdottoAdvancedManager()
     {
@@ -237,6 +272,9 @@ public class ProdottoAdvancedManager
     }
 }
 
+#endregion
+
+#region  REPOSITORY PRODOTTO
 public class ProdottoRepository
 {
     private readonly string filePath = "prodotti.json"; // percorso in cui memorizzare i dati
@@ -258,7 +296,7 @@ public class ProdottoRepository
             Console.WriteLine("Dati caricati da file:");
             foreach (var prodotto in prodotti)
             {
-                Console.WriteLine($"ID: {prodotto.Id}, Nome {prodotto.NomeProdotto}, Prezzo: {prodotto.PrezzoProdotto}, Giacenza: {prodotto.GiacenzaProdotto}");
+                Console.WriteLine($"ID: {prodotto.Id} - Nome: {prodotto.NomeProdotto} - Prezzo: {prodotto.PrezzoProdotto} - Giacenza: {prodotto.GiacenzaProdotto}");
             }
             // restituisco la lista di prodotti letti dal file in modo che possa essere utilizzata all'esterno della classe
             return prodotti;
@@ -272,6 +310,7 @@ public class ProdottoRepository
     }
 }
 
+#endregion
 // La gestione dei file json è più sicura se il path è privato
 // dunque ogni file json avrà la propria Class Repository per salvare e caricare
 // la cosa più furba è mantenere i vari blocchi modulari (riutilizzabili)

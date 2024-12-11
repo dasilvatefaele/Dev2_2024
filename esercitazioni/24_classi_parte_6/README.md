@@ -1,4 +1,9 @@
-﻿using System.Runtime.CompilerServices;
+#### TENTATIVO NON FUNZIONANTE
+> Da un errore durante la compilazione
+```c#
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Principal;
 using Newtonsoft.Json;
 
 
@@ -41,6 +46,7 @@ class Program // <--- (standard/default)
             switch (scelta)
             {
                 case "1":
+                    
                     Console.WriteLine("\nProdotti:");
                     if (manager.OttieniProdotti() != null)
                     {
@@ -55,8 +61,9 @@ class Program // <--- (standard/default)
                     }
                 break;
                 case "2":
-                    Console.Write("ID > ");
-                    int id = int.Parse(Console.ReadLine());
+                    ProdottoAdvanced prodottoPlaceHolder = new ProdottoAdvanced();
+                    // Console.Write("ID > ");
+                    int id = prodottoPlaceHolder.GetLastId();
                     Console.Write("Nome > ");
                     string nome ="";
                     nome = Console.ReadLine();
@@ -120,6 +127,19 @@ class Program // <--- (standard/default)
 
 public class ProdottoAdvanced
 {
+    static public ProdottoRepository letturaUltimoId = new ProdottoRepository();
+    static public List<ProdottoAdvanced> ultimoId = letturaUltimoId.CaricaProdotti();
+    
+    public int GetLastId ()
+    {
+        int lastId = 0;
+        foreach (var item in ultimoId)
+        {
+             lastId = item.Id;
+        }
+        return lastId;
+    }
+
     private int id; // campo privato
     
     public int Id 
@@ -127,11 +147,13 @@ public class ProdottoAdvanced
         get { return id; } 
         set
         {
-            if (value <= 0)
-            {
-                throw new ArgumentException("Il valore dell'ID deve essere maggiore di zero.");
-            }
-            id = value; 
+            // if (value <= 0)
+            // {
+            //     throw new ArgumentException("Il valore dell'ID deve essere maggiore di zero.");
+            // }
+            //id = value;
+            int ultimoId = GetLastId();
+            id = ultimoId+1;
         }
     }
 
@@ -277,3 +299,13 @@ public class ProdottoRepository
 // la cosa più furba è mantenere i vari blocchi modulari (riutilizzabili)
 // piuttosto che fare una classe che fa più cose
 
+
+```
+
+
+#### VERSIONE FUNZIONANTE
+
+
+```C#
+
+```
