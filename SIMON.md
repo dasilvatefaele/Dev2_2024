@@ -5,7 +5,7 @@ Creare un gioco come il popolare Simon! 4 colori, 4 note musicali della scala pe
 
 ---
 ```mermaid
-flowchart TD
+flowchart LR
 
 id0((start))
 id11(sequenzaRandom.Count = 0)
@@ -32,3 +32,21 @@ Cosa occorre:
 - un generatore Random da 0 a 3
 - un array di 4 suoni
 - una variabile per scrivere e leggere la sequenza (lista)
+
+Processo:
+```mermaid
+flowchart
+
+ID0(VIENE GENERATO
+UN INDEX)
+
+ID1(INDEX VIENE USATO
+NELL'ARRAY DI SUONI)
+
+ID2(VIENE RIPRODOTTO IL SUONO
+DI QUELL'INDEX)
+
+ID3(INDEX VIENE SALVATO
+NELLA LISTA)
+
+```

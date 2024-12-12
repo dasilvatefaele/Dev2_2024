@@ -45,8 +45,8 @@ class Program // <--- (standard/default)
                     }
                 break;
                 case "2":
-                    Console.Write("ID > ");
-                    int id = int.Parse(Console.ReadLine());
+                    // Console.Write("ID > ");
+                    // int id = int.Parse(Console.ReadLine());
                     Console.Write("Nome > ");
                     string nome ="";
                     nome = Console.ReadLine();
@@ -54,9 +54,11 @@ class Program // <--- (standard/default)
                     decimal prezzo = decimal.Parse(Console.ReadLine());
                     Console.Write("Giacenza > ");
                     int giacenza = int.Parse(Console.ReadLine());
-                    manager.AggiungiProdotto(new ProdottoAdvanced {Id = id, NomeProdotto = nome, PrezzoProdotto = prezzo, GiacenzaProdotto = giacenza});
+                    manager.AggiungiProdotto(new ProdottoAdvanced {NomeProdotto = nome, PrezzoProdotto = prezzo, GiacenzaProdotto = giacenza});
+                    repository.SalvaProdotti(prodotti);                   
                 break;
                 case "3":
+                    prodotti = repository.CaricaProdotti();
                     Console.Write("ID > ");
                     int idProdotto = int.Parse(Console.ReadLine());
                     ProdottoAdvanced prodottoTrovato = manager.TrovaProdotto(idProdotto);
@@ -76,15 +78,15 @@ class Program // <--- (standard/default)
                     ProdottoAdvanced prodottoTrovato2 = manager.TrovaProdotto(idProdottoDaAggiornare);
                     if (prodottoTrovato2 != null)
                     {
-                        int idBackup = prodottoTrovato2.Id;
-                        manager.EliminaProdotto(idBackup);
+                        //int idBackup = prodottoTrovato2.Id;
                         Console.Write("Nome > ");
                         string nomeAggiornato = Console.ReadLine();
                         Console.Write("Prezzo > ");
                         decimal prezzoAggiornato = decimal.Parse(Console.ReadLine());
                         Console.Write("Giacenza > ");
                         int giacenzaAggiornata = int.Parse(Console.ReadLine());
-                        manager.AggiungiProdotto(new ProdottoAdvanced {Id = idBackup, NomeProdotto = nomeAggiornato, PrezzoProdotto = prezzoAggiornato, GiacenzaProdotto = giacenzaAggiornata});
+                        manager.AggiornaProdotto(idProdottoDaAggiornare, new ProdottoAdvanced {NomeProdotto = nomeAggiornato, PrezzoProdotto = prezzoAggiornato, GiacenzaProdotto = giacenzaAggiornata});
+                        //manager.EliminaProdotto(idProdottoDaAggiornare);
                     }
                     else
                     {
@@ -108,7 +110,9 @@ class Program // <--- (standard/default)
 
 public class ProdottoAdvanced
 {
+
     private int id; // campo privato
+    private string nomeProdotto;  // campo privato
     
     public int Id 
     { 
@@ -123,7 +127,7 @@ public class ProdottoAdvanced
         }
     }
 
-    private string nomeProdotto;  // campo privato
+
     public string NomeProdotto 
     { 
         get { return nomeProdotto; }
@@ -170,12 +174,22 @@ public class ProdottoAdvancedManager
     private List<ProdottoAdvanced> prodotti; // prodotti e' private perche non voglio che venga modificato dall'esterno
     private readonly string filePath = "prodotti.json"; // percorso in cui memorizzare i dati
     private readonly string dirCatalogo = "catalogo";
-    private ProdottoRepository repo;
-
+    // private ProdottoRepository repo;
+    private int prossimoId;
     public ProdottoAdvancedManager(List<ProdottoAdvanced> Prodotti)
     {
         prodotti = Prodotti;
-        repo = new ProdottoRepository(); //! non la sto usando ma è buono sapere che il costruttore inizializzi le variabili dichiarate nella classe
+        // repo = new ProdottoRepository(); //! non la sto usando ma è buono sapere che il costruttore inizializzi le variabili dichiarate nel campo della classe
+
+        prossimoId = 1;
+        foreach (var prodotto in prodotti)
+        {
+            if (prodotto.Id >= prossimoId)
+            {
+                prossimoId = prodotto.Id + 1;
+            }
+        }
+
         //this.prodotti = prodotti; //? "collego" la variabile prodotti passata come argomento alla variabile privata
 
         // inizializzo la lista di prodotti nel costruttore pubblico in modo che sia accessibile all'esterno
@@ -186,6 +200,8 @@ public class ProdottoAdvancedManager
     // metodo per aggiungere
     public void AggiungiProdotto (ProdottoAdvanced prodotto)
     {
+        prodotto.Id = prossimoId;
+        prossimoId++;
         prodotti.Add(prodotto); // quella private
     }
 
@@ -234,6 +250,7 @@ public class ProdottoAdvancedManager
                 if (prodottoTemporaneo.Id == id) // se l'id del prodotto temporaneo è uguale all'id inserito dall'utente
                 {
                     File.Delete(file); // elimina il file 
+                    // repo.SalvaProdotti(prodotti);
                 }
             }
             prodotti.Remove(prodotto); // rimuovi il prodotto dalla lista runtime

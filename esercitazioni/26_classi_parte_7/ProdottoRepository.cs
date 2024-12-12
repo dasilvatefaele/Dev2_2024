@@ -19,12 +19,12 @@ public class ProdottoRepository
         foreach (var prodotto in prodotti) // per ogni prodotto nella lista argomento
         {
             string jsonData = JsonConvert.SerializeObject(prodotto, Formatting.Indented); // serializza il prodotto
-            string nomeProdotto = $"{prodotto.NomeProdotto}.json"; // creo il nome del file 
+            string nomeProdotto = $"{prodotto.Id}.json"; // creo il nome del file 
             nuovoPercorso = Path.Combine(dirCatalogo,nomeProdotto); // creo il percorso
             File.WriteAllText(nuovoPercorso, jsonData); // scrivo il prodotto deserializzato nel percorso
         }
         
-        Console.WriteLine($"Dati salvati in '/{dirCatalogo}\n'"); // stampo il percorso 
+        // Console.WriteLine($"Dati salvati nella cartella '/{dirCatalogo}'\n"); // stampo il percorso 
     }
 
     public List<ProdottoAdvanced> CaricaProdotti()
