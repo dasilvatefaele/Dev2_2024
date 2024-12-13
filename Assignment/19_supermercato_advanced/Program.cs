@@ -17,122 +17,187 @@ class Program // <--- (standard/default)
         Console.Clear();
 
         ProdottoRepository repository = new ProdottoRepository();
-        ClienteRepository clienteRepo= new ClienteRepository();
+        ClienteRepository clienteRepo = new ClienteRepository();
 
-        List<ProdottoAdvanced> prodotti =  repository.CaricaProdotti();
-        List<ProdottoAdvanced> carrello =  clienteRepo.CaricaProdotti();
+        List<ProdottoAdvanced> prodotti = repository.CaricaProdotti();
+        List<ProdottoAdvanced> carrello = clienteRepo.CaricaProdotti();
 
         ProdottoAdvancedManager manager = new ProdottoAdvancedManager(prodotti);
         CarrelloAdvancedManager carrelloManager = new CarrelloAdvancedManager(carrello);
 
         bool continua = true;
+        bool continuaComeCliente = true;
+        bool continuaComeDipendente = true;
 
         while (continua)
         {
-            Console.WriteLine("\nMenu");
-            Console.WriteLine("1. Visualizza prodotti");
-            Console.WriteLine("2. Aggiungi al prodotti");
-            //Console.WriteLine("3. Rimuovi dal prodotti");
-            //Console.WriteLine("4. Modifica prodotti");
-            Console.WriteLine("5. Il tuo carrello");
-            //Console.WriteLine("6. Procedi al pagamento"); // cambia stato dell'ordine
-            Console.WriteLine("0. Esci"); // cambia stato dell'ordine
-            // Console.Write("> ");
-            // string scelta = Console.ReadLine();
-            string scelta = InputManager.LeggiIntero("> ", 0, 5).ToString();
+            bool scelta = InputManager.LeggiConferma("Sei un cliente?");
             Console.Clear();
-
             switch (scelta)
             {
-                case "1": // Visualizza prodotti DEL SUPERMERCATO //* DONE
-                    Console.WriteLine("\nPRODOTTI DEL SUPERMERCATO:");
-                    if (prodotti != null)
+                case true:
+                    while (continuaComeCliente)
                     {
-                        StampaTabella.ComeCliente(prodotti);                    
+                        Console.WriteLine("BENVENUTO!");
+                        Console.WriteLine("1. Visualizza prodotti");
+                        Console.WriteLine("2. Aggiungi al carrello");
+                        //Console.WriteLine("3. Rimuovi dal prodotti");
+                        //Console.WriteLine("4. Modifica prodotti");
+                        Console.WriteLine("5. Il tuo carrello");
+                        //Console.WriteLine("6. Procedi al pagamento"); // cambia stato dell'ordine
+                        Console.WriteLine("0. Annulla ed Esci"); // cambia stato dell'ordine
+                                                                 // Console.Write("> ");
+                                                                 // string scelta = Console.ReadLine();
+                        string inserimento = InputManager.LeggiIntero("> ", 0, 5).ToString();
+                        Console.Clear();
+
+                        switch (inserimento)
+                        {
+                            case "1": // Visualizza prodotti DEL SUPERMERCATO //* DONE
+                                Console.WriteLine("\nPRODOTTI DEL SUPERMERCATO:");
+                                if (prodotti != null)
+                                {
+                                    StampaTabella.ComeCliente(prodotti);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("\nNon c'è ancora nessun prodotto.\n");
+                                }
+                                break;
+                            case "2": // Aggiung al prodotti 
+                                StampaTabella.ComeCliente(prodotti);
+                                string nomeProdotto = InputManager.LeggiStringa("Inserisci il prodotto > ");
+                                carrelloManager.AggiungiProdotto(nomeProdotto, carrello);
+                                //repository.SalvaProdotti(prodotti);                   
+                                break;
+                            case "3": // Rimuovi dal prodotti
+                                prodotti = repository.CaricaProdotti();
+                                int idProdotto = InputManager.LeggiIntero("ID > ", 0);
+                                ProdottoAdvanced prodottoTrovato = manager.TrovaProdotto(idProdotto);
+                                if (prodottoTrovato != null)
+                                {
+                                    Console.WriteLine($"\nProdotto trovato per ID {idProdotto}: {prodottoTrovato.NomeProdotto}");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"\nProdotto non trovato per ID {idProdotto}");
+                                }
+                                break;
+                            case "4": // Modifica prodotti
+                                      // Console.Write("ID > ");
+                                StampaTabella.ComeAdmin(prodotti);
+                                int idProdottoDaAggiornare = InputManager.LeggiIntero("ID > ", 0);
+                                ProdottoAdvanced prodottoTrovato2 = manager.TrovaProdotto(idProdottoDaAggiornare);
+                                if (prodottoTrovato2 != null)
+                                {
+                                    string nomeAggiornato = InputManager.LeggiStringa("Nome > ");
+                                    decimal prezzoAggiornato = InputManager.LeggiDecimale("Prezzo > ");
+                                    int giacenzaAggiornata = InputManager.LeggiIntero("Giacenza > ");
+                                    //int idBackup = prodottoTrovato2.Id;
+                                    //Console.Write("Nome > ");
+                                    //Console.Write("Prezzo > ");
+                                    //Console.Write("Giacenza > ");
+                                    manager.AggiornaProdotto(idProdottoDaAggiornare, new ProdottoAdvanced { NomeProdotto = nomeAggiornato, PrezzoProdotto = prezzoAggiornato, GiacenzaProdotto = giacenzaAggiornata });
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"\nProdotto non trovato per ID {idProdottoDaAggiornare}");
+                                }
+                                break;
+                            case "5": // Visualizza IL TUO CARRELLO //* DONE
+                                StampaTabella.ComeCliente(carrello);
+                                break;
+                            case "6": // procedi al pagamento
+                                break;
+                            case "0": // Esci //* DONE
+                                Console.Clear();
+                                Console.WriteLine("1. Esci dalla sessione       [Conserva il Carrello]");
+                                Console.WriteLine("2. Termina l'applicazione    [Elimina il Carrello]");
+                                Console.WriteLine("3. Continua l'acquisto...    [Torna Indietro]");
+                                int inserimentoUscita = InputManager.LeggiIntero("> ", 1, 3);
+                                switch (inserimentoUscita)
+                                {
+                                    case 1:
+                                        continuaComeCliente = false;
+                                        repository.SalvaProdotti(manager.OttieniProdotti());
+                                        Console.Clear();
+                                        break;
+                                    case 2:
+                                        continuaComeCliente = false;
+                                        continua = false;
+                                        Console.WriteLine("Arrivederci!\n");
+                                        break;
+                                    case 3:
+                                        // continua...
+                                        Console.Clear();
+                                        break;
+                                }
+                                break;
+                            default:  // Questo messaggio non dovrebbe apparire mai
+                                Console.WriteLine("INSERIMENTO MENU NON VALIDO\n");
+                                // dato che c'è il controllo di acquisizione nella scelta
+                                // questo messaggio non dovrebbe apparire mai
+                                break;
+                        }
                     }
-                    else
+                    continuaComeCliente = true;
+                    break;
+                case false:
+                    while (continuaComeDipendente)
                     {
-                        Console.WriteLine("\nNon c'è ancora nessun prodotto.\n");
+                        Console.WriteLine("MODALITA' ADMIN");
+                        Console.WriteLine("1. Cassiere");
+                        Console.WriteLine("2. Magazziniere");
+                        Console.WriteLine("3. Amministratore");
+                        Console.WriteLine("0. Esci");
+                        int inserimentoAdmin = InputManager.LeggiIntero("Seleziona la tua posizione > ", 0, 3);
+                        Console.Clear();
+                        switch (inserimentoAdmin)
+                        {
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 0:
+                                continua = !InputManager.LeggiConferma("Terminare l'applicazione?");
+                                Console.Clear();
+                                continuaComeDipendente = false;
+                                if (!continua)
+                                {
+                                    Console.WriteLine("Arrivederci!\n");
+                                }
+                                break;
+                        }
                     }
-                break;
-                case "2": // Aggiung al prodotti 
-                    StampaTabella.ComeCliente(prodotti);
-                    string nomeProdotto = InputManager.LeggiStringa("Inserisci il prodotto > ");
-                    carrelloManager.AggiungiProdotto(nomeProdotto, carrello);
-                    //repository.SalvaProdotti(prodotti);                   
-                break;
-                case "3": // Rimuovi dal prodotti
-                    prodotti = repository.CaricaProdotti();
-                    int idProdotto = InputManager.LeggiIntero("ID > ", 0);
-                    ProdottoAdvanced prodottoTrovato = manager.TrovaProdotto(idProdotto);
-                    if (prodottoTrovato != null)
-                    {
-                        Console.WriteLine($"\nProdotto trovato per ID {idProdotto}: {prodottoTrovato.NomeProdotto}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"\nProdotto non trovato per ID {idProdotto}");
-                    }
-                break;
-                case "4": // Modifica prodotti
-                    // Console.Write("ID > ");
-                    StampaTabella.ComeAdmin(prodotti);
-                    int idProdottoDaAggiornare = InputManager.LeggiIntero("ID > ", 0);
-                    ProdottoAdvanced prodottoTrovato2 = manager.TrovaProdotto(idProdottoDaAggiornare);
-                    if (prodottoTrovato2 != null)
-                    {
-                        string nomeAggiornato = InputManager.LeggiStringa("Nome > ");
-                        decimal prezzoAggiornato = InputManager.LeggiDecimale("Prezzo > ");
-                        int giacenzaAggiornata = InputManager.LeggiIntero("Giacenza > ");
-                        //int idBackup = prodottoTrovato2.Id;
-                        //Console.Write("Nome > ");
-                        //Console.Write("Prezzo > ");
-                        //Console.Write("Giacenza > ");
-                        manager.AggiornaProdotto(idProdottoDaAggiornare, new ProdottoAdvanced {NomeProdotto = nomeAggiornato, PrezzoProdotto = prezzoAggiornato, GiacenzaProdotto = giacenzaAggiornata});
-                    }
-                    else
-                    {
-                        Console.WriteLine($"\nProdotto non trovato per ID {idProdottoDaAggiornare}");
-                    }
-                break;
-                case "5": // Visualizza IL TUO CARRELLO //* DONE
-                    StampaTabella.ComeCliente(carrello);
-                break;
-                case "6": // procedi al pagamento
-                break;
-                case "0": // Esci //* DONE
-                    continua = false;
-                    repository.SalvaProdotti(manager.OttieniProdotti());
-                    Console.WriteLine("Arrivederci!\n");
-                break;
-                default:  // Questo messaggio non dovrebbe apparire mai
-                    Console.WriteLine("INSERIMENTO MENU NON VALIDO\n");
-                    // dato che c'è il controllo di acquisizione nella scelta
-                    // questo messaggio non dovrebbe apparire mai
-                break;
+                    continuaComeDipendente = true;
+                    break;
             }
         }
+
+
     }
 }
 
 
-static public class Cliente 
+static public class Cliente
 {
     static private int id;
     static public int Id
-    { 
-        get { return id; } 
-        set 
+    {
+        get { return id; }
+        set
         {
             id = value;
         }
     }
 
     static private string username;
-    static public string Username 
-    { 
-        get { return username; } 
-        set 
+    static public string Username
+    {
+        get { return username; }
+        set
         {
             username = value;
         }
@@ -140,9 +205,9 @@ static public class Cliente
 
     static private List<ProdottoAdvanced> carrello;
     static public List<ProdottoAdvanced> Carrello
-    { 
-        get { return carrello; } 
-        set 
+    {
+        get { return carrello; }
+        set
         {
             carrello = value;
         }
@@ -150,9 +215,9 @@ static public class Cliente
 
     static private List<ProdottoAdvanced> storicoAcquisti;
     static public List<ProdottoAdvanced> StoricoAcquisti
-    { 
-        get { return storicoAcquisti; } 
-        set 
+    {
+        get { return storicoAcquisti; }
+        set
         {
             storicoAcquisti = value;
         }
@@ -160,9 +225,9 @@ static public class Cliente
 
     static private int percentualeSconto;
     static public int PercentualeSconto
-    { 
-        get { return percentualeSconto; } 
-        set 
+    {
+        get { return percentualeSconto; }
+        set
         {
             percentualeSconto = value;
         }

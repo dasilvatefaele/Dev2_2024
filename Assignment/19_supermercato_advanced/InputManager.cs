@@ -18,7 +18,7 @@ public static class InputManager
             // provo a convertire 
             if (int.TryParse(input, out valore) && valore >= min && valore <= max)
             {
-                return valore; 
+                return valore;
                 // restituisce ed esce dal ciclo quando trova il valore
             }
             else
@@ -27,10 +27,10 @@ public static class InputManager
             }
         }
     }
-    public static decimal LeggiDecimale (string messaggio, decimal min = decimal.MinValue, decimal max = decimal.MaxValue)
+    public static decimal LeggiDecimale(string messaggio, decimal min = decimal.MinValue, decimal max = decimal.MaxValue)
     {
         decimal valore;
-        while(true)
+        while (true)
         {
             Console.Write($"{messaggio}"); // messaggio è la variabile di input
             string input = Console.ReadLine(); // acquisisco input come stringa
@@ -43,7 +43,7 @@ public static class InputManager
             // provo a convertire 
             if (decimal.TryParse(input, out valore) && valore >= min && valore <= max)
             {
-                return valore; 
+                return valore;
                 // restituisce ed esce dal ciclo quando trova il valore
             }
             else
@@ -52,24 +52,24 @@ public static class InputManager
             }
         }
     }
-    public static string LeggiStringa (string messaggio, bool obbligatorio = true)
+    public static string LeggiStringa(string messaggio, bool obbligatorio = true)
     {
         string valore;
-        while(true)
+        while (true)
         {
             Console.Write($"{messaggio}"); // messaggio è la variabile di input
             string input = Console.ReadLine(); // acquisisco input come stringa
             // provo a convertire 
             if (!string.IsNullOrWhiteSpace(input) || !obbligatorio)
             {
-                return input; 
+                return input;
             }
-            Console.WriteLine($"Errore: il valore non può essere vuoto");          
+            Console.WriteLine($"Errore: il valore non può essere vuoto");
         }
     }
-    public static bool LeggiConferma (string messaggio)
+    public static bool LeggiConferma(string messaggio)
     {
-        while(true)
+        while (true)
         {
             Console.Write($"{messaggio} (s/n): ");
             string input = Console.ReadLine().ToLower();
