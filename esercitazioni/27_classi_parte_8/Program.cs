@@ -25,9 +25,10 @@ class Program // <--- (standard/default)
             Console.WriteLine("4. Aggiorna");
             Console.WriteLine("5. Elimina");
             Console.WriteLine("0. Esci");
-        
-            Console.Write("> ");
-            string scelta = Console.ReadLine();
+            // Console.Write("> ");
+            // string scelta = Console.ReadLine();
+            string scelta = InputManager.LeggiIntero("> ", 0, 5).ToString();
+            Console.Clear();
 
             switch (scelta)
             {
@@ -35,10 +36,7 @@ class Program // <--- (standard/default)
                     Console.WriteLine("\nProdotti:");
                     if (prodotti != null)
                     {
-                        foreach(var prodotto in prodotti)
-                        {
-                            Console.WriteLine($"ID: {prodotto.Id}, Nome: {prodotto.NomeProdotto}, Prezzo: {prodotto.PrezzoProdotto}, Giacenza: {prodotto.GiacenzaProdotto}");
-                        }
+                        StampaTabella.ComeAdmin(prodotti);                    
                     }
                     else
                     {
@@ -46,22 +44,19 @@ class Program // <--- (standard/default)
                     }
                 break;
                 case "2":
-                    // Console.Write("ID > ");
-                    // int id = int.Parse(Console.ReadLine());
-                    Console.Write("Nome > ");
-                    string nome ="";
-                    nome = Console.ReadLine();
-                    Console.Write("Prezzo > ");
-                    decimal prezzo = decimal.Parse(Console.ReadLine());
-                    Console.Write("Giacenza > ");
-                    int giacenza = int.Parse(Console.ReadLine());
+                    string nome = InputManager.LeggiStringa("Nome > ");
+                    decimal prezzo = InputManager.LeggiDecimale("Prezzo > ");
+                    int giacenza = InputManager.LeggiIntero("Giacenza > ", 0);
+                    //Console.Write("Nome > ");
+                    // Console.Write("Prezzo > ");
+                    //Console.Write("Giacenza > ");
                     manager.AggiungiProdotto(new ProdottoAdvanced {NomeProdotto = nome, PrezzoProdotto = prezzo, GiacenzaProdotto = giacenza});
                     repository.SalvaProdotti(prodotti);                   
                 break;
                 case "3":
                     prodotti = repository.CaricaProdotti();
-                    Console.Write("ID > ");
-                    int idProdotto = int.Parse(Console.ReadLine());
+                    // Console.Write("ID > ");
+                    int idProdotto = InputManager.LeggiIntero("ID > ", 0);
                     ProdottoAdvanced prodottoTrovato = manager.TrovaProdotto(idProdotto);
 
                     if (prodottoTrovato != null)
@@ -74,20 +69,20 @@ class Program // <--- (standard/default)
                     }
                 break;
                 case "4":
-                    Console.Write("ID > ");
-                    int idProdottoDaAggiornare = int.Parse(Console.ReadLine());
+                    // Console.Write("ID > ");
+                    StampaTabella.ComeAdmin(prodotti);
+                    int idProdottoDaAggiornare = InputManager.LeggiIntero("ID > ", 0);
                     ProdottoAdvanced prodottoTrovato2 = manager.TrovaProdotto(idProdottoDaAggiornare);
                     if (prodottoTrovato2 != null)
                     {
+                        string nomeAggiornato = InputManager.LeggiStringa("Nome > ");
+                        decimal prezzoAggiornato = InputManager.LeggiDecimale("Prezzo > ");
+                        int giacenzaAggiornata = InputManager.LeggiIntero("Giacenza > ");
                         //int idBackup = prodottoTrovato2.Id;
-                        Console.Write("Nome > ");
-                        string nomeAggiornato = Console.ReadLine();
-                        Console.Write("Prezzo > ");
-                        decimal prezzoAggiornato = decimal.Parse(Console.ReadLine());
-                        Console.Write("Giacenza > ");
-                        int giacenzaAggiornata = int.Parse(Console.ReadLine());
+                        //Console.Write("Nome > ");
+                        //Console.Write("Prezzo > ");
+                        //Console.Write("Giacenza > ");
                         manager.AggiornaProdotto(idProdottoDaAggiornare, new ProdottoAdvanced {NomeProdotto = nomeAggiornato, PrezzoProdotto = prezzoAggiornato, GiacenzaProdotto = giacenzaAggiornata});
-                        //manager.EliminaProdotto(idProdottoDaAggiornare);
                     }
                     else
                     {
@@ -95,14 +90,21 @@ class Program // <--- (standard/default)
                     }
                 break;
                 case "5":
-                    Console.Write("ID > ");
-                    int idProdottoDaEliminare = int.Parse(Console.ReadLine());
+                    StampaTabella.ComeAdmin(prodotti);
+                    //Console.Write("ID > ");
+                    // int idProdottoDaEliminare = int.Parse(Console.ReadLine());
+                    int idProdottoDaEliminare = InputManager.LeggiIntero("ID > ", 0);
                     manager.EliminaProdotto(idProdottoDaEliminare);
                 break;
                 case "0":
                     continua = false;
                     repository.SalvaProdotti(manager.OttieniProdotti());
                     Console.WriteLine("Arrivederci!\n");
+                break;
+                default:
+                    Console.WriteLine("INSERIMENTO MENU NON VALIDO\n");
+                    // dato che c'è il controllo di acquisizione nella scelta
+                    // questo messaggio non dovrebbe apparire mai
                 break;
             }
         }
@@ -112,10 +114,8 @@ class Program // <--- (standard/default)
 #region PRODOTTOADVANCED
 public class ProdottoAdvanced
 {
-
     private int id; // campo privato
     private string nomeProdotto;  // campo privato
-    
     public int Id 
     { 
         get { return id; } 
@@ -128,8 +128,6 @@ public class ProdottoAdvanced
             id = value; 
         }
     }
-
-
     public string NomeProdotto 
     { 
         get { return nomeProdotto; }
@@ -261,21 +259,99 @@ public class ProdottoAdvancedManager
     }
 }
 #endregion
-
 #region INPUTMANAGER
-
-class InputManager
+// classe di gestione degli input per semplificare l'acquisizione e la 
+// validazione degli input. Questa classe aiuta a gestire i casi di errore e 
+// fornisce metodi per acquisire input di diversi tipi
+//* int min = int.MinValue è la costante minima dei valori interi. 
+//* int max = int.MaxValue è la costante massima dei valori interi
+//* quando chiamiamo il metodo, se inseriamo l'argomento, lo sovrascrive
+//* se non lo inseriamo, la variabile avrà il valore dichiarato 
+//* nella definizione del metodo
+public static class InputManager
 {
-    public InputManager()
+    public static int LeggiIntero(string messaggio, int min = int.MinValue, int max = int.MaxValue)
     {
+        int valore; // per memorizzare intero acquisito
+        while (true)
+        {
+            Console.Write($"{messaggio}"); // messaggio è la variabile di input
+            string input = Console.ReadLine(); // acquisisco input come stringa
+            // provo a convertire 
+            if (int.TryParse(input, out valore) && valore >= min && valore <= max)
+            {
+                return valore; 
+                // restituisce ed esce dal ciclo quando trova il valore
+            }
+            else
+            {
+                Console.WriteLine($"Inserire un valore intero compreso tra {min} e {max}");
+            }
+        }
+    }
+    public static decimal LeggiDecimale (string messaggio, decimal min = decimal.MinValue, decimal max = decimal.MaxValue)
+    {
+        decimal valore;
+        while(true)
+        {
+            Console.Write($"{messaggio}"); // messaggio è la variabile di input
+            string input = Console.ReadLine(); // acquisisco input come stringa
 
+            // sostituisco la virgola con il punto
+            if (input.Contains(".")) //(input.Contains(",") && !input.Contains("."))
+            {
+                input = input.Replace(".", ","); // sostituire la virgola con il punto
+            }
+            // provo a convertire 
+            if (decimal.TryParse(input, out valore) && valore >= min && valore <= max)
+            {
+                return valore; 
+                // restituisce ed esce dal ciclo quando trova il valore
+            }
+            else
+            {
+                Console.WriteLine($"Inserire un valore intero compreso tra {min} e {max}");
+            }
+        }
+    }
+    public static string LeggiStringa (string messaggio, bool obbligatorio = true)
+    {
+        string valore;
+        while(true)
+        {
+            Console.Write($"{messaggio}"); // messaggio è la variabile di input
+            string input = Console.ReadLine(); // acquisisco input come stringa
+            // provo a convertire 
+            if (!string.IsNullOrWhiteSpace(input) || !obbligatorio)
+            {
+                return input; 
+            }
+            Console.WriteLine($"Errore: il valore non può essere vuoto");          
+        }
+    }
+    public static bool LeggiConferma (string messaggio)
+    {
+        while(true)
+        {
+            Console.Write($"{messaggio} (s/n): ");
+            string input = Console.ReadLine().ToLower();
+            if (input == "s" || input == "si")
+            {
+                return true;
+            }
+            else if (input == "n" || input == "no")
+            {
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Inserire un valore valido");
+            }
+        }
     }
 }
-
 #endregion
-
 // La gestione dei file json è più sicura se il path è privato
 // dunque ogni file json avrà la propria Class Repository per salvare e caricare
 // la cosa più furba è mantenere i vari blocchi modulari (riutilizzabili)
 // piuttosto che fare una classe che fa più cose
-
