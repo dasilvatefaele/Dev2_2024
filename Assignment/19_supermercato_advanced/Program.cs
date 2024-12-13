@@ -116,22 +116,57 @@ class Program // <--- (standard/default)
 }
 
 
-public class Cliente 
+static public class Cliente 
 {
-    private int id;
-    public int Id { get; set;}
+    static private int id;
+    static public int Id
+    { 
+        get { return id; } 
+        set 
+        {
+            id = value;
+        }
+    }
 
-    private string username;
-    public string Username { get; set;}
+    static private string username;
+    static public string Username 
+    { 
+        get { return username; } 
+        set 
+        {
+            username = value;
+        }
+    }
 
-    private List<ProdottoAdvanced> carrello;
-    public List<ProdottoAdvanced> Carrello { get; set;}
+    static private List<ProdottoAdvanced> carrello;
+    static public List<ProdottoAdvanced> Carrello
+    { 
+        get { return carrello; } 
+        set 
+        {
+            carrello = value;
+        }
+    }
 
-    private List<ProdottoAdvanced> storicoAcquisti;
-    public List<ProdottoAdvanced> StoricoAcquisti { get; set;}
+    static private List<ProdottoAdvanced> storicoAcquisti;
+    static public List<ProdottoAdvanced> StoricoAcquisti
+    { 
+        get { return storicoAcquisti; } 
+        set 
+        {
+            storicoAcquisti = value;
+        }
+    }
 
-    private int percentualeSconto;
-    public int PercentualeSconto { get; set;}
+    static private int percentualeSconto;
+    static public int PercentualeSconto
+    { 
+        get { return percentualeSconto; } 
+        set 
+        {
+            percentualeSconto = value;
+        }
+    }
 }
 
 
