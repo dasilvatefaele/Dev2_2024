@@ -16,14 +16,15 @@ class Program // <--- (standard/default)
     {
         Console.Clear();
 
-        ProdottoRepository repository = new ProdottoRepository();
-        ClienteRepository clienteRepo = new ClienteRepository();
+        ProdottoRepository repositoryProdotti = new ProdottoRepository();
+        CarrelloRepository repositoryCarrello = new CarrelloRepository();
 
-        List<ProdottoAdvanced> prodotti = repository.CaricaProdotti();
-        List<ProdottoAdvanced> carrello = clienteRepo.CaricaProdotti();
+        List<ProdottoAdvanced> prodotti = repositoryProdotti.CaricaProdotti();
+        List<ProdottoAdvanced> carrello = repositoryCarrello.CaricaProdotti();
 
         ProdottoAdvancedManager manager = new ProdottoAdvancedManager(prodotti);
         CarrelloAdvancedManager carrelloManager = new CarrelloAdvancedManager(carrello);
+        // entrambi i costruttori dei manager richiedono l'argomento dell'oggetto da gestire 
 
         bool continua = true;
         bool continuaComeCliente = true;
@@ -53,25 +54,27 @@ class Program // <--- (standard/default)
 
                         switch (inserimento)
                         {
-                            case "1": // Visualizza prodotti DEL SUPERMERCATO //* DONE
-                                Console.WriteLine("\nPRODOTTI DEL SUPERMERCATO:");
+                            case "1": // Visualizza prodotti DEL SUPERMERCATO //* OK
                                 if (prodotti != null)
                                 {
                                     StampaTabella.ComeCliente(prodotti);
+                                    Console.WriteLine();
                                 }
                                 else
                                 {
                                     Console.WriteLine("\nNon c'è ancora nessun prodotto.\n");
                                 }
                                 break;
-                            case "2": // Aggiung al prodotti 
+                            case "2": // Aggiungi al prodotti 
                                 StampaTabella.ComeCliente(prodotti);
+                                Console.WriteLine();
                                 string nomeProdotto = InputManager.LeggiStringa("Inserisci il prodotto > ");
                                 carrelloManager.AggiungiProdotto(nomeProdotto, carrello);
-                                //repository.SalvaProdotti(prodotti);                   
+                                Console.WriteLine();
+                                //repositoryProdotti.SalvaProdotti(prodotti);                   
                                 break;
-                            case "3": // Rimuovi dal prodotti
-                                prodotti = repository.CaricaProdotti();
+                            case "3": // Rimuovi dal carrello
+                                prodotti = repositoryProdotti.CaricaProdotti();
                                 int idProdotto = InputManager.LeggiIntero("ID > ", 0);
                                 ProdottoAdvanced prodottoTrovato = manager.TrovaProdotto(idProdotto);
                                 if (prodottoTrovato != null)
@@ -104,12 +107,14 @@ class Program // <--- (standard/default)
                                     Console.WriteLine($"\nProdotto non trovato per ID {idProdottoDaAggiornare}");
                                 }
                                 break;
-                            case "5": // Visualizza IL TUO CARRELLO //* DONE
-                                StampaTabella.ComeCliente(carrello);
+                            case "5": // Visualizza IL TUO CARRELLO //* OK
+                                carrello = repositoryCarrello.CaricaProdotti();
+                                StampaTabella.Carrello(carrello);
+                                Console.WriteLine();
                                 break;
                             case "6": // procedi al pagamento
                                 break;
-                            case "0": // Esci //* DONE
+                            case "0": // Esci //* OK
                                 Console.Clear();
                                 Console.WriteLine("1. Esci dalla sessione       [Conserva il Carrello]");
                                 Console.WriteLine("2. Termina l'applicazione    [Elimina il Carrello]");
@@ -119,7 +124,7 @@ class Program // <--- (standard/default)
                                 {
                                     case 1:
                                         continuaComeCliente = false;
-                                        repository.SalvaProdotti(manager.OttieniProdotti());
+                                        repositoryProdotti.SalvaProdotti(manager.OttieniProdotti());
                                         Console.Clear();
                                         break;
                                     case 2:
@@ -138,8 +143,8 @@ class Program // <--- (standard/default)
                                 // dato che c'è il controllo di acquisizione nella scelta
                                 // questo messaggio non dovrebbe apparire mai
                                 break;
-                        }
-                    }
+                        } // switch (inserimento) 
+                    } // while (continuaComeCliente)
                     continuaComeCliente = true;
                     break;
                 case false:
@@ -173,8 +178,8 @@ class Program // <--- (standard/default)
                     }
                     continuaComeDipendente = true;
                     break;
-            }
-        }
+            } // switch (scelta)
+        } // while (continua)
 
 
     }

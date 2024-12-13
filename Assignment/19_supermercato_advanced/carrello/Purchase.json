@@ -1,0 +1,32 @@
+[
+  {
+    "Id": 1,
+    "NomeProdotto": "iPhone",
+    "PrezzoProdotto": 899.00,
+    "GiacenzaProdotto": 1
+  },
+  {
+    "Id": 2,
+    "NomeProdotto": "Nokia",
+    "PrezzoProdotto": 199.00,
+    "GiacenzaProdotto": 2
+  },
+  {
+    "Id": 1,
+    "NomeProdotto": "iPhone",
+    "PrezzoProdotto": 899.00,
+    "GiacenzaProdotto": 8
+  },
+  {
+    "Id": 2,
+    "NomeProdotto": "Nokia",
+    "PrezzoProdotto": 199.00,
+    "GiacenzaProdotto": 30
+  },
+  {
+    "Id": 1,
+    "NomeProdotto": "iPhone",
+    "PrezzoProdotto": 899.00,
+    "GiacenzaProdotto": 9
+  }
+]

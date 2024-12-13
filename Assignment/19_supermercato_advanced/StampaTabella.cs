@@ -12,13 +12,13 @@ static public class StampaTabella
     const int COLONNA_XSMALL = -5;
     const int COLONNA_SMALL = -10;
     const int COLONNA_MEDIUM = -20;
-    const int COLONNA_LARGE = -30;
+    const int COLONNA_LARGE = -50;
 
 
 
     static public void ComeAdmin(List<ProdottoAdvanced> prodotti)
     {
-        int LUNGHEZZA_BR = 50;
+        const int LUNGHEZZA_BR = 50;
         if (prodotti.Count > 0)
         {
             Console.WriteLine($"{"ID",COLONNA_SMALL}{"Nome",COLONNA_MEDIUM}{"Prezzo",COLONNA_SMALL}{"Giacenza",COLONNA_SMALL}");
@@ -35,14 +35,32 @@ static public class StampaTabella
     }
     static public void ComeCliente(List<ProdottoAdvanced> prodotti)
     {
-        int LUNGHEZZA_BR = 30;
+        const int LUNGHEZZA_BR = 40;
         if (prodotti.Count > 0)
         {
-            Console.WriteLine($"{"Nome",COLONNA_MEDIUM}{"Prezzo",COLONNA_XSMALL}");
+            Console.WriteLine($"{"Nome",COLONNA_MEDIUM}{"Prezzo",COLONNA_MEDIUM}");
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
             foreach (var prodotto in prodotti)
             {
-                Console.WriteLine($"{prodotto.NomeProdotto,COLONNA_MEDIUM}{prodotto.PrezzoProdotto,COLONNA_XSMALL}");
+                Console.WriteLine($"{prodotto.NomeProdotto,COLONNA_MEDIUM}{prodotto.PrezzoProdotto,COLONNA_MEDIUM}");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Non ci sono prodotti.\n");
+        }
+    }
+
+    static public void Carrello(List<ProdottoAdvanced> carrello)
+    {
+        const int LUNGHEZZA_BR = 40;
+        if (carrello.Count > 0)
+        {
+            Console.WriteLine($"{"Qnt.",COLONNA_SMALL}{"Nome",COLONNA_MEDIUM}{"Prezzo",COLONNA_MEDIUM}");
+            Console.WriteLine(new string('-', LUNGHEZZA_BR));
+            foreach (var prodotto in carrello)
+            {
+                Console.WriteLine($"{"x" + prodotto.GiacenzaProdotto,COLONNA_SMALL}{prodotto.NomeProdotto,COLONNA_MEDIUM}{prodotto.PrezzoProdotto,COLONNA_MEDIUM}");
             }
         }
         else
