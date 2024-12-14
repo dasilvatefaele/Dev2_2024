@@ -116,9 +116,10 @@ in `CarrelloAdvancedManager.cs`
     - deve riaggiungere la quantità alla giacenza
     - in caso la nuova quantità sia zero deve eliminare la voce da `Purchase.json`
 
-in `class Cliente`
-- [ ] Creare un oggetto `Cliente cliente` e associargli un carrello `cliente.Carrello` che rispecchia `Carrello.json` 
-- [ ] Acquisire lo `clente.Username` 
+    ## Prossime implementazioni 
+- Creare un oggetto `Cliente cliente` e associargli un carrello `cliente.Carrello` che rispecchia `Carrello.json` 
+- Acquisire lo `clente.Username` 
+
 
 
 > Commit
@@ -127,3 +128,44 @@ git add --all
 git commit -m "Supermercato Avanzato 2/10 - prime implementazioni"
 git push -u origin main
 ```
+
+## Implementazioni:
+
+in `class Cliente`
+- [x] Creare un oggetto `Cliente cliente` e associargli un carrello `cliente.Carrello` che rispecchia `Carrello.json` 
+- [x] Acquisire lo `clente.Username` 
+- [x] Ottimizzazione della leggibilità del codice nel menu cliente + commenti completi 
+
+## Obiettivi individuati (in aggiornamento):
+
+Il file Purchase.json deve avere:
+- [ ] un `purchaseIdProgressivo` generato da una classe manager
+- [ ] una variabile `bool` di `stato`
+- [ ] ora e data del momento in cui `stato` passa da `false` a `true`, ovvero quando viene completato l'acquisto
+
+Creare una classe `ClientiAdvancedManager`
+- [ ] calcola `clienteIdProgressivo`, 
+- [ ] tiene traccia e ricalcola `PercentualeDiSconto`
+- [ ] controllo dell'username
+    - se username già nel database, carica dati di quel cliente
+    - se non esiste, crearne uno nuovo. 
+
+In `CarrelloAdvancedManager.cs`:
+- [ ] correggere `public void EliminaProdotto` 
+    - deve prendere come argomento `NomeProdotto`
+    - deve riaggiungere la quantità alla giacenza
+- [ ] correggere `public void AggiornaProdotto` 
+    - deve prendere come argomento `NomeProdotto`
+    - deve poter modificare la quantità
+    - deve riaggiungere la quantità alla giacenza
+    - in caso la nuova quantità sia zero deve eliminare la voce da `Purchase.json`
+
+> Commit
+```bash
+git add --all
+git commit -m "Supermercato Avanzato 2/10 - implementazione classe cliente"
+git push -u origin main
+```
+
+
+
