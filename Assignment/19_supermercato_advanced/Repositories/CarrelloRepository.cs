@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 public class CarrelloRepository
 {
     private readonly string filePath = "Purchase.json"; // percorso in cui memorizzare i dati
-    private readonly string dirCarrello = "carrello"; // catella
+    private readonly string dirCarrello = "data/carrello"; // catella
 
     //metodo per salvare i dati su file 
-    public void SalvaProdotti(List<ProdottoAdvanced> prodotti)
+    public void SalvaProdotti(Purchase prodotti)
     {
 
         string nuovoPercorso = "";
@@ -29,7 +29,7 @@ public class CarrelloRepository
     }
 
     //metodo per caricare i dati da file 
-    public List<ProdottoAdvanced> CaricaProdotti()
+    public List<Prodotto> CaricaProdotti()
     {
 
         if (Directory.Exists(dirCarrello)) // se la cartella esiste
@@ -41,13 +41,15 @@ public class CarrelloRepository
             {
                 string readJsonData = File.ReadAllText(percorsoCarrello);
                 // leggo il file e lo salvo in una stringa
+                Purchase lettura = JsonConvert.DeserializeObject<Purchase>(readJsonData);
 
-                return JsonConvert.DeserializeObject<List<ProdottoAdvanced>>(readJsonData);
+
+                return lettura.MyPurchase;
                 // restituisco la stringa deserializzata
             }
             else
             {
-                return new List<ProdottoAdvanced>();
+                return new List<Prodotto>();
             }
         }
         else
@@ -55,7 +57,7 @@ public class CarrelloRepository
             Directory.CreateDirectory(dirCarrello);
             // se non esiste la cartella creala 
 
-            return new List<ProdottoAdvanced>();
+            return new List<Prodotto>();
             // e restiuisci una lista vuota
         }
     }

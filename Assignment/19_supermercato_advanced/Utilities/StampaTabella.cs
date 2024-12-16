@@ -16,16 +16,16 @@ static public class StampaTabella
 
 
 
-    static public void ComeAdmin(List<ProdottoAdvanced> prodotti)
+    static public void ComeAdmin(List<Prodotto> prodotti)
     {
-        const int LUNGHEZZA_BR = 50;
+        const int LUNGHEZZA_BR = 65;
         if (prodotti.Count > 0)
         {
-            Console.WriteLine($"{"ID",COLONNA_SMALL}{"Nome",COLONNA_MEDIUM}{"Prezzo",COLONNA_SMALL}{"Giacenza",COLONNA_SMALL}");
+            Console.WriteLine($"{"ID",COLONNA_SMALL}{"Nome",COLONNA_MEDIUM}{"Prezzo",COLONNA_SMALL}{"Giacenza",COLONNA_SMALL}{"Categoria",COLONNA_SMALL}");
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
             foreach (var prodotto in prodotti)
             {
-                Console.WriteLine($"{prodotto.Id,COLONNA_SMALL}{prodotto.NomeProdotto,COLONNA_MEDIUM}{prodotto.PrezzoProdotto,COLONNA_SMALL:0.00}{prodotto.GiacenzaProdotto,COLONNA_SMALL}");
+                Console.WriteLine($"{prodotto.Id,COLONNA_SMALL}{prodotto.Nome,COLONNA_MEDIUM}{prodotto.Prezzo,COLONNA_SMALL:0.00}{prodotto.Giacenza,COLONNA_SMALL}{prodotto.Categoria.Name, COLONNA_SMALL}");
             }
         }
         else
@@ -33,7 +33,7 @@ static public class StampaTabella
             Console.WriteLine("Non ci sono prodotti.\n");
         }
     }
-    static public void ComeCliente(List<ProdottoAdvanced> prodotti)
+    static public void ComeCliente(List<Prodotto> prodotti)
     {
         const int LUNGHEZZA_BR = 40;
         if (prodotti.Count > 0)
@@ -42,7 +42,7 @@ static public class StampaTabella
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
             foreach (var prodotto in prodotti)
             {
-                Console.WriteLine($"{prodotto.NomeProdotto,COLONNA_MEDIUM}{prodotto.PrezzoProdotto,COLONNA_MEDIUM}");
+                Console.WriteLine($"{prodotto.Nome,COLONNA_MEDIUM}{prodotto.Prezzo,COLONNA_MEDIUM}");
             }
         }
         else
@@ -51,7 +51,7 @@ static public class StampaTabella
         }
     }
 
-    static public void Carrello(List<ProdottoAdvanced> carrello)
+    static public void Carrello(List<Prodotto> carrello)
     {
         const int LUNGHEZZA_BR = 40;
         if (carrello.Count > 0)
@@ -60,7 +60,7 @@ static public class StampaTabella
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
             foreach (var prodotto in carrello)
             {
-                Console.WriteLine($"{"x" + prodotto.GiacenzaProdotto,COLONNA_SMALL}{prodotto.NomeProdotto,COLONNA_MEDIUM}{prodotto.PrezzoProdotto,COLONNA_MEDIUM}");
+                Console.WriteLine($"{"x" + prodotto.Giacenza,COLONNA_SMALL}{prodotto.Nome,COLONNA_MEDIUM}{prodotto.Prezzo,COLONNA_MEDIUM}");
             }
         }
         else

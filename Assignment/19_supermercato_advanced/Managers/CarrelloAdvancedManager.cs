@@ -3,18 +3,19 @@ using Newtonsoft.Json;
 
 public class CarrelloAdvancedManager
 {
-    private List<ProdottoAdvanced> prodotti; // prodotti e' private perche non voglio che venga modificato dall'esterno
-    private List<ProdottoAdvanced> catalogo; // prodotti e' private perche non voglio che venga modificato dall'esterno
+    private List<Prodotto> prodotti; // prodotti e' private perche non voglio che venga modificato dall'esterno
+    private List<Prodotto> catalogo; // prodotti e' private perche non voglio che venga modificato dall'esterno
     private readonly string filePath = "Purchase.json"; // percorso in cui memorizzare i dati
-    private readonly string dirCarrello = "carrello";
-    private readonly string dirCatalogo = "catalogo";
+    private readonly string dirCarrello = "data/carrello";
+    private readonly string dirCatalogo = "data/catalogo";
     private ProdottoRepository repoCatalogo;
     private CarrelloRepository repoCarrello;
+    private Purchase purchase;
     private int prossimoId;
 
     // construttore
     // richiede l'argomento dell'oggetto da gestire (in questo caso lista di ProdottiAdvanced)
-    public CarrelloAdvancedManager(List<ProdottoAdvanced> Prodotti)
+    public CarrelloAdvancedManager(List<Prodotto> Prodotti)
     {
         prodotti = Prodotti;
         repoCatalogo = new ProdottoRepository();
@@ -28,7 +29,7 @@ public class CarrelloAdvancedManager
             }
         }
     }
-    public void AggiungiProdotto(string prodottoDaAggiungere, List<ProdottoAdvanced> carrello)
+    public void AggiungiProdotto(string prodottoDaAggiungere, List<Prodotto> carrello)
     {
         catalogo = repoCatalogo.CaricaProdotti();
         // carico i prodotti aggiornati
@@ -38,35 +39,38 @@ public class CarrelloAdvancedManager
 
         foreach (var item in catalogo)
         {
-            if (item.NomeProdotto.ToString() == prodottoDaAggiungere)
+            if (item.Nome.ToString() == prodottoDaAggiungere)
             {
                 int quantita = InputManager.LeggiIntero("Quantita > ", 0);
                 // acquisisco la quantita desiderata
 
-                if (item.GiacenzaProdotto > quantita) // in la giacenza sia 1 non lo rende disponibile all'acquisto
+                if (item.Giacenza > quantita) // in la giacenza sia 1 non lo rende disponibile all'acquisto
                 {
-                    int temp = item.GiacenzaProdotto;
+                    int temp = item.Giacenza;
                     // salvo la giacenza 
 
-                    item.GiacenzaProdotto = quantita;
+                    item.Giacenza = quantita;
                     // attribuisco la quantità desiderata al prodotto
 
                     carrello.Add(item);
                     // salvo il prodotto nel carrello
 
-                    repoCarrello.SalvaProdotti(carrello);
+                    purchase = new Purchase { MyPurchase = carrello, Id = 1, Stato = false };
+                    // salvo il carrello nel purchase
+
+                    repoCarrello.SalvaProdotti(purchase);
                     // aggiorno la persistenza dei dati
 
                     carrello = repoCarrello.CaricaProdotti();
-                    // ricarico il carrello in locale altrimenti  rimane salvata ultima giacenza
+                    // ricarico il carrello in locale altrimenti rimane salvata ultima giacenza
 
-                    item.GiacenzaProdotto = temp - quantita;
+                    item.Giacenza = temp - quantita;
                     // sottraggo la quantità alla giacenza e la attribuisco al prodotto
 
                     repoCatalogo.SalvaProdotti(catalogo);
-                    // aggiorno la persistenza
+                    // aggiorno la persistenza del catalogo
 
-
+                    // purchase = new Purchase( carrello );
 
                     trovato = true;
                     // indico che è stato trovato
@@ -97,13 +101,13 @@ public class CarrelloAdvancedManager
 
 
     // metodo per visualizzare 
-    public List<ProdottoAdvanced> OttieniProdotti()
+    public List<Prodotto> OttieniProdotti()
     {
         return prodotti;
     }
 
     // metodo per cercare un prodotto 
-    public ProdottoAdvanced TrovaProdotto(int id)
+    public Prodotto TrovaProdotto(int id)
     {
         foreach (var prodotto in prodotti)
         {
@@ -116,14 +120,14 @@ public class CarrelloAdvancedManager
     }
 
     // metodo per modificare il prodotto
-    public void AggiornaProdotto(int id, ProdottoAdvanced nuovoProdotto)
+    public void AggiornaProdotto(int id, Prodotto nuovoProdotto)
     {
         var prodotto = TrovaProdotto(id);
         if (prodotto != null)
         {
-            prodotto.NomeProdotto = nuovoProdotto.NomeProdotto;
-            prodotto.PrezzoProdotto = nuovoProdotto.PrezzoProdotto;
-            prodotto.GiacenzaProdotto = nuovoProdotto.GiacenzaProdotto;
+            prodotto.Nome = nuovoProdotto.Nome;
+            prodotto.Prezzo = nuovoProdotto.Prezzo;
+            prodotto.Giacenza = nuovoProdotto.Giacenza;
         }
     }
 
@@ -137,7 +141,7 @@ public class CarrelloAdvancedManager
             foreach (string file in files) // per ogni file nella cartella 
             {
                 string readJsonData = File.ReadAllText(file); // leggo il contenuto del file 
-                ProdottoAdvanced prodottoTemporaneo = JsonConvert.DeserializeObject<ProdottoAdvanced>(readJsonData)!; // lo deserializzo in un prodotto temporaneo
+                Prodotto prodottoTemporaneo = JsonConvert.DeserializeObject<Prodotto>(readJsonData)!; // lo deserializzo in un prodotto temporaneo
                 if (prodottoTemporaneo.Id == id) // se l'id del prodotto temporaneo è uguale all'id inserito dall'utente
                 {
                     File.Delete(file); // elimina il file 

@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 public class ProdottoRepository
 {
     private readonly string filePath = "prodotti.json"; // percorso in cui memorizzare i dati
-    private readonly string dirCatalogo = "catalogo"; //
+    private readonly string dirCatalogo = "data/catalogo"; //
 
     //metodo per salvare i dati su file 
-    public void SalvaProdotti(List<ProdottoAdvanced> prodotti)
+    public void SalvaProdotti(List<Prodotto> prodotti)
     {
 
         string nuovoPercorso = ""; // creo una variabile per ospitare il nuovo percorso
@@ -27,7 +27,7 @@ public class ProdottoRepository
         // Console.WriteLine($"Dati salvati nella cartella '/{dirCatalogo}'\n"); // stampo il percorso 
     }
 
-    public List<ProdottoAdvanced> CaricaProdotti()
+    public List<Prodotto> CaricaProdotti()
     {
         // string nuovoPercorso = Path.Combine(dirCatalogo, prodo)
         if (Directory.Exists(dirCatalogo))
@@ -36,25 +36,25 @@ public class ProdottoRepository
             
             if (files.Length > 0) // controllo che ci siano file nella cartella, se ci sono file
             {
-                List<ProdottoAdvanced> catalogoLocale = new List<ProdottoAdvanced>(); // crea una lista locale
-                ProdottoAdvanced prodottoLocale; // crea un'istanza temporanea del prodotto
+                List<Prodotto> catalogoLocale = new List<Prodotto>(); // crea una lista locale
+                Prodotto prodottoLocale; // crea un'istanza temporanea del prodotto
                 foreach(string file in files) // per ogni file dentro la cartella
                 {
                     string readJsonData = File.ReadAllText(file);  // leggi il file
-                    prodottoLocale = JsonConvert.DeserializeObject<ProdottoAdvanced>(readJsonData)!; // deserializzo dentro l'istanza temporanea
+                    prodottoLocale = JsonConvert.DeserializeObject<Prodotto>(readJsonData)!; // deserializzo dentro l'istanza temporanea
                     catalogoLocale.Add(prodottoLocale); // aggiungo l'istanza temporanea alla lista locale
                 }
                 return catalogoLocale; // restituisco la lista locale
             }
             else
             {
-                return new List<ProdottoAdvanced>(); // se la cartella esiste ma non ci sono file restituisci una lista vuota 
+                return new List<Prodotto>(); // se la cartella esiste ma non ci sono file restituisci una lista vuota 
             }
         }
         else // se non esiste la cartella creala e restiuisci una lista vuota
         {
             Directory.CreateDirectory(dirCatalogo); 
-            return new List<ProdottoAdvanced>(); 
+            return new List<Prodotto>(); 
         }
     }
 }

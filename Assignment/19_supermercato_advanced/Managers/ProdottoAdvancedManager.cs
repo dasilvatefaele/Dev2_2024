@@ -3,12 +3,12 @@ using Newtonsoft.Json;
 
 public class ProdottoAdvancedManager
 {  
-    private List<ProdottoAdvanced> prodotti; // prodotti e' private perche non voglio che venga modificato dall'esterno
+    private List<Prodotto> prodotti; // prodotti e' private perche non voglio che venga modificato dall'esterno
     private readonly string filePath = "prodotti.json"; // percorso in cui memorizzare i dati
-    private readonly string dirCatalogo = "catalogo";
+    private readonly string dirCatalogo = "data/catalogo";
     // private ProdottoRepository repo;
     private int prossimoId;
-    public ProdottoAdvancedManager(List<ProdottoAdvanced> Prodotti)
+    public ProdottoAdvancedManager(List<Prodotto> Prodotti)
     {
         prodotti = Prodotti;
         // repo = new ProdottoRepository(); //! non la sto usando ma è buono sapere che il costruttore inizializzi le variabili dichiarate nel campo della classe
@@ -30,7 +30,7 @@ public class ProdottoAdvancedManager
     }
 
     // metodo per aggiungere
-    public void AggiungiProdotto (ProdottoAdvanced prodotto)
+    public void AggiungiProdotto (Prodotto prodotto)
     {
         prodotto.Id = prossimoId;
         prossimoId++;
@@ -38,13 +38,13 @@ public class ProdottoAdvancedManager
     }
 
     // metodo per visualizzare 
-    public List<ProdottoAdvanced> OttieniProdotti()
+    public List<Prodotto> OttieniProdotti()
     {
         return prodotti;
     }
 
     // metodo per cercare un prodotto 
-    public ProdottoAdvanced TrovaProdotto(int id)
+    public Prodotto TrovaProdotto(int id)
     {
         foreach (var prodotto in prodotti)
         {
@@ -57,14 +57,14 @@ public class ProdottoAdvancedManager
     }
 
     // metodo per modificare il prodotto
-    public void AggiornaProdotto(int id, ProdottoAdvanced nuovoProdotto)
+    public void AggiornaProdotto(int id, Prodotto nuovoProdotto)
     {
         var prodotto = TrovaProdotto (id);
         if (prodotto != null)
         {
-            prodotto.NomeProdotto = nuovoProdotto.NomeProdotto;
-            prodotto.PrezzoProdotto = nuovoProdotto.PrezzoProdotto;
-            prodotto.GiacenzaProdotto = nuovoProdotto.GiacenzaProdotto;
+            prodotto.Nome = nuovoProdotto.Nome;
+            prodotto.Prezzo = nuovoProdotto.Prezzo;
+            prodotto.Giacenza = nuovoProdotto.Giacenza;
         }
     }
 
@@ -78,7 +78,7 @@ public class ProdottoAdvancedManager
             foreach (string file in files) // per ogni file nella cartella 
             {
                 string readJsonData = File.ReadAllText (file); // leggo il contenuto del file 
-                ProdottoAdvanced prodottoTemporaneo = JsonConvert.DeserializeObject<ProdottoAdvanced>(readJsonData)!; // lo deserializzo in un prodotto temporaneo
+                Prodotto prodottoTemporaneo = JsonConvert.DeserializeObject<Prodotto>(readJsonData)!; // lo deserializzo in un prodotto temporaneo
                 if (prodottoTemporaneo.Id == id) // se l'id del prodotto temporaneo è uguale all'id inserito dall'utente
                 {
                     File.Delete(file); // elimina il file 

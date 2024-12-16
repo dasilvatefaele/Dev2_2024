@@ -10,6 +10,7 @@ Implementare le entita che compongono un supermercato.
 |username|String|viene assegnato dall admin|
 |ruolo|String|viene assegnato dall admin e puo essere cassiere o magazziniere|
 
+
 |Cliente|Tipo di dato|Note|
 |---|---|--|
 |ID|int|viene generato in automatico con un progressivo|
@@ -17,6 +18,7 @@ Implementare le entita che compongono un supermercato.
 |carrello|Prodotto[]||
 |storico_acquisti|Purchases[]|viene popolato al termine di ogni acquisto|
 |percentuale_sconto|int|viene incrementata a seconda del valore dello storico degli acquisti|
+|credito|double|viene utilizzato per fare gli acquisti
 
 |Prodotto|Tipo di dato|Note|
 |---|---|---|
@@ -24,6 +26,12 @@ Implementare le entita che compongono un supermercato.
 |nome|String|viene inserito dal magazziniere|
 |prezzo|double|viene inserito dal magazziniere|
 |giacenza|int|viene inserito dal magazziniere|
+|categoria|string|viene inserito dal magaziniere|
+
+|Categoria|Tipo di dato| Note|
+|--|--|--|
+ID|int|
+Nome|string|
 
 **Purchases è lo stato nel quale si trova l acquisto di un cliente. Prima di essere passato alla cassa**
 
@@ -49,7 +57,7 @@ Implementare le entita che compongono un supermercato.
 
 |Cassiere|Magazziniere|Amministratore|Cliente|
 |---|---|---|---|
-|puo registrare i prodotti acquistati da un cliente che ha degli acquisti in stato completato e calcolare il totale da pagare generando lo scontrino.|puo visualizzare aggiungere modificare o rimuovere prodotti dal magazzino.|puo visualizzare ed impostare il ruolo dei dipendenti.|Può aggiungere o rimuovere prodotti e cambiare lo stato dell ordine|
+|puo registrare i prodotti acquistati da un cliente che ha degli acquisti in stato completato e calcolare il totale da pagare generando lo scontrino,e può ricaricare il credito del cliente quando è finito. |puo visualizzare aggiungere modificare o rimuovere prodotti dal magazzino e può gestire le categorie.|puo visualizzare ed impostare il ruolo dei dipendenti.|Può aggiungere o rimuovere prodotti e cambiare lo stato dell ordine|
 
 
 ---
@@ -166,6 +174,70 @@ git add --all
 git commit -m "Supermercato Avanzato 2/10 - implementazione classe cliente"
 git push -u origin main
 ```
+# Grafico che rappresenta il diagramma del ciclo di vita del prodotto
+Dall'inserimento nel magazzino al completamento dell'acquisto, con i ruoli dei dipendenti che effettuani queste operazioni 
 
+```mermaid
+flowchart TD
+ID0((INIZIO))
 
+ID10(MAGAZZINIERE 
+crea prodotto)
+ID11(Creazione prodotto.Json)
+ID12(Prodotto disponibile 
+al CLIENTE)
+ID13(CLIENTE aggiunge
+prodotto al carrello)
+ID14(Giacenza prodotto - Quantità 
+nel carrello)
+ID15(CLIENTE cambia 
+STATO Purchase)
 
+ID100{CASSIERE
+credito sufficiente?}
+ID101(CASSIERE
+credito - Totale carrello)
+ID102(credito non sufficiente)
+
+ID200(CASSA
+Stampa scontrino)
+
+ID300{CASSIERE
+Ricarica credito?}
+ID301(Credito ricaricato)
+
+ID999((FINE))
+
+ID0-->ID10
+ID10-->ID11
+ID11-->ID12
+ID12-->ID13
+ID13-->ID14
+ID14-->ID15
+ID15-->ID100
+ID100-->|SI|ID101
+ID101-->ID200-->ID999
+ID102-->ID300
+ID300-->|NO|ID999
+ID300-->|SI|ID301
+ID301-->ID15
+ID100-->|NO|ID102
+```
+
+## Implementazioni:
+
+- [x] organizzazione file / cartelle
+- [x] il file Purchase.json adesso salva Id e Stato
+- [x] CarrelloRepository legge correttamente Purchase.json
+- [x] Menu `Magaziniere` implementato per operazioni CRUD
+- [x] implementazione `DipendentiManager`
+    - [x] `AssegnaId`
+    - [x] `CreaDipendente`
+- [x] implementazione `DipendentiRepository`
+    - [x] SalvaDipendenti
+    - [x] CaricaDipendenti
+- [x] implementazione Area AMMINISTRATORE
+ - [x] visualizza dipendenti
+ - [x] aggiungi dipendenti
+ - [x] elimina dipendenti
+ - [ ] modificare dipendenti
