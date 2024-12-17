@@ -6,6 +6,7 @@ public class CarrelloRepository
     private readonly string filePath = "Purchase.json"; // percorso in cui memorizzare i dati
     private readonly string dirCarrello = "data/carrello"; // catella
 
+   
     //metodo per salvare i dati su file 
     public void SalvaProdotti(Purchase prodotti)
     {

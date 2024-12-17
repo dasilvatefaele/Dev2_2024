@@ -1,0 +1,19 @@
+{
+  "Id": 2,
+  "Username": "Mario",
+  "Carrello": [
+    {
+      "Id": 3,
+      "Nome": "Detersivo",
+      "Prezzo": 1.0,
+      "Quantita": 10,
+      "Categoria": {
+        "Name": "Pulizia",
+        "ID": 2
+      }
+    }
+  ],
+  "StoricoAcquisti": [],
+  "PercentualeSconto": 0,
+  "Credito": 200.0
+}

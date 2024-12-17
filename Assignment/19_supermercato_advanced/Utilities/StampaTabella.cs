@@ -50,17 +50,16 @@ static public class StampaTabella
             Console.WriteLine("Non ci sono prodotti.\n");
         }
     }
-
-    static public void Carrello(List<Prodotto> carrello)
+    static public void Carrello(List<ProdottoCarrello> carrello)
     {
         const int LUNGHEZZA_BR = 40;
         if (carrello.Count > 0)
         {
             Console.WriteLine($"{"Qnt.",COLONNA_SMALL}{"Nome",COLONNA_MEDIUM}{"Prezzo",COLONNA_MEDIUM}");
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
-            foreach (var prodotto in carrello)
+            foreach (var item in carrello)
             {
-                Console.WriteLine($"{"x" + prodotto.Giacenza,COLONNA_SMALL}{prodotto.Nome,COLONNA_MEDIUM}{prodotto.Prezzo,COLONNA_MEDIUM}");
+                Console.WriteLine($"{"x" + item.Quantita,COLONNA_SMALL}{item.Nome,COLONNA_MEDIUM}{item.Prezzo,COLONNA_MEDIUM}");
             }
         }
         else

@@ -19,14 +19,18 @@ class Program // <--- (standard/default)
         ProdottoRepository repositoryProdotti = new ProdottoRepository();
         CarrelloRepository repositoryCarrello = new CarrelloRepository();
         DipendentiRepository repositoryDipendenti = new DipendentiRepository();
+        ClientiRepository repositoryClienti = new ClientiRepository();
 
         List<Prodotto> prodotti = repositoryProdotti.CaricaProdotti();
         List<Prodotto> carrello = repositoryCarrello.CaricaProdotti();
         List<Dipendente> dipendenti = repositoryDipendenti.CaricaDipendenti();
+        List<Cliente> clienti = repositoryClienti.CaricaClienti();
+        Cliente cliente = new Cliente();
 
         ProdottoAdvancedManager manager = new ProdottoAdvancedManager(prodotti);
         CarrelloAdvancedManager carrelloManager = new CarrelloAdvancedManager(carrello);
         DipendentiManager managerDipendenti = new DipendentiManager(dipendenti);
+        ClientiManager clientiManager = new ClientiManager(clienti);
 
         Categoria Carne = new Categoria() { Name = "Carne", ID = 0 };
         Categoria Verdure = new Categoria() { Name = "Verdure", ID = 1 };
@@ -35,7 +39,7 @@ class Program // <--- (standard/default)
 
         int IDTEST = 202;
 
-        Cliente cliente;
+
         // entrambi i costruttori dei manager richiedono l'argomento dell'oggetto da gestire 
         bool continua = true;
         bool continuaComeCliente = true;
@@ -45,14 +49,13 @@ class Program // <--- (standard/default)
         while (continua)
         {
             bool scelta = InputManager.LeggiConferma("Sei un cliente?");
+
             Console.Clear();
             switch (scelta)
             {
                 case true:                                                       // AREA CLIENTI
-                    string accesso = InputManager.LeggiStringa("Inserisci il tuo Username > ");
-                    cliente = new Cliente { Id = 1, Username = accesso, Carrello = carrello, StoricoAcquisti = carrello, PercentualeSconto = 100 };
-                    // creare un controllo dell'username: se username già nel database, carica dati di quel cliente, se non esiste, crearne uno nuovo
-                    // se username esiste, carica lo storico di quel cliente
+                    cliente = clientiManager.CreaCliente();
+                    // controllo dell'username: se username già nel database, carica dati di quel cliente, se non esiste, crearne uno nuovo
 
                     while (continuaComeCliente) // MENU CLIENTI
                     {
@@ -71,56 +74,83 @@ class Program // <--- (standard/default)
 
                         switch (inserimento)
                         {
-                            case "1": //* OK - Visualizza Prodotti
-                                // 
+                            case "1": // OK - Visualizza Prodotti
+
                                 if (prodotti != null) // se ci sono prodotti
                                 {
                                     StampaTabella.ComeCliente(prodotti);
                                     // stampa prodotti in modalità cliente
-
                                     Console.WriteLine();
-                                    // a capo
+                                    // spazio
                                 }
                                 else
                                 {
                                     Console.WriteLine("\nNon c'è ancora nessun prodotto.\n");
                                 }
+
                                 break;
-                            case "2": //* OK - Aggiungi Prodotti
+                            case "2": // OK - Aggiungi Prodotti
 
                                 StampaTabella.ComeCliente(prodotti);
-                                // stampo il catalogo del supermercato (visualizzazione cliente senza ID e Giacenza)
-
+                                // stampo il catalogo come cliente
                                 Console.WriteLine();
-                                // a capo
-
+                                // spazio
                                 string nomeProdotto = InputManager.LeggiStringa("Inserisci il prodotto > ");
                                 // chiedo il nome del prodotto
-
-                                carrelloManager.AggiungiProdotto(nomeProdotto, carrello);
-                                // se il prodotto esiste lo aggiungo al carrello, altrimenti comunico che non esiste
-
-                                Console.WriteLine();
-                                // a capo
-
-                                cliente.Carrello = carrello;
-                                //aggiorno cliente
-
-                                break;
-                            case "3": // Elimina-Rimuovi dal carrello //! NOPE
+                                carrelloManager.AggiungiProdotto(nomeProdotto, carrello, ref cliente);
+                                // se il prodotto esiste e la giacenza è sufficiente lo salva nel carrello cliente 
+                                // e decrementa la giacenza, altrimenti stampa non trovato ed esce
+                                cliente = repositoryClienti.CaricaCliente(cliente);
                                 prodotti = repositoryProdotti.CaricaProdotti();
-                                int idProdotto = InputManager.LeggiIntero("ID > ", 0);
-                                Prodotto prodottoTrovato = manager.TrovaProdotto(idProdotto);
-                                if (prodottoTrovato != null)
-                                {
-                                    Console.WriteLine($"\nProdotto trovato per ID {idProdotto}: {prodottoTrovato.Nome}");
-                                }
-                                else
-                                {
-                                    Console.WriteLine($"\nProdotto non trovato per ID {idProdotto}");
-                                }
+                                // salvo la persistenza dei dati 
+                                Console.WriteLine();
+                                // spazio
+
                                 break;
-                            case "4": // Aggiorna-Modifica prodotti //! NOPE
+                            case "3": // todo Elimina-Rimuovi dal carrello 
+
+                                StampaTabella.Carrello(cliente.Carrello);
+                                // stampo il carrello (Qnt. |  Nome | Prezzo)
+                                Console.WriteLine();
+                                // spazio
+                                string prodottoDaRimuovere = InputManager.LeggiStringa("Che cosa vuoi rimuovere? > ");
+                                bool trovato = false;
+                                int restituiscoQuantita = 0;
+                                Prodotto rientroProdotto = new Prodotto();
+                                ProdottoCarrello restituiscoProdotto = new ProdottoCarrello();
+
+                                foreach (var prodottoDaRestituire in cliente.Carrello)
+                                {
+                                    if (prodottoDaRestituire.Nome == prodottoDaRimuovere)
+                                    {
+                                        restituiscoProdotto = prodottoDaRestituire;
+                                        trovato = true;
+                                    }
+                                }
+                                if (trovato)
+                                {
+                                    int idProdottoDaRipristinare = restituiscoProdotto.Id;
+                                    restituiscoQuantita = restituiscoProdotto.Quantita;
+                                    cliente.Carrello.Remove(restituiscoProdotto);
+                                    // salvo id e quantita del prodotto ripristinare e lo rimuovo dal carrello
+
+                                    repositoryClienti.SalvaClienti(cliente);
+                                    // salvo le modifiche
+
+                                    rientroProdotto = manager.TrovaProdotto(idProdottoDaRipristinare);
+                                    // trovo il prodotto
+
+                                    manager.EliminaProdotto(idProdottoDaRipristinare); 
+                                    rientroProdotto.Giacenza = rientroProdotto.Giacenza+restituiscoQuantita;
+                                    prodotti.Add(rientroProdotto);
+                                    repositoryProdotti.SalvaProdotti(prodotti);
+                                    prodotti = repositoryProdotti.CaricaProdotti();
+                                }
+                                
+
+
+                                break;
+                            case "4": // todo Aggiorna-Modifica prodotti 
                                       // Console.Write("ID > ");
                                 StampaTabella.ComeAdmin(prodotti);
                                 int idProdottoDaAggiornare = InputManager.LeggiIntero("ID > ", 0);
@@ -141,32 +171,24 @@ class Program // <--- (standard/default)
                                     Console.WriteLine($"\nProdotto non trovato per ID {idProdottoDaAggiornare}");
                                 }
                                 break;
-                            case "5": //* OK - Visualizza Carrello
+                            case "5": // OK - Visualizza Carrello 
 
-                                carrello = repositoryCarrello.CaricaProdotti();
-                                // aggiorno carrello prima della visualizzazione
-
-                                cliente.Carrello = carrello;
-                                // aggiorno cliente
-
-                                StampaTabella.Carrello(carrello);
+                                StampaTabella.Carrello(cliente.Carrello);
                                 // stampo il carrello (Qnt. |  Nome | Prezzo)
-
                                 Console.WriteLine();
-                                // a capo
+                                // spazio
 
                                 break;
-                            case "6": // procedi al pagamento //! NOPE
+                            case "6": // todoprocedi al pagamento 
                                 break;
-                            case "0": //* OK - Esci
+                            case "0": // OK - Esci
 
                                 Console.Clear();
-
-                                Console.WriteLine("1. Esci dalla sessione       [Conserva il Carrello]");
-                                Console.WriteLine("2. Termina l'applicazione    [Elimina il Carrello]");
-                                Console.WriteLine("3. Continua l'acquisto...    [Torna Indietro]");
-
+                                Console.WriteLine("1. Esci dalla sessione   ");
+                                Console.WriteLine("2. Termina l'applicazione");
+                                Console.WriteLine("3. Continua l'acquisto...");
                                 int inserimentoUscita = InputManager.LeggiIntero("> ", 1, 3);
+                                repositoryClienti.SalvaClienti(cliente);
 
                                 switch (inserimentoUscita)
                                 {
@@ -177,28 +199,22 @@ class Program // <--- (standard/default)
                                         prodotti = repositoryProdotti.CaricaProdotti();
                                         repositoryProdotti.SalvaProdotti(prodotti);
                                         // aggiorno la persistenza nel catalogo prima di uscire dal ciclo sessione del cliente
-
                                         Console.Clear();
 
                                         break;
-
                                     case 2:
 
                                         continuaComeCliente = false;
                                         // esco dal ciclo della sessione del cliente
-
                                         continua = false;
                                         // esco dal ciclo principale per terminare 'applicazione
-
                                         Console.WriteLine("Arrivederci!\n");
                                         // stampo
 
                                         break;
-
                                     case 3:
 
                                         Console.Clear();
-
                                         // Non fa nulla, quindi torna indietro
 
                                         break;
@@ -209,6 +225,7 @@ class Program // <--- (standard/default)
                                 Console.WriteLine("INSERIMENTO MENU NON VALIDO\n");
                                 // dato che c'è il controllo di acquisizione nella scelta
                                 // questo messaggio non dovrebbe apparire mai
+
                                 break;
                         } // switch (inserimento) 
                     } // while (continuaComeCliente)
@@ -231,9 +248,9 @@ class Program // <--- (standard/default)
                             case 1: // todo MODALITA' CASSIERE
                                 break;
                             case 2: // MODALITA' MAGAZZINIERE   //* OK
-                                
+
                                 bool continuaComeMagazziniere = true;
-                                while(continuaComeMagazziniere)
+                                while (continuaComeMagazziniere)
                                 {
                                     Console.WriteLine("MODALITA' MAGAZZINIERE");
                                     Console.WriteLine("1. Visualizza");
@@ -403,25 +420,3 @@ class Program // <--- (standard/default)
     } // chiusa while (continua)
 }
 
-
-
-
-//! scelta 2
-//? Quale Dipentente (scelta)
-
-//? scelta 1
-//* Amministratore
-//todo: menu
-//Può visualizzare ed impostare il ruolo dei dipendenti.
-
-//? scelta 2
-//* Cassiere
-//todo: menu
-// Può registrare i prodotti acquistati da un cliente 
-// e calcolare il totale da pagare generando lo scontrino.
-
-//? scelta 3
-//* Magazziniere
-//todo: menu
-// Può viualizzare, aggiungere, rimuovere o 
-// modificare prodotti dal magazzino.

@@ -148,13 +148,13 @@ in `class Cliente`
 
 Il file Purchase.json deve avere:
 - [ ] un `purchaseIdProgressivo` generato da una classe manager
-- [ ] una variabile `bool` di `stato`
-- [ ] ora e data del momento in cui `stato` passa da `false` a `true`, ovvero quando viene completato l'acquisto
+- [x] una variabile `bool` di `stato`
+- [x] ora e data del momento in cui `stato` passa da `false` a `true`, ovvero quando viene completato l'acquisto
 
 Creare una classe `ClientiAdvancedManager`
-- [ ] calcola `clienteIdProgressivo`, 
-- [ ] tiene traccia e ricalcola `PercentualeDiSconto`
-- [ ] controllo dell'username
+- [x] calcola `clienteIdProgressivo`, 
+- [x] tiene traccia e ricalcola `PercentualeDiSconto`
+- [x] controllo dell'username
     - se username già nel database, carica dati di quel cliente
     - se non esiste, crearne uno nuovo. 
 
@@ -229,15 +229,45 @@ ID100-->|NO|ID102
 - [x] organizzazione file / cartelle
 - [x] il file Purchase.json adesso salva Id e Stato
 - [x] CarrelloRepository legge correttamente Purchase.json
-- [x] Menu `Magaziniere` implementato per operazioni CRUD
-- [x] implementazione `DipendentiManager`
-    - [x] `AssegnaId`
-    - [x] `CreaDipendente`
 - [x] implementazione `DipendentiRepository`
     - [x] SalvaDipendenti
     - [x] CaricaDipendenti
-- [x] implementazione Area AMMINISTRATORE
- - [x] visualizza dipendenti
- - [x] aggiungi dipendenti
- - [x] elimina dipendenti
- - [ ] modificare dipendenti
+- [x] implementazione Menu `Amministratore`per operazioni CRUD su `Dipendenti`
+    - [x] visualizza dipendenti
+    - [x] aggiungi dipendenti
+    - [x] elimina dipendenti
+    - [x] modificare dipendenti
+    - [x] Id automatico
+- [x] implementazione Menu `Magaziniere` per operazioni CRUD su `Prodotti`
+    - [x] aggiunge
+    - [x] visualizza
+    - [x] trova per id
+    - [x] aggiorna
+    - [x] elimina
+    - [x] esce
+
+> Commit
+```bash
+git add --all
+git commit -m "Supermercato Advanced - 2/10 completamento in corso"
+git push -u origin main
+```
+
+---
+
+#### IMPLEMENTAZIONI
+
+> NOTA: Disattivato temporaneamente la funzione Purchase
+- [x] `AggiungiProdotto` in `CarrelloAdvancedManager` ora aggiunge i prodotti nel carrello salvato nel file Json del cliente.
+- [x] Nuovo modello: `ProdottoCarrello`. Per risolvere un bug di trasferimento dal magazzino al carrello (dove nel carrello veniva trasferita la giacenza piuttosto che la quantità inserita dall'utente) è stato creato un nuovo modello che rappresenta il prodotto nel carrello. Rispecchia il modello del prodotto nel magazzino tranne per il campo Giacenza che in ProdottoCarrello si chiama `Quantita`.
+- [x] Creata classe `ClientiManager.cs` per la gestione dei clienti. Esegue principalmente il controllo dell'username: se username già nel database, carica dati di quel cliente, se non esiste, crearne uno nuovo.
+- [x] Creata Classe `ClientiRepository`, i quali metodi vengono richiamati per salvare in runtime le modifiche fatte nel carrello nel file json dello specifico cliente. 
+- [x] Aggiornata classe `StampaTabella`, nello specifico il metodo `Carrello` per visualizzazione del carrello con i nuovi campi della classe ProdottoCarrello.
+
+> In corso: RIMOZIONE DAL CARRELLO
+
+```bash
+git add --all
+git commit -m "Supermercato Avanzato 2/10 - rimozione dal carrello non funzionante"
+git push -u origin main
+```

@@ -10,6 +10,7 @@ public class CarrelloAdvancedManager
     private readonly string dirCatalogo = "data/catalogo";
     private ProdottoRepository repoCatalogo;
     private CarrelloRepository repoCarrello;
+    private ClientiRepository repoClienti;
     private Purchase purchase;
     private int prossimoId;
 
@@ -20,6 +21,8 @@ public class CarrelloAdvancedManager
         prodotti = Prodotti;
         repoCatalogo = new ProdottoRepository();
         repoCarrello = new CarrelloRepository();
+        repoClienti = new ClientiRepository();
+    
         prossimoId = 1;
         foreach (var prodotto in prodotti)
         {
@@ -29,7 +32,7 @@ public class CarrelloAdvancedManager
             }
         }
     }
-    public void AggiungiProdotto(string prodottoDaAggiungere, List<Prodotto> carrello)
+    public void AggiungiProdotto(string prodottoDaAggiungere, List<Prodotto> carrello, ref Cliente cliente)
     {
         catalogo = repoCatalogo.CaricaProdotti();
         // carico i prodotti aggiornati
@@ -46,31 +49,22 @@ public class CarrelloAdvancedManager
 
                 if (item.Giacenza > quantita) // in la giacenza sia 1 non lo rende disponibile all'acquisto
                 {
-                    int temp = item.Giacenza;
-                    // salvo la giacenza 
+                    ProdottoCarrello itemDaAggiungere = new ProdottoCarrello();
 
-                    item.Giacenza = quantita;
-                    // attribuisco la quantità desiderata al prodotto
+                    itemDaAggiungere.Id = item.Id;
+                    itemDaAggiungere.Nome = item.Nome;
+                    itemDaAggiungere.Prezzo = item.Prezzo;
+                    itemDaAggiungere.Quantita = quantita;
+                    itemDaAggiungere.Categoria = item.Categoria;
 
-                    carrello.Add(item);
-                    // salvo il prodotto nel carrello
+                    item.Giacenza -= quantita;
+                    cliente.Carrello.Add(itemDaAggiungere);
 
-                    purchase = new Purchase { MyPurchase = carrello, Id = 1, Stato = false };
-                    // salvo il carrello nel purchase
-
-                    repoCarrello.SalvaProdotti(purchase);
-                    // aggiorno la persistenza dei dati
-
-                    carrello = repoCarrello.CaricaProdotti();
-                    // ricarico il carrello in locale altrimenti rimane salvata ultima giacenza
-
-                    item.Giacenza = temp - quantita;
-                    // sottraggo la quantità alla giacenza e la attribuisco al prodotto
+                    repoClienti.SalvaClienti(cliente);
+                    // salvo la persistenza dei dati
 
                     repoCatalogo.SalvaProdotti(catalogo);
                     // aggiorno la persistenza del catalogo
-
-                    // purchase = new Purchase( carrello );
 
                     trovato = true;
                     // indico che è stato trovato
@@ -98,7 +92,6 @@ public class CarrelloAdvancedManager
             Console.WriteLine($"'{prodottoDaAggiungere}': non trovato");
         }
     }
-
 
     // metodo per visualizzare 
     public List<Prodotto> OttieniProdotti()
