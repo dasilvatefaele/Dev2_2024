@@ -271,3 +271,824 @@ git add --all
 git commit -m "Supermercato Avanzato 2/10 - rimozione dal carrello non funzionante"
 git push -u origin main
 ```
+
+# Documentazione versione corrente (sviluppo in corso)
+
+> Dipendenze:
+```
+dotnet add package Newtonsoft.Json
+```
+
+# Modelli
+
+## Prodotto
+```c#
+public class Prodotto
+{
+    public int Id { get; set; }
+    public string Nome { get; set; }
+    public decimal Prezzo { get; set; }
+    public int Giacenza {get; set; }
+    public Categoria Categoria { get; set; }
+}
+```
+Il modello descrive il prodotto quando ancora in magazzino. Questo modello viene creato e gestito dal `Dipendente` con ruolo 'Magazziniere' nel suo MENU dedicato. `Id` viene generato automaticamente.
+
+|Tipo di pesistenza:|Json|
+|--|--|
+|Percorso:|data/catalogo|
+
+
+#### ProdottoCarrello
+```c#
+public class ProdottoCarrello
+{
+    public int Id { get; set; }
+    public string Nome { get; set; }
+    public decimal Prezzo { get; set; }
+    public int Quantita {get; set; }
+    public Categoria Categoria { get; set; }
+}
+```
+Il modello descrive il prodotto quando viene spostato nel carrello. Differisce dal modello `Prodotto` solo per l'attributo `Giacenza`, che qui diventa `Quantita`. E' stata creata questa distinzione per evitare errori di riferimento.
+
+|Tipo di pesistenza:|Json|
+|--|--|
+|Percorso:|data/clienti|
+
+## Categoria
+```c#
+public class Categoria()
+{
+    public string Name;	
+    public int ID;
+}
+```
+Il modello descrive la classe `Categoria` che viene usata come attributo di entrambi i modelli `Prodotti`. Attualmente vi sono 3 Categorie predefinite ma nelle prossime implementazioni potranno essere create e gestite nuove categorie dal MENU del Magazziniere.
+
+|Tipo di pesistenza:| Ancora non gestita|
+|--|--|
+|Percorso:|Ancora non gestita|
+
+## Cliente
+```c#
+public class Cliente
+{
+    public int Id { get; set;}
+    public string Username { get; set;}
+    public List<ProdottoCarrello> Carrello { get; set;}
+    public List<ProdottoCarrello> StoricoAcquisti { get; set;}
+    public int PercentualeSconto { get; set;}
+    public decimal Credito { get; set;}
+}
+```
+Il modello descrive ogni entità `Cliente` che fa accesso all'applicazione per acquistare un prodotto. 
+
+Oltre ai dati semplici (int `Id`, string `Username`, int `PercentualeSconto`, decimal`Credito`) possiede due strutture di dato complesse che gli permettono di immagazzinare gli acquisti, sia in corso (`Carrello`), che passati (`StoricoAcquisti`).
+
+All'avvio dell'applicazione, viene richiesto l'`Username`: il programma ricerca se lo Username è già presente tra i file .json in `data/clienti`. 
+
+Se presente, carica i dati riguardanti quel cliente e li mette a disposizione in RunTime, altrimenti crea un nuovo .json col il nuovo Username. 
+|Tipo di pesistenza:|Json|
+|--|--|
+|Percorso:|data/clienti|
+
+
+## Dipendente
+```c#
+public class Dipendente
+{
+    public string Ruolo {   get; set; }
+    public string Username { get; set; }
+    public int Id { get; set; }
+}
+```
+Questo modello descrive la classe Dipendente, attraverso il quale sarà possibile discriminare quali operazioni saranno disponibili a seconda dell'attributo `Ruolo`.
+
+Ogni istanza Dipendente viene attualmente creata attraverso il MENU dell'Amministratore. Attualmente attraverso il menù è possibile eseguire tutte le operazioni CRUD.
+|Tipo di pesistenza:|Json|
+|--|--|
+|Percorso:|data/dipendenti|
+
+---
+# Repositories
+
+## ClientiRepository
+
+```c#
+public class ClientiRepository
+```
+|Percorso di salvataggio:|data/clienti|
+|--|--|
+### Contiene i metodi:
+```c#
+public List<Cliente> CaricaClienti()
+```
+Restituisce un dato di tipo `List<Cliente>` in seguito ad una lettura dei file nel percorso. Questo metodo è necessario per poter comparare lo `Username` richiesto all'avvio con quelli già presenti in archivio.
+```c#
+public void SalvaClienti(Cliente cliente)
+```
+Aggiorna o Salva un nuovo cliente nel percorso.
+
+> DA REVISIONARE / SEMPLIFICARE LA LOGICA:
+```c#
+public Cliente CaricaCliente(Cliente cliente) 
+//INCERTO SULL'USO DI QUESTO METODO
+```
+Restituisce un singolo cliente. 
+
+> Codice completo:
+
+<details>
+
+```c#
+using System.Data.Common;
+using Newtonsoft.Json;
+
+public class ClientiRepository
+{
+    private readonly string filePath = "clienti.json"; 
+    private readonly string dirCatalogo = "data/clienti"; 
+
+    public void SalvaClienti(Cliente cliente)
+    {
+        string nuovoPercorso = "";
+        if (!Directory.Exists(dirCatalogo)) // se non esiste la cartella
+        {
+            Directory.CreateDirectory(dirCatalogo); // creala
+        }
+        string jsonData = JsonConvert.SerializeObject(cliente, Formatting.Indented); // serializza il prodotto
+        string nomeProdotto = $"{cliente.Id}.json"; // creo il nome del file 
+        nuovoPercorso = Path.Combine(dirCatalogo, nomeProdotto); // creo il percorso
+        File.WriteAllText(nuovoPercorso, jsonData); // scrivo il prodotto deserializzato nel percorso
+        //Console.WriteLine($"Dati salvati in '{nuovoPercorso}'\n"); // stampo il percorso 
+    }
+
+    public List<Cliente> CaricaClienti()
+    {
+        if (Directory.Exists(dirCatalogo))
+        {
+            string[] files = Directory.GetFiles(dirCatalogo);  // carico il contenuto della cartella in una lista di stringhe
+
+            if (files.Length > 0) // controllo che ci siano file nella cartella, se ci sono file
+            {
+                List<Cliente> listaClientiLocale = new List<Cliente>(); // crea una lista locale
+                Cliente letturaCliente; // crea un'istanza temporanea del prodotto
+                foreach (string file in files) // per ogni file dentro la cartella
+                {
+                    string readJsonData = File.ReadAllText(file);  // leggi il file
+                    letturaCliente = JsonConvert.DeserializeObject<Cliente>(readJsonData)!; // deserializzo dentro l'istanza temporanea
+                    listaClientiLocale.Add(letturaCliente); // aggiungo l'istanza temporanea alla lista locale
+                }
+                return listaClientiLocale; // restituisco la lista locale
+            }
+            else
+            {
+                return new List<Cliente>(); // se la cartella esiste ma non ci sono file restituisci una lista vuota 
+            }
+        }
+        else // se non esiste la cartella creala e restiuisci una lista vuota
+        {
+            Directory.CreateDirectory(dirCatalogo);
+            return new List<Cliente>();
+        }
+    }
+
+    public Cliente CaricaCliente(Cliente cliente)
+    {
+        List<Cliente> clientiLocale = CaricaClienti();
+
+        foreach (var user in clientiLocale)
+        {
+            if (user.Username == cliente.Username)
+            {
+                return user;
+            }
+        }
+        return null;
+    }
+}
+```
+
+</details>
+
+> NOTE AGGIUNTIVE: Ridondanza nel codice. Pare che `filePath = "clienti.json";` non venga mai utilizzata perché il percorso del file successivamente sarà `data/clienti/{id del cliente}.json`. Semplificare.
+---
+## DipendentiRepository
+|Percorso di salvataggio| data/dipendenti|
+|--|--|
+```c#
+public class DipendentiRepository
+```
+### Contiene i metodi:
+```c#
+public void SalvaDipendenti(List<Dipendente> dipendenti)
+```
+Salva la lista dei dipendenti su .json
+
+```c#
+public List<Dipendente> CaricaDipendenti()
+```
+Legge i file nella cartella dipendenti e li deserializza in una variabile `List<Dipendente>`.
+
+> Codice completo:
+
+<details>
+
+```c#
+using System.Data.Common;
+using Newtonsoft.Json;
+
+public class DipendentiRepository
+{
+    private readonly string filePath = "dipendenti.json"; // percorso in cui memorizzare i dati
+    private readonly string dirCatalogo = "data/dipendenti"; //
+
+    //metodo per salvare i dati su file 
+    public void SalvaDipendenti(List<Dipendente> dipendenti)
+    {
+        string nuovoPercorso = ""; // creo una variabile per ospitare il nuovo percorso
+        if (!Directory.Exists(dirCatalogo)) // se non esiste la cartella
+        {
+            Directory.CreateDirectory(dirCatalogo); // creala
+        }
+
+        foreach (var dipendente in dipendenti) // per ogni prodotto nella lista argomento
+        {
+            string jsonData = JsonConvert.SerializeObject(dipendente, Formatting.Indented); // serializza il prodotto
+            string nomeProdotto = $"{dipendente.Id}.json"; // creo il nome del file 
+            nuovoPercorso = Path.Combine(dirCatalogo,nomeProdotto); // creo il percorso
+            File.WriteAllText(nuovoPercorso, jsonData); // scrivo il prodotto deserializzato nel percorso
+        }
+        Console.WriteLine($"Dati salvati in '{nuovoPercorso}'\n"); // stampo il percorso 
+    }
+
+    public List<Dipendente> CaricaDipendenti()
+    {
+        // // string nuovoPercorso = Path.Combine(dirCatalogo, prodo)
+        if (Directory.Exists(dirCatalogo))
+        {
+            string[] files = Directory.GetFiles(dirCatalogo);  // carico il contenuto della cartella in una lista di stringhe
+            
+            if (files.Length > 0) // controllo che ci siano file nella cartella, se ci sono file
+            {
+                List<Dipendente> listaDipendentiLocale = new List<Dipendente>(); // crea una lista locale
+                Dipendente letturaDipendente; // crea un'istanza temporanea del prodotto
+                foreach(string file in files) // per ogni file dentro la cartella
+                {
+                    string readJsonData = File.ReadAllText(file);  // leggi il file
+                    letturaDipendente = JsonConvert.DeserializeObject<Dipendente>(readJsonData)!; // deserializzo dentro l'istanza temporanea
+                    listaDipendentiLocale.Add(letturaDipendente); // aggiungo l'istanza temporanea alla lista locale
+                }
+                return listaDipendentiLocale; // restituisco la lista locale
+            }
+            else
+            {
+                return new List<Dipendente>(); // se la cartella esiste ma non ci sono file restituisci una lista vuota 
+            }
+        }
+        else // se non esiste la cartella creala e restiuisci una lista vuota
+        {
+            Directory.CreateDirectory(dirCatalogo); 
+            return new List<Dipendente>(); 
+        }
+    }
+}
+```
+</details>
+
+> NOTE AGGIUNTIVE: Ridondanza nel codice. Pare che `filePath = "dipendenti.json";` non venga mai utilizzata perché il percorso del file successivamente sarà `data/dipendenti/{id del dipendente}.json`. Semplificare.
+----
+
+## ProdottoRepository
+
+|Percorso di salvataggio| data/catalogo|
+|--|--|
+
+```c#
+public class ProdottoRepository
+```
+### Contiene i metodi:
+```c#
+public void SalvaProdotti(List<Prodotto> prodotti)
+```
+Salva il dato di tipo List<Prodotto> in singoli .json.
+
+```c#
+public List<Prodotto> CaricaProdotti()
+```
+Legge i file .json di data/catalogo e restituisce una List<Prodotto>.
+
+> Codice completo:
+
+<details>
+
+```c#
+using System.Data.Common;
+using Newtonsoft.Json;
+
+public class ProdottoRepository
+{
+    private readonly string filePath = "prodotti.json"; // percorso in cui memorizzare i dati
+    private readonly string dirCatalogo = "data/catalogo"; //
+
+    //metodo per salvare i dati su file 
+    public void SalvaProdotti(List<Prodotto> prodotti)
+    {
+        string nuovoPercorso = ""; // creo una variabile per ospitare il nuovo percorso
+        if (!Directory.Exists(dirCatalogo)) // se non esiste la cartella
+        {
+            Directory.CreateDirectory(dirCatalogo); // creala
+        }
+
+        foreach (var prodotto in prodotti) // per ogni prodotto nella lista argomento
+        {
+            string jsonData = JsonConvert.SerializeObject(prodotto, Formatting.Indented); // serializza il prodotto
+            string nomeProdotto = $"{prodotto.Id}.json"; // creo il nome del file 
+            nuovoPercorso = Path.Combine(dirCatalogo,nomeProdotto); // creo il percorso
+            File.WriteAllText(nuovoPercorso, jsonData); // scrivo il prodotto deserializzato nel percorso
+        }
+        // Console.WriteLine($"Dati salvati nella cartella '/{dirCatalogo}'\n"); // stampo il percorso 
+    }
+
+    public List<Prodotto> CaricaProdotti()
+    {
+        // string nuovoPercorso = Path.Combine(dirCatalogo, prodo)
+        if (Directory.Exists(dirCatalogo))
+        {
+            string[] files = Directory.GetFiles(dirCatalogo);  // carico il contenuto della cartella in una lista di stringhe
+            
+            if (files.Length > 0) // controllo che ci siano file nella cartella, se ci sono file
+            {
+                List<Prodotto> catalogoLocale = new List<Prodotto>(); // crea una lista locale
+                Prodotto prodottoLocale; // crea un'istanza temporanea del prodotto
+                foreach(string file in files) // per ogni file dentro la cartella
+                {
+                    string readJsonData = File.ReadAllText(file);  // leggi il file
+                    prodottoLocale = JsonConvert.DeserializeObject<Prodotto>(readJsonData)!; // deserializzo dentro l'istanza temporanea
+                    catalogoLocale.Add(prodottoLocale); // aggiungo l'istanza temporanea alla lista locale
+                }
+                return catalogoLocale; // restituisco la lista locale
+            }
+            else
+            {
+                return new List<Prodotto>(); // se la cartella esiste ma non ci sono file restituisci una lista vuota 
+            }
+        }
+        else // se non esiste la cartella creala e restiuisci una lista vuota
+        {
+            Directory.CreateDirectory(dirCatalogo); 
+            return new List<Prodotto>(); 
+        }
+    }
+}
+```
+
+</details>
+
+---
+# Managers
+
+## ProdottoAdvancedManager
+
+Gestisce le operazioni CRUD su `List<Prodotto> prodotti`. 
+
+**Il metodo è accessibile solo attraverso il MENU del Magazziniere.**
+
+### Il metodo contiene:
+```c#
+public void AggiungiProdotto (Prodotto prodotto)
+```
+```c#
+public List<Prodotto> OttieniProdotti()
+```
+
+```c#
+public Prodotto TrovaProdotto(int id)
+```
+```c#
+public void AggiornaProdotto(int id, Prodotto nuovoProdotto)
+```
+```c#
+public void EliminaProdotto (int id)
+```
+
+
+
+> Codice completo:
+
+<details>
+
+```c#
+using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
+
+public class ProdottoAdvancedManager
+{  
+    private List<Prodotto> prodotti; // prodotti e' private perche non voglio che venga modificato dall'esterno
+    private readonly string filePath = "prodotti.json"; // percorso in cui memorizzare i dati
+    private readonly string dirCatalogo = "data/catalogo";
+    // private ProdottoRepository repo;
+    private int prossimoId;
+    public ProdottoAdvancedManager(List<Prodotto> Prodotti)
+    {
+        prodotti = Prodotti;
+        // repo = new ProdottoRepository(); //! non la sto usando ma è buono sapere che il costruttore inizializzi le variabili dichiarate nel campo della classe
+
+        prossimoId = 1;
+        foreach (var prodotto in prodotti)
+        {
+            if (prodotto.Id >= prossimoId)
+            {
+                prossimoId = prodotto.Id + 1;
+            }
+        }
+
+        //this.prodotti = prodotti; //? "collego" la variabile prodotti passata come argomento alla variabile privata
+
+        // inizializzo la lista di prodotti nel costruttore pubblico in modo che sia accessibile all'esterno
+        // questo new è necessario affinchè dal dominio privato la classe possa comunicare all'esterno i dati aggiornati/manipolati
+        // un modo per rendere pubblico un dato privato
+    }
+
+    // metodo per aggiungere
+    public void AggiungiProdotto (Prodotto prodotto)
+    {
+        prodotto.Id = prossimoId;
+        prossimoId++;
+        prodotti.Add(prodotto); // quella private
+    }
+
+    // metodo per visualizzare 
+    public List<Prodotto> OttieniProdotti()
+    {
+        return prodotti;
+    }
+
+    // metodo per cercare un prodotto 
+    public Prodotto TrovaProdotto(int id)
+    {
+        foreach (var prodotto in prodotti)
+        {
+            if (prodotto.Id == id)
+            {
+                return prodotto;
+            }
+        }
+        return null;
+    }
+
+    // metodo per modificare il prodotto
+    public void AggiornaProdotto(int id, Prodotto nuovoProdotto)
+    {
+        var prodotto = TrovaProdotto (id);
+        if (prodotto != null)
+        {
+            prodotto.Nome = nuovoProdotto.Nome;
+            prodotto.Prezzo = nuovoProdotto.Prezzo;
+            prodotto.Giacenza = nuovoProdotto.Giacenza;
+        }
+    }
+
+    // metodo per eliminare un prodotto
+    public void EliminaProdotto (int id)
+    {
+        var prodotto = TrovaProdotto(id); // salvo il prodotto nella variabile se lo trovo, se non lo trova prodotto = null
+        if (prodotto != null) // se lo trova
+        {
+            string[] files = Directory.GetFiles(dirCatalogo); // salvo l'elenco di file nella cartella 
+            foreach (string file in files) // per ogni file nella cartella 
+            {
+                string readJsonData = File.ReadAllText (file); // leggo il contenuto del file 
+                Prodotto prodottoTemporaneo = JsonConvert.DeserializeObject<Prodotto>(readJsonData)!; // lo deserializzo in un prodotto temporaneo
+                if (prodottoTemporaneo.Id == id) // se l'id del prodotto temporaneo è uguale all'id inserito dall'utente
+                {
+                    File.Delete(file); // elimina il file 
+                    // repo.SalvaProdotti(prodotti);
+                }
+            }
+            prodotti.Remove(prodotto); // rimuovi il prodotto dalla lista runtime
+        }
+    }
+}
+```
+
+</details>
+
+---
+## DipendentiManager
+Attraverso questa classe è possibile eseguire le operazioni CRUD sui dipendenti. E' accessibile dal MENU Amministratore.
+
+### Contiene i metodi
+```c#
+public DipendentiManager(List<Dipendente> Dipendenti)
+```
+```c#
+public Dipendente CreaDipendente()
+```
+```c#
+public int AssegnaId(List<Dipendente> elencoDipendenti)
+```
+```c#
+public void EliminaDipendente(int Id)
+```
+```c#
+public void EliminaDipendente(int Id)
+```
+```c#
+public Dipendente TrovaDipendentePerId(int Id)
+```
+```c#
+public void AggiornaDipendente(int Id)
+```
+> Codice completo:
+
+<details>
+
+
+```c#
+using Newtonsoft.Json;
+
+public class DipendentiManager
+{
+    private readonly string dirDipendenti = "data/dipendenti";
+    public List<Dipendente> dipendenti;
+    public DipendentiRepository repositoryDipendenti;
+
+    public DipendentiManager(List<Dipendente> Dipendenti)
+    {
+        dipendenti = Dipendenti;
+        repositoryDipendenti = new DipendentiRepository();
+    }
+    public Dipendente CreaDipendente()
+    {
+        Dipendente nuovoDipendente = new Dipendente();
+        DipendentiRepository repoDipendenti = new DipendentiRepository();
+
+
+        nuovoDipendente.Username = InputManager.LeggiStringa("Username del nuovo dipendente: ");
+        nuovoDipendente.Ruolo = InputManager.LeggiStringa("Ruolo: ");
+        nuovoDipendente.Id = AssegnaId(dipendenti);
+        Console.WriteLine($"Nuovo dipendente creato! Username:{nuovoDipendente.Username}, Ruolo: {nuovoDipendente.Ruolo}, ID: {nuovoDipendente.Id}");
+        return nuovoDipendente;
+    }
+
+    public int AssegnaId(List<Dipendente> elencoDipendenti)
+    {
+        int prossimoId = 1;
+        foreach (var dipendente in elencoDipendenti)
+        {
+            if (dipendente.Id >= prossimoId)
+            {
+                prossimoId = dipendente.Id + 1;
+            }
+        }
+        return prossimoId;
+    }
+
+    public void EliminaDipendente(int Id)
+    {
+        Dipendente dipendenteDaEliminare = TrovaDipendentePerId(Id);
+        if (dipendenteDaEliminare != null)
+        {
+            string[] files = Directory.GetFiles(dirDipendenti); // salvo l'elenco di file nella cartella 
+            foreach (string file in files) // per ogni file nella cartella 
+            {
+                string readJsonData = File.ReadAllText(file); // leggo il contenuto del file 
+                Dipendente dipendente = JsonConvert.DeserializeObject<Dipendente>(readJsonData)!; // lo deserializzo in un prodotto temporaneo
+                if (dipendente.Id == Id) // se l'id del prodotto temporaneo è uguale all'id inserito dall'utente
+                {
+                    File.Delete(file); // elimina il file 
+                                       // repo.SalvaProdotti(prodotti);
+                }
+            }
+            dipendenti.Remove(dipendenteDaEliminare); ; // rimuovi il prodotto dalla lista runtime
+        }
+    }
+
+    public Dipendente TrovaDipendentePerId(int Id)
+    {
+        bool trovato = false;
+        foreach (var dipendente in dipendenti)
+        {
+            if (dipendente.Id == Id)
+            {
+                trovato = true;
+                return dipendente;
+            }
+        }
+        if (!trovato)
+        {
+            Console.WriteLine("Cliente non trovato;");
+            return null;
+        }
+        return null;
+    }
+
+    public void AggiornaDipendente(int Id)
+    {
+        Dipendente dipendente = TrovaDipendentePerId(Id);
+        if(dipendente == null)
+        {
+            Console.WriteLine("Dipendente non trovato.");
+        }
+        else
+        {
+            dipendente.Username = InputManager.LeggiStringa("Username > ");
+            dipendente.Ruolo = InputManager.LeggiStringa("Ruolo > ");
+            repositoryDipendenti.SalvaDipendenti(dipendenti);
+        }
+
+    }
+}
+```
+
+</details>
+
+## ClientiManager
+**NOTA: Attualmente questa classe viene utilizzata solo dal programma e non viene 
+gestita direttamente da nessuna entità.**
+
+### Contiene i metodi
+```c#
+public List<Cliente> OttieniClienti()
+```
+
+```c#
+public ClientiManager(List<Cliente> Clienti)
+```
+
+```c#
+public Cliente CreaCliente()
+```
+
+```c#
+public Cliente CheckCliente(string username)
+```
+
+```c#
+public int AssegnaId(List<Cliente> elencoClient)
+```
+
+```c#
+public void EliminaCliente(int Id)
+```
+
+```c#
+public Cliente TrovaClientePerId(int Id)
+```
+
+```c#
+public void AggiornaCliente(int Id)
+```
+
+> Codice completo:
+
+<details>
+
+```c#
+using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
+
+public class ClientiManager
+{
+    private readonly string dirClienti = "data/clienti";
+    public List<Cliente> clienti;
+    public ClientiRepository repositoryClienti;
+    public Cliente nuovoCliente; 
+    //public ClientiRepository repoClienti = new ClientiRepository();
+
+    public List<Cliente> OttieniClienti()
+    {
+        return clienti;
+    } 
+
+    public ClientiManager(List<Cliente> Clienti)
+    {
+        clienti = Clienti;
+        repositoryClienti = new ClientiRepository();
+        nuovoCliente = new Cliente();
+    }
+    public Cliente CreaCliente()
+    {
+        string username = InputManager.LeggiStringa("Inserisci il tuo Username > ");
+
+        nuovoCliente = CheckCliente(username);
+
+        if (nuovoCliente != null)
+        {
+            return nuovoCliente;
+        }
+        else
+        {
+            Console.WriteLine($"Benvenuto per la priva volta {username}! Un nuovo account è stato creato, buona spesa!");
+            nuovoCliente = new Cliente {Username = username, Id = AssegnaId(clienti), Carrello = new List <ProdottoCarrello>(),  StoricoAcquisti = new List <ProdottoCarrello>(), PercentualeSconto = 0, Credito = 200m };
+            clienti.Add(nuovoCliente);
+            repositoryClienti.SalvaClienti(nuovoCliente);
+            return nuovoCliente;
+        }
+        return null;
+    }
+
+
+    public Cliente CheckCliente(string username)
+    {
+        if (Directory.Exists(dirClienti))
+        {
+            string[] files = Directory.GetFiles(dirClienti); // salvo l'elenco di file nella cartella 
+            foreach (string file in files) // per ogni file nella cartella 
+            {
+                string readJsonData = File.ReadAllText(file); // leggo il contenuto del file 
+                Cliente cliente = JsonConvert.DeserializeObject<Cliente>(readJsonData)!; // lo deserializzo in un prodotto temporaneo
+                if (cliente.Username == username) // se l'id del prodotto temporaneo è uguale all'id inserito dall'utente
+                {
+                    return cliente;
+                }
+            }
+        }
+        else
+        {
+            Directory.CreateDirectory(dirClienti);
+        }
+
+        return null;
+
+    }
+    public int AssegnaId(List<Cliente> elencoClienti)
+    {
+        int prossimoId = 1;
+        foreach (var cliente in elencoClienti)
+        {
+            if (cliente.Id >= prossimoId)
+            {
+                prossimoId = cliente.Id + 1;
+            }
+        }
+        return prossimoId;
+    }
+
+    public void EliminaCliente(int Id)
+    {
+        Cliente dipendenteDaEliminare = TrovaClientePerId(Id);
+        if (dipendenteDaEliminare != null)
+        {
+            string[] files = Directory.GetFiles(dirClienti); // salvo l'elenco di file nella cartella 
+            foreach (string file in files) // per ogni file nella cartella 
+            {
+                string readJsonData = File.ReadAllText(file); // leggo il contenuto del file 
+                Cliente cliente = JsonConvert.DeserializeObject<Cliente>(readJsonData)!; // lo deserializzo in un prodotto temporaneo
+                if (cliente.Id == Id) // se l'id del prodotto temporaneo è uguale all'id inserito dall'utente
+                {
+                    File.Delete(file); // elimina il file 
+                                       // repo.SalvaProdotti(prodotti);
+                }
+            }
+            clienti.Remove(dipendenteDaEliminare); ; // rimuovi il prodotto dalla lista runtime
+        }
+    }
+
+    public Cliente TrovaClientePerId(int Id)
+    {
+        bool trovato = false;
+        foreach (var cliente in clienti)
+        {
+            if (cliente.Id == Id)
+            {
+                trovato = true;
+                return cliente;
+            }
+        }
+        if (!trovato)
+        {
+            Console.WriteLine("Cliente non trovato;");
+            return null;
+        }
+        return null;
+    }
+
+    public void AggiornaCliente(int Id)
+    {
+        Cliente cliente = TrovaClientePerId(Id);
+        if (cliente == null)
+        {
+            Console.WriteLine("Cliente non trovato.");
+        }
+        else
+        {
+            cliente.Username = InputManager.LeggiStringa("Username > ");
+            // cliente.Ruolo = InputManager.LeggiStringa("Ruolo > ");
+            repositoryClienti.SalvaClienti(cliente);
+        }
+
+    }
+
+}
+
+```
+</details>
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced 2/10 - Documentazione versione in corso"
+git push -u origin main
+```
