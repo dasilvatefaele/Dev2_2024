@@ -54,18 +54,18 @@ Realizzare dei layout HTML di varie pagine generiche di un sito web di un superm
 
 ## Checkbox Requisiti:
 
-- [ ] Utilizzo delle variabili CSS attraverso il selettore :root
-- [ ] Sovrascrittura delle classi di Bootstrap con !importanti
-- [ ] Personalizzazione dei colori principali
+- [x] Utilizzo delle variabili CSS attraverso il selettore :root
+- [x] Sovrascrittura delle classi di Bootstrap con !importanti
+- [x] Personalizzazione dei colori principali
 - [ ] Supporto a temi dinamici (Dark-mode / Light-Mode)
 - [ ] Modifica dei font e dei titoli
-- [ ] Personalzzazione della griglia e dei layout
-- [ ] Personalizzazione navbar e pulsanti
+- [x] Personalzzazione della griglia e dei layout
+- [x] Personalizzazione navbar e pulsanti
 - [ ] Typography con google fonts
-- [ ] Personalizzazione icone
+- [x] Personalizzazione icone
 - [ ] Utilizzo dei mixin responsivi
-- [ ] Creazione di layout complessi con griglie nidificate
-- [ ] utilizzo delle classi di visibilità 
-- [ ] Allineamento e spaziature responsivi
+- [x] Creazione di layout complessi con griglie nidificate
+- [x] utilizzo delle classi di visibilità 
+- [x] Allineamento e spaziature responsivi
 - [ ] Utilizzo di font responsive
 - [ ] Personalizzazione dei modali e di altre componenti (?)

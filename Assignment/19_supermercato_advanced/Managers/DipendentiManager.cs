@@ -5,23 +5,37 @@ public class DipendentiManager
     private readonly string dirDipendenti = "data/dipendenti";
     public List<Dipendente> dipendenti;
     public DipendentiRepository repositoryDipendenti;
+    private int prossimoId;
 
     public DipendentiManager(List<Dipendente> Dipendenti)
     {
         dipendenti = Dipendenti;
         repositoryDipendenti = new DipendentiRepository();
+        prossimoId = 1;
+        foreach (var dipendente in dipendenti)
+        {
+            if (dipendente.Id >= prossimoId)
+            {
+                prossimoId = dipendente.Id + 1;
+            }
+        }
     }
-    public Dipendente CreaDipendente()
+    // public Dipendente CreaDipendente()
+    // {
+    //     Dipendente nuovoDipendente = new Dipendente();
+
+    //     nuovoDipendente.Username = InputManager.LeggiStringa("Username del nuovo dipendente: ");
+    //     nuovoDipendente.Ruolo = InputManager.LeggiStringa("Ruolo: ");
+    //     nuovoDipendente.Id = AssegnaId(dipendenti);
+    //     Console.WriteLine($"Nuovo dipendente creato! Username:{nuovoDipendente.Username}, Ruolo: {nuovoDipendente.Ruolo}, ID: {nuovoDipendente.Id}");
+    //     return nuovoDipendente;
+    // }
+
+    public void AggiungiDipendente(Dipendente dipendente)
     {
-        Dipendente nuovoDipendente = new Dipendente();
-        DipendentiRepository repoDipendenti = new DipendentiRepository();
-
-
-        nuovoDipendente.Username = InputManager.LeggiStringa("Username del nuovo dipendente: ");
-        nuovoDipendente.Ruolo = InputManager.LeggiStringa("Ruolo: ");
-        nuovoDipendente.Id = AssegnaId(dipendenti);
-        Console.WriteLine($"Nuovo dipendente creato! Username:{nuovoDipendente.Username}, Ruolo: {nuovoDipendente.Ruolo}, ID: {nuovoDipendente.Id}");
-        return nuovoDipendente;
+        dipendente.Id = prossimoId;
+        prossimoId++;
+        dipendenti.Add(dipendente); // quella private
     }
 
     public int AssegnaId(List<Dipendente> elencoDipendenti)
@@ -79,7 +93,7 @@ public class DipendentiManager
     public void AggiornaDipendente(int Id)
     {
         Dipendente dipendente = TrovaDipendentePerId(Id);
-        if(dipendente == null)
+        if (dipendente == null)
         {
             Console.WriteLine("Dipendente non trovato.");
         }

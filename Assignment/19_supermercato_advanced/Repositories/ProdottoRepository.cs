@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 
 public class ProdottoRepository
 {
-    private readonly string filePath = "prodotti.json"; // percorso in cui memorizzare i dati
     private readonly string dirCatalogo = "data/catalogo"; //
 
     //metodo per salvare i dati su file 

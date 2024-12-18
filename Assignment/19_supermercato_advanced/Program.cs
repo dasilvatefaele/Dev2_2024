@@ -10,6 +10,7 @@
 // rimuovere 
 // visualizzare
 // cambiare lo stato dell'ordine
+
 class Program // <--- (standard/default)
 {
     static void Main(string[] args) // <--- Entry point (standard/default)
@@ -36,9 +37,6 @@ class Program // <--- (standard/default)
         Categoria Verdure = new Categoria() { Name = "Verdure", ID = 1 };
         Categoria Pulizia = new Categoria() { Name = "Pulizia", ID = 2 };
         Categoria Bevande = new Categoria() { Name = "Bevande", ID = 3 };
-
-        int IDTEST = 202;
-
 
         // entrambi i costruttori dei manager richiedono l'argomento dell'oggetto da gestire 
         bool continua = true;
@@ -140,13 +138,13 @@ class Program // <--- (standard/default)
                                     rientroProdotto = manager.TrovaProdotto(idProdottoDaRipristinare);
                                     // trovo il prodotto
 
-                                    manager.EliminaProdotto(idProdottoDaRipristinare); 
-                                    rientroProdotto.Giacenza = rientroProdotto.Giacenza+restituiscoQuantita;
+                                    manager.EliminaProdotto(idProdottoDaRipristinare);
+                                    rientroProdotto.Giacenza = rientroProdotto.Giacenza + restituiscoProdotto.Quantita;
                                     prodotti.Add(rientroProdotto);
                                     repositoryProdotti.SalvaProdotti(prodotti);
                                     prodotti = repositoryProdotti.CaricaProdotti();
                                 }
-                                
+
 
 
                                 break;
@@ -377,26 +375,31 @@ class Program // <--- (standard/default)
 
                                     switch (sceltaAmministratore) // MENU AMMINISTRATORE
                                     {
-                                        case "1":
+                                        case "1": // VISUALIZZA
                                             StampaDipendenti.Tabella(dipendenti);
                                             Console.WriteLine();
                                             //Console.WriteLine("Visualizzazione ancora non disponibile");
                                             break;
-                                        case "2":
-                                            dipendenti.Add(managerDipendenti.CreaDipendente());
+                                        case "2": // AGGIUNGI
+
+                                            Dipendente nuovoDipendente = new Dipendente();
+                                            nuovoDipendente.Username = InputManager.LeggiStringa("Username del nuovo dipendente: ");
+                                            nuovoDipendente.Ruolo = InputManager.LeggiStringa("Ruolo: ");
+                                            //nuovoDipendente.Id = AssegnaId(dipendenti);
+                                            dipendenti.Add(nuovoDipendente);
                                             repositoryDipendenti.SalvaDipendenti(dipendenti);
                                             break;
-                                        case "3":
+                                        case "3": // ELIMINA
                                             StampaDipendenti.Tabella(dipendenti);
                                             int idPerElimina = InputManager.LeggiIntero("Inserisci ID del dipendente da eliminare > ");
                                             managerDipendenti.EliminaDipendente(idPerElimina);
                                             break;
-                                        case "4":
+                                        case "4": // AGGIORNA
                                             StampaDipendenti.Tabella(dipendenti);
                                             int idPerAggiorna = InputManager.LeggiIntero("Inserisci ID Cliente da aggiornare > ", 0);
                                             managerDipendenti.AggiornaDipendente(idPerAggiorna);
                                             break;
-                                        case "0":
+                                        case "0": // ESCI
                                             continuaComeAmministratore = false;
                                             break;
                                     }
