@@ -1081,14 +1081,18 @@ public class ClientiManager
         }
 
     }
-
 }
 
 ```
 </details>
+
+> Versionamento
 
 ```bash
 git add --all
 git commit -m "Supermercato Advanced 2/10 - Documentazione versione in corso"
 git push -u origin main
 ```
+--- 
+# Semplificazione ed organizzazione 
+
