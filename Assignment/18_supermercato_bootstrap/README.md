@@ -10,7 +10,7 @@ Realizzare dei layout HTML di varie pagine generiche di un sito web di un superm
 
 - Creare un layout per la pagina di dettaglio di un prodotto. La pagina deve contenere una barra di navigazione, un'intestazione, una sezione con le informazioni del prodotto, alcune immagini e una sezione con i prodotti correlati.
 
-- Creare un layout per la pagina di contatti del supermercato. La pagina deve contenere una barra di navigazione, un'intestazione, un modulo di contatto (potrebbe essere il  form dove gli utenti richiedono).
+- Creare un layout per la pagina di contatti del supermercato. La pagina deve contenere una barra di navigazione, un'intestazione, un modulo di contatto (potrebbe essere il form dove gli utenti richiedono).
 
 - Creare un layout per la pagina di registrazione del supermercato. La pagina deve contenere una barra di navigazione, un'intestazione, un modulo di registrazione nel quale l'utente possa inserire i propri dati personali con la possibilità di selezionare il suo ruolo (cliente, dipendente, amministratore).
 
@@ -58,14 +58,62 @@ Realizzare dei layout HTML di varie pagine generiche di un sito web di un superm
 - [x] Sovrascrittura delle classi di Bootstrap con !importanti
 - [x] Personalizzazione dei colori principali
 - [ ] Supporto a temi dinamici (Dark-mode / Light-Mode)
-- [ ] Modifica dei font e dei titoli
+- [x] Modifica dei font e dei titoli
 - [x] Personalzzazione della griglia e dei layout
 - [x] Personalizzazione navbar e pulsanti
-- [ ] Typography con google fonts
+- [x] Typography con google fonts
 - [x] Personalizzazione icone
 - [ ] Utilizzo dei mixin responsivi
 - [x] Creazione di layout complessi con griglie nidificate
-- [x] utilizzo delle classi di visibilità 
+- [x] utilizzo delle classi di visibilità
 - [x] Allineamento e spaziature responsivi
-- [ ] Utilizzo di font responsive
 - [ ] Personalizzazione dei modali e di altre componenti (?)
+- [x] Utilizzo di font responsive
+      https://getbootstrap.com/docs/5.0/content/typography/#responsive-font-sizes
+
+```
+Tentato l'uso delle classi dei font class="fs-6 fs-md-4" per un comportamento
+responsive senza successo. Trovata in seguito documentazione che conferma
+la responsività automatica dei font. Lascio temporaneamente questa implementazione
+```
+
+# Pagine mancanti
+
+- [x] index.html
+- [x] login.html
+- [x] prodotto.html
+- [x] sign in.html
+- [x] area admin.html
+
+- [x] area magazzino.html
+
+  - [x] aggiungi prodotto.html
+  - [x] visualizza prodotti.html
+  - [x] aggiorna prodotto.html
+  - [x] elimina prodotto.html
+
+- [ ] area amministratore.html
+
+  - [ ] aggiungi dipendente.html
+  - [ ] aggiorna dipendente.html
+  - [ ] rlimina dipendente.html
+
+- [ ] area cassa.html
+
+  - [ ] crea scontrino
+
+- [ ] checkout.html
+- [ ] modale per cateogorie
+- [ ] crea dipendente.html
+
+> Appunto:
+Adattare l'altezza delle card a quella più alta.
+
+```html
+<div class="row text-center d-flex align item stretch">
+    <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100 border-1 shadow-sm">
+        </div>
+    </div>
+</div>
+```

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="it">
 
 <head>
   <title>Carrefour Clone</title>
@@ -13,27 +13,32 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-</head>
 
 <body>
+  <header class="container-fluid m-0 p-0 d-flex">
 
-  <header class="container-fluid m-0 p-0">
     <div style="height: 30px; background-color: #1b3d79;" class="container-fluid p-0 m-0">
-      <div class="ps-5 m-0" style="height: 100%;">
-        <p class="text-white">Lavora con noi</p>
-        <!-- <img src="img/carrefour-logotype.svg" style="background-color: white; width: 50%;" class="d-flex align-items-center"  > -->
+      <div class="ps-5 m-0 mt-1 flex-row align-items-center" style="height: 100%;">
+        <a href="area admin.html">
+          <p class="text-white">Lavora con noi</p>
+        </a>
       </div>
     </div>
-
-
   </header>
+
   <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary" id="customShadow">
     <div class="container-fluid ">
-
-      <!-- <a class="navbar-brand" href="#">Bootstrap Supermarket</a> -->
-      <img src="img/carrefour-logotype.svg" class="me-3">
-      <img src="img/carrefour-logomark.svg" class="me-3">
+      <!-- navbar -->
+      <a href="index.html">
+        <img src="img/carrefour-logotype.svg" class="me-3"> </a>
+      <a href="index.html">
+        <img src="img/carrefour-logomark.svg" class="me-3"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
         aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -47,229 +52,370 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="contatti.html" id="blue">Contatti</a>
           </li>
-          <!-- <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                  </li> -->
-          <!-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Link
-                    </a>
-                    <ul class="dropdown-menu " > 
-                      <li><a class="dropdown-item" href="#" >Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul> 
-                  </li> -->
-          <!-- <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Link</a>
-                  </li> -->
         </ul>
+
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-
           <button type="button" id="bottoneTrasparente"> <a href="login.html" target="_self"> <i
-              class="fa-solid fa-user d-flex align-items-center ms-3" style="font-size: 1.5em;" id="blue" "></i> </a></button>
-          <!-- <i class="fa-solid fa-user d-flex align-items-center ms-3" style="font-size: 1.5em;" id="blue"></i> -->
-          <!-- <i class="fa-solid fa-cart-shopping d-flex align-items-center ms-3" style="font-size: 1.5em;" id="blue"></i> -->
-
-
-          <button class="ms-2" type="button" id="bottoneTrasparente" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-            aria-controls="offcanvasRight"><i
-              class="fa-solid fa-cart-shopping d-flex align-items-center" style="font-size: 1.5em;"
-              id="blue"></i></button>
-
-
-
+                class="fa-solid fa-user d-flex align-items-center ms-3" style="font-size: 1.5em;" id="blue"></i>
+            </a></button>
+          <button class="ms-2" type="button" id="bottoneTrasparente" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i
+              class="fa-solid fa-cart-shopping d-flex align-items-center" style="font-size: 1.5em;" id="blue"></i>
+          </button>
         </form>
       </div>
     </div>
   </nav>
-  <main>
-    <!-- HEADER -->
-    <div id="promoNatale" style="background-color: red; height: 80vh;"
-      class="d-flex align-items-center justify-content-center flex-column">
-      <h1 style="color: white; font-weight: bold;"> PROMO DI NATALE</h1>
-      <!-- <div style="background-size:cover ;"">
-                    </div> -->
-      <button id="custombutton">Scopri la selezione</button>
-    </div>
 
-    <!-- SEZIONE CARD -->
-    <div class="ps-5 pe-5 pt-3 pb-3 " style="background-color: white(0, 255, 76); width: 100vw;">
-      <div>
-        <div class="container">
-          <h1 style="color: var(--bs-primary); font-weight: bold;" class="mb-4">PRODOTTI IN EVIDENZA</h1>
-        </div>
-        <div class="row row-cols-1 row-cols-md-4 row-cols-xl-5 g-4 sm d-flex justify-content-center ">
-
-          <!-- CARD OK -->
-          <div class="col" style="width: fit-content;">
-            <div class="card" style="width: 13rem;">
-              <img src="img/PANDOROBAULI-8001720011033-1.webp" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title" style="font-weight: bold;">Bauli Il Pandoro Di Verona 1</h5>
-                <p class="card-text" style="color:grey">Offerta speciale</p>
-                <div class="d-flex justify-content-between">
-                  <h3 class="card-title d-flex align-items-center" style="font-weight: bold;">€ 6,89</h3>
-                  <button id="custombutton" style="font-weight: bold;"><i class="fa-solid fa-cart-plus"></i></button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- FINE CARD OK -->
-          <!-- CARD OK -->
-          <div class="col" style="width: fit-content;">
-            <div class="card" style="width: 13rem;">
-              <img src="img/PANDOROBAULI-8001720011033-1.webp" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title" style="font-weight: bold;">Bauli Il Pandoro Di Verona 1</h5>
-                <p class="card-text" style="color:grey">Offerta speciale</p>
-                <div class="d-flex justify-content-between">
-                  <h3 class="card-title d-flex align-items-center" style="font-weight: bold;">€ 6,89</h3>
-                  <button id="custombutton" style="font-weight: bold;"><i class="fa-solid fa-cart-plus"></i></button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- FINE CARD OK -->
-          <!-- CARD OK -->
-          <div class="col" style="width: fit-content;">
-            <div class="card" style="width: 13rem;">
-              <img src="img/PANDOROBAULI-8001720011033-1.webp" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title" style="font-weight: bold;">Bauli Il Pandoro Di Verona 1</h5>
-                <p class="card-text" style="color:grey">Offerta speciale</p>
-                <div class="d-flex justify-content-between">
-                  <h3 class="card-title d-flex align-items-center" style="font-weight: bold;">€ 6,89</h3>
-                  <button id="custombutton" style="font-weight: bold;"><i class="fa-solid fa-cart-plus"></i></button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- FINE CARD OK -->
-          <!-- CARD OK -->
-          <div class="col" style="width: fit-content;">
-            <div class="card" style="width: 13rem;">
-              <img src="img/PANDOROBAULI-8001720011033-1.webp" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title" style="font-weight: bold;">Bauli Il Pandoro Di Verona 1</h5>
-                <p class="card-text" style="color:grey">Offerta speciale</p>
-                <div class="d-flex justify-content-between">
-                  <h3 class="card-title d-flex align-items-center" style="font-weight: bold;">€ 6,89</h3>
-                  <button id="custombutton" style="font-weight: bold;"><i class="fa-solid fa-cart-plus"></i></button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- FINE CARD OK -->
-          <!-- CARD OK -->
-          <div class="col" style="width: fit-content;">
-            <div class="card" style="width: 13rem;">
-              <img src="img/PANDOROBAULI-8001720011033-1.webp" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title" style="font-weight: bold;">Bauli Il Pandoro Di Verona 1</h5>
-                <p class="card-text" style="color:grey">Offerta speciale</p>
-                <div class="d-flex justify-content-between">
-                  <h3 class="card-title d-flex align-items-center" style="font-weight: bold;">€ 6,89</h3>
-                  <button id="custombutton" style="font-weight: bold;"><i class="fa-solid fa-cart-plus"></i></button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- FINE CARD OK -->
   
 
+  <main>
+    <!-- banner lg -->
+    <div class="d-none d-md-block">
+      <div id="promoNatale" style="background-color: #a3a3a3; height: 80vh;"
+        class="d-flex align-items-center justify-content-center flex-column ">
+        <h1 style="color: white; font-weight: bold;"> PROMOZIONE DI NATALE</h1>
+        <!-- <div style="background-size:cover ;"">
+                    </div> -->
+        <button class="p-3" id="custombutton">Scopri la selezione</button>
+      </div>
+    </div>
 
+    <!-- Prodotti in evidenza -->
+    <div class="ps-2 pe-2 pt-3 pb-3 p-md-5 " style="background-color: white(0, 255, 76); width: 100vw;">
+      <div>
+        <div class="row row-cols-2 row-cols-md-4 row-cols-xl-5 g-4  d-flex justify-content-center ">
 
-
-
+          <!-- CARD OK -->
+          <div class=" d-flex justify-content-md-start justify-content-center w-100 ps-md-5 ps-0">
+            <h1 style="color: var(--bs-primary); font-weight: bold;" class="mb-2 ps-md-5 ps-0 mt-4 mt-md-0">Prodotti in
+              evidenza</h1>
+          </div>
+          <div class="col-6">
+            <div class="card w-100 p-0 m-0 ">
+              <a href="prodotto.html"><img src="https://dummyimage.com/600/a3a3a3/858585.jpg&text=Product"
+                  class="card-img-top" alt="..."></a>
+              <div class="card-body">
+                <h5 class="card-title" style="font-weight: bold;">Prodotto</h5>
+                <p class="card-text " style="color:grey">Offerta speciale</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h3 class="card-title fs-5 mb-0" style="font-weight: bold;">€ 6,89</h3>
+                  <button class="ps-3 pt-2 pb-2 pe-3" id="custombutton" style="font-weight: bold;"><i
+                      class="fa-solid fa-cart-plus"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- FINE CARD OK -->
+          <!-- CARD OK -->
+          <div class="col-6">
+            <div class="card w-100 p-0 m-0 ">
+              <a href="#"><img src="https://dummyimage.com/600/a3a3a3/858585.jpg&text=Product" class="card-img-top"
+                  alt="..."></a>
+              <div class="card-body">
+                <h5 class="card-title" style="font-weight: bold;">Prodotto</h5>
+                <p class="card-text " style="color:grey">Offerta speciale</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h3 class="card-title fs-5 mb-0" style="font-weight: bold;">€ 6,89</h3>
+                  <button class="ps-3 pt-2 pb-2 pe-3" id="custombutton" style="font-weight: bold;"><i
+                      class="fa-solid fa-cart-plus"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- FINE CARD OK -->
+          <!-- CARD OK -->
+          <div class="col-6">
+            <div class="card w-100 p-0 m-0 ">
+              <a href="#"><img src="https://dummyimage.com/600/a3a3a3/858585.jpg&text=Product" class="card-img-top"
+                  alt="..."></a>
+              <div class="card-body">
+                <h5 class="card-title" style="font-weight: bold;">Prodotto</h5>
+                <p class="card-text " style="color:grey">Offerta speciale</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h3 class="card-title fs-5 mb-0" style="font-weight: bold;">€ 6,89</h3>
+                  <button class="ps-3 pt-2 pb-2 pe-3" id="custombutton" style="font-weight: bold;"><i
+                      class="fa-solid fa-cart-plus"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- FINE CARD OK -->
+          <!-- CARD OK -->
+          <div class="col-6">
+            <div class="card w-100 p-0 m-0 ">
+              <a href="#"><img src="https://dummyimage.com/600/a3a3a3/858585.jpg&text=Product" class="card-img-top"
+                  alt="..."></a>
+              <div class="card-body">
+                <h5 class="card-title" style="font-weight: bold;">Prodotto</h5>
+                <p class="card-text " style="color:grey">Offerta speciale</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h3 class="card-title fs-5 mb-0" style="font-weight: bold;">€ 6,89</h3>
+                  <button class="ps-3 pt-2 pb-2 pe-3" id="custombutton" style="font-weight: bold;"><i
+                      class="fa-solid fa-cart-plus"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- FINE CARD OK -->
         </div>
       </div>
     </div>
 
     <!-- SEZIONE 2 BANNER RESPONSIVE -->
-    <div class="container">
+    <div class="ps-2 pe-2 ps-md-5 pe-md-5 w-100">
       <div class="row" style="height: 300px;">
-        <div class="col-md-6 col-12 d-flex align-items-center justify-content-center text-white" id="carne"
-          style="background-color: rgb(216, 90, 0);">
+        <div class="col-md-6 col-12 d-flex align-items-center justify-content-center text-white mb-2 mb-md-0"
+          id="carne">
           <h1>BANNER PROMO 1</h1>
         </div>
-
-        <div class="col-md-6 col-12 d-flex align-items-center justify-content-center text-white"
-          id="vegetale" style="background-color: rgb(30, 138, 210);  ">
+        <div class="col-md-6 col-12 d-flex align-items-center justify-content-center text-white" id="vegetale">
           <h1>BANNER PROMO 2</h1>
         </div>
       </div>
     </div>
 
-
-    <!-- OFF CANVAS CARRELLO-->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasRightLabel">Il tuo carrello</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body d-flex align-items-center flex-column gap-5">
-            <!-- CARD OK -->
-            <div class="col" style="width: fit-content;">
-              <div class="card" style="width: 13rem;">
-                <img src="img/PANDOROBAULI-8001720011033-1.webp" class="card-img-top" alt="...">
+    <!-- I nostri prodotti -->
+    <div class="">
+      <div class="ps-2 pe-2 pt-0 pb-3 ps-md-5 pe-md-5 w-100 mt-5">
+        <div>
+          <div class="row  ">
+            <div class=" d-flex justify-content-md-start justify-content-center w-100 ps-md-5 ps-0">
+              <h1 style="color: var(--bs-primary); font-weight: bold;" class="mb-5 ps-md-5 ps-0 mt-0 mt-md-0">I nostri
+                prodotti
+              </h1>
+            </div>
+             <!-- CARD OK -->
+            <div class="col-6 col-md-4 col-lg-2">
+              <div class="card w-100 p-0 m-0 ">
+                <a href="#"><img src="https://dummyimage.com/600/a3a3a3/858585.jpg&text=Product" class="card-img-top"
+                    alt="..."></a>
                 <div class="card-body">
-                  <h5 class="card-title" style="font-weight: bold;">Bauli Il Pandoro Di Verona 1</h5>
-                  <p class="card-text" style="color:grey">Offerta speciale</p>
-                  <div class="d-flex justify-content-between">
-                    <h3 class="card-title d-flex align-items-center" style="font-weight: bold;">€ 6,89</h3>
-                    <!-- <button id="custombutton" style="font-weight: bold;"><i class="fa-solid fa-cart-plus"></i></button> -->
+                  <h5 class="card-title" style="font-weight: bold;">Prodotto</h5>
+                  <div class="d-none d-lg-block " style="font-size: 0.7em;">
+                    <p class="card-text " style="color:grey">
+                      Offerta speciale</p>
+                  </div>
+                  <div class="d-block d-lg-none">
+                    <p class="card-text " style="color:grey">
+                      Offerta speciale</p>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="flex-column mt-3">
+                      <h3 class="card-title fs-5 mb-0 " style="font-weight: bold;">€ 6,89</h3>
+                      <button class="ps-3 pt-2 pb-2 pe-3 mt-2" id="custombutton" style="font-weight: bold;"><i
+                          class="fa-solid fa-cart-plus"></i></button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
             <!-- FINE CARD OK -->
-            
-            <!-- CARD OK -->
-            <div class="col" style="width: fit-content;">
-              <div class="card" style="width: 13rem;">
-                <img src="img/PANDOROBAULI-8001720011033-1.webp" class="card-img-top" alt="...">
+                          <!-- CARD OK -->
+            <div class="col-6 col-md-4 col-lg-2">
+              <div class="card w-100 p-0 m-0 ">
+                <a href="#"><img src="https://dummyimage.com/600/a3a3a3/858585.jpg&text=Product" class="card-img-top"
+                    alt="..."></a>
                 <div class="card-body">
-                  <h5 class="card-title" style="font-weight: bold;">Bauli Il Pandoro Di Verona 1</h5>
-                  <p class="card-text" style="color:grey">Offerta speciale</p>
-                  <div class="d-flex justify-content-between">
-                    <h3 class="card-title d-flex align-items-center" style="font-weight: bold;">€ 6,89</h3>
-                    <!-- <button id="custombutton" style="font-weight: bold;"><i class="fa-solid fa-cart-plus"></i></button> -->
+                  <h5 class="card-title" style="font-weight: bold;">Prodotto</h5>
+                  <div class="d-none d-lg-block " style="font-size: 0.7em;">
+                    <p class="card-text " style="color:grey">
+                      Offerta speciale</p>
+                  </div>
+                  <div class="d-block d-lg-none">
+                    <p class="card-text " style="color:grey">
+                      Offerta speciale</p>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="flex-column mt-3">
+                      <h3 class="card-title fs-5 mb-0 " style="font-weight: bold;">€ 6,89</h3>
+                      <button class="ps-3 pt-2 pb-2 pe-3 mt-2" id="custombutton" style="font-weight: bold;"><i
+                          class="fa-solid fa-cart-plus"></i></button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
             <!-- FINE CARD OK -->
-            
-            <button id="custombutton">Procedi all'acquisto</button>
+             <!-- CARD OK -->
+             <div class="col-6 col-md-4 col-lg-2">
+              <div class="card w-100 p-0 m-0 ">
+                <a href="#"><img src="https://dummyimage.com/600/a3a3a3/858585.jpg&text=Product" class="card-img-top"
+                    alt="..."></a>
+                <div class="card-body">
+                  <h5 class="card-title" style="font-weight: bold;">Prodotto</h5>
+                  <div class="d-none d-lg-block " style="font-size: 0.7em;">
+                    <p class="card-text " style="color:grey">
+                      Offerta speciale</p>
+                  </div>
+                  <div class="d-block d-lg-none">
+                    <p class="card-text " style="color:grey">
+                      Offerta speciale</p>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="flex-column mt-3">
+                      <h3 class="card-title fs-5 mb-0 " style="font-weight: bold;">€ 6,89</h3>
+                      <button class="ps-3 pt-2 pb-2 pe-3 mt-2" id="custombutton" style="font-weight: bold;"><i
+                          class="fa-solid fa-cart-plus"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- FINE CARD OK -->
+             <!-- CARD OK -->
+             <div class="col-6 col-md-4 col-lg-2">
+              <div class="card w-100 p-0 m-0 ">
+                <a href="#"><img src="https://dummyimage.com/600/a3a3a3/858585.jpg&text=Product" class="card-img-top"
+                    alt="..."></a>
+                <div class="card-body">
+                  <h5 class="card-title" style="font-weight: bold;">Prodotto</h5>
+                  <div class="d-none d-lg-block " style="font-size: 0.7em;">
+                    <p class="card-text " style="color:grey">
+                      Offerta speciale</p>
+                  </div>
+                  <div class="d-block d-lg-none">
+                    <p class="card-text " style="color:grey">
+                      Offerta speciale</p>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="flex-column mt-3">
+                      <h3 class="card-title fs-5 mb-0 " style="font-weight: bold;">€ 6,89</h3>
+                      <button class="ps-3 pt-2 pb-2 pe-3 mt-2" id="custombutton" style="font-weight: bold;"><i
+                          class="fa-solid fa-cart-plus"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- FINE CARD OK -->
+             <!-- CARD OK -->
+             <div class="col-6 col-md-4 col-lg-2">
+              <div class="card w-100 p-0 m-0 ">
+                <a href="#"><img src="https://dummyimage.com/600/a3a3a3/858585.jpg&text=Product" class="card-img-top"
+                    alt="..."></a>
+                <div class="card-body">
+                  <h5 class="card-title" style="font-weight: bold;">Prodotto</h5>
+                  <div class="d-none d-lg-block " style="font-size: 0.7em;">
+                    <p class="card-text " style="color:grey">
+                      Offerta speciale</p>
+                  </div>
+                  <div class="d-block d-lg-none">
+                    <p class="card-text " style="color:grey">
+                      Offerta speciale</p>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="flex-column mt-3">
+                      <h3 class="card-title fs-5 mb-0 " style="font-weight: bold;">€ 6,89</h3>
+                      <button class="ps-3 pt-2 pb-2 pe-3 mt-2" id="custombutton" style="font-weight: bold;"><i
+                          class="fa-solid fa-cart-plus"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- FINE CARD OK -->
+             <!-- CARD OK -->
+             <div class="col-6 col-md-4 col-lg-2">
+              <div class="card w-100 p-0 m-0 ">
+                <a href="#"><img src="https://dummyimage.com/600/a3a3a3/858585.jpg&text=Product" class="card-img-top"
+                    alt="..."></a>
+                <div class="card-body">
+                  <h5 class="card-title" style="font-weight: bold;">Prodotto</h5>
+                  <div class="d-none d-lg-block " style="font-size: 0.7em;">
+                    <p class="card-text " style="color:grey">
+                      Offerta speciale</p>
+                  </div>
+                  <div class="d-block d-lg-none">
+                    <p class="card-text " style="color:grey">
+                      Offerta speciale</p>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="flex-column mt-3">
+                      <h3 class="card-title fs-5 mb-0 " style="font-weight: bold;">€ 6,89</h3>
+                      <button class="ps-3 pt-2 pb-2 pe-3 mt-2" id="custombutton" style="font-weight: bold;"><i
+                          class="fa-solid fa-cart-plus"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- FINE CARD OK -->
 
-            
-      </div>
-    </div>
 
-    <!-- SEZIONE 3 -->
 
-    <!-- 
-     
-      ...
 
-     -->
 
-    <!-- SECONDA SEZIONE -->
-    <!-- <div style="height: 80vh;"> NUOVA SEZIONE</div> -->
-    <!-- TERZA SEZIONE -->
-    <!-- <div style="height: 80vh;"> NUOVA SEZIONE </div> -->
-    <!-- QUARTA SEZIONE -->
-    <!-- <div style="height: 80vh;"> NUOVA SEZIONE</div> -->
+
+            <!-- OFF CANVAS CARRELLO-->
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+              aria-labelledby="offcanvasRightLabel">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasRightLabel">Il tuo carrello</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body d-flex align-items-center flex-column">
+                <!-- CARD OK -->
+                <div class="col-6 col-md-4 col-lg-2 w-100 pb-3">
+                  <div class="card w-100 p-0 m-0 ">
+                    <a href="#"><img src="https://dummyimage.com/600/a3a3a3/858585.jpg&text=Product"
+                        class="card-img-top" alt="..."></a>
+                    <div class="card-body">
+                      <h5 class="card-title" style="font-weight: bold;">Prodotto</h5>
+                      <p class="card-text " style="color:grey">Offerta speciale</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="card-title fs-5 mb-0" style="font-weight: bold;">€ 6,89</h3>
+                        <button class="ps-3 pt-2 pb-2 pe-3" id="custombutton" style="font-weight: bold;"><i
+                            class="fa-solid fa-cart-plus"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- FINE CARD OK -->
+                <!-- CARD OK -->
+                <div class="col-6 col-md-4 col-lg-2 w-100 pb-3">
+                  <div class="card w-100 p-0 m-0 ">
+                    <a href="#"><img src="https://dummyimage.com/600/a3a3a3/858585.jpg&text=Product"
+                        class="card-img-top" alt="..."></a>
+                    <div class="card-body">
+                      <h5 class="card-title" style="font-weight: bold;">Prodotto</h5>
+                      <p class="card-text " style="color:grey">Offerta speciale</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="card-title fs-5 mb-0" style="font-weight: bold;">€ 6,89</h3>
+                        <button class="ps-3 pt-2 pb-2 pe-3" id="custombutton" style="font-weight: bold;"><i
+                            class="fa-solid fa-cart-plus"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- FINE CARD OK -->
+                <!-- CARD OK -->
+                <div class="col-6 col-md-4 col-lg-2 w-100 pb-3">
+                  <div class="card w-100 p-0 m-0 ">
+                    <a href=""><img src="https://dummyimage.com/600/a3a3a3/858585.jpg&text=Product" class="card-img-top"
+                        alt="..."></a>
+                    <div class="card-body">
+                      <h5 class="card-title" style="font-weight: bold;">Prodotto</h5>
+                      <p class="card-text " style="color:grey">Offerta speciale</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="card-title fs-5 mb-0" style="font-weight: bold;">€ 6,89</h3>
+                        <button class="ps-3 pt-2 pb-2 pe-3" id="custombutton" style="font-weight: bold;"><i
+                            class="fa-solid fa-cart-plus"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- FINE CARD OK -->
+                <button class="p-3" id="custombutton">Procedi all'acquisto</button>
+              </div>
+            </div>
   </main>
-
 
   <footer>
     <!-- place footer here -->
-    <div class="p-0 m-0 mt-4" style="background-color: rgba(223, 223, 223, 0.322); width: 100%;">
+    <div class="p-0 m-0 mt-5 pt-4" style="background-color: rgba(223, 223, 223, 0.322); width: 100%;">
       <!-- <h1 style="color: white;"> Footer </h1> -->
       <div class="container">
         <div class="row" style="height: 100%;">
@@ -295,9 +441,8 @@
           </div>
 
           <div class="col-lg-3 col-md-6 p-3 p-md-5" style="color: var(--bs-primary);">
-
             <div class="row d-none d-md-block " style="height: 50%;"></div>
-            <div class="row d-flex justify-content-sm-center justify-content-md-start">
+            <div class="row d-flex justify-content-sm-center justify-content-md-start mb-5">
               <p class="d-flex justify-content-center justify-content-md-start"> I nostri social:</p>
               <div class="col-12 fs-2 flex-row d-flex justify-content-center justify-content-md-start"
                 style="white-space: no-wrap; gap: 10px;">
@@ -306,17 +451,11 @@
                 <i class="fa-brands fa-instagram"></i>
                 <i class="fa-brands fa-linkedin"></i>
               </div>
-
             </div>
-
           </div>
-
           <div class="col-3 p-5 text-white d-none d-lg-block"></div>
-
         </div>
-
       </div>
-
     </div>
   </footer>
 
