@@ -1,0 +1,42 @@
+[
+  {
+    "Name": "Carne",
+    "ID": 0
+  },
+  {
+    "Name": "Verdure",
+    "ID": 1
+  },
+  {
+    "Name": "Pulizia",
+    "ID": 2
+  },
+  {
+    "Name": "Bevande",
+    "ID": 3
+  },
+  {
+    "Name": "Dolci",
+    "ID": 4
+  },
+  {
+    "Name": "Pane",
+    "ID": 5
+  },
+  {
+    "Name": "Condimenti",
+    "ID": 6
+  },
+  {
+    "Name": "Alcolici",
+    "ID": 7
+  },
+  {
+    "Name": "Affettati",
+    "ID": 8
+  },
+  {
+    "Name": "Frutta",
+    "ID": 9
+  }
+]

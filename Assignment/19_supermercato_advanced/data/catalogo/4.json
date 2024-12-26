@@ -1,0 +1,10 @@
+{
+  "Id": 4,
+  "Nome": "Biscotti",
+  "Prezzo": 1.19,
+  "Giacenza": 100,
+  "Categoria": {
+    "Name": "Dolci",
+    "ID": 4
+  }
+}

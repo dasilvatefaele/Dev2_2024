@@ -1097,12 +1097,42 @@ git push -u origin main
 
 
 
-> Versionamento 
+> Nota: errore durante il comando `git pull`. Aggiornato il repository con un comando d'emergenza.
+
+> Versionamento d'emergenza
 
 ```bash
 git add --all
-git commit -m "Supermercato Advanced 3/10 - Aggiungi e rimuovi prodotti dal carrello al magazzino e viceversa"
+git commit -m "Supermercato Advanced 3/10 - Correzione Commit"
 git push -u origin main
 ```
+---
+#### IMPLEMENTAZIONI
+
+- [x] Gestione permessi per l'accesso ai differenti terminali dei dipendenti
+- [x] Creazione di un account admin che permette l'accesso completo a tutti i terminali
+- [x] Correzione bug nell'aggiunta al carrello di un prodotto e di una sua restituzione
+    - NOTA: esclusa temporaneamente la possibilità di "modifica". In caso l'utente voglia cambiare la quantità acquistata dovrà rimuovere l'articolo dal carrello e reinserirlo con la quantità desiderata. Implementazioni future per questa funzionalità.
+- [x] CRUD delle categorie da parte del magazziniere, che ora può creare, modificare, eliminare categorie. Inoltre durante la creazione di un nuovo Prodotto è possibile scegliere la categoria da una lista aggiornata.
+    - [x] Creazione CategorieRepository
+    - [x] Creazione CategorieManager
+    - NOTA: le categorie vengono salvate su file json come array/lista di oggetti di classe Categoria.
+- [x] Miglioramento del layout complessivo, per spazi, e comprensibilità di navigazione sui terminali dei dipendenti.
 
 
+#### TODO:
+
+- [ ] Gestione, creazione e salvataggio dei `Purchais` e fabbricazione dello scontrino
+- [ ] Visibilità dell'acquisto in stato "True" su un'interfaccia accessibile dal menu `Cassiere`
+- [ ] calcolo `Totale`
+- [ ] salvataggio carrello in `cliente.StoricoAcquisti`
+- [ ] Calcolo `PercentualeDiSconto`
+- [ ] Possibilità dell'amministratore di verificare il guadagno totale.
+- [ ] Possibilità del cassiere di ricaricare `cliente.Credito` in caso di credito non sufficiente.
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced 5/10 - Voci presenti nel menu correttamente funzionanti"
+git push -u origin main
+```
+---

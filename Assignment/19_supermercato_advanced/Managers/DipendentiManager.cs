@@ -1,3 +1,4 @@
+using System.Diagnostics.Tracing;
 using Newtonsoft.Json;
 
 public class DipendentiManager
@@ -20,35 +21,12 @@ public class DipendentiManager
             }
         }
     }
-    // public Dipendente CreaDipendente()
-    // {
-    //     Dipendente nuovoDipendente = new Dipendente();
-
-    //     nuovoDipendente.Username = InputManager.LeggiStringa("Username del nuovo dipendente: ");
-    //     nuovoDipendente.Ruolo = InputManager.LeggiStringa("Ruolo: ");
-    //     nuovoDipendente.Id = AssegnaId(dipendenti);
-    //     Console.WriteLine($"Nuovo dipendente creato! Username:{nuovoDipendente.Username}, Ruolo: {nuovoDipendente.Ruolo}, ID: {nuovoDipendente.Id}");
-    //     return nuovoDipendente;
-    // }
 
     public void AggiungiDipendente(Dipendente dipendente)
     {
         dipendente.Id = prossimoId;
         prossimoId++;
         dipendenti.Add(dipendente); // quella private
-    }
-
-    public int AssegnaId(List<Dipendente> elencoDipendenti)
-    {
-        int prossimoId = 1;
-        foreach (var dipendente in elencoDipendenti)
-        {
-            if (dipendente.Id >= prossimoId)
-            {
-                prossimoId = dipendente.Id + 1;
-            }
-        }
-        return prossimoId;
     }
 
     public void EliminaDipendente(int Id)
@@ -90,6 +68,24 @@ public class DipendentiManager
         return null;
     }
 
+    public Dipendente TrovaDipendentePerUsername(string username)
+    {
+        bool trovato = false;
+        foreach (var dipendente in dipendenti)
+        {
+            if (dipendente.Username == username)
+            {
+                trovato = true;
+                return dipendente;
+            }
+        }
+        if (!trovato)
+        {
+            return null;
+        }
+        return null;
+    }
+
     public void AggiornaDipendente(int Id)
     {
         Dipendente dipendente = TrovaDipendentePerId(Id);
@@ -99,10 +95,37 @@ public class DipendentiManager
         }
         else
         {
-            dipendente.Username = InputManager.LeggiStringa("Username > ");
-            dipendente.Ruolo = InputManager.LeggiStringa("Ruolo > ");
+            bool risposta = InputManager.LeggiConferma("Modificare Username?");
+            if (risposta)
+            {
+                dipendente.Username = InputManager.LeggiStringa("Username > ");
+            }
+            risposta = InputManager.LeggiConferma("Modificare Ruolo?");
+            {
+                dipendente.Ruolo = InputManager.LeggiStringa("Ruolo > ");
+            }
             repositoryDipendenti.SalvaDipendenti(dipendenti);
         }
 
     }
+
+    public Dipendente AccediComeDipendente(string username)
+    {
+
+
+        var nuovoDipendente = TrovaDipendentePerUsername(username);
+
+        if (nuovoDipendente != null)
+        {
+            return nuovoDipendente;
+        }
+        else
+        {
+            return null;
+
+        }
+    }
+
+
+
 }

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 public class DipendentiRepository
 {
-    private readonly string dirCatalogo = "data/dipendenti"; 
+    private readonly string dirCatalogo = "data/dipendenti";
 
     public void SalvaDipendenti(List<Dipendente> dipendenti)
     {
@@ -17,10 +17,10 @@ public class DipendentiRepository
         {
             string jsonData = JsonConvert.SerializeObject(dipendente, Formatting.Indented); // serializza il prodotto
             string nomeProdotto = $"{dipendente.Id}.json"; // creo il nome del file 
-            nuovoPercorso = Path.Combine(dirCatalogo,nomeProdotto); // creo il percorso
+            nuovoPercorso = Path.Combine(dirCatalogo, nomeProdotto); // creo il percorso
             File.WriteAllText(nuovoPercorso, jsonData); // scrivo il prodotto deserializzato nel percorso
         }
-        Console.WriteLine($"Dati salvati in '{nuovoPercorso}'\n"); // stampo il percorso 
+        //Console.WriteLine($"Dati salvati in '{nuovoPercorso}'\n"); // stampo il percorso 
     }
 
     public List<Dipendente> CaricaDipendenti()
@@ -28,12 +28,12 @@ public class DipendentiRepository
         if (Directory.Exists(dirCatalogo))
         {
             string[] files = Directory.GetFiles(dirCatalogo);  // carico il contenuto della cartella in una lista di stringhe
-            
+
             if (files.Length > 0) // controllo che ci siano file nella cartella, se ci sono file
             {
                 List<Dipendente> acquisizioneDipendenti = new List<Dipendente>(); // crea una lista locale
                 Dipendente letturaDipendente; // crea un'istanza temporanea del prodotto
-                foreach(string file in files) // per ogni file dentro la cartella
+                foreach (string file in files) // per ogni file dentro la cartella
                 {
                     string readJsonData = File.ReadAllText(file);  // leggi il file
                     letturaDipendente = JsonConvert.DeserializeObject<Dipendente>(readJsonData)!; // deserializzo dentro l'istanza temporanea
@@ -48,8 +48,8 @@ public class DipendentiRepository
         }
         else // se non esiste la cartella creala e restiuisci una lista vuota
         {
-            Directory.CreateDirectory(dirCatalogo); 
-            return new List<Dipendente>(); 
+            Directory.CreateDirectory(dirCatalogo);
+            return new List<Dipendente>();
         }
     }
 }

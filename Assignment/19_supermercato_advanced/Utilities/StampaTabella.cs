@@ -25,7 +25,7 @@ static public class StampaTabella
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
             foreach (var prodotto in prodotti)
             {
-                Console.WriteLine($"{prodotto.Id,COLONNA_SMALL}{prodotto.Nome,COLONNA_MEDIUM}{prodotto.Prezzo,COLONNA_SMALL:0.00}{prodotto.Giacenza,COLONNA_SMALL}{prodotto.Categoria.Name, COLONNA_SMALL}");
+                Console.WriteLine($"{prodotto.Id,COLONNA_SMALL}{prodotto.Nome,COLONNA_MEDIUM}{prodotto.Prezzo,COLONNA_SMALL:0.00}{prodotto.Giacenza,COLONNA_SMALL}{prodotto.Categoria.Name,COLONNA_SMALL}");
             }
         }
         else
@@ -66,5 +66,16 @@ static public class StampaTabella
         {
             Console.WriteLine("Non ci sono prodotti.\n");
         }
+    }
+
+    static public void Categorie(List<Categoria> listaCategorie)
+    {
+        Console.WriteLine($"{"ID",-10} {"Categoria",-20}");
+        Console.WriteLine(new string('-', 30));
+        foreach (var categorie in listaCategorie)
+        {
+            Console.WriteLine($"{categorie.ID,-10}{categorie.Name,-20}");
+        }
+        Console.WriteLine();
     }
 }

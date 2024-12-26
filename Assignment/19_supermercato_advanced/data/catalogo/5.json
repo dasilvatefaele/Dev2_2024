@@ -1,0 +1,10 @@
+{
+  "Id": 5,
+  "Nome": "Carote",
+  "Prezzo": 0.99,
+  "Giacenza": 100,
+  "Categoria": {
+    "Name": "Verdure",
+    "ID": 1
+  }
+}

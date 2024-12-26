@@ -35,11 +35,22 @@ public static class InputManager
             Console.Write($"{messaggio}"); // messaggio è la variabile di input
             string input = Console.ReadLine(); // acquisisco input come stringa
 
+            // //! in windows
+            // // sostituisco la virgola con il punto
+            // if (input.Contains(".")) //(input.Contains(",") && !input.Contains("."))
+            // {
+            //     input = input.Replace(".", ","); // sostituire la virgola con il punto
+            // }
+
+
+            //! in mac 
             // sostituisco la virgola con il punto
-            if (input.Contains(".")) //(input.Contains(",") && !input.Contains("."))
+            if (input.Contains(",")) //(input.Contains(",") && !input.Contains("."))
             {
-                input = input.Replace(".", ","); // sostituire la virgola con il punto
+                input = input.Replace(",", "."); // sostituire la virgola con il punto
             }
+
+
             // provo a convertire 
             if (decimal.TryParse(input, out valore) && valore >= min && valore <= max)
             {

@@ -1,0 +1,10 @@
+{
+  "Id": 6,
+  "Nome": "Spugna",
+  "Prezzo": 0.99,
+  "Giacenza": 100,
+  "Categoria": {
+    "Name": "Pulizia",
+    "ID": 2
+  }
+}
