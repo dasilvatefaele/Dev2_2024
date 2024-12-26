@@ -343,10 +343,6 @@ class Program // <--- (standard/default)
                                                 decimal prezzoAggiornato = InputManager.LeggiDecimale("Prezzo > ");
                                                 int giacenzaAggiornata = InputManager.LeggiIntero("Giacenza > ");
                                                 string nuovaCategoria = InputManager.LeggiStringa("Categoria > ");
-                                                //int idBackup = prodottoTrovato2.Id;
-                                                //Console.Write("Nome > ");
-                                                //Console.Write("Prezzo > ");
-                                                //Console.Write("Giacenza > ");
                                                 manager.AggiornaProdotto(idProdottoDaAggiornare, new Prodotto { Nome = nomeAggiornato, Prezzo = prezzoAggiornato, Giacenza = giacenzaAggiornata });
                                             }
                                             else
