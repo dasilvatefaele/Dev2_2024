@@ -1,0 +1,10 @@
+{
+  "Id": 2,
+  "Nome": "Prosciutto",
+  "Prezzo": 2.39,
+  "Giacenza": 4,
+  "Categoria": {
+    "Name": "Carne",
+    "ID": 0
+  }
+}

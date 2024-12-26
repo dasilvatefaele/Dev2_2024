@@ -1,0 +1,132 @@
+:root{
+    --bs-primary: #1b3d79 !important;
+    --bs-secondary: #1b3d79 !important;
+    --blue-hover: #5278be !important;
+}
+
+body{
+        font-family: Inter;
+        margin: 0;
+        overflow-x: hidden;
+}
+
+.btn-primary{
+    background-color: #bc1c1c;
+    border: none;
+    padding: 15px 25px 15px 25px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-primary:hover{
+    background-color: #b95050;
+    border: none;
+    padding: 15px 25px 15px 25px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-outline-primary{
+    background-color: var(--bs-primary) !important;
+    color: white !important;
+    border: white  !important;
+}
+
+.btn-outline-primary:hover{
+    background-color: var(--blue-hover) !important;
+    color: white !important;
+    border: white  !important;
+}
+
+#carne{
+    background-image: url(img/pexels-pixabay-361184.jpg);
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+
+#vegetale{
+    background-image: url(img/pexels-enginakyurt-1435904.jpg);
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+
+#blue:hover {
+    color: #1b3d79 !important;
+}
+
+.primary {
+    color: #1b3d79 !important;
+}
+
+p{
+    text-decoration: none !important;
+}
+
+#bottoneTrasparente{
+    background-color: rgba(255, 255, 255, 0) !important;
+    color: #1b3d79;
+    border: none; 
+}
+
+
+#custombutton{
+    background-color: #1b3d79;
+    border: none;
+    /*padding: 15px 20px 15px 20px;*/
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+#custombutton:hover{
+    background-color: #5278be;
+    border: none;
+    /* padding: 20px 25px 20px 25px; */
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+#promoNatale{
+    background-position: center;
+    background-size:cover;
+    background-repeat: none;
+}
+
+#accedi{
+    background-color: #bc1c1c;
+    border: none;
+    padding: 15px 25px 15px 25px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+#accedi:hover{
+    background-color: #b95050;
+    border: none;
+    padding: 15px 25px 15px 25px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+#customShadow{
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.425);
+}
+
+a{
+    text-decoration: none;
+    color: var(--bs-primary);
+}
+
+
+/* div{
+    border: 1px solid greenyellow;
+}  */
+
+/* .fs-6{
+    font-size: 12px !important;
+} */

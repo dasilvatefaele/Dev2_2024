@@ -1,0 +1,30 @@
+[
+  {
+    "Id": 1,
+    "Active": true,
+    "NomeProdotto": "a",
+    "PrezzoProdotto": 1.0,
+    "GiacenzaProdotto": 1
+  },
+  {
+    "Id": 2,
+    "Active": true,
+    "NomeProdotto": "b",
+    "PrezzoProdotto": 33.0,
+    "GiacenzaProdotto": 33
+  },
+  {
+    "Id": 3,
+    "Active": false,
+    "NomeProdotto": "c",
+    "PrezzoProdotto": 1.0,
+    "GiacenzaProdotto": 1
+  },
+  {
+    "Id": 4,
+    "Active": true,
+    "NomeProdotto": "g",
+    "PrezzoProdotto": 1.0,
+    "GiacenzaProdotto": 1
+  }
+]

@@ -1,0 +1,16 @@
+{
+    "nome":"mario",
+    "cognome":"verdi",
+    "eta":20,
+    "indirizzo": {
+        "via":"via roma",
+        "citta": "milano"
+    },
+    "NumeroDiTelefono":[
+        {"tipo":"casa", "numero": "1234-56789"},
+        {"tipo":"cellulare", "numero": "56789-1234"}
+    ],
+    "LingueParlate": ["italiano", "inglese", "spagnolo"],
+    "sposato": false,
+    "patente": null
+}

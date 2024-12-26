@@ -1,0 +1,9 @@
+[
+  {
+    "Id": 1,
+    "Active": false,
+    "NomeProdotto": "default",
+    "PrezzoProdotto": 0.01,
+    "GiacenzaProdotto": 1
+  }
+]

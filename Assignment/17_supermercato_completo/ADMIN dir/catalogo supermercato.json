@@ -1,0 +1,44 @@
+[
+  {
+    "ID": "1248",
+    "NomeProdotto": "ACQUA",
+    "Quantita": 63,
+    "Prezzo": 1.0
+  },
+  {
+    "ID": "985",
+    "NomeProdotto": "BANANE",
+    "Quantita": 90,
+    "Prezzo": 0.79
+  },
+  {
+    "ID": "6578",
+    "NomeProdotto": "SUGO",
+    "Quantita": 100,
+    "Prezzo": 3.49
+  },
+  {
+    "ID": 6579,
+    "NomeProdotto": "POMODORI",
+    "Quantita": 30,
+    "Prezzo": 0.69
+  },
+  {
+    "ID": 6580,
+    "NomeProdotto": "BIRRA",
+    "Quantita": 24,
+    "Prezzo": 3.49
+  },
+  {
+    "ID": 6581,
+    "NomeProdotto": "BURRO",
+    "Quantita": 25,
+    "Prezzo": 1.39
+  },
+  {
+    "ID": 6582,
+    "NomeProdotto": "BISCOTTI",
+    "Quantita": 29,
+    "Prezzo": 2.99
+  }
+]
