@@ -3,34 +3,28 @@ using Newtonsoft.Json;
 
 public class CarrelloAdvancedManager
 {
-    private List<Prodotto> prodotti; // prodotti e' private perche non voglio che venga modificato dall'esterno
+    //private List<Prodotto> prodotti; // prodotti e' private perche non voglio che venga modificato dall'esterno
     private List<Prodotto> catalogo; // prodotti e' private perche non voglio che venga modificato dall'esterno
     private readonly string filePath = "Purchase.json"; // percorso in cui memorizzare i dati
+    private readonly string dirPurchases = "data/purchases";
     private readonly string dirCarrello = "data/carrello";
     private readonly string dirCatalogo = "data/catalogo";
     private ProdottoRepository repoCatalogo;
     private CarrelloRepository repoCarrello;
     private ClientiRepository repoClienti;
+    private ProdottoRepository repoProdotti;
     private Purchase purchase;
-    private int prossimoId;
+    //private int prossimoId;
 
     // construttore
     // richiede l'argomento dell'oggetto da gestire (in questo caso lista di ProdottiAdvanced)
-    public CarrelloAdvancedManager(List<Prodotto> Prodotti)
+    public CarrelloAdvancedManager()
     {
-        prodotti = Prodotti;
+        //prodotti = Prodotti;
         repoCatalogo = new ProdottoRepository();
         repoCarrello = new CarrelloRepository();
         repoClienti = new ClientiRepository();
-    
-        prossimoId = 1;
-        foreach (var prodotto in prodotti)
-        {
-            if (prodotto.Id >= prossimoId)
-            {
-                prossimoId = prodotto.Id + 1;
-            }
-        }
+        repoProdotti = new ProdottoRepository();
     }
     public void AggiungiProdotto(string prodottoDaAggiungere, List<Prodotto> carrello, ref Cliente cliente)
     {
@@ -68,6 +62,8 @@ public class CarrelloAdvancedManager
 
                     trovato = true;
                     // indico che è stato trovato
+                    Console.Clear();
+                    Console.WriteLine($"'{prodottoDaAggiungere} x{quantita}' aggiunto al carrello!");
 
                     break;
                     // termina esecuzione del blocco di codice
@@ -79,7 +75,7 @@ public class CarrelloAdvancedManager
                 else
                 {
                     Console.WriteLine($"Mi dispiace, Il prodotto non è più disponibile");
-                    Console.WriteLine("Premi un tasto per uscire...");
+                    Console.WriteLine("Premi un tasto per continuare...");
                     Console.ReadLine();
                     Console.Clear();
                     trovato = true;
@@ -92,56 +88,72 @@ public class CarrelloAdvancedManager
             Console.WriteLine($"'{prodottoDaAggiungere}': non trovato");
         }
     }
-
-    // metodo per visualizzare 
-    public List<Prodotto> OttieniProdotti()
+    public void RimuoviProdottoDalCarrello(string prodottoDaRimuovere, ref Cliente cliente, List<Prodotto> prodotti)
     {
-        return prodotti;
-    }
 
-    // metodo per cercare un prodotto 
-    public Prodotto TrovaProdotto(int id)
-    {
-        foreach (var prodotto in prodotti)
+        // inizilizzo variabili utili per le prossime istruzioni
+        bool trovato = false;
+        int quantitaIndietro = 0;
+        Prodotto prodottoRestituito = new Prodotto();
+        ProdottoCarrello prodottoRimosso = new ProdottoCarrello();
+
+        Console.Clear();
+
+        // cerco presenza del nome del prodotto acquisito da tastiera nella lista del carrello
+        foreach (var prodotto in cliente.Carrello)
         {
-            if (prodotto.Id == id)
+            if (prodotto.Nome == prodottoDaRimuovere)
             {
-                return prodotto;
+                trovato = true; // se c'è corrispondenza è trovato
+                quantitaIndietro = prodotto.Quantita; // salvo la quantita da restituire
+                prodottoRimosso = prodotto; // salvo temporaneamente il prodotto rimosso
             }
         }
-        return null;
-    }
 
-    // metodo per modificare il prodotto
-    public void AggiornaProdotto(int id, Prodotto nuovoProdotto)
-    {
-        var prodotto = TrovaProdotto(id);
-        if (prodotto != null)
+        // se presente
+        if (trovato)
         {
-            prodotto.Nome = nuovoProdotto.Nome;
-            prodotto.Prezzo = nuovoProdotto.Prezzo;
-            prodotto.Giacenza = nuovoProdotto.Giacenza;
-        }
-    }
-
-    // metodo per eliminare un prodotto
-    public void EliminaProdotto(int id)
-    {
-        var prodotto = TrovaProdotto(id); // salvo il prodotto nella variabile se lo trovo, se non lo trova prodotto = null
-        if (prodotto != null) // se lo trova
-        {
-            string[] files = Directory.GetFiles(dirCarrello); // salvo l'elenco di file nella cartella 
-            foreach (string file in files) // per ogni file nella cartella 
+            // rimuove il prodotto dalla cliente.Carrello
+            cliente.Carrello.Remove(prodottoRimosso);
+            foreach (var prodotto in prodotti)
             {
-                string readJsonData = File.ReadAllText(file); // leggo il contenuto del file 
-                Prodotto prodottoTemporaneo = JsonConvert.DeserializeObject<Prodotto>(readJsonData)!; // lo deserializzo in un prodotto temporaneo
-                if (prodottoTemporaneo.Id == id) // se l'id del prodotto temporaneo è uguale all'id inserito dall'utente
+                if (prodotto.Id == prodottoRimosso.Id)
                 {
-                    File.Delete(file); // elimina il file 
-                    // repoCatalogo.SalvaProdotti(prodotti);
+                    // e aggiunge la quantità alla giacenza del prodotto in magazzino
+                    prodotto.Giacenza += quantitaIndietro;
                 }
             }
-            prodotti.Remove(prodotto); // rimuovi il prodotto dalla lista runtime
+            Console.WriteLine($"'{prodottoDaRimuovere}' rimosso dal carrello.");
+
+            // aggiorna la persistenza dei dati
+            repoProdotti.SalvaProdotti(prodotti);
+            repoClienti.SalvaClienti(cliente);
         }
+
+        // se non lo trova ti indica che il prodotto non è stato trovato nel carrello
+        // dunque nessuna delle operazioni al di sopra viene eseguita.
+        if (!trovato)
+        {
+            Console.WriteLine($"Errore: '{prodottoDaRimuovere}' non trovato.");
+        }
+
+
+    }
+
+    public decimal CalcolaTotale(List<ProdottoCarrello> carrello)
+    {
+        decimal subTotale = 0;
+        foreach (var prodotto in carrello)
+        {
+            if (prodotto.Quantita == 1)
+            {
+                subTotale += prodotto.Prezzo;
+            }
+            else if (prodotto.Quantita > 1)
+            {
+                subTotale += (decimal)(prodotto.Prezzo * prodotto.Quantita);
+            }
+        }
+        return subTotale;
     }
 }

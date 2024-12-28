@@ -111,18 +111,10 @@ ID99-->|APP|ID999
 
 ## Obiettivi individuati (in aggiornamento):
 
-
-- [ ] Generare nella cartella `/Carrello` un file Json `Stato Del Carrello.json` con stringa `"In Corso"` come default.
-
 in `CarrelloAdvancedManager.cs`
-- [ ] correggere `public void EliminaProdotto` 
+- [x] correggere `public void EliminaProdotto` 
     - deve prendere come argomento `NomeProdotto`
     - deve riaggiungere la quantità alla giacenza
-- [ ] correggere `public void AggiornaProdotto` 
-    - deve prendere come argomento `NomeProdotto`
-    - deve poter modificare la quantità
-    - deve riaggiungere la quantità alla giacenza
-    - in caso la nuova quantità sia zero deve eliminare la voce da `Purchase.json`
 
     ## Prossime implementazioni 
 - Creare un oggetto `Cliente cliente` e associargli un carrello `cliente.Carrello` che rispecchia `Carrello.json` 
@@ -147,7 +139,7 @@ in `class Cliente`
 ## Obiettivi individuati (in aggiornamento):
 
 Il file Purchase.json deve avere:
-- [ ] un `purchaseIdProgressivo` generato da una classe manager
+- [x] un `purchaseIdProgressivo` generato da una classe manager
 - [x] una variabile `bool` di `stato`
 - [x] ora e data del momento in cui `stato` passa da `false` a `true`, ovvero quando viene completato l'acquisto
 
@@ -159,10 +151,10 @@ Creare una classe `ClientiAdvancedManager`
     - se non esiste, crearne uno nuovo. 
 
 In `CarrelloAdvancedManager.cs`:
-- [ ] correggere `public void EliminaProdotto` 
+- [x] correggere `public void EliminaProdotto` 
     - deve prendere come argomento `NomeProdotto`
     - deve riaggiungere la quantità alla giacenza
-- [ ] correggere `public void AggiornaProdotto` 
+- [x] correggere `public void AggiornaProdotto` 
     - deve prendere come argomento `NomeProdotto`
     - deve poter modificare la quantità
     - deve riaggiungere la quantità alla giacenza
@@ -1119,20 +1111,32 @@ git push -u origin main
     - NOTA: le categorie vengono salvate su file json come array/lista di oggetti di classe Categoria.
 - [x] Miglioramento del layout complessivo, per spazi, e comprensibilità di navigazione sui terminali dei dipendenti.
 
-
-#### TODO:
-
-- [ ] Gestione, creazione e salvataggio dei `Purchais` e fabbricazione dello scontrino
-- [ ] Visibilità dell'acquisto in stato "True" su un'interfaccia accessibile dal menu `Cassiere`
-- [ ] calcolo `Totale`
-- [ ] salvataggio carrello in `cliente.StoricoAcquisti`
-- [ ] Calcolo `PercentualeDiSconto`
-- [ ] Possibilità dell'amministratore di verificare il guadagno totale.
-- [ ] Possibilità del cassiere di ricaricare `cliente.Credito` in caso di credito non sufficiente.
-
 ```bash
 git add --all
 git commit -m "Supermercato Advanced 5/10 - Voci presenti nel menu correttamente funzionanti"
 git push -u origin main
 ```
 ---
+
+
+#### IMPLEMENTAZIONI
+
+- [x] Gestione, creazione e salvataggio dei `Purchais` e fabbricazione dello scontrino
+- [x] Visibilità dell'acquisto in stato "True" su un'interfaccia accessibile dal menu `Cassiere`
+- [x] calcolo `Totale`
+- [x] gestione permessi e creazione di account admin che accede a tutti i menu
+
+> Problematiche nel completamento dell'acquisto da parte del cassiere. 
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced 6/10 - Inizio implementazione cassiere"
+git push -u origin main
+```
+
+#### NEXT TODO:
+
+- [ ] salvataggio carrello in `cliente.StoricoAcquisti`
+- [ ] Calcolo `PercentualeDiSconto`
+- [ ] Possibilità dell'amministratore di verificare il guadagno totale.
+- [ ] Possibilità del cassiere di ricaricare `cliente.Credito` in caso di credito non sufficiente.

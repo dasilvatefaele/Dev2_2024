@@ -14,6 +14,7 @@ static public class StampaTabella
     const int COLONNA_MEDIUM = -20;
     const int COLONNA_LARGE = -50;
 
+    static CarrelloAdvancedManager managerCarrello = new CarrelloAdvancedManager();
 
 
     static public void ComeAdmin(List<Prodotto> prodotti)
@@ -52,6 +53,7 @@ static public class StampaTabella
     }
     static public void Carrello(List<ProdottoCarrello> carrello)
     {
+
         const int LUNGHEZZA_BR = 40;
         if (carrello.Count > 0)
         {
@@ -60,7 +62,10 @@ static public class StampaTabella
             foreach (var item in carrello)
             {
                 Console.WriteLine($"{"x" + item.Quantita,COLONNA_SMALL}{item.Nome,COLONNA_MEDIUM}{item.Prezzo,COLONNA_MEDIUM}");
+
             }
+            Console.WriteLine(new string('-', LUNGHEZZA_BR));
+            Console.WriteLine($"{"SubTotal:",-30}{managerCarrello.CalcolaTotale(carrello)}");
         }
         else
         {
@@ -75,6 +80,18 @@ static public class StampaTabella
         foreach (var categorie in listaCategorie)
         {
             Console.WriteLine($"{categorie.ID,-10}{categorie.Name,-20}");
+        }
+        Console.WriteLine();
+    }
+
+    static public void Purchase(List<Purchase> listaPurchase)
+    {
+        CarrelloAdvancedManager carrelloManager = new CarrelloAdvancedManager();
+        Console.WriteLine($"{"ID",-10}{"Cliente",-20}{"Totale",-10}");
+        Console.WriteLine(new string('-', 40));
+        foreach (var item in listaPurchase)
+        {
+            Console.WriteLine($"{item.Id,-10}{item.Cliente.Username,-20}{carrelloManager.CalcolaTotale(item.MyPurchase),-10}");
         }
         Console.WriteLine();
     }

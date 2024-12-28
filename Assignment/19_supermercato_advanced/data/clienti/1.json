@@ -1,8 +1,29 @@
 {
   "Id": 1,
   "Username": "Felipe",
-  "Carrello": [],
+  "Carrello": [
+    {
+      "Id": 9,
+      "Nome": "Succo di pera",
+      "Prezzo": 0.89,
+      "Quantita": 5,
+      "Categoria": {
+        "Name": "Bevande",
+        "ID": 3
+      }
+    },
+    {
+      "Id": 3,
+      "Nome": "Prosciutto",
+      "Prezzo": 2.39,
+      "Quantita": 1,
+      "Categoria": {
+        "Name": "Affettati",
+        "ID": 8
+      }
+    }
+  ],
   "StoricoAcquisti": [],
   "PercentualeSconto": 0,
-  "Credito": 200.0
+  "Credito": 200.00
 }

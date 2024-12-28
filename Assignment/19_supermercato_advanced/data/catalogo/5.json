@@ -2,7 +2,7 @@
   "Id": 5,
   "Nome": "Carote",
   "Prezzo": 0.99,
-  "Giacenza": 100,
+  "Giacenza": 90,
   "Categoria": {
     "Name": "Verdure",
     "ID": 1

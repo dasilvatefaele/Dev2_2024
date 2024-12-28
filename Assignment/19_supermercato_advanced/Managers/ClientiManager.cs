@@ -6,13 +6,13 @@ public class ClientiManager
     private readonly string dirClienti = "data/clienti";
     public List<Cliente> clienti;
     public ClientiRepository repositoryClienti;
-    public Cliente nuovoCliente; 
+    public Cliente nuovoCliente;
     //public ClientiRepository repoClienti = new ClientiRepository();
 
     public List<Cliente> OttieniClienti()
     {
         return clienti;
-    } 
+    }
 
     public ClientiManager(List<Cliente> Clienti)
     {
@@ -20,12 +20,9 @@ public class ClientiManager
         repositoryClienti = new ClientiRepository();
         nuovoCliente = new Cliente();
     }
-    public Cliente CreaCliente()
+    public Cliente CreaCliente(string username)
     {
-        string username = InputManager.LeggiStringa("Inserisci il tuo Username > ");
-
         nuovoCliente = CheckCliente(username);
-
         if (nuovoCliente != null)
         {
             return nuovoCliente;
@@ -33,7 +30,7 @@ public class ClientiManager
         else
         {
             Console.WriteLine($"Benvenuto per la priva volta {username}! Un nuovo account è stato creato, buona spesa!");
-            nuovoCliente = new Cliente {Username = username, Id = AssegnaId(clienti), Carrello = new List <ProdottoCarrello>(),  StoricoAcquisti = new List <ProdottoCarrello>(), PercentualeSconto = 0, Credito = 200m };
+            nuovoCliente = new Cliente { Username = username, Id = AssegnaId(clienti), Carrello = new List<ProdottoCarrello>(), StoricoAcquisti = new List<Purchase>(), PercentualeSconto = 0, Credito = 200.00m };
             clienti.Add(nuovoCliente);
             repositoryClienti.SalvaClienti(nuovoCliente);
             return nuovoCliente;

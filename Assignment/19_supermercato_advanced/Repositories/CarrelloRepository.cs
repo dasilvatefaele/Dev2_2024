@@ -7,7 +7,7 @@ public class CarrelloRepository
     private readonly string dirCarrello = "data/carrello"; // catella
 
     //metodo per salvare i dati su file 
-    public void SalvaProdotti(Purchase prodotti)
+    public void SalvaProdotti(Prodotto prodotti)
     {
 
         string nuovoPercorso = "";
@@ -41,10 +41,10 @@ public class CarrelloRepository
             {
                 string readJsonData = File.ReadAllText(percorsoCarrello);
                 // leggo il file e lo salvo in una stringa
-                Purchase lettura = JsonConvert.DeserializeObject<Purchase>(readJsonData);
+                List<Prodotto> lettura = JsonConvert.DeserializeObject<List<Prodotto>>(readJsonData);
 
 
-                return lettura.MyPurchase;
+                return lettura;
                 // restituisco la stringa deserializzata
             }
             else
