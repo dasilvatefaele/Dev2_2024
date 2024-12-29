@@ -91,7 +91,7 @@ static public class StampaTabella
         Console.WriteLine(new string('-', 40));
         foreach (var item in listaPurchase)
         {
-            Console.WriteLine($"{item.Id,-10}{item.Cliente.Username,-20}{carrelloManager.CalcolaTotale(item.MyPurchase),-10}");
+            Console.WriteLine($"{item.Id,-10}{item.PurchaseCliente.Username,-20}{carrelloManager.CalcolaTotale(item.MyPurchase),-10}");
         }
         Console.WriteLine();
     }

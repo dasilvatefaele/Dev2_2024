@@ -1134,6 +1134,23 @@ git commit -m "Supermercato Advanced 6/10 - Inizio implementazione cassiere"
 git push -u origin main
 ```
 
+
+```c#
+//todo: var aggiornaCliente = item.PurchaseCliente;
+//todo: aggiornaCliente.Carrello.Clear();
+//todo: aggiornaCliente.StoricoAcquisti.Add(new Purchase = item);
+//todo: repositoryClienti.SalvaClienti(aggiornaCliente);
+//* decremento credito: fatto
+//* manca salvare nel json del cliente lo storico acquisti
+//* calcolare percentuale sconto
+//* semplificare il codice
+```
+```bash
+git add --all
+git commit -m "Supermercato Advanced 7/10 - Completamento purchase"
+git push -u origin main
+```
+
 #### NEXT TODO:
 
 - [ ] salvataggio carrello in `cliente.StoricoAcquisti`

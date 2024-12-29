@@ -150,7 +150,21 @@ class Program // <--- (standard/default)
 
                                 if (confermaAcquisto)
                                 {
-                                    managerPurchase.GeneraPurchase(new Purchase { Cliente = cliente, MyPurchase = cliente.Carrello, Data = DateTime.Now.ToString("dd/MM/yyyy alle HH:mm"), Stato = confermaAcquisto });
+                                    managerPurchase.GeneraPurchase(new Purchase
+                                    {
+                                        PurchaseCliente = new Cliente
+                                        {
+                                            Username = cliente.Username,
+                                            Carrello = new List<ProdottoCarrello>(cliente.Carrello),
+                                            Credito = cliente.Credito,
+                                            Id = cliente.Id,
+                                            StoricoAcquisti = new List<Purchase>(cliente.StoricoAcquisti),
+                                            PercentualeSconto = cliente.PercentualeSconto,
+                                        },
+                                        MyPurchase = new List<ProdottoCarrello>(cliente.Carrello),
+                                        Data = DateTime.Now.ToString("dd/MM/yyyy alle HH:mm"),
+                                        Stato = confermaAcquisto
+                                    });
                                     repostoryPurchase.SalvaPurchase(managerPurchase.OttieniPurchases());
                                     Console.Clear();
                                     Console.WriteLine("Il tuo ordine sta per essere processato, attendere...\n");
@@ -280,16 +294,29 @@ class Program // <--- (standard/default)
                                                     {
                                                         if (item.Id == selezionaId)
                                                         {
-                                                            decimal totaleSpesa = carrelloManager.CalcolaTotale(item.Cliente.Carrello);
-                                                            if (item.Cliente.Credito >= totaleSpesa)
+                                                            decimal totaleSpesa = carrelloManager.CalcolaTotale(item.PurchaseCliente.Carrello);
+                                                            Console.WriteLine($"DEBUG: {totaleSpesa}");
+                                                            if (item.PurchaseCliente.Credito >= totaleSpesa)
                                                             {
-                                                                item.Cliente.Credito -= totaleSpesa;
-                                                                item.Cliente.StoricoAcquisti.Add(item);
-                                                                item.Cliente.Carrello = new List<ProdottoCarrello>();
-                                                                repositoryClienti.SalvaClienti(item.Cliente);
-                                                                Console.WriteLine($"I WORK HERE: {totaleSpesa}");
+                                                                item.PurchaseCliente.Credito -= totaleSpesa;
+                                                                item.PurchaseCliente.StoricoAcquisti = new List<Purchase>(item.PurchaseCliente.StoricoAcquisti);
+                                                                item.PurchaseCliente.Carrello = new List<ProdottoCarrello>();
+                                                                //todo: var aggiornaCliente = item.PurchaseCliente;
+                                                                //todo: aggiornaCliente.Carrello.Clear();
+                                                                //todo: aggiornaCliente.StoricoAcquisti.Add(new Purchase = item);
+                                                                //todo: repositoryClienti.SalvaClienti(aggiornaCliente);
+                                                                //* decremento credito: fatto
+                                                                //* manca salvare nel json del cliente lo storico acquisti
+                                                                //* calcolare percentuale sconto
+                                                                //* semplificare il codice
+
+
+                                                                repositoryClienti.SalvaClienti(item.PurchaseCliente);
+                                                                //Console.WriteLine($"I WORK HERE: {totaleSpesa}"); // DEBUG
                                                                 attendoIlCassiere = false;
                                                                 Console.WriteLine("\nAcquisto andato a buon fine! Il cliente può ora ritirare lo scontrino!");
+
+                                                                //todo: decremento credito 
                                                                 // decimal comulativoSpesa = 0;
                                                                 // foreach (var acquisto in item.Cliente.StoricoAcquisti)
                                                                 // {

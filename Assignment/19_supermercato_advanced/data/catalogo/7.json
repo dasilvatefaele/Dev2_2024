@@ -2,7 +2,7 @@
   "Id": 7,
   "Nome": "Mele",
   "Prezzo": 0.79,
-  "Giacenza": 190,
+  "Giacenza": 187,
   "Categoria": {
     "Name": "Verdure",
     "ID": 1
