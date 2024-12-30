@@ -1,8 +1,208 @@
 {
   "Id": 1,
-  "Username": "Mario",
+  "Username": "Felipe",
   "Carrello": [],
-  "StoricoAcquisti": [],
+  "StoricoAcquisti": [
+    {
+      "Id": 1,
+      "PurchaseCliente": {
+        "Id": 1,
+        "Username": "Felipe",
+        "Carrello": [],
+        "StoricoAcquisti": [],
+        "PercentualeSconto": 0,
+        "Credito": 200.00
+      },
+      "MyPurchase": [
+        {
+          "Id": 10,
+          "Nome": "Vino",
+          "Prezzo": 18.50,
+          "Quantita": 1,
+          "Categoria": {
+            "Name": "Alcolici",
+            "ID": 7
+          }
+        }
+      ],
+      "Data": "30/12/2024 alle 18:25",
+      "Stato": true,
+      "Completed": true,
+      "CreditoResiduo": 181.50,
+      "Totale": 18.50
+    },
+    {
+      "Id": 1,
+      "PurchaseCliente": {
+        "Id": 1,
+        "Username": "Felipe",
+        "Carrello": [],
+        "StoricoAcquisti": [
+          {
+            "Id": 1,
+            "PurchaseCliente": {
+              "Id": 1,
+              "Username": "Felipe",
+              "Carrello": [],
+              "StoricoAcquisti": [],
+              "PercentualeSconto": 0,
+              "Credito": 200.00
+            },
+            "MyPurchase": [
+              {
+                "Id": 10,
+                "Nome": "Vino",
+                "Prezzo": 18.50,
+                "Quantita": 1,
+                "Categoria": {
+                  "Name": "Alcolici",
+                  "ID": 7
+                }
+              }
+            ],
+            "Data": "30/12/2024 alle 18:25",
+            "Stato": true,
+            "Completed": true,
+            "CreditoResiduo": 181.50,
+            "Totale": 18.50
+          }
+        ],
+        "PercentualeSconto": 0,
+        "Credito": 181.50
+      },
+      "MyPurchase": [
+        {
+          "Id": 10,
+          "Nome": "Vino",
+          "Prezzo": 18.50,
+          "Quantita": 1,
+          "Categoria": {
+            "Name": "Alcolici",
+            "ID": 7
+          }
+        }
+      ],
+      "Data": "30/12/2024 alle 18:25",
+      "Stato": true,
+      "Completed": true,
+      "CreditoResiduo": 181.50,
+      "Totale": 18.50
+    },
+    {
+      "Id": 5,
+      "PurchaseCliente": {
+        "Id": 1,
+        "Username": "Felipe",
+        "Carrello": [],
+        "StoricoAcquisti": [
+          {
+            "Id": 1,
+            "PurchaseCliente": {
+              "Id": 1,
+              "Username": "Felipe",
+              "Carrello": [],
+              "StoricoAcquisti": [],
+              "PercentualeSconto": 0,
+              "Credito": 200.00
+            },
+            "MyPurchase": [
+              {
+                "Id": 10,
+                "Nome": "Vino",
+                "Prezzo": 18.50,
+                "Quantita": 1,
+                "Categoria": {
+                  "Name": "Alcolici",
+                  "ID": 7
+                }
+              }
+            ],
+            "Data": "30/12/2024 alle 18:25",
+            "Stato": true,
+            "Completed": true,
+            "CreditoResiduo": 181.50,
+            "Totale": 18.50
+          },
+          {
+            "Id": 1,
+            "PurchaseCliente": {
+              "Id": 1,
+              "Username": "Felipe",
+              "Carrello": [],
+              "StoricoAcquisti": [
+                {
+                  "Id": 1,
+                  "PurchaseCliente": {
+                    "Id": 1,
+                    "Username": "Felipe",
+                    "Carrello": [],
+                    "StoricoAcquisti": [],
+                    "PercentualeSconto": 0,
+                    "Credito": 200.00
+                  },
+                  "MyPurchase": [
+                    {
+                      "Id": 10,
+                      "Nome": "Vino",
+                      "Prezzo": 18.50,
+                      "Quantita": 1,
+                      "Categoria": {
+                        "Name": "Alcolici",
+                        "ID": 7
+                      }
+                    }
+                  ],
+                  "Data": "30/12/2024 alle 18:25",
+                  "Stato": true,
+                  "Completed": true,
+                  "CreditoResiduo": 181.50,
+                  "Totale": 18.50
+                }
+              ],
+              "PercentualeSconto": 0,
+              "Credito": 181.50
+            },
+            "MyPurchase": [
+              {
+                "Id": 10,
+                "Nome": "Vino",
+                "Prezzo": 18.50,
+                "Quantita": 1,
+                "Categoria": {
+                  "Name": "Alcolici",
+                  "ID": 7
+                }
+              }
+            ],
+            "Data": "30/12/2024 alle 18:25",
+            "Stato": true,
+            "Completed": true,
+            "CreditoResiduo": 181.50,
+            "Totale": 18.50
+          }
+        ],
+        "PercentualeSconto": 0,
+        "Credito": 181.50
+      },
+      "MyPurchase": [
+        {
+          "Id": 5,
+          "Nome": "Carote",
+          "Prezzo": 0.99,
+          "Quantita": 10,
+          "Categoria": {
+            "Name": "Verdure",
+            "ID": 1
+          }
+        }
+      ],
+      "Data": "30/12/2024 alle 18:58",
+      "Stato": true,
+      "Completed": true,
+      "CreditoResiduo": 171.60,
+      "Totale": 9.90
+    }
+  ],
   "PercentualeSconto": 0,
-  "Credito": 163.00
+  "Credito": 171.60
 }

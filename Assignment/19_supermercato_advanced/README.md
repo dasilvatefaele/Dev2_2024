@@ -1153,7 +1153,19 @@ git push -u origin main
 
 #### NEXT TODO:
 
-- [ ] salvataggio carrello in `cliente.StoricoAcquisti`
+- [x] salvataggio carrello in `cliente.StoricoAcquisti`
+
+> NOTA: Ho individuato un problema di ricorsività attribuibile ad un errore di progettazione: la classe `Cliente` continiene una lista `Purchases[]`, e la classe `Purchases` contiene al suo interno l'attributo `Cliente`. In seguito alle simulazioni di diversi acquisti ho constatato una ricorsività, se così si può chiamare, o meglio una ridondanza che all'auemtare del numero di acquisti rende più complesso il reperimento dei dati perché incapsulati in strutture sempre più complesse. 
+
+>`IPOTIZZO`: sia necessario una semplificazione delle specifiche affinché i dati siano tanto leggibili dal file json quanto accessibili attraverso le future implementazioni che richiederanno il richiamo dei dati contenuti in esso.
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced - 8/10 - Necessaria riprogettazione delle specifiche"
+git push -u origin main
+```
+
+
 - [ ] Calcolo `PercentualeDiSconto`
 - [ ] Possibilità dell'amministratore di verificare il guadagno totale.
 - [ ] Possibilità del cassiere di ricaricare `cliente.Credito` in caso di credito non sufficiente.

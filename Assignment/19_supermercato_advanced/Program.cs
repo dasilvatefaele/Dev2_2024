@@ -52,7 +52,7 @@ class Program // <--- (standard/default)
                     cliente = clientiManager.CreaCliente(usernameCliente);
                     // controllo dell'username: se username già nel database, carica dati di quel cliente, se non esiste, crearne uno nuovo
 
-                    Console.WriteLine($"BENVENUTO {cliente.Username}!\n");
+
                     while (continuaComeCliente) // MENU CLIENTI
                     {
                         Console.WriteLine("MENU:\n");
@@ -150,26 +150,32 @@ class Program // <--- (standard/default)
 
                                 if (confermaAcquisto)
                                 {
-                                    managerPurchase.GeneraPurchase(new Purchase
+                                    decimal calcoloTotaleCarrello = carrelloManager.CalcolaTotale(cliente.Carrello);
+                                    if (cliente.Credito >= calcoloTotaleCarrello)
                                     {
-                                        PurchaseCliente = new Cliente
+                                        managerPurchase.GeneraPurchase(new Purchase
                                         {
-                                            Username = cliente.Username,
-                                            Carrello = new List<ProdottoCarrello>(cliente.Carrello),
-                                            Credito = cliente.Credito,
-                                            Id = cliente.Id,
-                                            StoricoAcquisti = new List<Purchase>(cliente.StoricoAcquisti),
-                                            PercentualeSconto = cliente.PercentualeSconto,
-                                        },
-                                        MyPurchase = new List<ProdottoCarrello>(cliente.Carrello),
-                                        Data = DateTime.Now.ToString("dd/MM/yyyy alle HH:mm"),
-                                        Stato = confermaAcquisto
-                                    });
-                                    repostoryPurchase.SalvaPurchase(managerPurchase.OttieniPurchases());
-                                    Console.Clear();
-                                    Console.WriteLine("Il tuo ordine sta per essere processato, attendere...\n");
-                                    attendoIlCassiere = true;
-
+                                            PurchaseCliente = new Cliente
+                                            {
+                                                Id = cliente.Id,
+                                                Username = cliente.Username,
+                                                Carrello = new List<ProdottoCarrello>(),
+                                                StoricoAcquisti = new List<Purchase>(cliente.StoricoAcquisti),
+                                                PercentualeSconto = cliente.PercentualeSconto,
+                                                Credito = cliente.Credito
+                                            },
+                                            MyPurchase = new List<ProdottoCarrello>(cliente.Carrello),
+                                            Data = DateTime.Now.ToString("dd/MM/yyyy alle HH:mm"),
+                                            Stato = confermaAcquisto,
+                                            Completed = false,
+                                            CreditoResiduo = cliente.Credito - calcoloTotaleCarrello,
+                                            Totale = calcoloTotaleCarrello
+                                        });
+                                        repostoryPurchase.SalvaPurchase(managerPurchase.OttieniPurchases());
+                                        Console.Clear();
+                                        Console.WriteLine("Il tuo ordine sta per essere processato, attendere...\n");
+                                        attendoIlCassiere = true;
+                                    }
                                 }
                                 else
                                 {
@@ -270,7 +276,7 @@ class Program // <--- (standard/default)
                                         Console.WriteLine("2. Processa Acquisti");
                                         Console.WriteLine("3. Ricarica credito cliente");
                                         Console.WriteLine("0. Indietro");
-
+                                        listaPurchase = repostoryPurchase.CaricaPurchases();
                                         string sceltaCassiere = InputManager.LeggiIntero("\n> ", 0, 3).ToString();
                                         Console.Clear();
                                         switch (sceltaCassiere)
@@ -281,60 +287,50 @@ class Program // <--- (standard/default)
                                                 break;
                                             case "2":
                                                 Console.WriteLine("MODALITA' CASSIERE > PROCESSA ACQUISTA\n");
+
+                                                //stampa tabella purchase
                                                 StampaTabella.Purchase(listaPurchase);
 
+                                                // acquisisci ID del prodotto da processare
                                                 int selezionaId = InputManager.LeggiIntero("\nInserisci l'ordine da processare > ", 0);
                                                 Console.Clear();
 
+                                                // se inserimento = 0, torna indietro, altrimenti seleziona
                                                 if (selezionaId != 0)
                                                 {
-                                                    // decimal totaleSpesa = 0;
-                                                    //decimal totaleSpesa = carrelloManager.CalcolaTotale(cliente.Carrello);
+                                                    // per ogni singolo purchase nella lista purchase
                                                     foreach (var item in listaPurchase)
                                                     {
+
+                                                        // se l'ID del singolo purchase è uguale a quello inserito
                                                         if (item.Id == selezionaId)
                                                         {
-                                                            decimal totaleSpesa = carrelloManager.CalcolaTotale(item.PurchaseCliente.Carrello);
-                                                            Console.WriteLine($"DEBUG: {totaleSpesa}");
-                                                            if (item.PurchaseCliente.Credito >= totaleSpesa)
-                                                            {
-                                                                item.PurchaseCliente.Credito -= totaleSpesa;
-                                                                item.PurchaseCliente.StoricoAcquisti = new List<Purchase>(item.PurchaseCliente.StoricoAcquisti);
-                                                                item.PurchaseCliente.Carrello = new List<ProdottoCarrello>();
-                                                                //todo: var aggiornaCliente = item.PurchaseCliente;
-                                                                //todo: aggiornaCliente.Carrello.Clear();
-                                                                //todo: aggiornaCliente.StoricoAcquisti.Add(new Purchase = item);
-                                                                //todo: repositoryClienti.SalvaClienti(aggiornaCliente);
-                                                                //* decremento credito: fatto
-                                                                //* manca salvare nel json del cliente lo storico acquisti
-                                                                //* calcolare percentuale sconto
-                                                                //* semplificare il codice
+                                                            Purchase tempPuchase = repostoryPurchase.CaricaPurchasesSingolo(selezionaId);
+                                                            tempPuchase.Completed = true;
+                                                            item.PurchaseCliente.StoricoAcquisti.Add(tempPuchase);
+                                                            item.PurchaseCliente.Credito = tempPuchase.CreditoResiduo;
+                                                            repositoryClienti.SalvaClienti(item.PurchaseCliente);
+                                                            repostoryPurchase.SalvaPurchaseSingolo(tempPuchase);
+                                                            Console.WriteLine("\nAcquisto andato a buon fine! Il cliente può ora ritirare lo scontrino!");
+                                                            attendoIlCassiere = false;
 
+                                                            // todo: calcola percentuale di sconto
+                                                            // decimal comulativoSpesa = 0;
+                                                            // foreach (var acquisto in item.PurchaseCliente.StoricoAcquisti)
+                                                            // {
+                                                            //     comulativoSpesa += carrelloManager.CalcolaTotale(acquisto.MyPurchase);
+                                                            // }
+                                                            // if (comulativoSpesa > 10)
+                                                            // {
+                                                            //     cliente.PercentualeSconto++;
+                                                            // }
+                                                            // if (comulativoSpesa > 10 && cliente.PercentualeSconto == 15)
+                                                            // {
+                                                            //     cliente.PercentualeSconto = 15;
+                                                            // }
 
-                                                                repositoryClienti.SalvaClienti(item.PurchaseCliente);
-                                                                //Console.WriteLine($"I WORK HERE: {totaleSpesa}"); // DEBUG
-                                                                attendoIlCassiere = false;
-                                                                Console.WriteLine("\nAcquisto andato a buon fine! Il cliente può ora ritirare lo scontrino!");
+                                                            //Console.WriteLine("\nCredito non sufficiente. Prego ricaricare.");
 
-                                                                //todo: decremento credito 
-                                                                // decimal comulativoSpesa = 0;
-                                                                // foreach (var acquisto in item.Cliente.StoricoAcquisti)
-                                                                // {
-                                                                //     comulativoSpesa += carrelloManager.CalcolaTotale(acquisto.MyPurchase);
-                                                                // }
-                                                                // if (comulativoSpesa > 10)
-                                                                // {
-                                                                //     cliente.PercentualeSconto++;
-                                                                // }
-                                                                // if (comulativoSpesa > 10 && cliente.PercentualeSconto == 15)
-                                                                // {
-                                                                //     cliente.PercentualeSconto = 15;
-                                                                // }
-                                                            }
-                                                            else
-                                                            {
-                                                                Console.WriteLine("\nCredito non sufficiente. Prego ricaricare.");
-                                                            }
                                                         }
                                                     }
                                                 }
