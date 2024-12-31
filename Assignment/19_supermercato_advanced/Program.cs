@@ -117,7 +117,7 @@ class Program // <--- (standard/default)
                                 Console.WriteLine($"{cliente.Username}: RIMUOVI DAL CARRELLO\n");
 
                                 // stampo il carrello (Qnt. |  Nome | Prezzo)
-                                StampaTabella.Carrello(cliente.Carrello);
+                                StampaTabella.Carrello(cliente.Cart.Cart);
                                 NewLine();
 
                                 // acquisisco la stringa del nome del prodotto da rimuovere
@@ -136,42 +136,46 @@ class Program // <--- (standard/default)
                                 break;
                             case "4": // CLIENTE > GUARDA IL TUO CARRELLO
                                 Console.WriteLine($"{cliente.Username}: GUARDA IL TUO CARRELLO\n");
-                                StampaTabella.Carrello(cliente.Carrello);
+                                StampaTabella.Carrello(cliente.Cart.Cart);
                                 // stampo il carrello (Qnt. |  Nome | Prezzo)
                                 NewLine();
                                 // spazio
                                 break;
                             case "5": // CLIENTE > GENERA ORDINE
                                 Console.WriteLine($"{cliente.Username}: GENERA ORDINE\n");
-                                StampaTabella.Carrello(cliente.Carrello);
+                                StampaTabella.Carrello(cliente.Cart.Cart);
                                 NewLine();
                                 confermaAcquisto = InputManager.LeggiConferma("Confermi l'aquisto?");
                                 Console.Clear();
 
                                 if (confermaAcquisto)
                                 {
-                                    decimal calcoloTotaleCarrello = carrelloManager.CalcolaTotale(cliente.Carrello);
+
+                                    decimal calcoloTotaleCarrello = carrelloManager.CalcolaTotale(cliente.Cart.Cart);
                                     if (cliente.Credito >= calcoloTotaleCarrello)
                                     {
+                                        Console.WriteLine("Premi per generare Purchase");
+                                        Console.ReadKey();
                                         managerPurchase.GeneraPurchase(new Purchase
                                         {
-                                            PurchaseCliente = new Cliente
+                                            IdCliente = cliente.Id,
+                                            NomeCliente = cliente.Username,
+                                            CreditoCliente = cliente.Credito,
+                                            MyPurchase = new Carrello
                                             {
-                                                Id = cliente.Id,
-                                                Username = cliente.Username,
-                                                Carrello = new List<ProdottoCarrello>(),
-                                                StoricoAcquisti = new List<Purchase>(cliente.StoricoAcquisti),
-                                                PercentualeSconto = cliente.PercentualeSconto,
-                                                Credito = cliente.Credito
+                                                Cart = cliente.Cart.Cart,
+                                                Completed = confermaAcquisto
                                             },
-                                            MyPurchase = new List<ProdottoCarrello>(cliente.Carrello),
                                             Data = DateTime.Now.ToString("dd/MM/yyyy alle HH:mm"),
-                                            Stato = confermaAcquisto,
                                             Completed = false,
                                             CreditoResiduo = cliente.Credito - calcoloTotaleCarrello,
                                             Totale = calcoloTotaleCarrello
                                         });
+                                        Console.WriteLine("Premi per usare repositoru Purchase");
+                                        Console.ReadKey();
                                         repostoryPurchase.SalvaPurchase(managerPurchase.OttieniPurchases());
+                                        cliente.Cart.Completed = true;
+                                        repositoryClienti.SalvaClienti(cliente);
                                         Console.Clear();
                                         Console.WriteLine("Il tuo ordine sta per essere processato, attendere...\n");
                                         attendoIlCassiere = true;
@@ -303,16 +307,30 @@ class Program // <--- (standard/default)
                                                     {
 
                                                         // se l'ID del singolo purchase è uguale a quello inserito
-                                                        if (item.Id == selezionaId)
+                                                        if (item.IdPurchase == selezionaId)
                                                         {
-                                                            Purchase tempPuchase = repostoryPurchase.CaricaPurchasesSingolo(selezionaId);
-                                                            tempPuchase.Completed = true;
-                                                            item.PurchaseCliente.StoricoAcquisti.Add(tempPuchase);
-                                                            item.PurchaseCliente.Credito = tempPuchase.CreditoResiduo;
-                                                            repositoryClienti.SalvaClienti(item.PurchaseCliente);
-                                                            repostoryPurchase.SalvaPurchaseSingolo(tempPuchase);
-                                                            Console.WriteLine("\nAcquisto andato a buon fine! Il cliente può ora ritirare lo scontrino!");
+                                                            Purchase tempPurchase = repostoryPurchase.CaricaPurchasesSingolo(selezionaId);
+                                                            tempPurchase.Completed = true;
+                                                            StoricoAcquisti tempStoricoAcquisti = new StoricoAcquisti
+                                                            {
+                                                                MyPurchase = cliente.Cart.Cart,
+                                                                Data = item.Data,
+                                                                CreditoResiduo = item.CreditoResiduo,
+                                                                Totale = item.Totale,
+                                                            };
+
+                                                            cliente.StoricoAcquisti.Add(tempStoricoAcquisti);
+                                                            item.CreditoCliente = tempPurchase.CreditoResiduo;
+                                                            tempPurchase.Completed = true;
+                                                            repostoryPurchase.SalvaPurchaseSingolo(tempPurchase);
+                                                            
+
+                                                            cliente.Credito = item.CreditoResiduo;
+                                                            cliente.Cart.Cart = new List<ProdottoCarrello>();
+                                                            cliente.Cart.Completed = false;
+                                                            repositoryClienti.SalvaClienti(cliente);
                                                             attendoIlCassiere = false;
+                                                            Console.WriteLine("\nAcquisto andato a buon fine! Il cliente può ora ritirare lo scontrino!");
 
                                                             // todo: calcola percentuale di sconto
                                                             // decimal comulativoSpesa = 0;
@@ -454,6 +472,8 @@ class Program // <--- (standard/default)
                                                     Console.WriteLine($"\nProdotto non trovato per ID {idProdottoDaAggiornare}");
                                                 }
                                                 repositoryProdotti.SalvaProdotti(manager.OttieniProdotti());
+                                                prodotti = repositoryProdotti.CaricaProdotti();
+
                                                 break;
                                             case "5": // MODALITA' MAGAZZINIERE > ELIMINA PRODOTTO
                                                 Console.WriteLine("MODALITA' MAGAZZINIERE > ELIMINA PRODOTTO\n");

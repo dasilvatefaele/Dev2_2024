@@ -52,7 +52,7 @@ public class CarrelloAdvancedManager
                     itemDaAggiungere.Categoria = item.Categoria;
 
                     item.Giacenza -= quantita;
-                    cliente.Carrello.Add(itemDaAggiungere);
+                    cliente.Cart.Cart.Add(itemDaAggiungere);
 
                     repoClienti.SalvaClienti(cliente);
                     // salvo la persistenza dei dati
@@ -100,7 +100,7 @@ public class CarrelloAdvancedManager
         Console.Clear();
 
         // cerco presenza del nome del prodotto acquisito da tastiera nella lista del carrello
-        foreach (var prodotto in cliente.Carrello)
+        foreach (var prodotto in cliente.Cart.Cart)
         {
             if (prodotto.Nome == prodottoDaRimuovere)
             {
@@ -114,7 +114,7 @@ public class CarrelloAdvancedManager
         if (trovato)
         {
             // rimuove il prodotto dalla cliente.Carrello
-            cliente.Carrello.Remove(prodottoRimosso);
+            cliente.Cart.Cart.Remove(prodottoRimosso);
             foreach (var prodotto in prodotti)
             {
                 if (prodotto.Id == prodottoRimosso.Id)

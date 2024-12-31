@@ -2,7 +2,7 @@
   "Id": 10,
   "Nome": "Vino",
   "Prezzo": 18.50,
-  "Giacenza": 28,
+  "Giacenza": 92,
   "Categoria": {
     "Name": "Alcolici",
     "ID": 7

@@ -94,7 +94,7 @@ static public class StampaTabella
 
             if (item.Completed == false)
             {
-                Console.WriteLine($"{item.Id,-10}{item.PurchaseCliente.Username,-20}{carrelloManager.CalcolaTotale(item.MyPurchase),-10}");
+                Console.WriteLine($"{item.IdPurchase,-10}{item.NomeCliente,-20}{carrelloManager.CalcolaTotale(item.MyPurchase.Cart),-10}");
             }
         }
         Console.WriteLine();

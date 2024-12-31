@@ -31,7 +31,20 @@ public class ClientiManager
         else
         {
             Console.WriteLine($"BENVENUTO {username}! Un nuovo account è stato creato!\n");
-            nuovoCliente = new Cliente { Username = username, Id = AssegnaId(clienti), Carrello = new List<ProdottoCarrello>(), StoricoAcquisti = new List<Purchase>(), PercentualeSconto = 0, Credito = 200.00m };
+            nuovoCliente = new Cliente
+            {
+                Username = username,
+                Id = AssegnaId(clienti),
+                Cart = new Carrello
+                {
+                    Cart = new List<ProdottoCarrello>(),
+                    Completed = false
+                },
+                StoricoAcquisti = new List<StoricoAcquisti>(),
+                PercentualeSconto = 0,
+                Credito = 200.00m
+            };
+
             clienti.Add(nuovoCliente);
             repositoryClienti.SalvaClienti(nuovoCliente);
             return nuovoCliente;

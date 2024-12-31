@@ -1165,6 +1165,22 @@ git commit -m "Supermercato Advanced - 8/10 - Necessaria riprogettazione delle s
 git push -u origin main
 ```
 
+---
+
+- [x] Riprogettazione delle specifiche eseguita
+
+** BUG: **
+In seguito al completamento dell'acquisto da parte del cassiere la variabile `Completed` del purchase diventa `true` come da aspettativa. Tuttavia, in caso di un secondo acquisto, il purchase precedente torna ad avere lo stato `Completed` a `false`, rendendolo di nuovo visualizzabile dal cassiere nella lista di acquisti da processare. 
+
+> `IPOTIZZO` che ciò abbia a che fare con la gestione del `PurchaseManager` e la sua gestione interna della variabile privata. ** DA CORREGGERE **.
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced - 8.5/10 - Necessaria riprogettazione delle specifiche"
+git push -u origin main
+```
+
+---
 
 - [ ] Calcolo `PercentualeDiSconto`
 - [ ] Possibilità dell'amministratore di verificare il guadagno totale.

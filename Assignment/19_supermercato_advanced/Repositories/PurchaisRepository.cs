@@ -17,7 +17,7 @@ public class PurchaisRepository
         foreach (var purchaseItem in purchase)
         {
             string jsonData = JsonConvert.SerializeObject(purchaseItem, Formatting.Indented); // serializza il prodotto
-            string nuovoPurchase = $"{purchaseItem.Id}.json"; // creo il nome del file 
+            string nuovoPurchase = $"{purchaseItem.IdPurchase}.json"; // creo il nome del file 
             nuovoPercorso = Path.Combine(dirPurchases, nuovoPurchase); // creo il percorso
             File.WriteAllText(nuovoPercorso, jsonData); // scrivo il prodotto deserializzato nel percorso
         }
@@ -31,9 +31,10 @@ public class PurchaisRepository
             Directory.CreateDirectory(dirPurchases); // creala
         }
         string jsonData = JsonConvert.SerializeObject(purchase, Formatting.Indented); // serializza il prodotto
-        string nuovoPurchase = $"{purchase.Id}.json"; // creo il nome del file 
+        string nuovoPurchase = $"{purchase.IdPurchase}.json"; // creo il nome del file 
         nuovoPercorso = Path.Combine(dirPurchases, nuovoPurchase); // creo il percorso
         File.WriteAllText(nuovoPercorso, jsonData); // scrivo il prodotto deserializzato nel percorso
+        
     }
 
     public List<Purchase> CaricaPurchases()
@@ -81,7 +82,7 @@ public class PurchaisRepository
                 {
                     string readJsonData = File.ReadAllText(file);  // leggi il file
                     letturaPurchase = JsonConvert.DeserializeObject<Purchase>(readJsonData)!; // deserializzo dentro l'istanza temporanea
-                    if (letturaPurchase.Id == id)
+                    if (letturaPurchase.IdPurchase == id)
                     {
                         return letturaPurchase;
                     }
