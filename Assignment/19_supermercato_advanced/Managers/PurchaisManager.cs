@@ -30,6 +30,14 @@ public class PurchaisManager
         repoPurchase.SalvaPurchaseSingolo(purchase);
     }
 
+    public void AggiungiPurchase(Purchase purchase)
+    {
+        _purchases.Add(purchase); // quella private
+        repoPurchase.SalvaPurchaseSingolo(purchase);
+    }
+
+
+
     public List<Purchase> OttieniPurchases()
     {
         return _purchases;

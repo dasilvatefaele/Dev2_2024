@@ -1,0 +1,25 @@
+{
+  "IdPurchase": 1,
+  "IdCliente": 1,
+  "NomeCliente": "Felipe",
+  "CreditoCliente": 200.00,
+  "MyPurchase": {
+    "Cart": [
+      {
+        "Id": 10,
+        "Nome": "Vino",
+        "Prezzo": 18.50,
+        "Quantita": 2,
+        "Categoria": {
+          "Name": "Alcolici",
+          "ID": 7
+        }
+      }
+    ],
+    "Completed": true
+  },
+  "Data": "31/12/2024 alle 15:07",
+  "Completed": true,
+  "CreditoResiduo": 163.00,
+  "Totale": 37.00
+}

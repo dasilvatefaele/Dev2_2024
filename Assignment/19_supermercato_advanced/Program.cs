@@ -156,7 +156,24 @@ class Program // <--- (standard/default)
                                     {
                                         Console.WriteLine("Premi per generare Purchase");
                                         Console.ReadKey();
-                                        managerPurchase.GeneraPurchase(new Purchase
+
+                                        // managerPurchase.GeneraPurchase(new Purchase
+                                        // {
+                                        //     IdCliente = cliente.Id,
+                                        //     NomeCliente = cliente.Username,
+                                        //     CreditoCliente = cliente.Credito,
+                                        //     MyPurchase = new Carrello
+                                        //     {
+                                        //         Cart = cliente.Cart.Cart,
+                                        //         Completed = confermaAcquisto
+                                        //     },
+                                        //     Data = DateTime.Now.ToString("dd/MM/yyyy alle HH:mm"),
+                                        //     Completed = false,
+                                        //     CreditoResiduo = cliente.Credito - calcoloTotaleCarrello,
+                                        //     Totale = calcoloTotaleCarrello
+                                        // });
+
+                                        managerPurchase.GeneraPurchase (new Purchase
                                         {
                                             IdCliente = cliente.Id,
                                             NomeCliente = cliente.Username,
@@ -171,9 +188,11 @@ class Program // <--- (standard/default)
                                             CreditoResiduo = cliente.Credito - calcoloTotaleCarrello,
                                             Totale = calcoloTotaleCarrello
                                         });
+                                        
                                         Console.WriteLine("Premi per usare repositoru Purchase");
                                         Console.ReadKey();
-                                        repostoryPurchase.SalvaPurchase(managerPurchase.OttieniPurchases());
+                                        listaPurchase = repostoryPurchase.CaricaPurchases();
+                                        repostoryPurchase.SalvaPurchase(listaPurchase);
                                         cliente.Cart.Completed = true;
                                         repositoryClienti.SalvaClienti(cliente);
                                         Console.Clear();
@@ -291,7 +310,7 @@ class Program // <--- (standard/default)
                                                 break;
                                             case "2":
                                                 Console.WriteLine("MODALITA' CASSIERE > PROCESSA ACQUISTA\n");
-
+                                                listaPurchase = repostoryPurchase.CaricaPurchases();
                                                 //stampa tabella purchase
                                                 StampaTabella.Purchase(listaPurchase);
 

@@ -1,0 +1,25 @@
+{
+  "IdPurchase": 2,
+  "IdCliente": 1,
+  "NomeCliente": "Felipe",
+  "CreditoCliente": 163.00,
+  "MyPurchase": {
+    "Cart": [
+      {
+        "Id": 6,
+        "Nome": "Spugna",
+        "Prezzo": 0.99,
+        "Quantita": 10,
+        "Categoria": {
+          "Name": "Pulizia",
+          "ID": 2
+        }
+      }
+    ],
+    "Completed": true
+  },
+  "Data": "31/12/2024 alle 15:08",
+  "Completed": true,
+  "CreditoResiduo": 153.10,
+  "Totale": 9.90
+}

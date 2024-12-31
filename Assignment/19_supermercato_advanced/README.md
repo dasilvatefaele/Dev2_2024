@@ -1182,6 +1182,16 @@ git push -u origin main
 
 ---
 
+- [x] Correzione BUG purchase precedente
+
+#### ULTIME IMPLEMENTAZIONI DA ESEGUIRE:
+
 - [ ] Calcolo `PercentualeDiSconto`
 - [ ] Possibilità dell'amministratore di verificare il guadagno totale.
 - [ ] Possibilità del cassiere di ricaricare `cliente.Credito` in caso di credito non sufficiente.
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced - 9/10 - Ultime implementazioni"
+git push -u origin main
+```

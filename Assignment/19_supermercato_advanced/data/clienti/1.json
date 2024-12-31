@@ -1,0 +1,46 @@
+{
+  "Id": 1,
+  "Username": "Felipe",
+  "Cart": {
+    "Cart": [],
+    "Completed": false
+  },
+  "StoricoAcquisti": [
+    {
+      "MyPurchase": [
+        {
+          "Id": 10,
+          "Nome": "Vino",
+          "Prezzo": 18.50,
+          "Quantita": 2,
+          "Categoria": {
+            "Name": "Alcolici",
+            "ID": 7
+          }
+        }
+      ],
+      "Data": "31/12/2024 alle 15:07",
+      "CreditoResiduo": 163.00,
+      "Totale": 37.00
+    },
+    {
+      "MyPurchase": [
+        {
+          "Id": 6,
+          "Nome": "Spugna",
+          "Prezzo": 0.99,
+          "Quantita": 10,
+          "Categoria": {
+            "Name": "Pulizia",
+            "ID": 2
+          }
+        }
+      ],
+      "Data": "31/12/2024 alle 15:08",
+      "CreditoResiduo": 153.10,
+      "Totale": 9.90
+    }
+  ],
+  "PercentualeSconto": 0,
+  "Credito": 153.10
+}
