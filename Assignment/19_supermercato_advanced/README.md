@@ -1205,4 +1205,10 @@ git push -u origin main
 
 #### IMPLEMENTAZIONI:
 
-- [ ] Calcolo `PercentualeDiSconto`
+- [x] ottimizzazione dei modelli
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced - 9.6/10 - ottimizzazione dei modelli"
+git push -u origin main
+```

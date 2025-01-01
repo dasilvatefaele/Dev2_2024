@@ -143,4 +143,21 @@ public class ClientiManager
         }
 
     }
+
+    public void CalcoloSconto(ref Cliente cliente)
+    {
+        decimal comulativoSpesa = 0;
+        foreach (var spesa in cliente.StoricoAcquisti)
+        {
+            comulativoSpesa += spesa.Totale;
+        }
+        if (comulativoSpesa > 50.00m)
+        {
+            cliente.PercentualeSconto = 5;
+        }
+        if (comulativoSpesa > 100.00m)
+        {
+            cliente.PercentualeSconto = 10;
+        }
+    }
 }

@@ -19,28 +19,28 @@
           }
         }
       ],
-      "Data": "31/12/2024 alle 15:07",
-      "CreditoResiduo": 163.00,
+      "Data": "01/01/2025 alle 17:17",
+      "CreditoResiduo": 200.00,
       "Totale": 37.00
     },
     {
       "MyPurchase": [
         {
-          "Id": 6,
-          "Nome": "Spugna",
-          "Prezzo": 0.99,
-          "Quantita": 10,
+          "Id": 10,
+          "Nome": "Vino",
+          "Prezzo": 18.50,
+          "Quantita": 2,
           "Categoria": {
-            "Name": "Pulizia",
-            "ID": 2
+            "Name": "Alcolici",
+            "ID": 7
           }
         }
       ],
-      "Data": "31/12/2024 alle 15:08",
-      "CreditoResiduo": 153.10,
-      "Totale": 9.90
+      "Data": "01/01/2025 alle 17:18",
+      "CreditoResiduo": 163.00,
+      "Totale": 37.00
     }
   ],
-  "PercentualeSconto": 0,
-  "Credito": 154.00
+  "PercentualeSconto": 5,
+  "Credito": 126.00
 }

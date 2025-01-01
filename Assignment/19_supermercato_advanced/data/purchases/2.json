@@ -2,24 +2,22 @@
   "IdPurchase": 2,
   "IdCliente": 1,
   "NomeCliente": "Felipe",
-  "CreditoCliente": 163.00,
   "MyPurchase": {
     "Cart": [
       {
-        "Id": 6,
-        "Nome": "Spugna",
-        "Prezzo": 0.99,
-        "Quantita": 10,
+        "Id": 10,
+        "Nome": "Vino",
+        "Prezzo": 18.50,
+        "Quantita": 2,
         "Categoria": {
-          "Name": "Pulizia",
-          "ID": 2
+          "Name": "Alcolici",
+          "ID": 7
         }
       }
     ],
     "Completed": true
   },
-  "Data": "31/12/2024 alle 15:08",
-  "Completed": true,
-  "CreditoResiduo": 153.10,
-  "Totale": 9.90
+  "Data": "01/01/2025 alle 17:18",
+  "Totale": 37.00,
+  "Completed": true
 }
