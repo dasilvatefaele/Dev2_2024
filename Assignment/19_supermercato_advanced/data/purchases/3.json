@@ -1,0 +1,33 @@
+{
+  "IdPurchase": 3,
+  "IdCliente": 1,
+  "NomeCliente": "Felipe",
+  "MyPurchase": {
+    "Cart": [
+      {
+        "Id": 1,
+        "Nome": "Coca Cola",
+        "Prezzo": 1.49,
+        "Quantita": 3,
+        "Categoria": {
+          "Name": "Bevande",
+          "ID": 3
+        }
+      },
+      {
+        "Id": 10,
+        "Nome": "Vino",
+        "Prezzo": 18.50,
+        "Quantita": 2,
+        "Categoria": {
+          "Name": "Alcolici",
+          "ID": 7
+        }
+      }
+    ],
+    "Completed": true
+  },
+  "Data": "01/01/2025 alle 17:55",
+  "Totale": 39.40,
+  "Completed": true
+}

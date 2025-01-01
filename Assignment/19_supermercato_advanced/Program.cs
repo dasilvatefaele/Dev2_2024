@@ -79,7 +79,8 @@ class Program // <--- (standard/default)
                                 inserimento = "202";
                             }
                         }
-
+                        clientiManager.CalcoloSconto(ref cliente);
+                        repositoryClienti.SalvaClienti(cliente);
                         switch (inserimento)
                         {
                             case "1": // CLIENTE > GUARDA I NOSTRI PRODOTTI
@@ -148,7 +149,7 @@ class Program // <--- (standard/default)
                                 StampaTabella.Carrello(cliente.Cart.Cart);
                                 NewLine();
                                 confermaAcquisto = InputManager.LeggiConferma("Confermi l'aquisto?");
-                                Console.Clear();
+                                
 
                                 calcoloTotaleCarrello = carrelloManager.CalcolaTotale(cliente.Cart.Cart);
                                 if (confermaAcquisto)
@@ -156,7 +157,16 @@ class Program // <--- (standard/default)
 
                                     if (cliente.PercentualeSconto != 0)
                                     {
-                                        calcoloTotaleCarrello -= (calcoloTotaleCarrello * cliente.PercentualeSconto) / 100;
+                                        NewLine();
+                                        Console.WriteLine("Congratulazioni!");
+                                        Console.WriteLine($"Per te che sei un cliente fedele, hai uno sconto del {cliente.PercentualeSconto}%!");
+                                        Console.WriteLine(new string ('-', 25));
+                                        Console.WriteLine($"{"Prezzo normale:",-20} €{calcoloTotaleCarrello}");
+                                        calcoloTotaleCarrello -= Math.Round(((calcoloTotaleCarrello * cliente.PercentualeSconto) / 100),2);
+                                        Console.Write ($"{"Prezzo scontato:",-20} €{calcoloTotaleCarrello}");
+                                        NewLine();
+                                        Console.WriteLine ("\nPremi un tasto per procedere...");
+                                        Console.ReadKey(); 
                                     }
 
                                     if (cliente.Credito >= calcoloTotaleCarrello)
@@ -182,6 +192,10 @@ class Program // <--- (standard/default)
                                         Console.WriteLine("Il tuo ordine sta per essere processato, attendere...\n");
                                         attendoIlCassiere = true;
                                     }
+                                    else 
+                                    {
+                                        Console.WriteLine("\nPurtroppo non hai fondi a sufficienza. Rivolgiti al cassiere per ricaricare il tuo credito e continuare l'acquisto!\n");
+                                    }
                                 }
                                 else
                                 {
@@ -195,8 +209,7 @@ class Program // <--- (standard/default)
                                 NewLine();
                                 break;
                             case "7": // CLIENTE > LA TUA PERCENTUALE DI SCONTO
-                                clientiManager.CalcoloSconto(ref cliente);
-                                repositoryClienti.SalvaClienti(cliente);
+
                                 Console.WriteLine($"{cliente.Username}: LA TUA PERCENTUALE DI SCONTO\n");
                                 Console.WriteLine($"è del %{cliente.PercentualeSconto} sulle tue prossime spese.\n");
                                 break;
@@ -328,7 +341,7 @@ class Program // <--- (standard/default)
                                                             };
 
                                                             cliente.StoricoAcquisti.Add(tempStoricoAcquisti);
-                                                            
+
                                                             tempPurchase.Completed = true;
                                                             repostoryPurchase.SalvaPurchaseSingolo(tempPurchase);
 
@@ -339,6 +352,7 @@ class Program // <--- (standard/default)
                                                             repositoryClienti.SalvaClienti(cliente);
                                                             attendoIlCassiere = false;
                                                             Console.WriteLine("\nAcquisto andato a buon fine! Il cliente può ora ritirare lo scontrino!");
+                                                            NewLine();
 
 
 

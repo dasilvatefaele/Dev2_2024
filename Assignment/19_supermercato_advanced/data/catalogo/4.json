@@ -2,7 +2,7 @@
   "Id": 4,
   "Nome": "Biscotti",
   "Prezzo": 1.19,
-  "Giacenza": 98,
+  "Giacenza": 88,
   "Categoria": {
     "Name": "Dolci",
     "ID": 4

@@ -1,0 +1,23 @@
+{
+  "IdPurchase": 5,
+  "IdCliente": 1,
+  "NomeCliente": "Felipe",
+  "MyPurchase": {
+    "Cart": [
+      {
+        "Id": 7,
+        "Nome": "Mele",
+        "Prezzo": 0.79,
+        "Quantita": 30,
+        "Categoria": {
+          "Name": "Verdure",
+          "ID": 1
+        }
+      }
+    ],
+    "Completed": true
+  },
+  "Data": "01/01/2025 alle 18:02",
+  "Totale": 21.33,
+  "Completed": true
+}

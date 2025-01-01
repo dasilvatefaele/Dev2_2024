@@ -1212,3 +1212,13 @@ git add --all
 git commit -m "Supermercato Advanced - 9.6/10 - ottimizzazione dei modelli"
 git push -u origin main
 ```
+
+#### IMPLEMENTAZIONI:
+
+- [x] calcolo sconto per clienti fedeli
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced - 9.9/10 - completamente funzionante, ora in fase di design"
+git push -u origin main
+```

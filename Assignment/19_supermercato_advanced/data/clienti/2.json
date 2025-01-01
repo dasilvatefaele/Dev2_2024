@@ -1,0 +1,29 @@
+{
+  "Id": 2,
+  "Username": "Anita",
+  "Cart": {
+    "Cart": [],
+    "Completed": false
+  },
+  "StoricoAcquisti": [
+    {
+      "MyPurchase": [
+        {
+          "Id": 7,
+          "Nome": "Mele",
+          "Prezzo": 0.79,
+          "Quantita": 50,
+          "Categoria": {
+            "Name": "Verdure",
+            "ID": 1
+          }
+        }
+      ],
+      "Data": "01/01/2025 alle 18:06",
+      "CreditoResiduo": 200.00,
+      "Totale": 39.50
+    }
+  ],
+  "PercentualeSconto": 0,
+  "Credito": 160.50
+}

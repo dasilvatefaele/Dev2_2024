@@ -39,8 +39,86 @@
       "Data": "01/01/2025 alle 17:18",
       "CreditoResiduo": 163.00,
       "Totale": 37.00
+    },
+    {
+      "MyPurchase": [
+        {
+          "Id": 5,
+          "Nome": "Carote",
+          "Prezzo": 0.99,
+          "Quantita": 10,
+          "Categoria": {
+            "Name": "Verdure",
+            "ID": 1
+          }
+        }
+      ],
+      "Data": "01/01/2025 alle 17:37",
+      "CreditoResiduo": 126.00,
+      "Totale": 9.40
+    },
+    {
+      "MyPurchase": [
+        {
+          "Id": 1,
+          "Nome": "Coca Cola",
+          "Prezzo": 1.49,
+          "Quantita": 3,
+          "Categoria": {
+            "Name": "Bevande",
+            "ID": 3
+          }
+        },
+        {
+          "Id": 10,
+          "Nome": "Vino",
+          "Prezzo": 18.50,
+          "Quantita": 2,
+          "Categoria": {
+            "Name": "Alcolici",
+            "ID": 7
+          }
+        }
+      ],
+      "Data": "01/01/2025 alle 17:55",
+      "CreditoResiduo": 116.60,
+      "Totale": 39.40
+    },
+    {
+      "MyPurchase": [
+        {
+          "Id": 4,
+          "Nome": "Biscotti",
+          "Prezzo": 1.19,
+          "Quantita": 10,
+          "Categoria": {
+            "Name": "Dolci",
+            "ID": 4
+          }
+        }
+      ],
+      "Data": "01/01/2025 alle 17:59",
+      "CreditoResiduo": 77.20,
+      "Totale": 10.71
+    },
+    {
+      "MyPurchase": [
+        {
+          "Id": 7,
+          "Nome": "Mele",
+          "Prezzo": 0.79,
+          "Quantita": 30,
+          "Categoria": {
+            "Name": "Verdure",
+            "ID": 1
+          }
+        }
+      ],
+      "Data": "01/01/2025 alle 18:02",
+      "CreditoResiduo": 66.49,
+      "Totale": 21.33
     }
   ],
-  "PercentualeSconto": 5,
-  "Credito": 126.00
+  "PercentualeSconto": 10,
+  "Credito": 45.16
 }
