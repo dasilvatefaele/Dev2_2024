@@ -46,14 +46,13 @@ class Program // <--- (standard/default)
             Console.Clear();
             switch (scelta)
             {
-                case true:  // AREA CLIENTI
+                case true:  //* AREA CLIENTI
                     string usernameCliente = InputManager.LeggiStringa("Inserisci il tuo Username > ");
                     Console.Clear();
                     cliente = clientiManager.CreaCliente(usernameCliente);
                     // controllo dell'username: se username già nel database, carica dati di quel cliente, se non esiste, crearne uno nuovo
 
-
-                    while (continuaComeCliente) // MENU CLIENTI
+                    while (continuaComeCliente) //* MENU CLIENTI
                     {
                         Console.WriteLine("MENU:\n");
                         Console.WriteLine("1. Visualizza prodotti");
@@ -78,6 +77,7 @@ class Program // <--- (standard/default)
                                 inserimento = "202";
                             }
                         }
+
                         switch (inserimento)
                         {
                             case "1": // CLIENTE > GUARDA I NOSTRI PRODOTTI
@@ -150,30 +150,10 @@ class Program // <--- (standard/default)
 
                                 if (confermaAcquisto)
                                 {
-
                                     decimal calcoloTotaleCarrello = carrelloManager.CalcolaTotale(cliente.Cart.Cart);
                                     if (cliente.Credito >= calcoloTotaleCarrello)
                                     {
-                                        Console.WriteLine("Premi per generare Purchase");
-                                        Console.ReadKey();
-
-                                        // managerPurchase.GeneraPurchase(new Purchase
-                                        // {
-                                        //     IdCliente = cliente.Id,
-                                        //     NomeCliente = cliente.Username,
-                                        //     CreditoCliente = cliente.Credito,
-                                        //     MyPurchase = new Carrello
-                                        //     {
-                                        //         Cart = cliente.Cart.Cart,
-                                        //         Completed = confermaAcquisto
-                                        //     },
-                                        //     Data = DateTime.Now.ToString("dd/MM/yyyy alle HH:mm"),
-                                        //     Completed = false,
-                                        //     CreditoResiduo = cliente.Credito - calcoloTotaleCarrello,
-                                        //     Totale = calcoloTotaleCarrello
-                                        // });
-
-                                        managerPurchase.GeneraPurchase (new Purchase
+                                        managerPurchase.GeneraPurchase(new Purchase
                                         {
                                             IdCliente = cliente.Id,
                                             NomeCliente = cliente.Username,
@@ -188,9 +168,6 @@ class Program // <--- (standard/default)
                                             CreditoResiduo = cliente.Credito - calcoloTotaleCarrello,
                                             Totale = calcoloTotaleCarrello
                                         });
-                                        
-                                        Console.WriteLine("Premi per usare repositoru Purchase");
-                                        Console.ReadKey();
                                         listaPurchase = repostoryPurchase.CaricaPurchases();
                                         repostoryPurchase.SalvaPurchase(listaPurchase);
                                         cliente.Cart.Completed = true;
@@ -259,11 +236,11 @@ class Program // <--- (standard/default)
                                 // dato che c'è il controllo di acquisizione nella scelta
                                 // questo messaggio non dovrebbe apparire mai
                                 break;
-                        } // switch (inserimento) 
-                    } // while (continuaComeCliente)
+                        }
+                    }
                     continuaComeCliente = true;
                     break;
-                case false: // AREA DIPENDENTI
+                case false: //* AREA DIPENDENTI
                     Console.WriteLine("Accedi come dipendente.");
                     string usernameAccesso = InputManager.LeggiStringa("Inserisci il tuo Username > ");
                     var dipendente = managerDipendenti.AccediComeDipendente(usernameAccesso);
@@ -283,9 +260,9 @@ class Program // <--- (standard/default)
                             Console.WriteLine("0. Esci");
                             int inserimentoAdmin = InputManager.LeggiIntero("\nSeleziona la tua posizione > ", 0, 3);
                             Console.Clear();
-                            switch (inserimentoAdmin)                               //
+                            switch (inserimentoAdmin)
                             {
-                                case 1: // todo MODALITA' CASSIERE
+                                case 1: //* MODALITA' CASSIERE  
                                     bool continuaComeCassiere = true;
                                     if (!PermessiCassiere(dipendente))
                                     {
@@ -308,8 +285,8 @@ class Program // <--- (standard/default)
                                                 Console.WriteLine("MODALITA' CASSIERE > VISUALIZZA\n");
                                                 StampaTabella.Purchase(listaPurchase);
                                                 break;
-                                            case "2":
-                                                Console.WriteLine("MODALITA' CASSIERE > PROCESSA ACQUISTA\n");
+                                            case "2": // MODALITA' CASSIERE > PROCESSA ACQUISTO
+                                                Console.WriteLine("MODALITA' CASSIERE > PROCESSA ACQUISTO\n");
                                                 listaPurchase = repostoryPurchase.CaricaPurchases();
                                                 //stampa tabella purchase
                                                 StampaTabella.Purchase(listaPurchase);
@@ -342,7 +319,7 @@ class Program // <--- (standard/default)
                                                             item.CreditoCliente = tempPurchase.CreditoResiduo;
                                                             tempPurchase.Completed = true;
                                                             repostoryPurchase.SalvaPurchaseSingolo(tempPurchase);
-                                                            
+
 
                                                             cliente.Credito = item.CreditoResiduo;
                                                             cliente.Cart.Cart = new List<ProdottoCarrello>();
@@ -351,8 +328,17 @@ class Program // <--- (standard/default)
                                                             attendoIlCassiere = false;
                                                             Console.WriteLine("\nAcquisto andato a buon fine! Il cliente può ora ritirare lo scontrino!");
 
+
                                                             // todo: calcola percentuale di sconto
                                                             // decimal comulativoSpesa = 0;
+                                                            // foreach (var spesa in cliente.StoricoAcquisti)
+                                                            // {
+                                                            //     comulativoSpesa += spesa.Totale;
+                                                            // }
+                                                            // if (comulativoSpesa > 50.00m)
+                                                            // {
+                                                            //     cliente.PercentualeSconto = 
+                                                            // }
                                                             // foreach (var acquisto in item.PurchaseCliente.StoricoAcquisti)
                                                             // {
                                                             //     comulativoSpesa += carrelloManager.CalcolaTotale(acquisto.MyPurchase);
@@ -372,16 +358,31 @@ class Program // <--- (standard/default)
                                                     }
                                                 }
                                                 break;
-                                            case "3":
+                                            case "3": // MODALITA' CASSIERE > RICARICA CREDITO
+                                                Console.WriteLine("MODALITA' CASSIERE > RICARICA CREDITO\n");
+                                                Console.WriteLine($"{cliente.Username}, il tuo credito attuale è di € {cliente.Credito}");
+                                                NewLine();
+                                                decimal ricarica = InputManager.LeggiDecimale("Inserire importo da ricaricare: € ");
+                                                Console.Clear();
+                                                if (ricarica != 0)
+                                                {
+                                                    cliente.Credito += ricarica;
+                                                    Console.WriteLine($"{cliente.Username}, il tuo nuovo credito è di {cliente.Credito}!");
+                                                    Console.WriteLine("Premi un tasto per continuare...");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                    repositoryClienti.SalvaClienti(cliente);
+                                                    cliente = repositoryClienti.CaricaCliente(cliente);
+                                                }
                                                 break;
-                                            case "0":
+                                            case "0": // MODALITA' CASSIERE > ESCI
                                                 continuaComeCassiere = false;
                                                 break;
                                         }
                                     }
 
                                     break;
-                                case 2: // MODALITA' MAGAZZINIERE   //* OK
+                                case 2: //* MODALITA' MAGAZZINIERE 
                                     bool continuaComeMagazziniere = true;
                                     if (!PermessiMagazziniere(dipendente))
                                     {
@@ -566,7 +567,7 @@ class Program // <--- (standard/default)
                                     }
 
                                     break;
-                                case 3: // MODALITA' AMMINISTRATORE //* OK
+                                case 3: //* MODALITA' AMMINISTRATORE
                                     bool continuaComeAmministratore = true;
                                     if (!PermessiAmministratore(dipendente))
                                     {
@@ -579,20 +580,21 @@ class Program // <--- (standard/default)
                                         Console.WriteLine("2. Aggiungi Dipendente");
                                         Console.WriteLine("3. Elimina Dipendente");
                                         Console.WriteLine("4. Aggiorna Dipendente");
+                                        Console.WriteLine("5. Calcola Fatturato");
                                         Console.WriteLine("0. Indietro");
 
-                                        string sceltaAmministratore = InputManager.LeggiIntero("\n> ", 0, 4).ToString();
+                                        string sceltaAmministratore = InputManager.LeggiIntero("\n> ", 0, 5).ToString();
                                         Console.Clear();
 
                                         switch (sceltaAmministratore) // MENU AMMINISTRATORE
                                         {
-                                            case "1": // VISUALIZZA
+                                            case "1": // MODALITA' AMMINISTRATORE > VISUALIZZA DIPENDENTI
                                                 Console.WriteLine("MODALITA' AMMINISTRATORE > VISUALIZZA DIPENDENTI\n");
                                                 StampaDipendenti.Tabella(dipendenti);
                                                 NewLine();
                                                 //Console.WriteLine("Visualizzazione ancora non disponibile");
                                                 break;
-                                            case "2": // AGGIUNGI
+                                            case "2": // MODALITA' AMMINISTRATORE > AGGIUNGI DIPENDENTE
                                                 Console.WriteLine("MODALITA' AMMINISTRATORE > AGGIUNGI DIPENDENTE\n");
                                                 Dipendente nuovoDipendente = new Dipendente();
                                                 string username = InputManager.LeggiStringa("Username del nuovo dipendente: ");
@@ -600,7 +602,7 @@ class Program // <--- (standard/default)
                                                 managerDipendenti.AggiungiDipendente(new Dipendente { Username = username, Ruolo = ruolo });
                                                 repositoryDipendenti.SalvaDipendenti(dipendenti);
                                                 break;
-                                            case "3": // ELIMINA
+                                            case "3": // MODALITA' AMMINISTRATORE > ELIMINA DIPENDENTE
                                                 Console.WriteLine("MODALITA' AMMINISTRATORE > ELIMINA DIPENDENTE\n");
                                                 StampaDipendenti.Tabella(dipendenti);
                                                 int idPerElimina = InputManager.LeggiIntero("\nInserisci ID del dipendente da eliminare > ");
@@ -611,7 +613,7 @@ class Program // <--- (standard/default)
                                                 NewLine();
 
                                                 break;
-                                            case "4": // AGGIORNA
+                                            case "4": // MODALITA' AMMINISTRATORE > AGGIORNA DIPENDENTE
                                                 Console.WriteLine("MODALITA' AMMINISTRATORE > AGGIORNA DIPENDENTE\n");
                                                 StampaDipendenti.Tabella(dipendenti);
                                                 int idPerAggiorna = InputManager.LeggiIntero("\nInserisci ID Cliente da aggiornare > ", 0);
@@ -620,7 +622,26 @@ class Program // <--- (standard/default)
                                                 Console.Clear();
                                                 StampaDipendenti.Tabella(dipendenti);
                                                 NewLine();
-
+                                                break;
+                                            case "5": // MODALITA' AMMINISTRATORE > CALCOLA FATTURATO
+                                                listaPurchase = repostoryPurchase.CaricaPurchases();
+                                                decimal totaleFatturato = 0;
+                                                Console.WriteLine($"{"ID PURCHASE",-20}{"CLIENTE",-20}{"SPESA",-20}{"DATA",-20}");
+                                                Console.WriteLine(new string('-', 80));
+                                                foreach (var purchase in listaPurchase)
+                                                {
+                                                    Console.WriteLine($"{purchase.IdPurchase,-20}{purchase.NomeCliente,-20}{purchase.Totale,-20}{purchase.Data,-20}");
+                                                    totaleFatturato += purchase.Totale;
+                                                }
+                                                Console.WriteLine(new string('-', 81));
+                                                NewLine();
+                                                Console.Write($"{"TOTALE FATTURATO:",-20}");
+                                                Console.Write($"{totaleFatturato}");
+                                                NewLine();
+                                                NewLine();
+                                                Console.WriteLine("Premi un tasto per tornare indietro...");
+                                                Console.ReadKey();
+                                                Console.Clear();
                                                 break;
                                             case "0": // ESCI
                                                 continuaComeAmministratore = false;
@@ -628,7 +649,7 @@ class Program // <--- (standard/default)
                                         }
                                     }
                                     break;
-                                case 0: // ESCI                     //* OK
+                                case 0: //* ESCI                     
                                     continua = !InputManager.LeggiConferma("Terminare l'applicazione?");
                                     Console.Clear();
                                     continuaComeDipendente = false;
@@ -652,6 +673,8 @@ class Program // <--- (standard/default)
         } // chiusa switch (scelta)
     } // chiusa while (continua)
 
+
+    #region PERMESSI
     static bool PermessiMagazziniere(Dipendente dipendente)
     {
         if (dipendente.Ruolo == "Magazziniere" || dipendente.Ruolo == "admin")
@@ -676,6 +699,8 @@ class Program // <--- (standard/default)
         }
         return false;
     }
+    #endregion
+
     static void NewLine()
     {
         Console.WriteLine();

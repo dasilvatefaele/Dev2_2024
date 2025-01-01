@@ -1,0 +1,25 @@
+{
+  "IdPurchase": 4,
+  "IdCliente": 4,
+  "NomeCliente": "Piero",
+  "CreditoCliente": 200.00,
+  "MyPurchase": {
+    "Cart": [
+      {
+        "Id": 7,
+        "Nome": "Mele",
+        "Prezzo": 0.79,
+        "Quantita": 10,
+        "Categoria": {
+          "Name": "Verdure",
+          "ID": 1
+        }
+      }
+    ],
+    "Completed": true
+  },
+  "Data": "01/01/2025 alle 15:25",
+  "Completed": true,
+  "CreditoResiduo": 192.10,
+  "Totale": 7.90
+}

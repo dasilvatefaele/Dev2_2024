@@ -1,0 +1,11 @@
+{
+  "Id": 3,
+  "Username": "Felip",
+  "Cart": {
+    "Cart": [],
+    "Completed": false
+  },
+  "StoricoAcquisti": [],
+  "PercentualeSconto": 0,
+  "Credito": 200.00
+}
