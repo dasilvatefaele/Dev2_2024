@@ -22,8 +22,10 @@ static public class StampaTabella
         const int LUNGHEZZA_BR = 65;
         if (prodotti.Count > 0)
         {
+            Color.DarkGray();
             Console.WriteLine($"{"ID",COLONNA_SMALL}{"Nome",COLONNA_MEDIUM}{"Prezzo",COLONNA_SMALL}{"Giacenza",COLONNA_SMALL}{"Categoria",COLONNA_SMALL}");
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
+            Color.Reset();
             foreach (var prodotto in prodotti)
             {
                 Console.WriteLine($"{prodotto.Id,COLONNA_SMALL}{prodotto.Nome,COLONNA_MEDIUM}{prodotto.Prezzo,COLONNA_SMALL:0.00}{prodotto.Giacenza,COLONNA_SMALL}{prodotto.Categoria.Name,COLONNA_SMALL}");
@@ -36,9 +38,11 @@ static public class StampaTabella
     }
     static public void ComeCliente(List<Prodotto> prodotti)
     {
+    
         const int LUNGHEZZA_BR = 40;
         if (prodotti.Count > 0)
         {
+            Color.White();
             Console.WriteLine($"{"Nome",COLONNA_MEDIUM}{"Prezzo",COLONNA_MEDIUM}");
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
             foreach (var prodotto in prodotti)
@@ -53,7 +57,7 @@ static public class StampaTabella
     }
     static public void Carrello(List<ProdottoCarrello> carrello)
     {
-
+        Color.Reset();
         const int LUNGHEZZA_BR = 40;
         if (carrello.Count > 0)
         {
@@ -61,11 +65,13 @@ static public class StampaTabella
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
             foreach (var item in carrello)
             {
-                Console.WriteLine($"{"x" + item.Quantita,COLONNA_SMALL}{item.Nome,COLONNA_MEDIUM}{item.Prezzo,COLONNA_MEDIUM}");
+                Console.WriteLine($"{"x" + item.Quantita,COLONNA_SMALL}{item.Nome,COLONNA_MEDIUM}{"€" + item.Prezzo,COLONNA_MEDIUM}");
 
             }
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
-            Console.WriteLine($"{"SubTotal:",-30}{managerCarrello.CalcolaTotale(carrello)}");
+            Color.DarkYellow();
+            Console.WriteLine($"{"SubTotal:",-30}{"€" + managerCarrello.CalcolaTotale(carrello)}");
+            Color.Reset();
         }
         else
         {
@@ -75,8 +81,10 @@ static public class StampaTabella
 
     static public void Categorie(List<Categoria> listaCategorie)
     {
+        Color.DarkGray();
         Console.WriteLine($"{"ID",-10} {"Categoria",-20}");
-        Console.WriteLine(new string('-', 30));
+        Console.WriteLine(new string('-', 24));
+        Color.Reset();
         foreach (var categorie in listaCategorie)
         {
             Console.WriteLine($"{categorie.ID,-10}{categorie.Name,-20}");
@@ -87,8 +95,10 @@ static public class StampaTabella
     static public void Purchase(List<Purchase> listaPurchase)
     {
         CarrelloAdvancedManager carrelloManager = new CarrelloAdvancedManager();
+        Color.DarkGray();
         Console.WriteLine($"{"ID",-10}{"Cliente",-20}{"Totale",-10}");
         Console.WriteLine(new string('-', 40));
+        Color.DarkYellow();
         foreach (var item in listaPurchase)
         {
 

@@ -1,0 +1,10 @@
+{
+  "Id": 15,
+  "Nome": "Cotechino",
+  "Prezzo": 11.90,
+  "Giacenza": 24,
+  "Categoria": {
+    "Name": "Carne",
+    "ID": 0
+  }
+}

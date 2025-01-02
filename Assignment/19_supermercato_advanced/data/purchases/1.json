@@ -8,7 +8,7 @@
         "Id": 10,
         "Nome": "Vino",
         "Prezzo": 18.50,
-        "Quantita": 2,
+        "Quantita": 5,
         "Categoria": {
           "Name": "Alcolici",
           "ID": 7
@@ -17,7 +17,7 @@
     ],
     "Completed": true
   },
-  "Data": "01/01/2025 alle 17:17",
-  "Totale": 37.00,
+  "Data": "01/01/2025 alle 21:50",
+  "Totale": 92.50,
   "Completed": true
 }

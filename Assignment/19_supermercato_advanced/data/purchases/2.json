@@ -5,10 +5,20 @@
   "MyPurchase": {
     "Cart": [
       {
+        "Id": 7,
+        "Nome": "Mele Fuji",
+        "Prezzo": 0.79,
+        "Quantita": 10,
+        "Categoria": {
+          "Name": "Verdure",
+          "ID": 1
+        }
+      },
+      {
         "Id": 10,
         "Nome": "Vino",
         "Prezzo": 18.50,
-        "Quantita": 2,
+        "Quantita": 10,
         "Categoria": {
           "Name": "Alcolici",
           "ID": 7
@@ -17,7 +27,7 @@
     ],
     "Completed": true
   },
-  "Data": "01/01/2025 alle 17:18",
-  "Totale": 37.00,
+  "Data": "02/01/2025 alle 00:47",
+  "Totale": 183.26,
   "Completed": true
 }

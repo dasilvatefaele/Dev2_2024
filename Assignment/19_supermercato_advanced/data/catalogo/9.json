@@ -2,7 +2,7 @@
   "Id": 9,
   "Nome": "Succo di pera",
   "Prezzo": 0.89,
-  "Giacenza": 61,
+  "Giacenza": 55,
   "Categoria": {
     "Name": "Bevande",
     "ID": 3

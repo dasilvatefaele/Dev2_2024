@@ -25,12 +25,20 @@ public class ClientiManager
         nuovoCliente = CheckCliente(username);
         if (nuovoCliente != null)
         {
-            Console.WriteLine($"BENTORNATO {nuovoCliente.Username}!\n");
+            Color.Green();
+            Console.WriteLine($"BENTORNATO {nuovoCliente.Username}!");
+            Console.WriteLine(new string('-', 31));
+            Console.WriteLine();
             return nuovoCliente;
         }
         else
         {
-            Console.WriteLine($"BENVENUTO {username}! Un nuovo account è stato creato!\n");
+            Color.White();
+            Console.Write($"BENVENUTO ");
+            Color.Green();
+            Console.Write($"{username}!\n");
+            Console.WriteLine("Ecco il tuo nuovo account!\n");
+            Color.Reset();
             nuovoCliente = new Cliente
             {
                 Username = username,

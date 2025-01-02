@@ -16,11 +16,13 @@ static public class StampaDipendenti
 
     static public void Tabella(List<Dipendente> dipendenti)
     {
-        const int LUNGHEZZA_BR = 40;
+        const int LUNGHEZZA_BR = 48;
         if (dipendenti.Count > 0)
         {
+            Color.DarkGray();
             Console.WriteLine($"{"ID",COLONNA_SMALL}{"Nome",COLONNA_MEDIUM}{"Ruolo",COLONNA_SMALL}");
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
+            Color.Reset();
             foreach (var dipendente in dipendenti)
             {
                 Console.WriteLine($"{dipendente.Id,COLONNA_SMALL}{dipendente.Username,COLONNA_MEDIUM}{dipendente.Ruolo,COLONNA_SMALL}");
@@ -34,10 +36,11 @@ static public class StampaDipendenti
 
     static public void Singolo(Dipendente dipendente)
     {
-        const int LUNGHEZZA_BR = 40;
-
+        const int LUNGHEZZA_BR = 48;
+        Color.DarkGray();
         Console.WriteLine($"{"ID",COLONNA_SMALL}{"Nome",COLONNA_MEDIUM}{"Ruolo",COLONNA_SMALL}");
         Console.WriteLine(new string('-', LUNGHEZZA_BR));
+        Color.Reset();
         Console.WriteLine($"{dipendente.Id,COLONNA_SMALL}{dipendente.Username,COLONNA_MEDIUM}{dipendente.Ruolo,COLONNA_SMALL}");
     }
 }

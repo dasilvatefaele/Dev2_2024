@@ -38,7 +38,9 @@ public class CarrelloAdvancedManager
         {
             if (item.Nome.ToString() == prodottoDaAggiungere)
             {
+                Color.DarkGreen();
                 int quantita = InputManager.LeggiIntero("Quantita > ", 0);
+                Color.Reset();
                 // acquisisco la quantita desiderata
 
                 if (item.Giacenza > quantita) // in la giacenza sia 1 non lo rende disponibile all'acquisto
@@ -63,6 +65,7 @@ public class CarrelloAdvancedManager
                     trovato = true;
                     // indico che è stato trovato
                     Console.Clear();
+                    Color.DarkGreen();
                     Console.WriteLine($"'{prodottoDaAggiungere} x{quantita}' aggiunto al carrello!");
 
                     break;
@@ -123,7 +126,9 @@ public class CarrelloAdvancedManager
                     prodotto.Giacenza += quantitaIndietro;
                 }
             }
-            Console.WriteLine($"'{prodottoDaRimuovere}' rimosso dal carrello.");
+            Color.Red();
+            Console.WriteLine($"'{prodottoDaRimuovere}' rimosso dal carrello.\n");
+            Color.Reset();
 
             // aggiorna la persistenza dei dati
             repoProdotti.SalvaProdotti(prodotti);

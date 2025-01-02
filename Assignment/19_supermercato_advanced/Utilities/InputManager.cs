@@ -82,7 +82,7 @@ public static class InputManager
     {
         while (true)
         {
-            Console.Write($"{messaggio} (s/n): ");
+            Console.Write($"{messaggio} (S/N): ");
             string input = Console.ReadLine().ToLower();
             if (input == "s" || input == "si")
             {

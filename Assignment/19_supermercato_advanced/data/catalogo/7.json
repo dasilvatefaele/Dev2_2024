@@ -1,8 +1,8 @@
 {
   "Id": 7,
-  "Nome": "Mele",
+  "Nome": "Mele Fuji",
   "Prezzo": 0.79,
-  "Giacenza": 77,
+  "Giacenza": 67,
   "Categoria": {
     "Name": "Verdure",
     "ID": 1

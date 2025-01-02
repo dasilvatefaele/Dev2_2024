@@ -1,0 +1,10 @@
+{
+  "Id": 14,
+  "Nome": "Latte Scremato",
+  "Prezzo": 3.49,
+  "Giacenza": 25,
+  "Categoria": {
+    "Name": "Latticini",
+    "ID": 11
+  }
+}

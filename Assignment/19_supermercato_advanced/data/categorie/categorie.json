@@ -38,5 +38,21 @@
   {
     "Name": "Frutta",
     "ID": 9
+  },
+  {
+    "Name": "SCONOSCIUTO",
+    "ID": 10
+  },
+  {
+    "Name": "Latticini",
+    "ID": 11
+  },
+  {
+    "Name": "Cartoleria",
+    "ID": 12
+  },
+  {
+    "Name": "Igiene",
+    "ID": 13
   }
 ]
