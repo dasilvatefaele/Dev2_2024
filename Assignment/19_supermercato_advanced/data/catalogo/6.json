@@ -2,7 +2,7 @@
   "Id": 6,
   "Nome": "Spugna",
   "Prezzo": 0.99,
-  "Giacenza": 77,
+  "Giacenza": 67,
   "Categoria": {
     "Name": "Pulizia",
     "ID": 2

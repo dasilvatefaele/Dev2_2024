@@ -1,0 +1,43 @@
+{
+  "IdPurchase": 6,
+  "IdCliente": 3,
+  "NomeCliente": "Marcia",
+  "MyPurchase": {
+    "Cart": [
+      {
+        "Id": 16,
+        "Nome": "Guarana",
+        "Prezzo": 2.0,
+        "Quantita": 5,
+        "Categoria": {
+          "Name": "Bevande",
+          "ID": 3
+        }
+      },
+      {
+        "Id": 6,
+        "Nome": "Spugna",
+        "Prezzo": 0.99,
+        "Quantita": 10,
+        "Categoria": {
+          "Name": "Pulizia",
+          "ID": 2
+        }
+      },
+      {
+        "Id": 16,
+        "Nome": "Guarana",
+        "Prezzo": 2.0,
+        "Quantita": 5,
+        "Categoria": {
+          "Name": "Bevande",
+          "ID": 3
+        }
+      }
+    ],
+    "Completed": true
+  },
+  "Data": "02/01/2025 alle 02:36",
+  "Totale": 29.90,
+  "Completed": true
+}

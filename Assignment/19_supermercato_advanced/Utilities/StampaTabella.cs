@@ -28,7 +28,7 @@ static public class StampaTabella
             Color.Reset();
             foreach (var prodotto in prodotti)
             {
-                Console.WriteLine($"{prodotto.Id,COLONNA_SMALL}{prodotto.Nome,COLONNA_MEDIUM}{prodotto.Prezzo,COLONNA_SMALL:0.00}{prodotto.Giacenza,COLONNA_SMALL}{prodotto.Categoria.Name,COLONNA_SMALL}");
+                Console.WriteLine($"{prodotto.Id,COLONNA_SMALL}{prodotto.Nome,COLONNA_MEDIUM}{prodotto.Prezzo.ToString("F2"),COLONNA_SMALL}{prodotto.Giacenza,COLONNA_SMALL}{prodotto.Categoria.Name,COLONNA_SMALL}");
             }
         }
         else
@@ -47,7 +47,7 @@ static public class StampaTabella
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
             foreach (var prodotto in prodotti)
             {
-                Console.WriteLine($"{prodotto.Nome,COLONNA_MEDIUM}{prodotto.Prezzo,COLONNA_MEDIUM}");
+                Console.WriteLine($"{prodotto.Nome,COLONNA_MEDIUM}{prodotto.Prezzo.ToString("F2"),COLONNA_MEDIUM}");
             }
         }
         else
@@ -61,16 +61,16 @@ static public class StampaTabella
         const int LUNGHEZZA_BR = 40;
         if (carrello.Count > 0)
         {
-            Console.WriteLine($"{"Qnt.",COLONNA_SMALL}{"Nome",COLONNA_MEDIUM}{"Prezzo",COLONNA_MEDIUM}");
+            Console.WriteLine($"{"Qnt.",COLONNA_SMALL}{"Nome",COLONNA_MEDIUM}{"Prezzo",COLONNA_MEDIUM:0.00}");
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
             foreach (var item in carrello)
             {
-                Console.WriteLine($"{"x" + item.Quantita,COLONNA_SMALL}{item.Nome,COLONNA_MEDIUM}{"€" + item.Prezzo,COLONNA_MEDIUM}");
+                Console.WriteLine($"{"x" + item.Quantita,COLONNA_SMALL}{item.Nome,COLONNA_MEDIUM}{"€" + item.Prezzo.ToString("F2"),COLONNA_MEDIUM}");
 
             }
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
             Color.DarkYellow();
-            Console.WriteLine($"{"SubTotal:",-30}{"€" + managerCarrello.CalcolaTotale(carrello)}");
+            Console.WriteLine($"{"SubTotal:",-30}{"€" + managerCarrello.CalcolaTotale(carrello).ToString("F2")}");
             Color.Reset();
         }
         else
@@ -104,7 +104,7 @@ static public class StampaTabella
 
             if (item.Completed == false)
             {
-                Console.WriteLine($"{item.IdPurchase,-10}{item.NomeCliente,-20}{item.Totale,-10}");
+                Console.WriteLine($"{item.IdPurchase,-10}{item.NomeCliente,-20}{item.Totale.ToString("F2"),-10}");
             }
         }
         Console.WriteLine();

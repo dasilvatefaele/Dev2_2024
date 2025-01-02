@@ -83,7 +83,7 @@ class Program // <--- (standard/default)
                         Color.Green();
                         Console.WriteLine(new string('-', 35));
                         Console.WriteLine(
-                            $"{"Totale:", -25}{"€" + carrelloManager.CalcolaTotale(cliente.Cart.Cart), -25}"
+                            $"{"Totale:",-25}{"€" + carrelloManager.CalcolaTotale(cliente.Cart.Cart),-25}"
                         );
                         Console.WriteLine(new string('-', 35));
                         string inserimento = InputManager.LeggiIntero("\n> ", 0, 7).ToString();
@@ -209,7 +209,7 @@ class Program // <--- (standard/default)
                                         Console.WriteLine(new string('-', 40));
                                         Color.Red();
                                         Console.WriteLine(
-                                            $"{"Prezzo normale:", -20} €{calcoloTotaleCarrello}"
+                                            $"{"Prezzo normale:",-20} €{calcoloTotaleCarrello}"
                                         );
                                         calcoloTotaleCarrello -= Math.Round(
                                             (
@@ -220,7 +220,7 @@ class Program // <--- (standard/default)
                                         );
                                         Color.Green();
                                         Console.Write(
-                                            $"{"Prezzo scontato:", -20} €{calcoloTotaleCarrello}"
+                                            $"{"Prezzo scontato:",-20} €{calcoloTotaleCarrello}"
                                         );
                                         NewLine();
                                         Color.Reset();
@@ -260,6 +260,8 @@ class Program // <--- (standard/default)
                                         );
                                         Color.Reset();
                                         attendoIlCassiere = true;
+                                        repositoryProdotti.SalvaProdotti(prodotti);
+                                        prodotti = repositoryProdotti.CaricaProdotti();
                                     }
                                     else
                                     {
@@ -409,6 +411,8 @@ class Program // <--- (standard/default)
 
                                     while (continuaComeCassiere && PermessiCassiere(dipendente))
                                     {
+                                        repositoryProdotti.SalvaProdotti(prodotti);
+                                        prodotti = repositoryProdotti.CaricaProdotti();
                                         Color.Magenta();
                                         Console.WriteLine("AREA DIPENDENTI > CASSIERE");
                                         Console.WriteLine(new string('-', 35));
@@ -616,6 +620,8 @@ class Program // <--- (standard/default)
                                         continuaComeMagazziniere && PermessiMagazziniere(dipendente)
                                     )
                                     {
+                                        repositoryProdotti.SalvaProdotti(prodotti);
+                                        prodotti = repositoryProdotti.CaricaProdotti();
                                         Color.Magenta();
                                         Console.WriteLine("MODALITA' MAGAZZINIERE");
                                         Console.WriteLine(new string('-', 30));
@@ -639,7 +645,6 @@ class Program // <--- (standard/default)
                                         switch (sceltaMagazziniere) // MENU MAGAZZINIERE
                                         {
                                             case "1": // MODALITA' MAGAZZINIERE > VISUALIZZA
-                                                prodotti = repositoryProdotti.CaricaProdotti();
 
                                                 Color.Magenta();
                                                 Console.WriteLine("PRODOTTI IN MAGAZZINO");
@@ -676,6 +681,7 @@ class Program // <--- (standard/default)
                                                     "Prezzo > ",
                                                     0
                                                 );
+                                                prezzo = Math.Round(prezzo, 2);
                                                 int giacenza = InputManager.LeggiIntero(
                                                     "Giacenza > ",
                                                     0
@@ -747,13 +753,13 @@ class Program // <--- (standard/default)
                                                     NewLine();
                                                     Color.DarkGray();
                                                     Console.WriteLine(
-                                                        $"{"ID", -10}{"Nome", -20}{"Prezzo", -10}{"Giacenza", -10}{"Categoria", -10}"
+                                                        $"{"ID",-10}{"Nome",-20}{"Prezzo",-10}{"Giacenza",-10}{"Categoria",-10}"
                                                     );
                                                     Console.WriteLine(new string('-', 65));
                                                     Color.Reset();
 
                                                     Console.WriteLine(
-                                                        $"{prodottoTrovato.Id, -10}{prodottoTrovato.Nome, -20}{prodottoTrovato.Prezzo, -10:0.00}{prodottoTrovato.Giacenza, -10}{prodottoTrovato.Categoria.Name, -10}"
+                                                        $"{prodottoTrovato.Id,-10}{prodottoTrovato.Nome,-20}{prodottoTrovato.Prezzo,-10:0.00}{prodottoTrovato.Giacenza,-10}{prodottoTrovato.Categoria.Name,-10}"
                                                     );
                                                     NewLine();
                                                 }
@@ -814,10 +820,12 @@ class Program // <--- (standard/default)
                                                     {
                                                         prezzoAggiornato =
                                                             InputManager.LeggiDecimale("> ", 0);
+                                                        Math.Round(prezzoAggiornato, 2);
                                                     }
                                                     else
                                                     {
                                                         prezzoAggiornato = prodottoTrovato2.Prezzo;
+                                                        Math.Round(prezzoAggiornato, 2);
                                                     }
 
                                                     bool aggiornaGiacenza =
@@ -1097,6 +1105,8 @@ class Program // <--- (standard/default)
                                         && PermessiAmministratore(dipendente)
                                     )
                                     {
+                                        repositoryProdotti.SalvaProdotti(prodotti);
+                                        prodotti = repositoryProdotti.CaricaProdotti();
                                         Color.Magenta();
                                         Console.WriteLine("MODALITA' AMMINISTRATORE");
                                         Console.WriteLine(new string('-', 48));
@@ -1236,7 +1246,7 @@ class Program // <--- (standard/default)
                                                 decimal totaleFatturato = 0;
                                                 Color.DarkGray();
                                                 Console.WriteLine(
-                                                    $"{"PURCHASE", -15}{"CLIENTE", -15}{"SPESA", -15}{"DATA", -15}"
+                                                    $"{"PURCHASE",-15}{"CLIENTE",-15}{"SPESA",-15}{"DATA",-15}"
                                                 );
                                                 NewLine();
                                                 Color.Reset();
@@ -1244,7 +1254,7 @@ class Program // <--- (standard/default)
                                                 foreach (var purchase in listaPurchase)
                                                 {
                                                     Console.WriteLine(
-                                                        $"{purchase.IdPurchase, -15}{purchase.NomeCliente, -15}{purchase.Totale, -15}{purchase.Data, -15}"
+                                                        $"{purchase.IdPurchase,-15}{purchase.NomeCliente,-15}{purchase.Totale.ToString("F2"),-15}{purchase.Data,-15}"
                                                     );
                                                     totaleFatturato += purchase.Totale;
                                                 }
@@ -1253,9 +1263,9 @@ class Program // <--- (standard/default)
                                                 Console.WriteLine(new string('-', 66));
                                                 NewLine();
                                                 Color.Reset();
-                                                Console.Write($"{"TOTALE FATTURATO:", -20}");
+                                                Console.Write($"{"TOTALE FATTURATO:",-20}");
                                                 Color.Green();
-                                                Console.Write($"{totaleFatturato}");
+                                                Console.Write($"{totaleFatturato.ToString("F2")}");
                                                 Color.Reset();
 
                                                 NewLine();
