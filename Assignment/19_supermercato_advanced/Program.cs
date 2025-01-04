@@ -77,6 +77,7 @@ class Program // <--- (standard/default)
                         Console.WriteLine("5. Procedi al pagamento");
                         Console.WriteLine("6. Verifica il tuo credito");
                         Console.WriteLine("7. La tua percentuale di sconto");
+                        Console.WriteLine("8. Visualizza Storico");
                         Console.WriteLine("0. Cassa o Esci");
 
                         NewLine();
@@ -86,7 +87,7 @@ class Program // <--- (standard/default)
                             $"{"Totale:",-25}{"€" + carrelloManager.CalcolaTotale(cliente.Cart.Cart).ToString("F2"),-25}"
                         );
                         Console.WriteLine(new string('-', 35));
-                        string inserimento = InputManager.LeggiIntero("\n> ", 0, 7).ToString();
+                        string inserimento = InputManager.LeggiIntero("\n> ", 0, 8).ToString();
                         Console.Clear();
 
                         if (cliente.Cart.Completed == true)
@@ -266,6 +267,11 @@ class Program // <--- (standard/default)
                                 Color.Reset();
                                 Console.Write("sulle tue prossime spese.\n");
                                 NewLine();
+                                break;
+                            case "8":
+                                Console.WriteLine($"{cliente.Username}: I TUOI ULTIMI ACQUISTI:\n");
+                                StampaTabella.StampaStorico(cliente);
+
                                 break;
                             case "202": // IN ATTESA DELLO SBLOCCO DA PARTE DEL CASSIERE
                                 Console.Clear();

@@ -109,4 +109,44 @@ static public class StampaTabella
         }
         Console.WriteLine();
     }
+
+    static public void StampaStorico (Cliente cliente)
+    {
+        Color.DarkGray();
+        const int LUNGHEZZA_BR = 40;
+        if (cliente.StoricoAcquisti.Count > 0)
+        {
+            Color.DarkGray();
+            Console.WriteLine(new string('-', 71));
+            Console.WriteLine();
+            Color.Reset();
+
+            Console.WriteLine($"{"Qnt.",COLONNA_SMALL}{"Nome",COLONNA_MEDIUM}{"Prezzo",COLONNA_MEDIUM:0.00}{"Data",COLONNA_MEDIUM}\n");
+            //Console.WriteLine(new string('-', LUNGHEZZA_BR));
+            Color.Reset();
+            foreach (var item in cliente.StoricoAcquisti)
+            {
+                foreach (var purchase in item.MyPurchase)
+                {
+                    Console.Write($"{"x" + purchase.Quantita,COLONNA_SMALL}{purchase.Nome,COLONNA_MEDIUM}{"€" + purchase.Prezzo.ToString("F2"),COLONNA_MEDIUM}");
+                    Color.DarkGray();
+                    Console.Write($"{item.Data,COLONNA_MEDIUM}");
+                    Color.Reset();
+                    Console.WriteLine();
+                }
+            }
+            Color.DarkGray();
+            Console.WriteLine();
+            Console.WriteLine(new string('-', 71));
+            Console.WriteLine();
+            Color.Reset();
+        }
+        else
+        {
+            Color.Red();
+            Console.WriteLine("Non hai uno storico acquisti.\n");
+            Color.Reset();
+        }
+
+    }
 }

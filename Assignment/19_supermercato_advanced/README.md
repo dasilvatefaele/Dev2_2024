@@ -1320,7 +1320,7 @@ git push -u origin main
 # VERSIONE STABILE v11
 ### RISOLTA PROBLEMATICA NELLA PROCESSAZIONE MULTIPLA DEI PURCHASES
 
-* [ ] Cliente deve poter visualizzare il proprio `storico`
+
 * [ ] Cliente può visualizzare prodotti per categoria
 * [ ] Amministratore deve visualizzare la lista dei `clienti` e le loro complete informazioni
 * [ ] Amministratore deve poter creare nuovi `Ruoli`
@@ -1333,5 +1333,12 @@ git push -u origin main
 ```bash
 git add --all
 git commit -m "Supermercato Advanced - v11 (SOLIDA)"
+git push -u origin main
+```
+* [x] Cliente deve poter visualizzare il proprio `storico`
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced - v11.1 (Cliente visualizza lo storico)"
 git push -u origin main
 ```
