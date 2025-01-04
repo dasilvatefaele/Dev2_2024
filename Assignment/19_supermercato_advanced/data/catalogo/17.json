@@ -1,0 +1,10 @@
+{
+  "Id": 17,
+  "Nome": "Sorvete",
+  "Prezzo": 3.40,
+  "Giacenza": 89,
+  "Categoria": {
+    "Name": "Surgelado",
+    "ID": 14
+  }
+}

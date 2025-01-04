@@ -2,7 +2,7 @@
   "Id": 16,
   "Nome": "Guarana",
   "Prezzo": 2.0,
-  "Giacenza": 270,
+  "Giacenza": 267,
   "Categoria": {
     "Name": "Bevande",
     "ID": 3

@@ -37,7 +37,7 @@ class Program // <--- (standard/default)
         bool continuaComeCliente = true;
         bool continuaComeDipendente = true;
         bool confermaAcquisto = false;
-        bool attendoIlCassiere = false;
+        //bool attendoIlCassiere = false;
         decimal calcoloTotaleCarrello = 0;
         int idClienteConnesso = -404;
         #endregion
@@ -83,13 +83,13 @@ class Program // <--- (standard/default)
                         Color.Green();
                         Console.WriteLine(new string('-', 35));
                         Console.WriteLine(
-                            $"{"Totale:",-25}{"€" + carrelloManager.CalcolaTotale(cliente.Cart.Cart),-25}"
+                            $"{"Totale:",-25}{"€" + carrelloManager.CalcolaTotale(cliente.Cart.Cart).ToString("F2"),-25}"
                         );
                         Console.WriteLine(new string('-', 35));
                         string inserimento = InputManager.LeggiIntero("\n> ", 0, 7).ToString();
                         Console.Clear();
 
-                        if (attendoIlCassiere)
+                        if (cliente.Cart.Completed == true)
                         {
                             if (inserimento == "4" || inserimento == "6" || inserimento == "0")
                             {
@@ -106,9 +106,7 @@ class Program // <--- (standard/default)
                         {
                             case "1": // CLIENTE > GUARDA I NOSTRI PRODOTTI
                                 Color.Green();
-                                Console.WriteLine(
-                                    $"{cliente.Username}: GUARDA I NOSTRI PRODOTTI\n"
-                                );
+                                Console.WriteLine($"{cliente.Username}: GUARDA I NOSTRI PRODOTTI\n");
                                 if (prodotti != null) // se ci sono prodotti
                                 {
                                     // stampa prodotti in modalità cliente
@@ -129,17 +127,11 @@ class Program // <--- (standard/default)
 
                                 // chiedo il nome del prodotto
                                 Color.DarkGreen();
-                                string nomeProdotto = InputManager.LeggiStringa(
-                                    "Inserisci il prodotto > "
-                                );
+                                string nomeProdotto = InputManager.LeggiStringa("Inserisci il prodotto > ");
 
                                 // se il prodotto esiste e la giacenza è sufficiente lo salva nel carrello cliente
                                 // e decrementa la giacenza, altrimenti stampa non trovato ed esce
-                                carrelloManager.AggiungiProdotto(
-                                    nomeProdotto,
-                                    carrello,
-                                    ref cliente
-                                );
+                                carrelloManager.AggiungiProdotto(nomeProdotto,carrello,ref cliente);
 
                                 // salvo la persistenza dei dati
                                 cliente = repositoryClienti.CaricaCliente(cliente);
@@ -156,9 +148,7 @@ class Program // <--- (standard/default)
 
                                 // acquisisco la stringa del nome del prodotto da rimuovere
                                 Color.Red();
-                                string prodottoDaRimuovere = InputManager.LeggiStringa(
-                                    "Che cosa vuoi rimuovere? > "
-                                );
+                                string prodottoDaRimuovere = InputManager.LeggiStringa("Che cosa vuoi rimuovere? > ");
 
                                 // se acquisisco 0 torno al menu senza far nulla, altrimenti procede
                                 if (!(prodottoDaRimuovere == "0"))
@@ -187,14 +177,10 @@ class Program // <--- (standard/default)
                                 StampaTabella.Carrello(cliente.Cart.Cart);
                                 NewLine();
                                 Color.DarkYellow();
-                                confermaAcquisto = InputManager.LeggiConferma(
-                                    "Confermi l'aquisto?"
-                                );
+                                confermaAcquisto = InputManager.LeggiConferma("Confermi l'aquisto?");
                                 Color.Reset();
 
-                                calcoloTotaleCarrello = carrelloManager.CalcolaTotale(
-                                    cliente.Cart.Cart
-                                );
+                                calcoloTotaleCarrello = carrelloManager.CalcolaTotale(cliente.Cart.Cart);
                                 if (confermaAcquisto)
                                 {
                                     if (cliente.PercentualeSconto != 0)
@@ -203,25 +189,13 @@ class Program // <--- (standard/default)
                                         Color.Green();
                                         Console.WriteLine("Congratulazioni!");
                                         Color.Reset();
-                                        Console.WriteLine(
-                                            $"Per te che sei un cliente fedele,\navraid uno sconto del {cliente.PercentualeSconto}% !"
-                                        );
+                                        Console.WriteLine($"Per te che sei un cliente fedele,\navraid uno sconto del {cliente.PercentualeSconto}% !");
                                         Console.WriteLine(new string('-', 40));
                                         Color.Red();
-                                        Console.WriteLine(
-                                            $"{"Prezzo normale:",-20} €{calcoloTotaleCarrello}"
-                                        );
-                                        calcoloTotaleCarrello -= Math.Round(
-                                            (
-                                                (calcoloTotaleCarrello * cliente.PercentualeSconto)
-                                                / 100
-                                            ),
-                                            2
-                                        );
+                                        Console.WriteLine($"{"Prezzo normale:",-20} €{calcoloTotaleCarrello}");
+                                        calcoloTotaleCarrello -= Math.Round(((calcoloTotaleCarrello * cliente.PercentualeSconto)/ 100),2);
                                         Color.Green();
-                                        Console.Write(
-                                            $"{"Prezzo scontato:",-20} €{calcoloTotaleCarrello}"
-                                        );
+                                        Console.Write($"{"Prezzo scontato:",-20} €{calcoloTotaleCarrello}");
                                         NewLine();
                                         Color.Reset();
                                         Console.WriteLine(new string('-', 40));
@@ -242,9 +216,7 @@ class Program // <--- (standard/default)
                                                     Cart = cliente.Cart.Cart,
                                                     Completed = confermaAcquisto,
                                                 },
-                                                Data = DateTime.Now.ToString(
-                                                    "dd/MM/yyyy alle HH:mm"
-                                                ),
+                                                Data = DateTime.Now.ToString("dd/MM/yyyy alle HH:mm"),
                                                 Totale = calcoloTotaleCarrello,
                                                 Completed = false,
                                             }
@@ -255,20 +227,16 @@ class Program // <--- (standard/default)
                                         repositoryClienti.SalvaClienti(cliente);
                                         Console.Clear();
                                         Color.DarkYellow();
-                                        Console.WriteLine(
-                                            "CI SIAMO QUASI! Il tuo ordine deve essere processato da un cassiere, prego attendere...\n"
-                                        );
+                                        Console.WriteLine("CI SIAMO QUASI! Il tuo ordine deve essere processato da un cassiere, prego attendere...\n");
                                         Color.Reset();
-                                        attendoIlCassiere = true;
+                                        //attendoIlCassiere = true;
                                         repositoryProdotti.SalvaProdotti(prodotti);
                                         prodotti = repositoryProdotti.CaricaProdotti();
                                     }
                                     else
                                     {
                                         Color.Red();
-                                        Console.WriteLine(
-                                            "\nPurtroppo non hai fondi a sufficienza. Rivolgiti al cassiere per ricaricare il tuo credito e continuare l'acquisto!\n"
-                                        );
+                                        Console.WriteLine("\nPurtroppo non hai fondi a sufficienza. Rivolgiti al cassiere per ricaricare il tuo credito e continuare l'acquisto!\n");
                                         // idClienteConnesso = cliente.Id;
                                         Color.Reset();
                                     }
@@ -293,9 +261,7 @@ class Program // <--- (standard/default)
                                 break;
                             case "7": // CLIENTE > LA TUA PERCENTUALE DI SCONTO
 
-                                Console.WriteLine(
-                                    $"{cliente.Username}: LA TUA PERCENTUALE DI SCONTO\n"
-                                );
+                                Console.WriteLine($"{cliente.Username}: LA TUA PERCENTUALE DI SCONTO\n");
                                 Console.Write($"{cliente.PercentualeSconto}% ");
                                 Color.Reset();
                                 Console.Write("sulle tue prossime spese.\n");
@@ -304,9 +270,7 @@ class Program // <--- (standard/default)
                             case "202": // IN ATTESA DELLO SBLOCCO DA PARTE DEL CASSIERE
                                 Console.Clear();
                                 Color.Yellow();
-                                Console.WriteLine(
-                                    "Il tuo ordine sta per essere processato, attendere...\n"
-                                );
+                                Console.WriteLine("Il tuo ordine sta per essere processato, attendere...\n");
                                 Color.Reset();
                                 break;
                             case "0": // CLIENTE > SICURO DI USCIRE?
@@ -366,9 +330,7 @@ class Program // <--- (standard/default)
                     Console.WriteLine("AREA DIPENDENTI");
                     Console.WriteLine(new string('-', 35));
                     Color.Reset();
-                    string usernameAccesso = InputManager.LeggiStringa(
-                        "\nInserisci il tuo Username > "
-                    );
+                    string usernameAccesso = InputManager.LeggiStringa("\nInserisci il tuo Username > ");
                     var dipendente = managerDipendenti.AccediComeDipendente(usernameAccesso);
                     Console.Clear();
 
@@ -389,11 +351,7 @@ class Program // <--- (standard/default)
                             Console.WriteLine("3. Amministratore");
                             Console.WriteLine("0. Esci");
                             Color.Magenta();
-                            int inserimentoAdmin = InputManager.LeggiIntero(
-                                "\nSeleziona la tua posizione > ",
-                                0,
-                                3
-                            );
+                            int inserimentoAdmin = InputManager.LeggiIntero("\nSeleziona la tua posizione > ",0,3);
                             Color.Reset();
                             Console.Clear();
                             switch (inserimentoAdmin)
@@ -403,9 +361,7 @@ class Program // <--- (standard/default)
                                     if (!PermessiCassiere(dipendente))
                                     {
                                         Color.Red();
-                                        Console.WriteLine(
-                                            "Non hai i permessi per accedere alle Casse\n"
-                                        );
+                                        Console.WriteLine("Non hai i permessi per accedere alle Casse\n");
                                         Color.Reset();
                                     }
 
@@ -424,9 +380,7 @@ class Program // <--- (standard/default)
                                         Console.WriteLine("0. Indietro");
                                         listaPurchase = repostoryPurchase.CaricaPurchases();
                                         Color.Magenta();
-                                        string sceltaCassiere = InputManager
-                                            .LeggiIntero("\n> ", 0, 3)
-                                            .ToString();
+                                        string sceltaCassiere = InputManager.LeggiIntero("\n> ", 0, 3).ToString();
                                         Color.Reset();
                                         Console.Clear();
                                         switch (sceltaCassiere)
@@ -451,17 +405,13 @@ class Program // <--- (standard/default)
                                                 {
                                                     Console.Clear();
                                                     Color.Red();
-                                                    Console.WriteLine(
-                                                        "Nessun purchase da processare\n"
-                                                    );
+                                                    Console.WriteLine("Nessun purchase da processare\n");
                                                 }
                                                 Color.Reset();
                                                 break;
                                             case "2": // MODALITA' CASSIERE > PROCESSA ACQUISTO
                                                 Color.Magenta();
-                                                Console.WriteLine(
-                                                    "MODALITA' CASSIERE > PROCESSA ACQUISTO\n"
-                                                );
+                                                Console.WriteLine("MODALITA' CASSIERE > PROCESSA ACQUISTO\n");
                                                 Color.Reset();
                                                 bool acquistiInAttesa = false;
                                                 listaPurchase = repostoryPurchase.CaricaPurchases();
@@ -479,10 +429,7 @@ class Program // <--- (standard/default)
 
                                                     // acquisisci ID del prodotto da processare
                                                     Color.Green();
-                                                    int selezionaId = InputManager.LeggiIntero(
-                                                        "\nInserisci l'ordine da processare > ",
-                                                        0
-                                                    );
+                                                    int selezionaId = InputManager.LeggiIntero("\nInserisci l'ordine da processare > ",0);
                                                     Console.Clear();
 
                                                     // se inserimento = 0, torna indietro, altrimenti seleziona
@@ -494,44 +441,18 @@ class Program // <--- (standard/default)
                                                             // se l'ID del singolo purchase è uguale a quello inserito
                                                             if (item.IdPurchase == selezionaId)
                                                             {
-                                                                Purchase tempPurchase =
-                                                                    repostoryPurchase.CaricaPurchasesSingolo(
-                                                                        selezionaId
-                                                                    );
-
-                                                                StoricoAcquisti tempStoricoAcquisti =
-                                                                    new StoricoAcquisti
-                                                                    {
-                                                                        MyPurchase = cliente
-                                                                            .Cart
-                                                                            .Cart,
-                                                                        Data = item.Data,
-                                                                        CreditoResiduo =
-                                                                            cliente.Credito,
-                                                                        Totale = item.Totale,
-                                                                    };
-
-                                                                cliente.StoricoAcquisti.Add(
-                                                                    tempStoricoAcquisti
-                                                                );
-
+                                                                Purchase tempPurchase =repostoryPurchase.CaricaPurchasesSingolo(selezionaId);
+                                                                cliente = clientiManager.CreaCliente(tempPurchase.NomeCliente);
+                                                                StoricoAcquisti tempStoricoAcquisti = new StoricoAcquisti{MyPurchase = cliente.Cart.Cart, Data = item.Data, Totale = item.Totale};
+                                                                cliente.StoricoAcquisti.Add(tempStoricoAcquisti);
+                                                                cliente.Credito -= carrelloManager.CalcolaTotale(cliente.Cart.Cart);
                                                                 tempPurchase.Completed = true;
-                                                                repostoryPurchase.SalvaPurchaseSingolo(
-                                                                    tempPurchase
-                                                                );
-
-                                                                cliente.Credito -=
-                                                                    calcoloTotaleCarrello;
-                                                                cliente.Cart.Cart =
-                                                                    new List<ProdottoCarrello>();
+                                                                repostoryPurchase.SalvaPurchaseSingolo(tempPurchase);
+                                                                cliente.Cart.Cart = new List<ProdottoCarrello>();
                                                                 cliente.Cart.Completed = false;
-                                                                repositoryClienti.SalvaClienti(
-                                                                    cliente
-                                                                );
-                                                                attendoIlCassiere = false;
-                                                                Console.WriteLine(
-                                                                    "Acquisto andato a buon fine! Il cliente può ora ritirare lo scontrino!"
-                                                                );
+                                                                repositoryClienti.SalvaClienti(cliente);
+                                                                //cliente.Cart.Completed = false;
+                                                                Console.WriteLine("Acquisto andato a buon fine! Il cliente può ora ritirare lo scontrino!");
                                                                 NewLine();
                                                             }
                                                         }
@@ -541,9 +462,7 @@ class Program // <--- (standard/default)
                                                 {
                                                     Console.Clear();
                                                     Color.Red();
-                                                    Console.WriteLine(
-                                                        "Nessun purchase da processare\n"
-                                                    );
+                                                    Console.WriteLine("Nessun purchase da processare\n");
                                                 }
 
                                                 break;
@@ -561,33 +480,23 @@ class Program // <--- (standard/default)
                                                     Color.Green();
                                                     Console.Write($"€ {cliente.Credito}");
                                                     NewLine();
-                                                    decimal ricarica = InputManager.LeggiDecimale(
-                                                        "Inserire importo da ricaricare: € "
-                                                    );
+                                                    decimal ricarica = InputManager.LeggiDecimale("Inserire importo da ricaricare: € ");
                                                     Console.Clear();
                                                     if (ricarica != 0)
                                                     {
                                                         Color.Green();
-                                                        Console.WriteLine(
-                                                            "OPERAZIONE ANDATA A BUON FINE!"
-                                                        );
+                                                        Console.WriteLine("OPERAZIONE ANDATA A BUON FINE!");
                                                         Color.Reset();
                                                         cliente.Credito += ricarica;
-                                                        Console.Write(
-                                                            "\nIl tuo nuovo credito è di "
-                                                        );
+                                                        Console.Write("\nIl tuo nuovo credito è di ");
                                                         Color.Green();
                                                         Console.Write($"{cliente.Credito}!\n");
                                                         NewLine();
-                                                        Console.WriteLine(
-                                                            "Premi un tasto per continuare..."
-                                                        );
+                                                        Console.WriteLine("Premi un tasto per continuare...");
                                                         Console.ReadKey();
                                                         Console.Clear();
                                                         repositoryClienti.SalvaClienti(cliente);
-                                                        cliente = repositoryClienti.CaricaCliente(
-                                                            cliente
-                                                        );
+                                                        cliente = repositoryClienti.CaricaCliente(cliente);
                                                     }
                                                 }
                                                 else
@@ -637,9 +546,7 @@ class Program // <--- (standard/default)
                                         Console.WriteLine("0. Indietro");
 
                                         Color.Magenta();
-                                        string sceltaMagazziniere = InputManager
-                                            .LeggiIntero("\n> ", 0, 6)
-                                            .ToString();
+                                        string sceltaMagazziniere = InputManager.LeggiIntero("\n> ", 0, 6).ToString();
                                         Color.Reset();
                                         Console.Clear();
                                         switch (sceltaMagazziniere) // MENU MAGAZZINIERE
@@ -659,49 +566,34 @@ class Program // <--- (standard/default)
                                                 }
                                                 else
                                                 {
-                                                    Console.WriteLine(
-                                                        "\nNon c'è ancora nessun prodotto.\n"
-                                                    );
+                                                    Console.WriteLine("\nNon c'è ancora nessun prodotto.\n");
                                                     NewLine();
                                                 }
                                                 break;
                                             case "2": // MODALITA' MAGAZZINIERE > AGGIUNGI PRODOTTO
 
                                                 Color.Magenta();
-                                                Console.WriteLine(
-                                                    "MODALITA' MAGAZZINIERE > AGGIUNGI PRODOTTO"
-                                                );
+                                                Console.WriteLine("MODALITA' MAGAZZINIERE > AGGIUNGI PRODOTTO");
                                                 Console.WriteLine(new string('-', 35));
                                                 Color.Reset();
                                                 NewLine();
 
                                                 Color.Green();
                                                 string nome = InputManager.LeggiStringa("Nome > ");
-                                                decimal prezzo = InputManager.LeggiDecimale(
-                                                    "Prezzo > ",
-                                                    0
-                                                );
+                                                decimal prezzo = InputManager.LeggiDecimale("Prezzo > ",0);
                                                 prezzo = Math.Round(prezzo, 2);
-                                                int giacenza = InputManager.LeggiIntero(
-                                                    "Giacenza > ",
-                                                    0
-                                                );
+                                                int giacenza = InputManager.LeggiIntero("Giacenza > ",0);
                                                 Categoria nuovaCategoria = new Categoria();
                                                 NewLine();
                                                 Console.WriteLine("Seleziona la categoria:");
                                                 NewLine();
                                                 foreach (var categoria in listaCategorie)
                                                 {
-                                                    Console.WriteLine(
-                                                        $"{categoria.ID}. {categoria.Name}"
-                                                    );
+                                                    Console.WriteLine($"{categoria.ID}. {categoria.Name}");
                                                 }
                                                 NewLine();
                                                 Color.Green();
-                                                int sceltaCategoria = InputManager.LeggiIntero(
-                                                    "> ",
-                                                    0
-                                                );
+                                                int sceltaCategoria = InputManager.LeggiIntero("> ",0);
                                                 Color.Reset();
                                                 foreach (var categoria in listaCategorie)
                                                 {
@@ -710,8 +602,7 @@ class Program // <--- (standard/default)
                                                         nuovaCategoria = categoria;
                                                     }
                                                 }
-                                                manager.AggiungiProdotto(
-                                                    new Prodotto
+                                                manager.AggiungiProdotto(new Prodotto
                                                     {
                                                         Nome = nome,
                                                         Prezzo = prezzo,
@@ -719,9 +610,7 @@ class Program // <--- (standard/default)
                                                         Categoria = nuovaCategoria,
                                                     }
                                                 );
-                                                repositoryProdotti.SalvaProdotti(
-                                                    manager.OttieniProdotti()
-                                                );
+                                                repositoryProdotti.SalvaProdotti(manager.OttieniProdotti());
                                                 Console.Clear();
                                                 Color.DarkGreen();
                                                 Console.Write($"'{nome}' ");
@@ -738,36 +627,25 @@ class Program // <--- (standard/default)
                                                 prodotti = repositoryProdotti.CaricaProdotti();
                                                 // Console.Write("ID > ");
                                                 Color.Green();
-                                                int idProdotto = InputManager.LeggiIntero(
-                                                    "ID > ",
-                                                    0
-                                                );
+                                                int idProdotto = InputManager.LeggiIntero("ID > ",0);
                                                 Color.Reset();
-                                                Prodotto prodottoTrovato = manager.TrovaProdotto(
-                                                    idProdotto
-                                                );
+                                                Prodotto prodottoTrovato = manager.TrovaProdotto(idProdotto);
 
                                                 if (prodottoTrovato != null)
                                                 {
                                                     //Console.WriteLine($"\nProdotto trovato per ID {idProdotto}: {prodottoTrovato.Nome}");
                                                     NewLine();
                                                     Color.DarkGray();
-                                                    Console.WriteLine(
-                                                        $"{"ID",-10}{"Nome",-20}{"Prezzo",-10}{"Giacenza",-10}{"Categoria",-10}"
-                                                    );
+                                                    Console.WriteLine($"{"ID",-10}{"Nome",-20}{"Prezzo",-10}{"Giacenza",-10}{"Categoria",-10}");
                                                     Console.WriteLine(new string('-', 65));
                                                     Color.Reset();
 
-                                                    Console.WriteLine(
-                                                        $"{prodottoTrovato.Id,-10}{prodottoTrovato.Nome,-20}{prodottoTrovato.Prezzo,-10:0.00}{prodottoTrovato.Giacenza,-10}{prodottoTrovato.Categoria.Name,-10}"
-                                                    );
+                                                    Console.WriteLine($"{prodottoTrovato.Id,-10}{prodottoTrovato.Nome,-20}{prodottoTrovato.Prezzo,-10:0.00}{prodottoTrovato.Giacenza,-10}{prodottoTrovato.Categoria.Name,-10}");
                                                     NewLine();
                                                 }
                                                 else
                                                 {
-                                                    Console.WriteLine(
-                                                        $"\nProdotto non trovato per ID {idProdotto}"
-                                                    );
+                                                    Console.WriteLine($"\nProdotto non trovato per ID {idProdotto}");
                                                 }
                                                 break;
                                             case "4": // MODALITA' MAGAZZINIERE > MODIFICA PRODOTTO
@@ -779,47 +657,36 @@ class Program // <--- (standard/default)
                                                 Prodotto prodottoAggiornato = new Prodotto();
 
                                                 Color.Magenta();
-                                                Console.WriteLine(
-                                                    "INSERIRE ID DEL PRODOTTO DA MODIFICARE\n"
-                                                );
+                                                Console.WriteLine("INSERIRE ID DEL PRODOTTO DA MODIFICARE\n");
                                                 Color.Reset();
                                                 StampaTabella.ComeAdmin(prodotti);
                                                 Color.DarkGray();
                                                 Console.WriteLine(new string('-', 65));
 
                                                 Color.Magenta();
-                                                int idProdottoDaAggiornare =
-                                                    InputManager.LeggiIntero("\n> ", 0);
+                                                int idProdottoDaAggiornare = InputManager.LeggiIntero("\n> ", 0);
                                                 NewLine();
                                                 Color.Reset();
-                                                Prodotto prodottoTrovato2 = manager.TrovaProdotto(
-                                                    idProdottoDaAggiornare
-                                                );
+                                                Prodotto prodottoTrovato2 = manager.TrovaProdotto(idProdottoDaAggiornare);
                                                 nuovaCategoria = new Categoria();
                                                 if (prodottoTrovato2 != null)
                                                 {
                                                     Color.Green();
                                                     Console.WriteLine("AGGIORNA:");
 
-                                                    bool aggiornaNome = InputManager.LeggiConferma(
-                                                        "Nome"
-                                                    );
+                                                    bool aggiornaNome = InputManager.LeggiConferma("Nome");
                                                     if (aggiornaNome)
                                                     {
-                                                        nomeAggiornato = InputManager.LeggiStringa(
-                                                            "> "
-                                                        );
+                                                        nomeAggiornato = InputManager.LeggiStringa("> ");
                                                     }
                                                     else
                                                     {
                                                         nomeAggiornato = prodottoTrovato2.Nome;
                                                     }
-                                                    bool aggiornaPrezzo =
-                                                        InputManager.LeggiConferma("Prezzo");
+                                                    bool aggiornaPrezzo = InputManager.LeggiConferma("Prezzo");
                                                     if (aggiornaPrezzo)
                                                     {
-                                                        prezzoAggiornato =
-                                                            InputManager.LeggiDecimale("> ", 0);
+                                                        prezzoAggiornato = InputManager.LeggiDecimale("> ", 0);
                                                         Math.Round(prezzoAggiornato, 2);
                                                     }
                                                     else
@@ -828,34 +695,25 @@ class Program // <--- (standard/default)
                                                         Math.Round(prezzoAggiornato, 2);
                                                     }
 
-                                                    bool aggiornaGiacenza =
-                                                        InputManager.LeggiConferma("Giacenza");
+                                                    bool aggiornaGiacenza = InputManager.LeggiConferma("Giacenza");
                                                     if (aggiornaGiacenza)
                                                     {
-                                                        giacenzaAggiornata =
-                                                            InputManager.LeggiIntero("> ");
+                                                        giacenzaAggiornata = InputManager.LeggiIntero("> ");
                                                     }
                                                     else
                                                     {
-                                                        giacenzaAggiornata =
-                                                            prodottoTrovato2.Giacenza;
+                                                        giacenzaAggiornata = prodottoTrovato2.Giacenza;
                                                     }
-                                                    bool aggiornaCategoria =
-                                                        InputManager.LeggiConferma("Categoria?");
+                                                    bool aggiornaCategoria = InputManager.LeggiConferma("Categoria?");
                                                     if (aggiornaCategoria)
                                                     {
                                                         NewLine();
                                                         Console.WriteLine("SELEZIONA:");
                                                         foreach (var categoria in listaCategorie)
                                                         {
-                                                            Console.WriteLine(
-                                                                $"{categoria.ID}. {categoria.Name}"
-                                                            );
+                                                            Console.WriteLine($"{categoria.ID}. {categoria.Name}");
                                                         }
-                                                        sceltaCategoria = InputManager.LeggiIntero(
-                                                            "\nScegli la categoria > ",
-                                                            0
-                                                        );
+                                                        sceltaCategoria = InputManager.LeggiIntero("\nScegli la categoria > ",0);
                                                         foreach (var categoria in listaCategorie)
                                                         {
                                                             if (sceltaCategoria == categoria.ID)
@@ -876,21 +734,14 @@ class Program // <--- (standard/default)
                                                         Categoria = nuovaCategoria,
                                                     };
 
-                                                    manager.AggiornaProdotto(
-                                                        idProdottoDaAggiornare,
-                                                        prodottoAggiornato
-                                                    );
+                                                    manager.AggiornaProdotto(idProdottoDaAggiornare,prodottoAggiornato);
                                                 }
                                                 else
                                                 {
-                                                    Console.WriteLine(
-                                                        $"\nProdotto non trovato per ID {idProdottoDaAggiornare}"
-                                                    );
+                                                    Console.WriteLine($"\nProdotto non trovato per ID {idProdottoDaAggiornare}");
                                                 }
 
-                                                repositoryProdotti.SalvaProdotti(
-                                                    manager.OttieniProdotti()
-                                                );
+                                                repositoryProdotti.SalvaProdotti(manager.OttieniProdotti());
                                                 prodotti = repositoryProdotti.CaricaProdotti();
 
                                                 Console.Clear();
@@ -913,16 +764,11 @@ class Program // <--- (standard/default)
                                                 //Console.Write("ID > ");
                                                 // int idProdottoDaEliminare = int.Parse(Console.ReadLine());
                                                 Color.Red();
-                                                int idProdottoDaEliminare =
-                                                    InputManager.LeggiIntero("\n> ", 0);
+                                                int idProdottoDaEliminare = InputManager.LeggiIntero("\n> ", 0);
                                                 Color.Reset();
-                                                prodottoDaEliminareTemp = manager.TrovaProdotto(
-                                                    idProdottoDaEliminare
-                                                );
+                                                prodottoDaEliminareTemp = manager.TrovaProdotto(idProdottoDaEliminare);
                                                 manager.EliminaProdotto(idProdottoDaEliminare);
-                                                repositoryProdotti.SalvaProdotti(
-                                                    manager.OttieniProdotti()
-                                                );
+                                                repositoryProdotti.SalvaProdotti(manager.OttieniProdotti());
                                                 prodotti = repositoryProdotti.CaricaProdotti();
                                                 Console.Clear();
 
@@ -946,11 +792,7 @@ class Program // <--- (standard/default)
                                                     Console.WriteLine("4. Visualizza Categorie");
                                                     Console.WriteLine("0. Indietro");
                                                     Color.Magenta();
-                                                    int sceltaCategorie = InputManager.LeggiIntero(
-                                                        "\n> ",
-                                                        0,
-                                                        4
-                                                    );
+                                                    int sceltaCategorie = InputManager.LeggiIntero("\n> ",0,4);
                                                     Color.Reset();
                                                     Console.Clear();
                                                     switch (sceltaCategorie)
@@ -960,28 +802,18 @@ class Program // <--- (standard/default)
                                                             Console.WriteLine("NUOVA CATEGORIA \n");
                                                             Color.Green();
 
-                                                            string nomeNuovaCategoria =
-                                                                InputManager.LeggiStringa(
-                                                                    "\nNuova categoria: "
-                                                                );
-                                                            managerCategorie.AggiungiCategoria(
-                                                                new Categoria
+                                                            string nomeNuovaCategoria = InputManager.LeggiStringa("\nNuova categoria: ");
+                                                            managerCategorie.AggiungiCategoria(new Categoria
                                                                 {
                                                                     Name = nomeNuovaCategoria,
                                                                 }
                                                             );
-                                                            repositoryCategorie.SalvaCategorie(
-                                                                listaCategorie
-                                                            );
+                                                            repositoryCategorie.SalvaCategorie(listaCategorie);
                                                             Console.Clear();
                                                             Color.Green();
-                                                            Console.Write(
-                                                                $"'{nomeNuovaCategoria}' "
-                                                            );
+                                                            Console.Write($"'{nomeNuovaCategoria}' ");
                                                             Color.Reset();
-                                                            Console.Write(
-                                                                "inserita tra le categorie.\n"
-                                                            );
+                                                            Console.Write("inserita tra le categorie.\n");
                                                             NewLine();
 
                                                             break;
@@ -989,87 +821,49 @@ class Program // <--- (standard/default)
                                                             string nomeCategoriaDaModificare;
                                                             bool trovato = false;
                                                             Color.Green();
-                                                            Console.WriteLine(
-                                                                "MODIFICA CATEGORIA TRAMITE ID\n"
-                                                            );
+                                                            Console.WriteLine("MODIFICA CATEGORIA TRAMITE ID\n");
 
                                                             StampaTabella.Categorie(listaCategorie);
                                                             Color.Green();
-                                                            int idCategoriaDaModificare =
-                                                                InputManager.LeggiIntero("> ", 0);
+                                                            int idCategoriaDaModificare = InputManager.LeggiIntero("> ", 0);
                                                             NewLine();
-                                                            foreach (
-                                                                var categoria in listaCategorie
-                                                            )
+                                                            foreach (var categoria in listaCategorie)
                                                             {
-                                                                if (
-                                                                    categoria.ID
-                                                                    == idCategoriaDaModificare
-                                                                )
+                                                                if (categoria.ID == idCategoriaDaModificare)
                                                                 {
                                                                     Color.Red();
-                                                                    Console.Write(
-                                                                        $"Aggiorna da {categoria.Name} a "
-                                                                    );
+                                                                    Console.Write($"Aggiorna da {categoria.Name} a ");
                                                                     Color.Green();
-                                                                    nomeCategoriaDaModificare =
-                                                                        InputManager.LeggiStringa(
-                                                                            ""
-                                                                        );
-                                                                    managerCategorie.AggiornaCategoria(
-                                                                        idCategoriaDaModificare,
-                                                                        new Categoria
-                                                                        {
-                                                                            Name =
-                                                                                nomeCategoriaDaModificare,
-                                                                        }
-                                                                    );
-                                                                    repositoryCategorie.SalvaCategorie(
-                                                                        listaCategorie
-                                                                    );
+                                                                    nomeCategoriaDaModificare = InputManager.LeggiStringa("");
+                                                                    managerCategorie.AggiornaCategoria(idCategoriaDaModificare,new Categoria{Name = nomeCategoriaDaModificare,});
+                                                                    repositoryCategorie.SalvaCategorie(listaCategorie);
                                                                     trovato = true;
                                                                     Console.Clear();
 
-                                                                    Console.Write(
-                                                                        $"'{nomeCategoriaDaModificare}'"
-                                                                    );
+                                                                    Console.Write($"'{nomeCategoriaDaModificare}'");
                                                                     Color.Reset();
-                                                                    Console.Write(
-                                                                        $", categoria aggiornata correttamente\n"
-                                                                    );
+                                                                    Console.Write($", categoria aggiornata correttamente\n");
                                                                     NewLine();
                                                                 }
                                                             }
                                                             if (!trovato)
                                                             {
                                                                 Color.Red();
-                                                                Console.WriteLine(
-                                                                    $"Nessuna categoria trovata per ID:{idCategoriaDaModificare}"
-                                                                );
+                                                                Console.WriteLine($"Nessuna categoria trovata per ID:{idCategoriaDaModificare}");
                                                             }
 
                                                             break;
                                                         case 3:
                                                             StampaTabella.Categorie(listaCategorie);
-                                                            int idCategoriaDaEliminare =
-                                                                InputManager.LeggiIntero(
-                                                                    "Inserisci ID categoria da eliminare> ",
-                                                                    0
-                                                                );
-                                                            managerCategorie.EliminaCategoria(
-                                                                idCategoriaDaEliminare
-                                                            );
+                                                            int idCategoriaDaEliminare = InputManager.LeggiIntero("Inserisci ID categoria da eliminare> ",0);
+                                                            managerCategorie.EliminaCategoria(idCategoriaDaEliminare);
                                                             Console.Clear();
-                                                            repositoryCategorie.SalvaCategorie(
-                                                                listaCategorie
-                                                            );
+                                                            repositoryCategorie.SalvaCategorie(listaCategorie);
                                                             StampaTabella.Categorie(listaCategorie);
                                                             break;
                                                         case 4:
                                                             Color.Magenta();
-                                                            Console.WriteLine(
-                                                                "TUTTE LE CATEGORIE\n"
-                                                            );
+                                                            Console.WriteLine("TUTTE LE CATEGORIE\n");
                                                             Color.Reset();
                                                             StampaTabella.Categorie(listaCategorie);
                                                             break;
@@ -1095,15 +889,10 @@ class Program // <--- (standard/default)
                                     if (!PermessiAmministratore(dipendente))
                                     {
                                         Color.Red();
-                                        Console.WriteLine(
-                                            "Non hai i permessi dell'Amministratore\n"
-                                        );
+                                        Console.WriteLine("Non hai i permessi dell'Amministratore\n");
                                         Color.Reset();
                                     }
-                                    while (
-                                        continuaComeAmministratore
-                                        && PermessiAmministratore(dipendente)
-                                    )
+                                    while (continuaComeAmministratore&& PermessiAmministratore(dipendente))
                                     {
                                         repositoryProdotti.SalvaProdotti(prodotti);
                                         prodotti = repositoryProdotti.CaricaProdotti();
@@ -1120,9 +909,7 @@ class Program // <--- (standard/default)
                                         Console.WriteLine("0. Indietro");
 
                                         Color.Magenta();
-                                        string sceltaAmministratore = InputManager
-                                            .LeggiIntero("\n> ", 0, 5)
-                                            .ToString();
+                                        string sceltaAmministratore = InputManager.LeggiIntero("\n> ", 0, 5).ToString();
                                         Color.Reset();
                                         Console.Clear();
 
@@ -1130,9 +917,7 @@ class Program // <--- (standard/default)
                                         {
                                             case "1": // MODALITA' AMMINISTRATORE > VISUALIZZA DIPENDENTI
                                                 Color.Magenta();
-                                                Console.WriteLine(
-                                                    "MODALITA' AMMINISTRATORE > VISUALIZZA DIPENDENTI"
-                                                );
+                                                Console.WriteLine("MODALITA' AMMINISTRATORE > VISUALIZZA DIPENDENTI");
                                                 NewLine();
                                                 Color.Reset();
                                                 StampaDipendenti.Tabella(dipendenti);
@@ -1141,27 +926,21 @@ class Program // <--- (standard/default)
                                                 break;
                                             case "2": // MODALITA' AMMINISTRATORE > AGGIUNGI DIPENDENTE
                                                 Color.Magenta();
-                                                Console.WriteLine(
-                                                    "MODALITA' AMMINISTRATORE > AGGIUNGI DIPENDENTE"
-                                                );
+                                                Console.WriteLine("MODALITA' AMMINISTRATORE > AGGIUNGI DIPENDENTE");
                                                 Console.WriteLine(new string('-', 48));
                                                 NewLine();
                                                 Color.Reset();
 
                                                 Dipendente nuovoDipendente = new Dipendente();
                                                 Color.Green();
-                                                string username = InputManager.LeggiStringa(
-                                                    "Username del nuovo dipendente: "
-                                                );
+                                                string username = InputManager.LeggiStringa("Username del nuovo dipendente: ");
                                                 string ruolo = InputManager.LeggiStringa("Ruolo: ");
                                                 Dipendente tempDipendente = new Dipendente
                                                 {
                                                     Username = username,
                                                     Ruolo = ruolo,
                                                 };
-                                                managerDipendenti.AggiungiDipendente(
-                                                    tempDipendente
-                                                );
+                                                managerDipendenti.AggiungiDipendente(tempDipendente);
                                                 repositoryDipendenti.SalvaDipendenti(dipendenti);
                                                 Color.Reset();
                                                 Console.Clear();
@@ -1174,23 +953,16 @@ class Program // <--- (standard/default)
                                             case "3": // MODALITA' AMMINISTRATORE > ELIMINA DIPENDENTE
 
                                                 Color.Magenta();
-                                                Console.WriteLine(
-                                                    "MODALITA' AMMINISTRATORE > ELIMINA DIPENDENTE"
-                                                );
+                                                Console.WriteLine("MODALITA' AMMINISTRATORE > ELIMINA DIPENDENTE");
                                                 Console.WriteLine(new string('-', 48));
                                                 NewLine();
                                                 Color.Reset();
 
                                                 StampaDipendenti.Tabella(dipendenti);
                                                 Color.Red();
-                                                int idPerElimina = InputManager.LeggiIntero(
-                                                    "\nInserisci ID del dipendente da eliminare > "
-                                                );
+                                                int idPerElimina = InputManager.LeggiIntero("\nInserisci ID del dipendente da eliminare > ");
                                                 Color.Reset();
-                                                Dipendente dipendenteEliminato =
-                                                    managerDipendenti.TrovaDipendentePerId(
-                                                        idPerElimina
-                                                    );
+                                                Dipendente dipendenteEliminato = managerDipendenti.TrovaDipendentePerId(idPerElimina);
                                                 managerDipendenti.EliminaDipendente(idPerElimina);
                                                 repositoryDipendenti.SalvaDipendenti(dipendenti);
                                                 Console.Clear();
@@ -1204,23 +976,15 @@ class Program // <--- (standard/default)
                                             case "4": // MODALITA' AMMINISTRATORE > AGGIORNA DIPENDENTE
 
                                                 Color.Magenta();
-                                                Console.WriteLine(
-                                                    "MODALITA' AMMINISTRATORE > AGGIORNA DIPENDENTE"
-                                                );
+                                                Console.WriteLine("MODALITA' AMMINISTRATORE > AGGIORNA DIPENDENTE");
                                                 NewLine();
                                                 Color.Reset();
 
                                                 StampaDipendenti.Tabella(dipendenti);
                                                 Color.DarkYellow();
-                                                int idPerAggiorna = InputManager.LeggiIntero(
-                                                    "\nInserisci ID Cliente da aggiornare > ",
-                                                    0
-                                                );
+                                                int idPerAggiorna = InputManager.LeggiIntero("\nInserisci ID Cliente da aggiornare > ",0);
                                                 Color.Reset();
-                                                Dipendente dipendenteDaAggiornare =
-                                                    managerDipendenti.TrovaDipendentePerId(
-                                                        idPerAggiorna
-                                                    );
+                                                Dipendente dipendenteDaAggiornare = managerDipendenti.TrovaDipendentePerId(idPerAggiorna);
                                                 managerDipendenti.AggiornaDipendente(idPerAggiorna);
                                                 repositoryDipendenti.SalvaDipendenti(dipendenti);
                                                 Console.Clear();
@@ -1236,26 +1000,20 @@ class Program // <--- (standard/default)
                                             case "5": // MODALITA' AMMINISTRATORE > CALCOLA FATTURATO
 
                                                 Color.Magenta();
-                                                Console.WriteLine(
-                                                    "MODALITA' AMMINISTRATORE > CALCOLA FATTURATO"
-                                                );
+                                                Console.WriteLine("MODALITA' AMMINISTRATORE > CALCOLA FATTURATO");
                                                 NewLine();
                                                 Color.Reset();
 
                                                 listaPurchase = repostoryPurchase.CaricaPurchases();
                                                 decimal totaleFatturato = 0;
                                                 Color.DarkGray();
-                                                Console.WriteLine(
-                                                    $"{"PURCHASE",-15}{"CLIENTE",-15}{"SPESA",-15}{"DATA",-15}"
-                                                );
+                                                Console.WriteLine($"{"PURCHASE",-15}{"CLIENTE",-15}{"SPESA",-15}{"DATA",-15}");
                                                 NewLine();
                                                 Color.Reset();
 
                                                 foreach (var purchase in listaPurchase)
                                                 {
-                                                    Console.WriteLine(
-                                                        $"{purchase.IdPurchase,-15}{purchase.NomeCliente,-15}{purchase.Totale.ToString("F2"),-15}{purchase.Data,-15}"
-                                                    );
+                                                    Console.WriteLine($"{purchase.IdPurchase,-15}{purchase.NomeCliente,-15}{purchase.Totale.ToString("F2"),-15}{purchase.Data,-15}");
                                                     totaleFatturato += purchase.Totale;
                                                 }
                                                 NewLine();
@@ -1271,9 +1029,7 @@ class Program // <--- (standard/default)
                                                 NewLine();
                                                 NewLine();
                                                 Color.Magenta();
-                                                Console.WriteLine(
-                                                    "Premi un tasto per tornare al menu..."
-                                                );
+                                                Console.WriteLine( "Premi un tasto per tornare al menu...");
                                                 Color.Reset();
                                                 Console.ReadKey();
                                                 Console.Clear();
@@ -1286,9 +1042,7 @@ class Program // <--- (standard/default)
                                     break;
                                 case 0: //* ESCI
                                     Color.Red();
-                                    continua = !InputManager.LeggiConferma(
-                                        "Terminare l'applicazione?"
-                                    );
+                                    continua = !InputManager.LeggiConferma( "Terminare l'applicazione?");
                                     Color.Reset();
                                     Console.Clear();
                                     continuaComeDipendente = false;

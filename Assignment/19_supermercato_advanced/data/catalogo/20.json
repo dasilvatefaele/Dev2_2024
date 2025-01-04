@@ -1,0 +1,10 @@
+{
+  "Id": 20,
+  "Nome": "Articolo3",
+  "Prezzo": 24.0,
+  "Giacenza": 9,
+  "Categoria": {
+    "Name": "SCONOSCIUTO",
+    "ID": 10
+  }
+}

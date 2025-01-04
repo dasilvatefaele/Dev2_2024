@@ -1,23 +1,23 @@
 {
   "IdPurchase": 1,
   "IdCliente": 1,
-  "NomeCliente": "Felipe",
+  "NomeCliente": "Aldo",
   "MyPurchase": {
     "Cart": [
       {
-        "Id": 10,
-        "Nome": "Vino",
-        "Prezzo": 18.50,
-        "Quantita": 5,
+        "Id": 18,
+        "Nome": "Articolo1",
+        "Prezzo": 10.0,
+        "Quantita": 1,
         "Categoria": {
-          "Name": "Alcolici",
-          "ID": 7
+          "Name": "SCONOSCIUTO",
+          "ID": 10
         }
       }
     ],
     "Completed": true
   },
-  "Data": "01/01/2025 alle 21:50",
-  "Totale": 92.50,
+  "Data": "04/01/2025 alle 19:18",
+  "Totale": 10.0,
   "Completed": true
 }

@@ -1,11 +1,28 @@
 {
   "Id": 2,
-  "Username": "Patrizio",
+  "Username": "Giovanni",
   "Cart": {
     "Cart": [],
     "Completed": false
   },
-  "StoricoAcquisti": [],
+  "StoricoAcquisti": [
+    {
+      "MyPurchase": [
+        {
+          "Id": 19,
+          "Nome": "Articolo2",
+          "Prezzo": 16.0,
+          "Quantita": 1,
+          "Categoria": {
+            "Name": "SCONOSCIUTO",
+            "ID": 10
+          }
+        }
+      ],
+      "Data": "04/01/2025 alle 19:18",
+      "Totale": 16.0
+    }
+  ],
   "PercentualeSconto": 0,
-  "Credito": 400.00
+  "Credito": 184.00
 }

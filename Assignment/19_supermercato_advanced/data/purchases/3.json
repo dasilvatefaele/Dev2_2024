@@ -1,33 +1,23 @@
 {
   "IdPurchase": 3,
   "IdCliente": 3,
-  "NomeCliente": "Marcia",
+  "NomeCliente": "Giacomo",
   "MyPurchase": {
     "Cart": [
       {
-        "Id": 16,
-        "Nome": "Guarana",
-        "Prezzo": 2.0,
-        "Quantita": 5,
+        "Id": 20,
+        "Nome": "Articolo3",
+        "Prezzo": 24.0,
+        "Quantita": 1,
         "Categoria": {
-          "Name": "Bevande",
-          "ID": 3
-        }
-      },
-      {
-        "Id": 1,
-        "Nome": "Coca Cola",
-        "Prezzo": 1.49,
-        "Quantita": 10,
-        "Categoria": {
-          "Name": "Bevande",
-          "ID": 3
+          "Name": "SCONOSCIUTO",
+          "ID": 10
         }
       }
     ],
     "Completed": true
   },
-  "Data": "02/01/2025 alle 01:55",
-  "Totale": 24.90,
+  "Data": "04/01/2025 alle 19:18",
+  "Totale": 24.0,
   "Completed": true
 }

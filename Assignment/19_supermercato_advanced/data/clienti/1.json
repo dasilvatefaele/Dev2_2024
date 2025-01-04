@@ -1,6 +1,6 @@
 {
   "Id": 1,
-  "Username": "Felipe",
+  "Username": "Aldo",
   "Cart": {
     "Cart": [],
     "Completed": false
@@ -9,99 +9,20 @@
     {
       "MyPurchase": [
         {
-          "Id": 10,
-          "Nome": "Vino",
-          "Prezzo": 18.50,
-          "Quantita": 5,
+          "Id": 18,
+          "Nome": "Articolo1",
+          "Prezzo": 10.0,
+          "Quantita": 1,
           "Categoria": {
-            "Name": "Alcolici",
-            "ID": 7
+            "Name": "SCONOSCIUTO",
+            "ID": 10
           }
         }
       ],
-      "Data": "01/01/2025 alle 21:50",
-      "CreditoResiduo": 200.00,
-      "Totale": 92.50
-    },
-    {
-      "MyPurchase": [
-        {
-          "Id": 7,
-          "Nome": "Mele Fuji",
-          "Prezzo": 0.79,
-          "Quantita": 10,
-          "Categoria": {
-            "Name": "Verdure",
-            "ID": 1
-          }
-        },
-        {
-          "Id": 10,
-          "Nome": "Vino",
-          "Prezzo": 18.50,
-          "Quantita": 10,
-          "Categoria": {
-            "Name": "Alcolici",
-            "ID": 7
-          }
-        }
-      ],
-      "Data": "02/01/2025 alle 00:47",
-      "CreditoResiduo": 307.50,
-      "Totale": 183.26
-    },
-    {
-      "MyPurchase": [
-        {
-          "Id": 10,
-          "Nome": "Vino",
-          "Prezzo": 18.50,
-          "Quantita": 5,
-          "Categoria": {
-            "Name": "Alcolici",
-            "ID": 7
-          }
-        }
-      ],
-      "Data": "02/01/2025 alle 02:00",
-      "CreditoResiduo": 124.24,
-      "Totale": 83.25
-    },
-    {
-      "MyPurchase": [
-        {
-          "Id": 16,
-          "Nome": "Guarana",
-          "Prezzo": 2.0,
-          "Quantita": 10,
-          "Categoria": {
-            "Name": "Bevande",
-            "ID": 3
-          }
-        }
-      ],
-      "Data": "02/01/2025 alle 02:03",
-      "CreditoResiduo": 100.99,
-      "Totale": 18.0
-    },
-    {
-      "MyPurchase": [
-        {
-          "Id": 16,
-          "Nome": "Guarana",
-          "Prezzo": 2.0,
-          "Quantita": 10,
-          "Categoria": {
-            "Name": "Bevande",
-            "ID": 3
-          }
-        }
-      ],
-      "Data": "02/01/2025 alle 02:38",
-      "CreditoResiduo": 82.99,
-      "Totale": 18.0
+      "Data": "04/01/2025 alle 19:18",
+      "Totale": 10.0
     }
   ],
-  "PercentualeSconto": 10,
-  "Credito": 64.99
+  "PercentualeSconto": 0,
+  "Credito": 190.00
 }

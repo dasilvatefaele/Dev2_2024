@@ -1,33 +1,23 @@
 {
   "IdPurchase": 2,
-  "IdCliente": 1,
-  "NomeCliente": "Felipe",
+  "IdCliente": 2,
+  "NomeCliente": "Giovanni",
   "MyPurchase": {
     "Cart": [
       {
-        "Id": 7,
-        "Nome": "Mele Fuji",
-        "Prezzo": 0.79,
-        "Quantita": 10,
+        "Id": 19,
+        "Nome": "Articolo2",
+        "Prezzo": 16.0,
+        "Quantita": 1,
         "Categoria": {
-          "Name": "Verdure",
-          "ID": 1
-        }
-      },
-      {
-        "Id": 10,
-        "Nome": "Vino",
-        "Prezzo": 18.50,
-        "Quantita": 10,
-        "Categoria": {
-          "Name": "Alcolici",
-          "ID": 7
+          "Name": "SCONOSCIUTO",
+          "ID": 10
         }
       }
     ],
     "Completed": true
   },
-  "Data": "02/01/2025 alle 00:47",
-  "Totale": 183.26,
+  "Data": "04/01/2025 alle 19:18",
+  "Totale": 16.0,
   "Completed": true
 }

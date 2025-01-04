@@ -1312,6 +1312,14 @@ git push -u origin main
 ### LA PRESENTE VERSIONE (10.10) E' LA PIU' SOLIDA NELLA SUA INTEREZZA 
 #### PROSSIME IMPLEMENTAZIONI EXTRA
 
+```bash
+git add --all
+git commit -m "Supermercato Advanced - 10/10 - VERSIONE STABILE"
+git push -u origin main
+```
+# VERSIONE STABILE v11
+### RISOLTA PROBLEMATICA NELLA PROCESSAZIONE MULTIPLA DEI PURCHASES
+
 * [ ] Cliente deve poter visualizzare il proprio `storico`
 * [ ] Cliente può visualizzare prodotti per categoria
 * [ ] Amministratore deve visualizzare la lista dei `clienti` e le loro complete informazioni
@@ -1324,6 +1332,6 @@ git push -u origin main
 
 ```bash
 git add --all
-git commit -m "Supermercato Advanced - 10/10 - VERSIONE STABILE"
+git commit -m "Supermercato Advanced - v11 (SOLIDA)"
 git push -u origin main
 ```
