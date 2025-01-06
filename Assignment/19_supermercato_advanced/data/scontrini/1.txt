@@ -1,0 +1,20 @@
+
+			SUPERMERCATO ADVANCED
+			  DI TEFH33
+			  VIA BRACELLI 33
+
+			DOCUMENTO COMMERCIALE
+		   di vendita o prestazione
+
+		DESCRIZIONE                 PREZZO    
+		Carote                      0.99      
+		Mozzarella                  3.69      
+		Deodorante                  2.49      
+		Mozzarella                  3.69      
+		----------------------------------
+		TOTALE                      13.83     
+
+				CASSA NUMERO: 1
+
+			 06/01/2025 alle 13:00
+				 DOCUMENTO N. 1

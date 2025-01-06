@@ -2,7 +2,7 @@
   "Id": 1,
   "Nome": "Coca Cola",
   "Prezzo": 1.49,
-  "Giacenza": 87,
+  "Giacenza": 82,
   "Categoria": {
     "Name": "Bevande",
     "ID": 3

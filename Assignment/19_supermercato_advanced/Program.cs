@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Diagnostics.Tracing;
+using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 
 class Program // <--- (standard/default)
@@ -487,6 +488,8 @@ class Program // <--- (standard/default)
                                                 Console.WriteLine("MODALITA' CASSIERE > PROCESSA ACQUISTO\n");
                                                 Color.Reset();
                                                 bool acquistiInAttesa = false;
+                                                bool casseAperte = false;
+                                                Cassa cassaSelezionata = new Cassa();
                                                 listaPurchase = repostoryPurchase.CaricaPurchases();
                                                 //stampa tabella purchase
                                                 foreach (var purchase in listaPurchase)
@@ -531,20 +534,64 @@ class Program // <--- (standard/default)
                                                             // se l'ID del singolo purchase è uguale a quello inserito
                                                             if (item.IdPurchase == selezionaId)
                                                             {
-                                                                Purchase tempPurchase = repostoryPurchase.CaricaPurchasesSingolo(selezionaId);
-                                                                cliente = clientiManager.CheckCliente(tempPurchase.NomeCliente);
-                                                                StoricoAcquisti tempStoricoAcquisti = new StoricoAcquisti { MyPurchase = cliente.Cart.Cart, Data = item.Data, Totale = item.Totale };
-                                                                cliente.StoricoAcquisti.Add(tempStoricoAcquisti);
-                                                                cliente.Credito -= carrelloManager.CalcolaTotale(cliente.Cart.Cart);
-                                                                tempPurchase.Completed = true;
-                                                                repostoryPurchase.SalvaPurchaseSingolo(tempPurchase);
-                                                                listaPurchase = repostoryPurchase.CaricaPurchases();
-                                                                cliente.Cart.Cart = new List<ProdottoCarrello>();
-                                                                cliente.Cart.Completed = false;
-                                                                repositoryClienti.SalvaClienti(cliente);
-                                                                //cliente.Cart.Completed = false;
-                                                                Console.WriteLine("Acquisto andato a buon fine! Il cliente può ora ritirare lo scontrino!");
-                                                                NewLine();
+                                                                // dipendente deve selezionare la cassa
+
+                                                                if (managerCasse.OttieniCasse().Count != 0)
+                                                                {
+                                                                    casseAperte = true;
+                                                                    do
+                                                                    {
+                                                                        Color.Magenta();
+                                                                        Console.WriteLine("VISUALIZZA CASSE \n");
+                                                                        StampaTabella.VisualizzaCasse(managerCasse.OttieniCasse());
+                                                                        Color.Reset();
+                                                                        int selezioneCassa = InputManager.LeggiIntero("\nSeleziona la Cassa> ", 0);
+                                                                        cassaSelezionata = managerCasse.TrovaCassaPerId(selezioneCassa);
+                                                                    } while (cassaSelezionata == null);
+                                                                    cassaSelezionata.Acquisti = new List<StoricoAcquisti>();
+                                                                }
+
+
+
+                                                                Console.Clear();
+                                                                
+                                        
+
+
+                                                                // inserire lo storico nella cassa
+                                                                // scontrino processato = true
+                                                                // sommare il fatturato
+
+
+                                                                if (casseAperte)
+                                                                {
+                                                                    Purchase tempPurchase = repostoryPurchase.CaricaPurchasesSingolo(selezionaId);
+                                                                    cliente = clientiManager.CheckCliente(tempPurchase.NomeCliente);
+                                                                    var prodottiTemp = cliente.Cart.Cart;
+                                                                    StoricoAcquisti tempStoricoAcquisti = new StoricoAcquisti { MyPurchase = cliente.Cart.Cart, Data = item.Data, Totale = item.Totale };
+                                                                    cassaSelezionata.Cassiere = dipendente;
+                                                                    cliente.StoricoAcquisti.Add(tempStoricoAcquisti);
+                                                                    cassaSelezionata.Acquisti.Add(tempStoricoAcquisti);
+                                                                    cliente.Credito -= carrelloManager.CalcolaTotale(cliente.Cart.Cart);
+                                                                    cassaSelezionata.Fatturato += carrelloManager.CalcolaTotale(cliente.Cart.Cart);
+                                                                    tempPurchase.Completed = true;
+                                                                    repostoryPurchase.SalvaPurchaseSingolo(tempPurchase);
+                                                                    listaPurchase = repostoryPurchase.CaricaPurchases();
+                                                                    cliente.Cart.Cart = new List<ProdottoCarrello>();
+                                                                    cliente.Cart.Completed = false;
+                                                                    repositoryClienti.SalvaClienti(cliente);
+                                                                    cassaSelezionata.ScontrinoProcessato = GeneraScontrino(prodottiTemp,tempPurchase.Totale,cassaSelezionata.Id,tempPurchase.Data,tempPurchase.IdPurchase);
+                                                                    repositoryCasse.SalvaCassaSingola(cassaSelezionata);
+                                                                    Console.WriteLine("Acquisto andato a buon fine! Il cliente può ora ritirare lo scontrino!");
+                                                                    NewLine();
+                                                                }
+                                                                else
+                                                                {
+                                                                    Console.Clear();
+                                                                    Color.Red();
+                                                                    Console.WriteLine("Attendi che un amministratore attivi una cassa.\n");
+                                                                    Color.Reset();
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -1236,33 +1283,33 @@ class Program // <--- (standard/default)
                                                             bool cassaEliminata = managerCasse.EliminaCassaPerId(idCassaDaEliminare);
                                                             if (cassaEliminata)
                                                             {
-                                    
+
                                                                 Color.Green();
                                                                 Console.WriteLine($"La cassa Numero {idCassaDaEliminare} è stata eliminata correttamente!");
                                                                 Color.Reset();
                                                             }
-                                                    break;
+                                                            break;
                                                         case 3:
-                                                        Color.Magenta();
-                                                        Console.WriteLine("VISUALIZZA CASSE \n");
-                                                        StampaTabella.VisualizzaCasse(managerCasse.OttieniCasse());
-                                                        Color.Reset();
+                                                            Color.Magenta();
+                                                            Console.WriteLine("VISUALIZZA CASSE \n");
+                                                            StampaTabella.VisualizzaCasse(managerCasse.OttieniCasse());
+                                                            Color.Reset();
+                                                            //         StampaTabella.Categorie(listaCategorie);
+                                                            //         int idCategoriaDaEliminare = InputManager.LeggiIntero("Inserisci ID categoria da eliminare> ", 0);
+                                                            //         managerCategorie.EliminaCategoria(idCategoriaDaEliminare);
+                                                            //         Console.Clear();
+                                                            //         repositoryCategorie.SalvaCategorie(listaCategorie);
+                                                            //         StampaTabella.Categorie(listaCategorie);
+                                                            break;
+                                                        // case 4:
+                                                        //         Color.Magenta();
+                                                        //         Console.WriteLine("TUTTE LE CATEGORIE\n");
+                                                        //         Color.Reset();
                                                         //         StampaTabella.Categorie(listaCategorie);
-                                                        //         int idCategoriaDaEliminare = InputManager.LeggiIntero("Inserisci ID categoria da eliminare> ", 0);
-                                                        //         managerCategorie.EliminaCategoria(idCategoriaDaEliminare);
-                                                        //         Console.Clear();
-                                                        //         repositoryCategorie.SalvaCategorie(listaCategorie);
-                                                        //         StampaTabella.Categorie(listaCategorie);
-                                                        break;
-                                                    // case 4:
-                                                    //         Color.Magenta();
-                                                    //         Console.WriteLine("TUTTE LE CATEGORIE\n");
-                                                    //         Color.Reset();
-                                                    //         StampaTabella.Categorie(listaCategorie);
-                                                    //         break;
-                                                    case 0:
-                                                        continuaInGestioneCasse = false;
-                                                        break;
+                                                        //         break;
+                                                        case 0:
+                                                            continuaInGestioneCasse = false;
+                                                            break;
                                                     }
                                                 }
                                                 break;
@@ -1330,5 +1377,70 @@ class Program // <--- (standard/default)
     static void NewLine()
     {
         Console.WriteLine();
+    }
+
+    static bool GeneraScontrino(List<ProdottoCarrello> prodotti, decimal totaleSpesa, int numeroCassa, string data, int purchaseNumero)
+    {
+        
+
+        try
+        {
+            string path = "data/scontrini";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            string pathScontrino = Path.Combine(path, $"{purchaseNumero}.txt");
+            string intestazione = $"\n\t\t\tSUPERMERCATO ADVANCED\n\t\t\t  DI TEFH33\n\t\t\t  VIA BRACELLI 33\n\n\t\t\tDOCUMENTO COMMERCIALE\n\t\t   di vendita o prestazione\n\n";
+            string vociTabella = $"\t\t{"DESCRIZIONE",-28}{"PREZZO",-10}\n";
+
+            string scontrino = intestazione + vociTabella;
+            File.Create(pathScontrino).Close();
+            File.WriteAllText(pathScontrino, scontrino);
+            foreach (var prodotto in prodotti)
+            {
+                File.AppendAllText(pathScontrino, $"\t\t{prodotto.Nome,-28}{prodotto.Prezzo.ToString("F2"),-10}\n");
+            }
+            string br = new string('-', 34);
+            string totale = $"\t\t{"TOTALE",-28}{totaleSpesa.ToString("F2"),-10}\n\n";
+            string infoFinali = $"\t\t\t\tCASSA NUMERO: {numeroCassa}\n\n\t\t\t {data}\n\t\t\t\t DOCUMENTO N. {purchaseNumero.ToString()}";
+
+            string completamento = $"\t\t{br}\n{totale}{infoFinali}";
+            File.AppendAllText(pathScontrino, completamento);
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+       
+        /*
+
+                    SUPERMERCATO ADVANCED (3tab)
+                          DI TEFH33 (3tab,2sp)
+                      VIA BRACELLI 33R (3tab,2sp)
+                                \n
+                    DOCUMENTO COMMERCIALE (3tab)
+                   di vendita o prestazione (2t,3s)
+                                \n
+            (2T)DESCRIZIONE             PREZZO(4t)
+            art                         3     
+            art                         4
+            art                         5
+
+            TOTLE COMPLESSOVO(1t)       12
+                                \n
+                        CASSA NUMERO: 1 (4t)
+                                \n
+                        03-01-2026 11:15
+                         DOCUMENTO N. 1 (4T,1S)
+
+
+
+
+
+
+        */
+
     }
 }

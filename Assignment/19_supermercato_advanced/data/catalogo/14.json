@@ -1,8 +1,8 @@
 {
   "Id": 14,
-  "Nome": "Latte Scremato",
+  "Nome": "Latte",
   "Prezzo": 3.49,
-  "Giacenza": 25,
+  "Giacenza": 24,
   "Categoria": {
     "Name": "Latticini",
     "ID": 11
