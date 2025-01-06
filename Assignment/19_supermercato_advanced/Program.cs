@@ -569,7 +569,7 @@ class Program // <--- (standard/default)
                                                                     cliente = clientiManager.CheckCliente(tempPurchase.NomeCliente);
                                                                     var prodottiTemp = cliente.Cart.Cart;
                                                                     StoricoAcquisti tempStoricoAcquisti = new StoricoAcquisti { MyPurchase = cliente.Cart.Cart, Data = item.Data, Totale = item.Totale };
-                                                                    
+
                                                                     cassaSelezionata.Cassiere = dipendente;
                                                                     cassaSelezionata.Acquisti.Add(tempStoricoAcquisti);
                                                                     cassaSelezionata.Fatturato += carrelloManager.CalcolaTotale(cliente.Cart.Cart);
@@ -909,11 +909,15 @@ class Program // <--- (standard/default)
                                                 prodotti = repositoryProdotti.CaricaProdotti();
 
                                                 Console.Clear();
-                                                Color.Green();
-                                                Console.Write($"'{prodottoAggiornato.Nome}' ");
-                                                Color.Reset();
-                                                Console.Write("aggiornato correttamente!\n");
-                                                NewLine();
+                                                
+                                                if (idProdottoDaAggiornare != 0)
+                                                {
+                                                    Color.Green();
+                                                    Console.Write($"'{prodottoAggiornato.Nome}' ");
+                                                    Color.Reset();
+                                                    Console.Write("aggiornato correttamente!\n");
+                                                    NewLine();
+                                                }
 
                                                 break;
                                             case "5": // MODALITA' MAGAZZINIERE > ELIMINA PRODOTTO

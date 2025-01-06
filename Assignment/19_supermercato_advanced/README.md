@@ -1393,6 +1393,7 @@ git push -u origin main
 * [x] La cassa memorizza correttamente gli storici degli acquisti
 * [x] spostata la generazione degli scontrini nel manager delle casse
 * [x] formattazione scontrini
+* [x] risoluzione bug di visualizzazioni superflue
 
 ```bash
 git add --all
