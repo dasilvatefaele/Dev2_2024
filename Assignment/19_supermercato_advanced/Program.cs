@@ -984,7 +984,25 @@ class Program // <--- (standard/default)
                                                 Dipendente nuovoDipendente = new Dipendente();
                                                 Color.Green();
                                                 string username = InputManager.LeggiStringa("Username del nuovo dipendente: ");
-                                                string ruolo = InputManager.LeggiStringa("Ruolo: ");
+                                                Console.WriteLine("Ruolo del nuovo dipendente:");
+                                                Color.Reset();
+                                                Console.WriteLine("\n1. Cassiere\n2. Magazziniere\n3. Amministratore");
+                                                string ruolo = "";
+                                                Color.DarkGreen();
+                                                int selezionaRuolo = InputManager.LeggiIntero("\n> ",1,3);
+                                                switch (selezionaRuolo)
+                                                {
+                                                    case 1:
+                                                        ruolo = "Cassiere";
+                                                        break;
+                                                    case 2:
+                                                        ruolo = "Magazziniere";
+                                                        break;
+                                                    case 3:
+                                                        ruolo = "Amministratore";
+                                                        break;
+                                                }
+                                                Color.Reset();
                                                 Dipendente tempDipendente = new Dipendente
                                                 {
                                                     Username = username,

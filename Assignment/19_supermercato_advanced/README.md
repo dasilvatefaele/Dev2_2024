@@ -1325,7 +1325,6 @@ git push -u origin main
 * [ ] Cliente può visualizzare prodotti per categoria
 * [ ] Amministratore deve visualizzare la lista dei `clienti` e le loro complete informazioni
 * [ ] Amministratore deve poter creare nuovi `Ruoli`
-* [ ] I `Ruoli` devono essere quindi predefiniti e selezionabili per evitare errori di battitura
 * [ ] Revisione delle rimanenti ridondanze nelle classi e nel Program.cs
 * [ ] Generazione di uno scontrino .txt generato da una nuova classe `Cassa`
 * [ ] Commentare meglio il codice e renderlo eventualmente più leggibile
@@ -1349,5 +1348,13 @@ git push -u origin main
 ```bash
 git add --all
 git commit -m "Supermercato Advanced - v11.2 (Totale fatturato solo dei purchase completati dal cassiere)"
+git push -u origin main
+```
+
+* [x] I `Ruoli` devono essere quindi predefiniti e selezionabili per evitare errori di battitura
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced - v11.3 (Ruoli predefiniti selezionabili)"
 git push -u origin main
 ```
