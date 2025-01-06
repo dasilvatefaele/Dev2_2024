@@ -22,41 +22,24 @@ public class ClientiManager
     }
     public Cliente CreaCliente(string username)
     {
-        nuovoCliente = CheckCliente(username);
-        if (nuovoCliente != null)
+        nuovoCliente = new Cliente
         {
-            Color.Green();
-            Console.WriteLine($"BENTORNATO {nuovoCliente.Username}!");
-            Console.WriteLine(new string('-', 31));
-            Console.WriteLine();
-            return nuovoCliente;
-        }
-        else
-        {
-            Color.White();
-            Console.Write($"BENVENUTO ");
-            Color.Green();
-            Console.Write($"{username}!\n");
-            Console.WriteLine("Ecco il tuo nuovo account!\n");
-            Color.Reset();
-            nuovoCliente = new Cliente
+            Username = username,
+            Id = AssegnaId(clienti),
+            Cart = new Carrello
             {
-                Username = username,
-                Id = AssegnaId(clienti),
-                Cart = new Carrello
-                {
-                    Cart = new List<ProdottoCarrello>(),
-                    Completed = false
-                },
-                StoricoAcquisti = new List<StoricoAcquisti>(),
-                PercentualeSconto = 0,
-                Credito = 200.00m
-            };
+                Cart = new List<ProdottoCarrello>(),
+                Completed = false
+            },
+            StoricoAcquisti = new List<StoricoAcquisti>(),
+            PercentualeSconto = 0,
+            Credito = 200.00m
+        };
 
-            clienti.Add(nuovoCliente);
-            repositoryClienti.SalvaClienti(nuovoCliente);
-            return nuovoCliente;
-        }
+        clienti.Add(nuovoCliente);
+        repositoryClienti.SalvaClienti(nuovoCliente);
+        return nuovoCliente;
+
         return null;
     }
 

@@ -1321,7 +1321,7 @@ git push -u origin main
 ### RISOLTA PROBLEMATICA NELLA PROCESSAZIONE MULTIPLA DEI PURCHASES
 
 
-* [ ] Isolare la stampa di `BENTORNATO {cliente.Username}` dal metodo `GeneraCliente` e spostarlo nel `Program.cs`
+
 * [ ] Cliente può visualizzare prodotti per categoria
 * [ ] Amministratore deve visualizzare la lista dei `clienti` e le loro complete informazioni
 * [ ] Amministratore deve poter creare nuovi `Ruoli`
@@ -1356,5 +1356,13 @@ git push -u origin main
 ```bash
 git add --all
 git commit -m "Supermercato Advanced - v11.3 (Ruoli predefiniti selezionabili)"
+git push -u origin main
+```
+
+* [x] Isolare la stampa di `BENTORNATO {cliente.Username}` dal metodo `GeneraCliente` e spostarlo nel `Program.cs`
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced - v11.4 (Spostata la stampa BENVENUTO / BENTORNATO dalla classe al Program.cs)"
 git push -u origin main
 ```

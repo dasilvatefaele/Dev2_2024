@@ -1,0 +1,28 @@
+{
+  "Id": 5,
+  "Username": "Michael",
+  "Cart": {
+    "Cart": [],
+    "Completed": false
+  },
+  "StoricoAcquisti": [
+    {
+      "MyPurchase": [
+        {
+          "Id": 17,
+          "Nome": "Sorvete",
+          "Prezzo": 3.40,
+          "Quantita": 1,
+          "Categoria": {
+            "Name": "Surgelado",
+            "ID": 14
+          }
+        }
+      ],
+      "Data": "06/01/2025 alle 06:44",
+      "Totale": 3.40
+    }
+  ],
+  "PercentualeSconto": 0,
+  "Credito": 196.60
+}
