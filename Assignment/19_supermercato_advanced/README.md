@@ -1320,10 +1320,7 @@ git push -u origin main
 # VERSIONE STABILE v11
 ### RISOLTA PROBLEMATICA NELLA PROCESSAZIONE MULTIPLA DEI PURCHASES
 
-
-
-* [ ] Cliente può visualizzare prodotti per categoria
-* [ ] Amministratore deve visualizzare la lista dei `clienti` e le loro complete informazioni
+* [x] Cliente può visualizzare prodotti per categoria
 * [ ] Amministratore deve poter creare nuovi `Ruoli`
 * [ ] Revisione delle rimanenti ridondanze nelle classi e nel Program.cs
 * [ ] Generazione di uno scontrino .txt generato da una nuova classe `Cassa`
@@ -1364,5 +1361,13 @@ git push -u origin main
 ```bash
 git add --all
 git commit -m "Supermercato Advanced - v11.4 (Spostata la stampa BENVENUTO / BENTORNATO dalla classe al Program.cs)"
+git push -u origin main
+```
+
+* [x] Amministratore deve visualizzare la lista dei `clienti` e le loro complete informazioni
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced - v11.5 (Amministratore visualizza dai dei clienti e informazioni)"
 git push -u origin main
 ```

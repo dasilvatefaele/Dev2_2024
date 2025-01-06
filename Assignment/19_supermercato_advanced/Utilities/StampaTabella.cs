@@ -15,8 +15,6 @@ static public class StampaTabella
     const int COLONNA_LARGE = -50;
 
     static CarrelloAdvancedManager managerCarrello = new CarrelloAdvancedManager();
-
-
     static public void ComeAdmin(List<Prodotto> prodotti)
     {
         const int LUNGHEZZA_BR = 65;
@@ -78,7 +76,6 @@ static public class StampaTabella
             Console.WriteLine("Non ci sono prodotti.\n");
         }
     }
-
     static public void Categorie(List<Categoria> listaCategorie)
     {
         Color.DarkGray();
@@ -91,7 +88,6 @@ static public class StampaTabella
         }
         Console.WriteLine();
     }
-
     static public void Purchase(List<Purchase> listaPurchase)
     {
         CarrelloAdvancedManager carrelloManager = new CarrelloAdvancedManager();
@@ -109,7 +105,6 @@ static public class StampaTabella
         }
         Console.WriteLine();
     }
-
     static public void StampaStorico (Cliente cliente)
     {
         Color.DarkGray();
@@ -149,4 +144,6 @@ static public class StampaTabella
         }
 
     }
+
+    
 }

@@ -973,10 +973,11 @@ class Program // <--- (standard/default)
                                         Console.WriteLine("3. Elimina Dipendente");
                                         Console.WriteLine("4. Aggiorna Dipendente");
                                         Console.WriteLine("5. Calcola Fatturato");
+                                        Console.WriteLine("6. Visualizza Clienti");
                                         Console.WriteLine("0. Indietro");
 
                                         Color.Magenta();
-                                        string sceltaAmministratore = InputManager.LeggiIntero("\n> ", 0, 5).ToString();
+                                        string sceltaAmministratore = InputManager.LeggiIntero("\n> ", 0, 6).ToString();
                                         Color.Reset();
                                         Console.Clear();
 
@@ -1122,6 +1123,15 @@ class Program // <--- (standard/default)
                                                 Color.Reset();
                                                 Console.ReadKey();
                                                 Console.Clear();
+                                                break;
+                                            case "6":
+                                                Color.Magenta();
+                                                Console.WriteLine("MODALITA' AMMINISTRATORE > VISUALIZZA CLIENTI");
+                                                NewLine();
+                                                Color.Reset();
+
+                                                StampaClienti.Tabella(clientiManager.OttieniClienti());
+                                                NewLine();
                                                 break;
                                             case "0": // ESCI
                                                 continuaComeAmministratore = false;
