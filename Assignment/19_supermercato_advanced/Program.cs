@@ -78,6 +78,7 @@ class Program // <--- (standard/default)
                         Console.WriteLine("6. Verifica il tuo credito");
                         Console.WriteLine("7. La tua percentuale di sconto");
                         Console.WriteLine("8. Visualizza Storico");
+                        Console.WriteLine("9. Prodotti per Categoria");
                         Console.WriteLine("0. Cassa o Esci");
 
                         NewLine();
@@ -87,7 +88,7 @@ class Program // <--- (standard/default)
                             $"{"Totale:",-25}{"€" + carrelloManager.CalcolaTotale(cliente.Cart.Cart).ToString("F2"),-25}"
                         );
                         Console.WriteLine(new string('-', 35));
-                        string inserimento = InputManager.LeggiIntero("\n> ", 0, 8).ToString();
+                        string inserimento = InputManager.LeggiIntero("\n> ", 0, 9).ToString();
                         Console.Clear();
 
                         if (cliente.Cart.Completed == true)
@@ -271,7 +272,50 @@ class Program // <--- (standard/default)
                             case "8":
                                 Console.WriteLine($"{cliente.Username}: I TUOI ULTIMI ACQUISTI:\n");
                                 StampaTabella.StampaStorico(cliente);
+                                break;
 
+                            case "9":
+                                Color.Green();
+                                Console.WriteLine($"{cliente.Username}: ESPLORA PER CATEGORIE \n");
+                                string tempNomeCategoria ="";
+                                List<Categoria> esploraCategorie = repositoryCategorie.CaricaCategorie();
+
+                                Color.Reset();
+                                foreach (var categoria in esploraCategorie)
+                                {
+                                    Console.WriteLine($"{categoria.ID}. {categoria.Name}");
+                                }
+                                Color.Green();
+                                int scegliCategoria = InputManager.LeggiIntero("\n> ",0, esploraCategorie.Count);
+                                Console.Clear();
+
+                                List<Prodotto> tempProdotti = new List<Prodotto>();
+                                foreach(var prodotto in manager.OttieniProdotti())
+                                {
+                                    if (prodotto.Categoria.ID == scegliCategoria)
+                                    {
+                                        tempProdotti.Add(prodotto);
+                                        tempNomeCategoria = prodotto.Categoria.Name;
+                                    }
+                                }
+                                Color.Green();
+                                Console.WriteLine($"Categoria: {tempNomeCategoria}\n");
+                                Color.Reset();
+                                StampaTabella.ComeCliente(tempProdotti);
+                                NewLine();
+
+                                bool compra = InputManager.LeggiConferma("Desideri acquistare da qui?");
+
+                                if (compra)
+                                {
+                                    Color.DarkGreen();
+                                    string prodottoScelto = InputManager.LeggiStringa("Inserisci il prodotto > ");
+                                    carrelloManager.AggiungiProdotto(prodottoScelto,carrello,ref cliente);
+                                    cliente = repositoryClienti.CaricaCliente(cliente);
+                                    prodotti = repositoryProdotti.CaricaProdotti();
+                                    NewLine();
+                                }
+                                Console.Clear();
                                 break;
                             case "202": // IN ATTESA DELLO SBLOCCO DA PARTE DEL CASSIERE
                                 Console.Clear();
@@ -1011,20 +1055,24 @@ class Program // <--- (standard/default)
                                                 Color.Reset();
 
                                                 listaPurchase = repostoryPurchase.CaricaPurchases();
+                                               
                                                 decimal totaleFatturato = 0;
                                                 Color.DarkGray();
-                                                Console.WriteLine($"{"PURCHASE",-15}{"CLIENTE",-15}{"SPESA",-15}{"DATA",-15}");
+                                                Console.WriteLine($"{"PURCHASE",-15}{"CLIENTE",-15}{"SPESA",-15}{"DATA",-25}{"STATO",-15}");
                                                 NewLine();
                                                 Color.Reset();
 
                                                 foreach (var purchase in listaPurchase)
                                                 {
-                                                    Console.WriteLine($"{purchase.IdPurchase,-15}{purchase.NomeCliente,-15}{purchase.Totale.ToString("F2"),-15}{purchase.Data,-15}");
-                                                    totaleFatturato += purchase.Totale;
+                                                    if (purchase.Completed)
+                                                    {
+                                                        Console.WriteLine($"{purchase.IdPurchase,-15}{purchase.NomeCliente,-15}{purchase.Totale.ToString("F2"),-15}{purchase.Data,-25}{purchase.Completed,-15}");
+                                                        totaleFatturato += purchase.Totale;
+                                                    }
                                                 }
                                                 NewLine();
                                                 Color.DarkGray();
-                                                Console.WriteLine(new string('-', 66));
+                                                Console.WriteLine(new string('-', 76));
                                                 NewLine();
                                                 Color.Reset();
                                                 Console.Write($"{"TOTALE FATTURATO:",-20}");

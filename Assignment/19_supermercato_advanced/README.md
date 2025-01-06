@@ -1321,6 +1321,7 @@ git push -u origin main
 ### RISOLTA PROBLEMATICA NELLA PROCESSAZIONE MULTIPLA DEI PURCHASES
 
 
+* [ ] Isolare la stampa di `BENTORNATO {cliente.Username}` dal metodo `GeneraCliente` e spostarlo nel `Program.cs`
 * [ ] Cliente può visualizzare prodotti per categoria
 * [ ] Amministratore deve visualizzare la lista dei `clienti` e le loro complete informazioni
 * [ ] Amministratore deve poter creare nuovi `Ruoli`
@@ -1340,5 +1341,13 @@ git push -u origin main
 ```bash
 git add --all
 git commit -m "Supermercato Advanced - v11.1 (Cliente visualizza lo storico)"
+git push -u origin main
+```
+
+* [x] Amministratore deve calcolare il fatturato solo dei purchase già processati
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced - v11.2 (Totale fatturato solo dei purchase completati dal cassiere)"
 git push -u origin main
 ```
