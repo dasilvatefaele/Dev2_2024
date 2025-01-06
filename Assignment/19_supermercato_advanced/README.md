@@ -1374,8 +1374,15 @@ git commit -m "Supermercato Advanced - v11.6 (Il cassiere può scegliere il clie
 git push -u origin main
 ```
 
+* [x] Amministratore può Visualizzare, Creare ed Eliminare le casse
 
-* [ ] Revisione delle rimanenti ridondanze nelle classi e nel Program.cs
+```bash
+git add --all
+git commit -m "Supermercato Advanced - v11.7 (CRUD Casse via Amministratore)"
+git push -u origin main
+```
+
 * [ ] Generazione di uno scontrino .txt generato da una nuova classe `Cassa`
+* [ ] Revisione delle rimanenti ridondanze nelle classi e nel Program.cs
 * [ ] Commentare meglio il codice e renderlo eventualmente più leggibile
 * [ ] Scrivere un nuovo file README di documentazione e flowchart 

@@ -145,5 +145,33 @@ static public class StampaTabella
 
     }
 
-    
+    static public void VisualizzaCasse (List<Cassa> listaCasse)
+    {
+        Color.DarkGray();
+        const int LUNGHEZZA_BR = 20;
+        if (listaCasse.Count > 0)
+        {
+            Color.DarkGray();
+            Console.WriteLine(new string('-', LUNGHEZZA_BR));
+            Console.WriteLine($"{"Numero",COLONNA_SMALL}{"Fatturato",COLONNA_MEDIUM}\n");
+            Color.Reset();
+            foreach (var item in listaCasse)
+            {
+                Console.Write($"{item.Id,COLONNA_SMALL}{item.Fatturato.ToString("F2"),COLONNA_MEDIUM}");
+                Color.Reset();
+                Console.WriteLine();   
+            }
+            Color.DarkGray();
+            Console.WriteLine();
+            Console.WriteLine(new string('-', LUNGHEZZA_BR));
+            Console.WriteLine();
+            Color.Reset();
+        }
+        else
+        {
+            Color.Red();
+            Console.WriteLine("Ancora nessuna cassa\n");
+            Color.Reset();
+        }
+    }
 }

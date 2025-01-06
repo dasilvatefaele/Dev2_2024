@@ -36,8 +36,6 @@ public class PurchaisManager
         repoPurchase.SalvaPurchaseSingolo(purchase);
     }
 
-
-
     public List<Purchase> OttieniPurchases()
     {
         return _purchases;

@@ -14,6 +14,7 @@ class Program // <--- (standard/default)
         ClientiRepository repositoryClienti = new ClientiRepository();
         CategorieRepository repositoryCategorie = new CategorieRepository();
         PurchaisRepository repostoryPurchase = new PurchaisRepository();
+        CasseRepository repositoryCasse = new CasseRepository();
 
         List<Prodotto> prodotti = repositoryProdotti.CaricaProdotti();
         List<Prodotto> carrello = repositoryCarrello.CaricaProdotti();
@@ -21,6 +22,7 @@ class Program // <--- (standard/default)
         List<Cliente> clienti = repositoryClienti.CaricaClienti();
         List<Categoria> listaCategorie = repositoryCategorie.CaricaCategorie();
         List<Purchase> listaPurchase = repostoryPurchase.CaricaPurchases();
+        List<Cassa> listaCasse = repositoryCasse.CaricaCasse();
         Cliente cliente = new Cliente();
 
         PurchaisManager managerPurchase = new PurchaisManager(listaPurchase);
@@ -29,6 +31,7 @@ class Program // <--- (standard/default)
         DipendentiManager managerDipendenti = new DipendentiManager(dipendenti);
         ClientiManager clientiManager = new ClientiManager(clienti);
         CategoriaManager managerCategorie = new CategoriaManager(listaCategorie);
+        CassaManager managerCasse = new CassaManager(listaCasse);
 
         //decimal subTotal = 0;
 
@@ -601,8 +604,8 @@ class Program // <--- (standard/default)
                                                                 //cliente = repositoryClienti.CaricaCliente(cliente);
                                                             }
                                                         }
-                                                       
-                                                        
+
+
                                                     }
 
                                                     if (!idDaRicaricareTrovato)
@@ -1018,10 +1021,11 @@ class Program // <--- (standard/default)
                                         Console.WriteLine("4. Aggiorna Dipendente");
                                         Console.WriteLine("5. Calcola Fatturato");
                                         Console.WriteLine("6. Visualizza Clienti");
+                                        Console.WriteLine("7. Gestione Casse");
                                         Console.WriteLine("0. Indietro");
 
                                         Color.Magenta();
-                                        string sceltaAmministratore = InputManager.LeggiIntero("\n> ", 0, 6).ToString();
+                                        string sceltaAmministratore = InputManager.LeggiIntero("\n> ", 0, 7).ToString();
                                         Color.Reset();
                                         Console.Clear();
 
@@ -1176,6 +1180,91 @@ class Program // <--- (standard/default)
                                                 clienti = repositoryClienti.CaricaClienti();
                                                 StampaClienti.Tabella(clienti);
                                                 NewLine();
+                                                break;
+                                            case "7": // MODALITA' AMMINISTRATORE > GESTIONE CASSE
+                                                bool continuaInGestioneCasse = true;
+                                                while (continuaInGestioneCasse)
+                                                {
+                                                    Color.Magenta();
+                                                    Console.WriteLine("GESTIONE CASSE\n");
+                                                    Color.Reset();
+                                                    Console.WriteLine("1. Nuova Cassa");
+                                                    Console.WriteLine("2. Elimina Cassa");
+                                                    Console.WriteLine("3. Visualizza Casse");
+                                                    Console.WriteLine("0. Indietro");
+                                                    Color.Magenta();
+                                                    int sceltaGestioneCasse = InputManager.LeggiIntero("\n> ", 0, 3);
+                                                    Color.Reset();
+                                                    Console.Clear();
+
+                                                    switch (sceltaGestioneCasse)
+                                                    {
+                                                        case 1: // NUOVA CASSA
+                                                            Color.Magenta();
+                                                            Console.WriteLine("NUOVA CASSA \n");
+                                                            Color.Green();
+                                                            bool confermaCreazioneCassa = InputManager.LeggiConferma("Creare una nuova cassa?");
+                                                            if (confermaCreazioneCassa)
+                                                            {
+                                                                Cassa nuovaCassa = managerCasse.CreaNuovaCassa(new Cassa());
+                                                                repositoryCasse.SalvaCassaSingola(nuovaCassa);
+                                                                listaCasse = repositoryCasse.CaricaCasse();
+                                                                Console.Clear();
+                                                                Color.Reset();
+                                                                Console.Write("La Cassa 'Numero ");
+                                                                Color.Green();
+                                                                Console.Write($"{nuovaCassa.Id} ");
+                                                                Color.Reset();
+                                                                Console.Write("e' stata aggiunta correttamente!\n");
+                                                                NewLine();
+                                                            }
+                                                            else
+                                                            {
+                                                                Console.Clear();
+                                                            }
+                                                            break;
+                                                        case 2: // ELIMINA CASSA TRAMITE ID
+                                                                //      string nomeCategoriaDaModificare;
+                                                            bool trovato = false;
+                                                            Color.Green();
+                                                            Console.WriteLine("ELIMINA CASSA TRAMITE ID\n");
+                                                            //      StampaTabella.Categorie(listaCategorie);
+                                                            StampaTabella.VisualizzaCasse(managerCasse.OttieniCasse());
+                                                            Color.Green();
+                                                            int idCassaDaEliminare = InputManager.LeggiIntero("> ", 0);
+                                                            NewLine();
+                                                            bool cassaEliminata = managerCasse.EliminaCassaPerId(idCassaDaEliminare);
+                                                            if (cassaEliminata)
+                                                            {
+                                    
+                                                                Color.Green();
+                                                                Console.WriteLine($"La cassa Numero {idCassaDaEliminare} è stata eliminata correttamente!");
+                                                                Color.Reset();
+                                                            }
+                                                    break;
+                                                        case 3:
+                                                        Color.Magenta();
+                                                        Console.WriteLine("VISUALIZZA CASSE \n");
+                                                        StampaTabella.VisualizzaCasse(managerCasse.OttieniCasse());
+                                                        Color.Reset();
+                                                        //         StampaTabella.Categorie(listaCategorie);
+                                                        //         int idCategoriaDaEliminare = InputManager.LeggiIntero("Inserisci ID categoria da eliminare> ", 0);
+                                                        //         managerCategorie.EliminaCategoria(idCategoriaDaEliminare);
+                                                        //         Console.Clear();
+                                                        //         repositoryCategorie.SalvaCategorie(listaCategorie);
+                                                        //         StampaTabella.Categorie(listaCategorie);
+                                                        break;
+                                                    // case 4:
+                                                    //         Color.Magenta();
+                                                    //         Console.WriteLine("TUTTE LE CATEGORIE\n");
+                                                    //         Color.Reset();
+                                                    //         StampaTabella.Categorie(listaCategorie);
+                                                    //         break;
+                                                    case 0:
+                                                        continuaInGestioneCasse = false;
+                                                        break;
+                                                    }
+                                                }
                                                 break;
                                             case "0": // ESCI
                                                 continuaComeAmministratore = false;
