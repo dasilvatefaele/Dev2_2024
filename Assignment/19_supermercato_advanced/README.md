@@ -1321,11 +1321,6 @@ git push -u origin main
 ### RISOLTA PROBLEMATICA NELLA PROCESSAZIONE MULTIPLA DEI PURCHASES
 
 * [x] Cliente può visualizzare prodotti per categoria
-* [ ] Amministratore deve poter creare nuovi `Ruoli`
-* [ ] Revisione delle rimanenti ridondanze nelle classi e nel Program.cs
-* [ ] Generazione di uno scontrino .txt generato da una nuova classe `Cassa`
-* [ ] Commentare meglio il codice e renderlo eventualmente più leggibile
-* [ ] Scrivere un nuovo file README di documentazione e flowchart 
 
 ```bash
 git add --all
@@ -1371,3 +1366,16 @@ git add --all
 git commit -m "Supermercato Advanced - v11.5 (Amministratore visualizza dai dei clienti e informazioni)"
 git push -u origin main
 ```
+* [x] Il cassiere deve poter visualizzare i clienti, e scegliere ID del cliente da ricaricare
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced - v11.6 (Il cassiere può scegliere il cliente da ricaricare tramite ID)"
+git push -u origin main
+```
+
+
+* [ ] Revisione delle rimanenti ridondanze nelle classi e nel Program.cs
+* [ ] Generazione di uno scontrino .txt generato da una nuova classe `Cassa`
+* [ ] Commentare meglio il codice e renderlo eventualmente più leggibile
+* [ ] Scrivere un nuovo file README di documentazione e flowchart 

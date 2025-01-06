@@ -9,9 +9,9 @@
     {
       "MyPurchase": [
         {
-          "Id": 19,
-          "Nome": "Articolo2",
-          "Prezzo": 16.0,
+          "Id": 20,
+          "Nome": "Articolo3",
+          "Prezzo": 24.0,
           "Quantita": 1,
           "Categoria": {
             "Name": "SCONOSCIUTO",
@@ -19,10 +19,10 @@
           }
         }
       ],
-      "Data": "06/01/2025 alle 05:56",
-      "Totale": 16.0
+      "Data": "06/01/2025 alle 07:31",
+      "Totale": 24.0
     }
   ],
   "PercentualeSconto": 0,
-  "Credito": 184.00
+  "Credito": 180.00
 }

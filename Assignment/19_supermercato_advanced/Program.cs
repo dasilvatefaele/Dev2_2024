@@ -30,7 +30,7 @@ class Program // <--- (standard/default)
         ClientiManager clientiManager = new ClientiManager(clienti);
         CategoriaManager managerCategorie = new CategoriaManager(listaCategorie);
 
-        decimal subTotal = 0;
+        //decimal subTotal = 0;
 
         // entrambi i costruttori dei manager richiedono l'argomento dell'oggetto da gestire
         bool continua = true;
@@ -344,7 +344,10 @@ class Program // <--- (standard/default)
                                 Console.WriteLine($"{cliente.Username}: SICURO DI USCIRE?\n");
                                 Color.White();
                                 Console.WriteLine("1. Continua l'acquisto");
-                                Console.WriteLine("2. Vai alla Cassa");
+                                Console.Write("2. Esci dalla sessione ");
+                                Color.DarkGray();
+                                Console.Write("(I tuoi dati non andranno persi!)");
+                                NewLine();
                                 Color.Red();
                                 Console.WriteLine("3. Chiudi l'applicazione");
                                 Color.White();
@@ -492,13 +495,30 @@ class Program // <--- (standard/default)
                                                 }
                                                 if (acquistiInAttesa)
                                                 {
-                                                    StampaTabella.Purchase(listaPurchase);
 
+                                                    bool idNonTrovato = true;
+                                                    int selezionaId = 0;
                                                     // acquisisci ID del prodotto da processare
-                                                    Color.Green();
-                                                    int selezionaId = InputManager.LeggiIntero("\nInserisci l'ordine da processare > ", 0);
-                                                    Console.Clear();
-
+                                                    do
+                                                    {
+                                                        StampaTabella.Purchase(listaPurchase);
+                                                        Color.Green();
+                                                        selezionaId = InputManager.LeggiIntero("\nInserisci l'ordine da processare > ", 0);
+                                                        Console.Clear();
+                                                        foreach (var purchase in listaPurchase)
+                                                        {
+                                                            if (purchase.IdPurchase == selezionaId && !purchase.Completed)
+                                                            {
+                                                                idNonTrovato = false;
+                                                            }
+                                                        }
+                                                        if (idNonTrovato)
+                                                        {
+                                                            Color.Red();
+                                                            Console.WriteLine("Inserire ID dall'elenco\n");
+                                                            Color.Reset();
+                                                        }
+                                                    } while (idNonTrovato);
                                                     // se inserimento = 0, torna indietro, altrimenti seleziona
                                                     if (selezionaId != 0)
                                                     {
@@ -509,12 +529,13 @@ class Program // <--- (standard/default)
                                                             if (item.IdPurchase == selezionaId)
                                                             {
                                                                 Purchase tempPurchase = repostoryPurchase.CaricaPurchasesSingolo(selezionaId);
-                                                                cliente = clientiManager.CreaCliente(tempPurchase.NomeCliente);
+                                                                cliente = clientiManager.CheckCliente(tempPurchase.NomeCliente);
                                                                 StoricoAcquisti tempStoricoAcquisti = new StoricoAcquisti { MyPurchase = cliente.Cart.Cart, Data = item.Data, Totale = item.Totale };
                                                                 cliente.StoricoAcquisti.Add(tempStoricoAcquisti);
                                                                 cliente.Credito -= carrelloManager.CalcolaTotale(cliente.Cart.Cart);
                                                                 tempPurchase.Completed = true;
                                                                 repostoryPurchase.SalvaPurchaseSingolo(tempPurchase);
+                                                                listaPurchase = repostoryPurchase.CaricaPurchases();
                                                                 cliente.Cart.Cart = new List<ProdottoCarrello>();
                                                                 cliente.Cart.Completed = false;
                                                                 repositoryClienti.SalvaClienti(cliente);
@@ -534,44 +555,67 @@ class Program // <--- (standard/default)
 
                                                 break;
                                             case "3": // MODALITA' CASSIERE > RICARICA CREDITO
-                                                if (cliente.Id == idClienteConnesso)
-                                                {
-                                                    Color.Magenta();
-                                                    Console.WriteLine($"RICARICA CREDITO\n");
-                                                    Color.Reset();
+                                                Color.Magenta();
+                                                Console.WriteLine($"RICARICA CREDITO\n");
+                                                Color.Reset();
+                                                clienti = repositoryClienti.CaricaClienti();
+                                                StampaClienti.Ricarica(clienti);
+                                                NewLine();
 
-                                                    Color.Green();
-                                                    Console.Write($"{cliente.Username}");
-                                                    Color.Reset();
-                                                    Console.Write(", il tuo credito attuale è di ");
-                                                    Color.Green();
-                                                    Console.Write($"€ {cliente.Credito}");
-                                                    NewLine();
-                                                    decimal ricarica = InputManager.LeggiDecimale("Inserire importo da ricaricare: € ");
-                                                    Console.Clear();
-                                                    if (ricarica != 0)
+                                                Color.Magenta();
+                                                int idClienteDaRicaricare = 0;
+                                                bool idDaRicaricareTrovato = false;
+                                                idClienteDaRicaricare = InputManager.LeggiIntero("\nPremi 0 per tornare indietro, oppure ID del cliente da ricaricare> ");
+                                                Color.Reset();
+                                                if (idClienteDaRicaricare != 0)
+                                                {
+                                                    foreach (var clientePerRicarica in clienti)
                                                     {
-                                                        Color.Green();
-                                                        Console.WriteLine("OPERAZIONE ANDATA A BUON FINE!");
-                                                        Color.Reset();
-                                                        cliente.Credito += ricarica;
-                                                        Console.Write("\nIl tuo nuovo credito è di ");
-                                                        Color.Green();
-                                                        Console.Write($"{cliente.Credito}!\n");
-                                                        NewLine();
-                                                        Console.WriteLine("Premi un tasto per continuare...");
-                                                        Console.ReadKey();
+                                                        if (idClienteDaRicaricare == clientePerRicarica.Id)
+                                                        {
+                                                            idDaRicaricareTrovato = true;
+                                                            Color.Green();
+                                                            NewLine();
+                                                            Console.Write($"{clientePerRicarica.Username}");
+                                                            Color.Reset();
+                                                            Console.Write(", il tuo credito attuale è di ");
+                                                            Color.Green();
+                                                            Console.Write($"€ {clientePerRicarica.Credito}");
+                                                            NewLine();
+                                                            decimal ricarica = InputManager.LeggiDecimale("Inserire importo da ricaricare: € ");
+                                                            Console.Clear();
+                                                            if (ricarica != 0)
+                                                            {
+                                                                Color.Green();
+                                                                Console.WriteLine("OPERAZIONE ANDATA A BUON FINE!");
+                                                                Color.Reset();
+                                                                clientePerRicarica.Credito += ricarica;
+                                                                Console.Write("\nIl tuo nuovo credito è di ");
+                                                                Color.Green();
+                                                                Console.Write($"{clientePerRicarica.Credito}!\n");
+                                                                NewLine();
+                                                                Console.WriteLine("Premi un tasto per continuare...");
+                                                                Console.ReadKey();
+                                                                Console.Clear();
+                                                                repositoryClienti.SalvaClienti(clientePerRicarica);
+                                                                //cliente = repositoryClienti.CaricaCliente(cliente);
+                                                            }
+                                                        }
+                                                       
+                                                        
+                                                    }
+
+                                                    if (!idDaRicaricareTrovato)
+                                                    {
                                                         Console.Clear();
-                                                        repositoryClienti.SalvaClienti(cliente);
-                                                        cliente = repositoryClienti.CaricaCliente(cliente);
+                                                        Color.Red();
+                                                        Console.WriteLine($"'Nessun cliente con ID: {idClienteDaRicaricare}'\n");
+                                                        Color.Reset();
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    Color.Red();
-                                                    Console.WriteLine("Nessun utente loggato");
-                                                    NewLine();
-                                                    Color.Reset();
+                                                    Console.Clear();
                                                 }
                                                 break;
                                             case "0": // MODALITA' CASSIERE > ESCI
@@ -1124,13 +1168,13 @@ class Program // <--- (standard/default)
                                                 Console.ReadKey();
                                                 Console.Clear();
                                                 break;
-                                            case "6":
+                                            case "6": // MODALITA' AMMINISTRATORE > VISUALIZZA CLIENTI
                                                 Color.Magenta();
                                                 Console.WriteLine("MODALITA' AMMINISTRATORE > VISUALIZZA CLIENTI");
                                                 NewLine();
                                                 Color.Reset();
-
-                                                StampaClienti.Tabella(clientiManager.OttieniClienti());
+                                                clienti = repositoryClienti.CaricaClienti();
+                                                StampaClienti.Tabella(clienti);
                                                 NewLine();
                                                 break;
                                             case "0": // ESCI

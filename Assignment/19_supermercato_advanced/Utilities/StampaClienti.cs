@@ -50,6 +50,27 @@ static public class StampaClienti
         }
     }
 
+        static public void Ricarica(List<Cliente> clienti)
+    {
+        const int LUNGHEZZA_BR = 38;
+        if (clienti.Count > 0)
+        {
+            Color.DarkGray();
+            Console.WriteLine($"{"ID",COLONNA_SMALL}{"Nome",COLONNA_MEDIUM}{"Credito",COLONNA_MEDIUM}");
+            Console.WriteLine(new string('-', LUNGHEZZA_BR));
+            Color.Reset();
+            foreach (var cliente in clienti)
+            {
+                Console.WriteLine($"{cliente.Id,COLONNA_SMALL}{cliente.Username,COLONNA_MEDIUM}{"€" + cliente.Credito.ToString("F2")}");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Non ci sono clienti.\n");
+        }
+    }
+
+
     // static public void Singolo(Dipendente dipendente)
     // {
     //     const int LUNGHEZZA_BR = 48;
