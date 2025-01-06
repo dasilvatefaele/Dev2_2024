@@ -14,8 +14,8 @@ public class ClientiRepository
             Directory.CreateDirectory(dirCatalogo); // creala
         }
         string jsonData = JsonConvert.SerializeObject(cliente, Formatting.Indented); // serializza il prodotto
-        string nomeProdotto = $"{cliente.Id}.json"; // creo il nome del file 
-        nuovoPercorso = Path.Combine(dirCatalogo, nomeProdotto); // creo il percorso
+        string nomeCliente = $"{cliente.Id}.json"; // creo il nome del file 
+        nuovoPercorso = Path.Combine(dirCatalogo, nomeCliente); // creo il percorso
         File.WriteAllText(nuovoPercorso, jsonData); // scrivo il prodotto deserializzato nel percorso
         //Console.WriteLine($"Dati salvati in '{nuovoPercorso}'\n"); // stampo il percorso 
     }

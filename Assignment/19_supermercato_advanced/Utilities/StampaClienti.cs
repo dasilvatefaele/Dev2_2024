@@ -40,7 +40,7 @@ static public class StampaClienti
                         dataUltimoAcquisto = spesa.Data;
                     }
                 }
-                Console.WriteLine($"{cliente.Id,COLONNA_SMALL}{cliente.Username,COLONNA_MEDIUM}{"€" + spesaCliente.ToString("F2"),COLONNA_MEDIUM}{dataUltimoAcquisto,COLONNA_MEDIUM}");
+                Console.WriteLine($"{cliente.Id,COLONNA_SMALL}{cliente.Username,COLONNA_MEDIUM}{"€"+spesaCliente.ToString("F2"),COLONNA_MEDIUM}{dataUltimoAcquisto,COLONNA_MEDIUM}");
                 spesaCliente = 0;
             }
         }
@@ -61,7 +61,7 @@ static public class StampaClienti
             Color.Reset();
             foreach (var cliente in clienti)
             {
-                Console.WriteLine($"{cliente.Id,COLONNA_SMALL}{cliente.Username,COLONNA_MEDIUM}{"€" + cliente.Credito.ToString("F2")}");
+                Console.WriteLine($"{cliente.Id,COLONNA_SMALL}{cliente.Username,COLONNA_MEDIUM}{"€"+cliente.Credito.ToString("F2")}");
             }
         }
         else

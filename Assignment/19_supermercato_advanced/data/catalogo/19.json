@@ -2,7 +2,7 @@
   "Id": 19,
   "Nome": "Articolo2",
   "Prezzo": 16.0,
-  "Giacenza": 5,
+  "Giacenza": 2,
   "Categoria": {
     "Name": "SCONOSCIUTO",
     "ID": 10

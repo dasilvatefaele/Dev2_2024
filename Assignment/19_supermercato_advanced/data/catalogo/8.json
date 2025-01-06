@@ -2,7 +2,7 @@
   "Id": 8,
   "Nome": "Sugo",
   "Prezzo": 1.19,
-  "Giacenza": 141,
+  "Giacenza": 138,
   "Categoria": {
     "Name": "Condimenti",
     "ID": 6

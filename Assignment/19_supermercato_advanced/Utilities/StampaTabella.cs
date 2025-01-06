@@ -26,7 +26,7 @@ static public class StampaTabella
             Color.Reset();
             foreach (var prodotto in prodotti)
             {
-                Console.WriteLine($"{prodotto.Id,COLONNA_SMALL}{prodotto.Nome,COLONNA_MEDIUM}{prodotto.Prezzo.ToString("F2"),COLONNA_SMALL}{prodotto.Giacenza,COLONNA_SMALL}{prodotto.Categoria.Name,COLONNA_SMALL}");
+                Console.WriteLine($"{prodotto.Id,COLONNA_SMALL}{prodotto.Nome,COLONNA_MEDIUM}{"€"+prodotto.Prezzo.ToString("F2"),COLONNA_SMALL}{prodotto.Giacenza,COLONNA_SMALL}{prodotto.Categoria.Name,COLONNA_SMALL}");
             }
         }
         else
@@ -45,7 +45,7 @@ static public class StampaTabella
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
             foreach (var prodotto in prodotti)
             {
-                Console.WriteLine($"{prodotto.Nome,COLONNA_MEDIUM}{prodotto.Prezzo.ToString("F2"),COLONNA_MEDIUM}");
+                Console.WriteLine($"{prodotto.Nome,COLONNA_MEDIUM}{"€"+prodotto.Prezzo.ToString("F2"),COLONNA_MEDIUM}");
             }
         }
         else
@@ -59,16 +59,16 @@ static public class StampaTabella
         const int LUNGHEZZA_BR = 40;
         if (carrello.Count > 0)
         {
-            Console.WriteLine($"{"Qnt.",COLONNA_SMALL}{"Nome",COLONNA_MEDIUM}{"Prezzo",COLONNA_MEDIUM:0.00}");
+            Console.WriteLine($"{"Qnt.",COLONNA_SMALL}{"Nome",COLONNA_MEDIUM}{"Prezzo",COLONNA_MEDIUM}");
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
             foreach (var item in carrello)
             {
-                Console.WriteLine($"{"x" + item.Quantita,COLONNA_SMALL}{item.Nome,COLONNA_MEDIUM}{"€" + item.Prezzo.ToString("F2"),COLONNA_MEDIUM}");
+                Console.WriteLine($"{"x" + item.Quantita,COLONNA_SMALL}{item.Nome,COLONNA_MEDIUM}{"€"+item.Prezzo.ToString("F2"),COLONNA_MEDIUM}");
 
             }
             Console.WriteLine(new string('-', LUNGHEZZA_BR));
             Color.DarkYellow();
-            Console.WriteLine($"{"SubTotal:",-30}{"€" + managerCarrello.CalcolaTotale(carrello).ToString("F2")}");
+            Console.WriteLine($"{"SubTotal:",-30}{"€"+managerCarrello.CalcolaTotale(carrello).ToString("F2")}");
             Color.Reset();
         }
         else
@@ -100,7 +100,7 @@ static public class StampaTabella
 
             if (item.Completed == false)
             {
-                Console.WriteLine($"{item.IdPurchase,-10}{item.NomeCliente,-20}{item.Totale.ToString("F2"),-10}");
+                Console.WriteLine($"{item.IdPurchase,-10}{item.NomeCliente,-20}{"€"+item.Totale.ToString("F2"),-10}");
             }
         }
         Console.WriteLine();
@@ -116,14 +116,14 @@ static public class StampaTabella
             Console.WriteLine();
             Color.Reset();
 
-            Console.WriteLine($"{"Qnt.",COLONNA_SMALL}{"Nome",COLONNA_MEDIUM}{"Prezzo",COLONNA_MEDIUM:0.00}{"Data",COLONNA_MEDIUM}\n");
+            Console.WriteLine($"{"Qnt.",COLONNA_SMALL}{"Nome",COLONNA_MEDIUM}{"Prezzo",COLONNA_MEDIUM}{"Data",COLONNA_MEDIUM}\n");
             //Console.WriteLine(new string('-', LUNGHEZZA_BR));
             Color.Reset();
             foreach (var item in cliente.StoricoAcquisti)
             {
                 foreach (var purchase in item.MyPurchase)
                 {
-                    Console.Write($"{"x" + purchase.Quantita,COLONNA_SMALL}{purchase.Nome,COLONNA_MEDIUM}{"€" + purchase.Prezzo.ToString("F2"),COLONNA_MEDIUM}");
+                    Console.Write($"{"x" + purchase.Quantita,COLONNA_SMALL}{purchase.Nome,COLONNA_MEDIUM}{"€"+purchase.Prezzo.ToString("F2"),COLONNA_MEDIUM}");
                     Color.DarkGray();
                     Console.Write($"{item.Data,COLONNA_MEDIUM}");
                     Color.Reset();
@@ -157,7 +157,7 @@ static public class StampaTabella
             Color.Reset();
             foreach (var item in listaCasse)
             {
-                Console.Write($"{item.Id,COLONNA_SMALL}{item.Fatturato.ToString("F2"),COLONNA_MEDIUM}");
+                Console.Write($"{item.Id,COLONNA_SMALL}{"€"+item.Fatturato.ToString("F2"),COLONNA_MEDIUM}");
                 Color.Reset();
                 Console.WriteLine();   
             }

@@ -58,5 +58,9 @@
   {
     "Name": "Surgelato",
     "ID": 14
+  },
+  {
+    "Name": "CategoriaPerAnita",
+    "ID": 15
   }
 ]

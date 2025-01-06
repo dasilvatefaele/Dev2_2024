@@ -86,5 +86,75 @@ public class CassaManager
         }
         return false;
     }
+
+    public bool GeneraScontrino(List<ProdottoCarrello> prodotti, decimal totaleSpesa, int numeroCassa, string data, int purchaseNumero)
+    {
+        try
+        {
+            string path = "data/scontrini";
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            string pathScontrino = Path.Combine(path, $"{purchaseNumero}.txt");
+            // File.Create(pathScontrino).Close();
+            string[] linesPart1 = {
+                " ",
+                " ",
+                " ",
+                "SUPERMERCATO ADVANCED",
+                "DI TEFH33",
+                "VIA BRACELLI 33",
+                " ",
+                "DOCUMENTO COMMERCIALE",
+                "di vendita o prestazione",
+                " ",
+                $"{"DESCRIZIONE",-28}{"PREZZO"}",
+                " "
+            };
+            List<string> linesTemp = new List<string>();
+            foreach (var prodotto in prodotti)
+            {
+                linesTemp.Add($"x{prodotto.Quantita} {prodotto.Nome,-26} {"€" + prodotto.Prezzo.ToString("F2")}");
+            };
+
+            string[] linesPart2 = linesTemp.ToArray();
+
+            // File.AppendAllText(pathScontrino, $"\t\t{prodotto.Nome,-28}{prodotto.Prezzo.ToString("F2"),-10}\n");
+
+            string[] linesPart3 = {
+                $"------------------------------------",
+                $"{"TOTALE",-29}{"€"+totaleSpesa.ToString("F2")}",
+                " ",
+                $"CASSA NUMERO: {numeroCassa}",
+                $"{data}",
+                $"DOCUMENTO N. {purchaseNumero.ToString()}"
+            };
+
+
+            // Larghezza fissa della riga (ad esempio, 50 caratteri)
+            int lineWidth = 50;
+
+            string[] scontrino = linesPart1.Concat(linesPart2).Concat(linesPart3).ToArray();
+
+            using (StreamWriter writer = new StreamWriter(pathScontrino))
+            {
+                foreach (string line in scontrino)
+                {
+                    // Calcolo degli spazi a sinistra per centrare la stringa
+                    int padding = (lineWidth - line.Length) / 2;
+                    string centeredLine = line.PadLeft(padding + line.Length).PadRight(lineWidth);
+                    writer.WriteLine(centeredLine);
+                }
+            }
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
 }
 

@@ -1382,7 +1382,24 @@ git commit -m "Supermercato Advanced - v11.7 (CRUD Casse via Amministratore)"
 git push -u origin main
 ```
 
-* [ ] Generazione di uno scontrino .txt generato da una nuova classe `Cassa`
+* [x] Generazione di uno scontrino .txt generato da una nuova classe `Cassa`
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced - v11.8 (Cassa e scontrino .txt)"
+git push -u origin main
+```
+
+* [x] La cassa memorizza correttamente gli storici degli acquisti
+* [x] spostata la generazione degli scontrini nel manager delle casse
+* [x] formattazione scontrini
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced - v11.9 (formattazione scontrini, correzione bug storico acquisti cassa)"
+git push -u origin main
+```
+
 * [ ] Revisione delle rimanenti ridondanze nelle classi e nel Program.cs
 * [ ] Commentare meglio il codice e renderlo eventualmente più leggibile
 * [ ] Scrivere un nuovo file README di documentazione e flowchart 

@@ -2,7 +2,7 @@
   "Id": 17,
   "Nome": "Gelato",
   "Prezzo": 3.40,
-  "Giacenza": 88,
+  "Giacenza": 84,
   "Categoria": {
     "Name": "Surgelato",
     "ID": 14
