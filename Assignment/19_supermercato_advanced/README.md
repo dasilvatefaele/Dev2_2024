@@ -1401,6 +1401,13 @@ git commit -m "Supermercato Advanced - v11.9 (formattazione scontrini, correzion
 git push -u origin main
 ```
 
-* [ ] Revisione delle rimanenti ridondanze nelle classi e nel Program.cs
-* [ ] Commentare meglio il codice e renderlo eventualmente più leggibile
-* [ ] Scrivere un nuovo file README di documentazione e flowchart 
+* [x] Revisione delle rimanenti ridondanze nelle classi e nel Program.cs
+* [x] Commentare meglio il codice e renderlo eventualmente più leggibile
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced - v12 (documentazione Program.cs)"
+git push -u origin main
+```
+
+* [ ] Scrivere un nuovo file README di documentazione

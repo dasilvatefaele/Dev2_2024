@@ -4,12 +4,14 @@ using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using System.Linq;
 
-class Program // <--- (standard/default)
+class Program
 {
-    static void Main(string[] args) // <--- Entry point (standard/default)
+    static void Main(string[] args) 
     {
         Console.Clear();
         #region Dichiarazione Variabili
+        
+        // repository - oggetti per caricamento e salvataggio
         ProdottoRepository repositoryProdotti = new ProdottoRepository();
         CarrelloRepository repositoryCarrello = new CarrelloRepository();
         DipendentiRepository repositoryDipendenti = new DipendentiRepository();
@@ -18,6 +20,7 @@ class Program // <--- (standard/default)
         PurchaisRepository repostoryPurchase = new PurchaisRepository();
         CasseRepository repositoryCasse = new CasseRepository();
 
+        // oggetti - caricamento da /data tramite repository
         List<Prodotto> prodotti = repositoryProdotti.CaricaProdotti();
         List<Prodotto> carrello = repositoryCarrello.CaricaProdotti();
         List<Dipendente> dipendenti = repositoryDipendenti.CaricaDipendenti();
@@ -27,6 +30,7 @@ class Program // <--- (standard/default)
         List<Cassa> listaCasse = repositoryCasse.CaricaCasse();
         Cliente cliente = new Cliente();
 
+        // manager - gestione degli oggetti
         PurchaisManager managerPurchase = new PurchaisManager(listaPurchase);
         ProdottoAdvancedManager manager = new ProdottoAdvancedManager(prodotti);
         CarrelloAdvancedManager carrelloManager = new CarrelloAdvancedManager();
@@ -35,29 +39,37 @@ class Program // <--- (standard/default)
         CategoriaManager managerCategorie = new CategoriaManager(listaCategorie);
         CassaManager managerCasse = new CassaManager(listaCasse);
 
-        //decimal subTotal = 0;
-
-        // entrambi i costruttori dei manager richiedono l'argomento dell'oggetto da gestire
-        bool continua = true;
+        // variabili per il controllo dei loop principali
+        bool continua = true; 
         bool continuaComeCliente = true;
         bool continuaComeDipendente = true;
+
+        // variabili di servizio
         bool confermaAcquisto = false;
-        //bool attendoIlCassiere = false;
-        decimal calcoloTotaleCarrello = 0;
         int idClienteConnesso = -404;
+        decimal calcoloTotaleCarrello = 0;
+
         #endregion
 
-        while (continua)
+        while (continua) // PROGRAMMA
         {
+            // viene chiesto se loggarsi come cliente [true] o come dipendente [false]
+
             Color.DarkCyan();
             Console.WriteLine("BENVENUTO AL SUPERMERCATO ADVANCED!");
             Console.WriteLine(new string('-', 35));
             Color.Reset();
             bool scelta = InputManager.LeggiConferma("\nACCEDI COME CLIENTE?");
             Console.Clear();
+
             switch (scelta)
             {
-                case true: //* AREA CLIENTI
+                case true: // AREA CLIENTI
+
+                    // attraverso lo username il programma determina se 
+                    // caricare i dati cliente nella variabile cliente dalla cartella data/clienti 
+                    // se già presente o se creare un nuovo file
+
                     Color.DarkCyan();
                     Console.WriteLine("BENVENUTO AL SUPERMERCATO ADVANCED!");
                     Console.WriteLine(new string('-', 35));
@@ -87,8 +99,14 @@ class Program // <--- (standard/default)
 
                     idClienteConnesso = cliente.Id;
 
-                    while (continuaComeCliente) //* MENU CLIENTI
+                    while (continuaComeCliente) // PROGRAMMA CLIENTE
                     {
+
+                        // visualizza le operazioni eseguibili dal cliente loggato
+                        // tutte le voci saranno accessibili fino al completamento
+                        // dell'acquisto. il totale del carrello è sempre visibile
+                        // in modo chiaro e aggiornato in tempo reale
+
                         Color.Green();
                         Console.WriteLine("MENU:\n");
                         Color.White();
@@ -113,75 +131,103 @@ class Program // <--- (standard/default)
                         string inserimento = InputManager.LeggiIntero("\n> ", 0, 9).ToString();
                         Console.Clear();
 
+                        // una volta confermati gli acquisti [5]
+                        // saranno funzionanti solo le voci [4][6][0]
+                        // un messaggio informerà il cliente che 
+                        // deve attendere che un cassiere processi 
+                        // il suo purchase. fino ad allora
+                        // il credito non viene toccato e il carrello
+                        // è preservato nel json del cliente
+                        
                         if (cliente.Cart.Completed == true)
                         {
                             if (inserimento == "4" || inserimento == "6" || inserimento == "0")
                             {
-                                // accetta 4, 6, 0
+                                // consenti
                             }
                             else
                             {
+                                // nega
                                 inserimento = "202";
                             }
                         }
+
+                        // in base allo storico del cliente, se la somma degli
+                        // acquisti precedenti > €50 il cliente avrà 5% di sconto
+                        // se > €100 avrà il 10% di sconto su ogni prossimo carrello 
+
                         clientiManager.CalcoloSconto(ref cliente);
                         repositoryClienti.SalvaClienti(cliente);
+
                         switch (inserimento)
                         {
                             case "1": // CLIENTE > GUARDA I NOSTRI PRODOTTI
+
                                 Color.Green();
                                 Console.WriteLine($"{cliente.Username}: GUARDA I NOSTRI PRODOTTI\n");
-                                if (prodotti != null) // se ci sono prodotti
+
+                                // la stampa è personalizzata per il cliente [nome del prodotto][prezzo]
+                                if (prodotti != null) 
                                 {
-                                    // stampa prodotti in modalità cliente
                                     StampaTabella.ComeCliente(prodotti);
                                     NewLine();
                                 }
                                 else
                                 {
-                                    // altrimenti avvisa assenza di prodotti
                                     Console.WriteLine("\nNon c'è ancora nessun prodotto.\n");
                                 }
                                 break;
+
                             case "2": // CLIENTE > AGGIUNGI AL CARRELLO
+
                                 Console.WriteLine($"{cliente.Username}: AGGIUNGI AL CARRELLO\n");
-                                // stampo il catalogo come cliente
+
+                                // viene visualizzata la stampa personalizzata
+                                // il cliente inserisce nome del prodotto e quantità
+                                // che vuole aggiungere. in caso il cliente fosse entrato
+                                // per sbaglio in questa modalità, basta inserire '0'
+                                // in 'Inserisci il prodotto > ' per tornare indietro
+
                                 StampaTabella.ComeCliente(prodotti);
                                 NewLine();
-
-                                // chiedo il nome del prodotto
                                 Color.DarkGreen();
                                 string nomeProdotto = InputManager.LeggiStringa("Inserisci il prodotto > ");
 
-                                // se il prodotto esiste e la giacenza è sufficiente lo salva nel carrello cliente
-                                // e decrementa la giacenza, altrimenti stampa non trovato ed esce
-                                carrelloManager.AggiungiProdotto(nomeProdotto, carrello, ref cliente);
+                                if (nomeProdotto != "0")
+                                {
+                                    // se il prodotto esiste e la giacenza è sufficiente (>=2) lo sposta nel carrello cliente
+                                    // e decrementa la giacenza, altrimenti stampa '[articolo] non trovato'
+                                    // e ti riporta al menu. infine salvo la persistenza dei dati
 
-                                // salvo la persistenza dei dati
-                                cliente = repositoryClienti.CaricaCliente(cliente);
-                                prodotti = repositoryProdotti.CaricaProdotti();
-                                NewLine();
-
+                                    carrelloManager.AggiungiProdotto(nomeProdotto, carrello, ref cliente);
+                                    cliente = repositoryClienti.CaricaCliente(cliente);
+                                    prodotti = repositoryProdotti.CaricaProdotti();
+                                    NewLine();
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                }
                                 break;
+
                             case "3": // CLIENTE > RIMUOVI DAL CARRELLO
+
                                 Console.WriteLine($"{cliente.Username}: RIMUOVI DAL CARRELLO\n");
 
-                                // stampo il carrello (Qnt. |  Nome | Prezzo)
+                                // stampa personalizzata del carrello con 'Qnt. |  Nome | Prezzo'
+                                // e 'totale' in modo chiaramente leggibile
+                                // infine chiede IN ROSSO di inserire l'elento da eliminare
+                                // se acquisisco 0 torno al menu senza far nulla, altrimenti 
+                                // procede alla rimozione
+            
                                 StampaTabella.Carrello(cliente.Cart.Cart);
                                 NewLine();
-
-                                // acquisisco la stringa del nome del prodotto da rimuovere
                                 Color.Red();
                                 string prodottoDaRimuovere = InputManager.LeggiStringa("Che cosa vuoi rimuovere? > ");
-
-                                // se acquisisco 0 torno al menu senza far nulla, altrimenti procede
-                                if (!(prodottoDaRimuovere == "0"))
+                                
+                                if (prodottoDaRimuovere != "0")
                                 {
-                                    carrelloManager.RimuoviProdottoDalCarrello(
-                                        prodottoDaRimuovere,
-                                        ref cliente,
-                                        manager.OttieniProdotti()
-                                    );
+                                    carrelloManager.RimuoviProdottoDalCarrello(prodottoDaRimuovere,ref cliente,manager.OttieniProdotti());
                                 }
                                 else
                                 {
@@ -189,24 +235,40 @@ class Program // <--- (standard/default)
                                     Console.WriteLine("Nessun prodotto rimosso dal carrello.");
                                 }
                                 break;
+
                             case "4": // CLIENTE > GUARDA IL TUO CARRELLO
+
                                 Console.WriteLine($"{cliente.Username}: GUARDA IL TUO CARRELLO\n");
                                 StampaTabella.Carrello(cliente.Cart.Cart);
-                                // stampo il carrello (Qnt. |  Nome | Prezzo)
                                 NewLine();
-                                // spazio
                                 break;
+
                             case "5": // CLIENTE > GENERA ORDINE
+
                                 Console.WriteLine($"{cliente.Username}: GENERA ORDINE\n");
+
+                                // il programma stampa il carrello, il totale e chiede
+                                // conferma per creare il purchase, operazione che gli 
+                                // impedirà di fare ulteriori acquisti o rimozioni
+
+                                // in caso di mancata conferma, verrà comunicato
+                                // 'Acquisto ancora non confermato' e il cliente
+                                // potrà continuare come prima ad utilizzare il menu
+
                                 StampaTabella.Carrello(cliente.Cart.Cart);
                                 NewLine();
                                 Color.DarkYellow();
                                 confermaAcquisto = InputManager.LeggiConferma("Confermi l'aquisto?");
                                 Color.Reset();
-
                                 calcoloTotaleCarrello = carrelloManager.CalcolaTotale(cliente.Cart.Cart);
+
                                 if (confermaAcquisto)
                                 {
+                                    // se la percentuale di sconto è diversa da 0 viene
+                                    // letta la percentuale di sconto che il cliente ha 
+                                    // raggiunto. lo sconto viene comunicato in modo chiaro
+                                    // e applicato prima del controllo del credito
+
                                     if (cliente.PercentualeSconto != 0)
                                     {
                                         NewLine();
@@ -227,6 +289,11 @@ class Program // <--- (standard/default)
                                         Console.WriteLine("\nPremi un tasto per procedere...");
                                         Console.ReadKey();
                                     }
+
+                                    // se il credito è sufficiente il processo prosegue
+                                    // altrimenti viene comunicata la mancanza di fondi
+                                    // e si chiede al cliente di rivolgersi a un cassiere
+                                    // per ricaricare il credito
 
                                     if (cliente.Credito >= calcoloTotaleCarrello)
                                     {
@@ -253,7 +320,6 @@ class Program // <--- (standard/default)
                                         Color.DarkYellow();
                                         Console.WriteLine("CI SIAMO QUASI! Il tuo ordine deve essere processato da un cassiere, prego attendere...\n");
                                         Color.Reset();
-                                        //attendoIlCassiere = true;
                                         repositoryProdotti.SalvaProdotti(prodotti);
                                         prodotti = repositoryProdotti.CaricaProdotti();
                                     }
@@ -261,7 +327,6 @@ class Program // <--- (standard/default)
                                     {
                                         Color.Red();
                                         Console.WriteLine("\nPurtroppo non hai fondi a sufficienza. Rivolgiti al cassiere per ricaricare il tuo credito e continuare l'acquisto!\n");
-                                        // idClienteConnesso = cliente.Id;
                                         Color.Reset();
                                     }
                                 }
@@ -271,18 +336,20 @@ class Program // <--- (standard/default)
                                     Color.Yellow();
                                     Console.WriteLine("Acquisto ancora non confermato\n");
                                 }
-
                                 break;
+
                             case "6": // CLIENTE > VERIFICA IL TUO CREDITO
+
                                 Console.WriteLine($"{cliente.Username}: VERIFICA IL TUO CREDITO\n");
                                 Color.White();
                                 Console.Write("Credito attuale: ");
                                 Color.Green();
-                                Console.Write($"€ {cliente.Credito.ToString()}");
+                                Console.Write($"€ {cliente.Credito.ToString("F2")}");
                                 Color.Reset();
                                 NewLine();
                                 NewLine();
                                 break;
+
                             case "7": // CLIENTE > LA TUA PERCENTUALE DI SCONTO
 
                                 Console.WriteLine($"{cliente.Username}: LA TUA PERCENTUALE DI SCONTO\n");
@@ -291,22 +358,34 @@ class Program // <--- (standard/default)
                                 Console.Write("sulle tue prossime spese.\n");
                                 NewLine();
                                 break;
-                            case "8":
+
+                            case "8": // CLIENTE > I TUOI ULTIMI ACQUISTI
+
+                                // una stampa personalizzata per monitorare lo storico
+                                // acquisti del cliente loggato
+
                                 Console.WriteLine($"{cliente.Username}: I TUOI ULTIMI ACQUISTI:\n");
                                 StampaTabella.StampaStorico(cliente);
                                 break;
 
-                            case "9":
+                            case "9": // CLIENTE > ESPLORA PER CATEGORIE
+
+                                // selezionata una categoria dall'elenco, il cliente visualizza
+                                // solo gli elementi di quella categoria. dunque può decidere se 
+                                // scegliere un elemento da quella lista filtrata oppure
+                                // tornare indietro
+
+                                List<Categoria> esploraCategorie = repositoryCategorie.CaricaCategorie();
+                                string tempNomeCategoria = "";
                                 Color.Green();
                                 Console.WriteLine($"{cliente.Username}: ESPLORA PER CATEGORIE \n");
-                                string tempNomeCategoria = "";
-                                List<Categoria> esploraCategorie = repositoryCategorie.CaricaCategorie();
-
                                 Color.Reset();
+
                                 foreach (var categoria in esploraCategorie)
                                 {
                                     Console.WriteLine($"{categoria.ID}. {categoria.Name}");
                                 }
+
                                 Color.Green();
                                 int scegliCategoria = InputManager.LeggiIntero("\n> ", 0, esploraCategorie.Count);
                                 Console.Clear();
@@ -320,6 +399,7 @@ class Program // <--- (standard/default)
                                         tempNomeCategoria = prodotto.Categoria.Name;
                                     }
                                 }
+
                                 Color.Green();
                                 Console.WriteLine($"Categoria: {tempNomeCategoria}\n");
                                 Color.Reset();
@@ -337,15 +417,29 @@ class Program // <--- (standard/default)
                                     prodotti = repositoryProdotti.CaricaProdotti();
                                     NewLine();
                                 }
+
                                 Console.Clear();
                                 break;
+
                             case "202": // IN ATTESA DELLO SBLOCCO DA PARTE DEL CASSIERE
+
+                                // se il cliente risponde [s] a procedi al pagamento
+                                // viene reindirizzato qui quando tenta di modificare
+                                // il carrello
+
                                 Console.Clear();
                                 Color.Yellow();
                                 Console.WriteLine("Il tuo ordine sta per essere processato, attendere...\n");
                                 Color.Reset();
                                 break;
+
                             case "0": // CLIENTE > SICURO DI USCIRE?
+
+                                // il programma chiede al cliente se e come si desidera uscire.
+                                // [1] torna indietro
+                                // [2] esce dalla sessione, solo un cassiere può completare l'operazione d'acquisto
+                                // [3] termina l'applicazione (nessun dato andrà perduto) 
+
                                 Console.WriteLine($"{cliente.Username}: SICURO DI USCIRE?\n");
                                 Color.White();
                                 Console.WriteLine("1. Continua l'acquisto");
@@ -364,34 +458,38 @@ class Program // <--- (standard/default)
                                     case 1: // CONTINUA L'ACQUISTO
 
                                         Console.Clear();
-                                        // Non fa nulla, quindi torna indietro
-
+                                        // torna indietro
                                         break;
+
                                     case 2: // ESCI DALLA SESSIONE - SPOSTATI AL CASSIERE
 
+                                        // aggiorno la persistenza nel catalogo prima di uscire 
+                                        // dal ciclo sessione del cliente, 
+                                        // TERMINO PROGRAMMA CLIENTE e torno a PROGRAMMA
+                                        
                                         continuaComeCliente = false;
-                                        // esco dal ciclo della sessione del cliente
                                         prodotti = repositoryProdotti.CaricaProdotti();
                                         repositoryProdotti.SalvaProdotti(prodotti);
-                                        // aggiorno la persistenza nel catalogo prima di uscire dal ciclo sessione del cliente
                                         Console.Clear();
-
                                         break;
+
                                     case 3: // TERMINA L'APPLICAZIONE
 
-                                        continuaComeCliente = false;
+                                        // stampa 'A presto [cliente]!'
                                         // esco dal ciclo della sessione del cliente
+                                        // TERMINO PROGRAMMA
+
+                                        continuaComeCliente = false;
                                         continua = false;
-                                        // esco dal ciclo principale per terminare 'applicazione
                                         Color.Green();
                                         Console.WriteLine($"\nA presto {cliente.Username}!\n");
                                         Color.Reset();
-                                        // stampo
-
                                         break;
+
                                 }
                                 break;
                             default: // default
+
                                 Console.WriteLine("INSERIMENTO MENU NON VALIDO\n");
                                 // dato che c'è il controllo di acquisizione nella scelta
                                 // questo messaggio non dovrebbe apparire mai
@@ -400,7 +498,15 @@ class Program // <--- (standard/default)
                     }
                     continuaComeCliente = true;
                     break;
-                case false: //* AREA DIPENDENTI
+
+                case false: // AREA DIPENDENTI
+
+                    // viene chiesto all'utente di inserire il proprio username
+                    // il programma carichera il dipendente corrispondente
+                    // 'admin' può ha permessi illimitati
+                    // in caso lo username del dipendente non sia presente
+                    // verrà negato l'accesso.
+                
                     Color.Magenta();
                     Console.WriteLine("AREA DIPENDENTI");
                     Console.WriteLine(new string('-', 35));
@@ -409,7 +515,7 @@ class Program // <--- (standard/default)
                     var dipendente = managerDipendenti.AccediComeDipendente(usernameAccesso);
                     Console.Clear();
 
-                    while (continuaComeDipendente) // SCELTA RUOLO
+                    while (continuaComeDipendente) // PROGRAMMA DIPENDENTI
                     {
                         repositoryProdotti.SalvaProdotti(prodotti);
                         prodotti = repositoryProdotti.CaricaProdotti();
@@ -418,6 +524,10 @@ class Program // <--- (standard/default)
                         {
                             Color.Magenta();
                             Console.WriteLine("AREA DIPENDENTI > SELEZIONA RUOLO");
+
+                            // il ruolo del dipendente loggato determina a quali voci 
+                            // del menu potrà potrà avere accesso (eccetto 'admin')
+
                             Console.WriteLine(new string('-', 35));
                             Color.Reset();
                             NewLine();
@@ -429,9 +539,10 @@ class Program // <--- (standard/default)
                             int inserimentoAdmin = InputManager.LeggiIntero("\nSeleziona la tua posizione > ", 0, 3);
                             Color.Reset();
                             Console.Clear();
-                            switch (inserimentoAdmin)
+                            switch (inserimentoAdmin) 
                             {
-                                case 1: //* MODALITA' CASSIERE
+                                case 1: // MODALITA' CASSIERE
+
                                     bool continuaComeCassiere = true;
                                     if (!PermessiCassiere(dipendente))
                                     {
@@ -440,30 +551,44 @@ class Program // <--- (standard/default)
                                         Color.Reset();
                                     }
 
-                                    while (continuaComeCassiere && PermessiCassiere(dipendente))
+                                    while (continuaComeCassiere && PermessiCassiere(dipendente)) // PROGRAMMA CASSIERE
                                     {
                                         repositoryProdotti.SalvaProdotti(prodotti);
                                         prodotti = repositoryProdotti.CaricaProdotti();
+                                        listaPurchase = repostoryPurchase.CaricaPurchases();
+
                                         Color.Magenta();
                                         Console.WriteLine("AREA DIPENDENTI > CASSIERE");
                                         Console.WriteLine(new string('-', 35));
                                         NewLine();
                                         Color.Reset();
+
                                         Console.WriteLine("1. Visualizza Acquisti in attesa");
                                         Console.WriteLine("2. Processa Acquisti");
                                         Console.WriteLine("3. Ricarica credito cliente");
                                         Console.WriteLine("0. Indietro");
-                                        listaPurchase = repostoryPurchase.CaricaPurchases();
+
                                         Color.Magenta();
                                         string sceltaCassiere = InputManager.LeggiIntero("\n> ", 0, 3).ToString();
                                         Color.Reset();
                                         Console.Clear();
+
                                         switch (sceltaCassiere)
                                         {
                                             case "1": // MODALITA' CASSIERE > VISUALIZZA
+
                                                 Color.Magenta();
                                                 Console.WriteLine("ORDINI IN ATTESA:");
                                                 NewLine();
+
+                                                // visualizza tabella dei soli purchase che i clienti
+                                                // hanno confermato. la tabella visualizza
+                                                // ID-PURCHASE | NOME-CLIENTE | TOTALE-DOVUTO
+                                                // dove il TOTALE è già al netto di sconto
+                                                // se era presente una % di sconto
+                                                // in caso di purchase non confermati dal cliente
+                                                // non sarà processato niente
+
                                                 bool acquistiVisualizzabili = false;
                                                 foreach (var purchase in listaPurchase)
                                                 {
@@ -472,6 +597,7 @@ class Program // <--- (standard/default)
                                                         acquistiVisualizzabili = true;
                                                     }
                                                 }
+
                                                 if (acquistiVisualizzabili)
                                                 {
                                                     StampaTabella.Purchase(listaPurchase);
@@ -484,14 +610,26 @@ class Program // <--- (standard/default)
                                                 }
                                                 Color.Reset();
                                                 break;
+
                                             case "2": // MODALITA' CASSIERE > PROCESSA ACQUISTO
+
                                                 Color.Magenta();
                                                 Console.WriteLine("MODALITA' CASSIERE > PROCESSA ACQUISTO\n");
                                                 Color.Reset();
+
+                                                // il cassiere ha la possibità di scegliere tramite ID-PURCHASE
+                                                // in caso in cui l'ID inserito non è presente gli verrà comunicato
+                                                // e dovrà ripetere l'operazione. se inserimento = 0, torna indietro
+                                                // dopo la scelta del purchase da processare avviene
+                                                // lo scalo e l'aggiornamento del credito del cliente
+                                                // inizializzazione del carrello del cliente e del suo stato
+                                                // l'aggiornamento del suo storico acquisti e di quello della cassa
+
+                                                listaPurchase = repostoryPurchase.CaricaPurchases();
+                                                Cassa cassaSelezionata = new Cassa();
                                                 bool acquistiInAttesa = false;
                                                 bool casseAperte = false;
-                                                Cassa cassaSelezionata = new Cassa();
-                                                listaPurchase = repostoryPurchase.CaricaPurchases();
+
                                                 //stampa tabella purchase
                                                 foreach (var purchase in listaPurchase)
                                                 {
@@ -502,12 +640,12 @@ class Program // <--- (standard/default)
                                                 }
                                                 if (acquistiInAttesa)
                                                 {
-
                                                     bool idNonTrovato = true;
                                                     int selezionaId = 0;
-                                                    // acquisisci ID del prodotto da processare
                                                     do
                                                     {
+                                                        // acquisisci ID del prodotto da processare
+
                                                         StampaTabella.Purchase(listaPurchase);
                                                         Color.Green();
                                                         selezionaId = InputManager.LeggiIntero("\nInserisci l'ordine da processare > ", 0);
@@ -526,7 +664,7 @@ class Program // <--- (standard/default)
                                                             Color.Reset();
                                                         }
                                                     } while (idNonTrovato);
-                                                    // se inserimento = 0, torna indietro, altrimenti seleziona
+
                                                     if (selezionaId != 0)
                                                     {
                                                         // per ogni singolo purchase nella lista purchase
@@ -535,7 +673,9 @@ class Program // <--- (standard/default)
                                                             // se l'ID del singolo purchase è uguale a quello inserito
                                                             if (item.IdPurchase == selezionaId)
                                                             {
-                                                                // dipendente deve selezionare la cassa
+                                                                // dipendente deve selezionare una cassa aperta.
+                                                                // se nessuna cassa è aperta, servirà un amministratore
+                                                                // per crearne una
 
                                                                 if (managerCasse.OttieniCasse().Count != 0)
                                                                 {
@@ -551,17 +691,7 @@ class Program // <--- (standard/default)
                                                                     } while (cassaSelezionata == null);
                                                                 }
 
-
-
                                                                 Console.Clear();
-
-
-
-
-                                                                // inserire lo storico nella cassa
-                                                                // scontrino processato = true
-                                                                // sommare il fatturato
-
 
                                                                 if (casseAperte)
                                                                 {
@@ -610,18 +740,28 @@ class Program // <--- (standard/default)
 
                                                 break;
                                             case "3": // MODALITA' CASSIERE > RICARICA CREDITO
+
                                                 Color.Magenta();
                                                 Console.WriteLine($"RICARICA CREDITO\n");
                                                 Color.Reset();
+
+                                                // vengono stampati i clienti in modalità speciale per il cassiere
+                                                // affinché veda il credito residuo e possa selezionare tramite
+                                                // ID il cliente da selezionare. selezionato il cliente
+                                                // viene chiesto l'importo, che si sommerà al credito del cliente
+                                                // per tornare indietro si preme senza eseguire operazioni si preme '0'
+
                                                 clienti = repositoryClienti.CaricaClienti();
                                                 StampaClienti.Ricarica(clienti);
+                                                int idClienteDaRicaricare = 0;
+                                                bool idDaRicaricareTrovato = false;
+
                                                 NewLine();
 
                                                 Color.Magenta();
-                                                int idClienteDaRicaricare = 0;
-                                                bool idDaRicaricareTrovato = false;
                                                 idClienteDaRicaricare = InputManager.LeggiIntero("\nPremi 0 per tornare indietro, oppure ID del cliente da ricaricare> ");
                                                 Color.Reset();
+
                                                 if (idClienteDaRicaricare != 0)
                                                 {
                                                     foreach (var clientePerRicarica in clienti)
@@ -653,11 +793,11 @@ class Program // <--- (standard/default)
                                                                 Console.ReadKey();
                                                                 Console.Clear();
                                                                 repositoryClienti.SalvaClienti(clientePerRicarica);
-                                                                //cliente = repositoryClienti.CaricaCliente(cliente);
                                                             }
                                                         }
                                                     }
-
+                                                    
+                                                    // in caso di ID errato viene comunicato che non esiste cliente con ID inserito
                                                     if (!idDaRicaricareTrovato)
                                                     {
                                                         Console.Clear();
@@ -671,35 +811,39 @@ class Program // <--- (standard/default)
                                                     Console.Clear();
                                                 }
                                                 break;
+
                                             case "0": // MODALITA' CASSIERE > ESCI
+
+                                                // termina il PROGRAMMA CASSIERE
                                                 continuaComeCassiere = false;
                                                 break;
+
                                         }
                                     }
-
                                     break;
-                                case 2: //* MODALITA' MAGAZZINIERE
+
+                                case 2: // MODALITA' MAGAZZINIERE
                                     bool continuaComeMagazziniere = true;
                                     if (!PermessiMagazziniere(dipendente))
                                     {
                                         Color.Red();
-                                        Console.WriteLine(
-                                            "Non hai i permessi per accedere al Magazzino\n"
-                                        );
+                                        Console.WriteLine("Non hai i permessi per accedere al Magazzino\n");
                                         Color.Reset();
                                     }
 
-                                    while (
-                                        continuaComeMagazziniere && PermessiMagazziniere(dipendente)
-                                    )
+                                    while (continuaComeMagazziniere && PermessiMagazziniere(dipendente))
                                     {
-                                        repositoryProdotti.SalvaProdotti(prodotti);
-                                        prodotti = repositoryProdotti.CaricaProdotti();
                                         Color.Magenta();
                                         Console.WriteLine("MODALITA' MAGAZZINIERE");
                                         Console.WriteLine(new string('-', 30));
                                         NewLine();
                                         Color.Reset();
+
+                                        // magazziniere (o admin) possono manipolare, creare ed eliminare 
+                                        // prodotti e categorie
+
+                                        repositoryProdotti.SalvaProdotti(prodotti);
+                                        prodotti = repositoryProdotti.CaricaProdotti();
 
                                         Console.WriteLine("1. Visualizza Prodotto");
                                         Console.WriteLine("2. Aggiungi Prodotto");
@@ -720,6 +864,11 @@ class Program // <--- (standard/default)
                                                 Color.Magenta();
                                                 Console.WriteLine("PRODOTTI IN MAGAZZINO");
 
+                                                // visualizzazione personalizzata
+                                                // che informa delle informazioni complete sul prodotto
+                                                // comprese [ID] e [GIACENZA]
+                                                // in caso di assenza di prodotti viene comunicato
+
                                                 NewLine();
                                                 Color.Reset();
 
@@ -734,6 +883,7 @@ class Program // <--- (standard/default)
                                                     NewLine();
                                                 }
                                                 break;
+
                                             case "2": // MODALITA' MAGAZZINIERE > AGGIUNGI PRODOTTO
 
                                                 Color.Magenta();
@@ -742,39 +892,60 @@ class Program // <--- (standard/default)
                                                 Color.Reset();
                                                 NewLine();
 
+                                                // permette di inserire i dati per l'aggiunta di un prodotto
+                                                // le categorie sono prestabilite, caricate da /data/categorie
+                                                // e selezionabili tramite ID per il completamento dell'inserimento.
+                                                // se inserito un ID non esistente, verrà caricato il '10' 
+                                                // che continene [SCONOSCIUTO]. Infine viene stampato
+                                                // 'nome articolo' 
+
                                                 Color.Green();
                                                 string nome = InputManager.LeggiStringa("Nome > ");
                                                 decimal prezzo = InputManager.LeggiDecimale("Prezzo > ", 0);
                                                 prezzo = Math.Round(prezzo, 2);
                                                 int giacenza = InputManager.LeggiIntero("Giacenza > ", 0);
+
                                                 Categoria nuovaCategoria = new Categoria();
+
                                                 NewLine();
                                                 Console.WriteLine("Seleziona la categoria:");
                                                 NewLine();
+
+                                                // stampa liste categoria
                                                 foreach (var categoria in listaCategorie)
                                                 {
                                                     Console.WriteLine($"{categoria.ID}. {categoria.Name}");
                                                 }
+
                                                 NewLine();
                                                 Color.Green();
                                                 int sceltaCategoria = InputManager.LeggiIntero("> ", 0);
                                                 Color.Reset();
+
+                                                bool categoriaTrovata = false;
                                                 foreach (var categoria in listaCategorie)
                                                 {
                                                     if (sceltaCategoria == categoria.ID)
                                                     {
                                                         nuovaCategoria = categoria;
+                                                        categoriaTrovata = true;
                                                     }
                                                 }
+                                                if (!categoriaTrovata)
+                                                {
+                                                    nuovaCategoria.ID = 10;
+                                                }
+
                                                 manager.AggiungiProdotto(new Prodotto
                                                 {
                                                     Nome = nome,
                                                     Prezzo = prezzo,
                                                     Giacenza = giacenza,
                                                     Categoria = nuovaCategoria,
-                                                }
-                                                );
+                                                });
+
                                                 repositoryProdotti.SalvaProdotti(manager.OttieniProdotti());
+
                                                 Console.Clear();
                                                 Color.DarkGreen();
                                                 Console.Write($"'{nome}' ");
@@ -782,17 +953,22 @@ class Program // <--- (standard/default)
                                                 Console.WriteLine("Aggiunto correttamente.\n");
                                                 Color.Reset();
                                                 break;
+
                                             case "3": // MODALITA' MAGAZZINIERE > TROVA PER ID
 
                                                 Color.Magenta();
                                                 Console.WriteLine("TROVA PRODOTTO PER ID\n");
                                                 Color.Reset();
 
+                                                // tramite inserimento dell'ID il magazziniere pul richiamare
+                                                // la visualizzazione dei dati di quel prodotto, se trovato
+
                                                 prodotti = repositoryProdotti.CaricaProdotti();
-                                                // Console.Write("ID > ");
+                                                
                                                 Color.Green();
                                                 int idProdotto = InputManager.LeggiIntero("ID > ", 0);
                                                 Color.Reset();
+
                                                 Prodotto prodottoTrovato = manager.TrovaProdotto(idProdotto);
 
                                                 if (prodottoTrovato != null)
@@ -812,17 +988,24 @@ class Program // <--- (standard/default)
                                                     Console.WriteLine($"\nProdotto non trovato per ID {idProdotto}");
                                                 }
                                                 break;
-                                            case "4": // MODALITA' MAGAZZINIERE > MODIFICA PRODOTTO
-                                                      // Console.Write("ID > ");
-                                                prodotti = repositoryProdotti.CaricaProdotti();
-                                                string nomeAggiornato;
-                                                decimal prezzoAggiornato;
-                                                int giacenzaAggiornata;
-                                                Prodotto prodottoAggiornato = new Prodotto();
 
+                                            case "4": // MODALITA' MAGAZZINIERE > MODIFICA PRODOTTO
+                                                
                                                 Color.Magenta();
                                                 Console.WriteLine("INSERIRE ID DEL PRODOTTO DA MODIFICARE\n");
                                                 Color.Reset();
+
+                                                // dopo la visualizzazione personalizzata, il magazziniere può selezionare
+                                                // tramite ID il prodotto da modificare, con la possibilità di scegliere
+                                                // quali voci modificare. se il prodotto non viene trovato viene comunicato
+                                                // premere '0' per tornare indietro senza eseguire operazioni
+
+                                                prodotti = repositoryProdotti.CaricaProdotti();
+                                                Prodotto prodottoAggiornato = new Prodotto();
+                                                string nomeAggiornato;
+                                                decimal prezzoAggiornato;
+                                                int giacenzaAggiornata;
+
                                                 StampaTabella.ComeAdmin(prodotti);
                                                 Color.DarkGray();
                                                 Console.WriteLine(new string('-', 65));
@@ -831,8 +1014,10 @@ class Program // <--- (standard/default)
                                                 int idProdottoDaAggiornare = InputManager.LeggiIntero("\n> ", 0);
                                                 NewLine();
                                                 Color.Reset();
+
                                                 Prodotto prodottoTrovato2 = manager.TrovaProdotto(idProdottoDaAggiornare);
                                                 nuovaCategoria = new Categoria();
+
                                                 if (prodottoTrovato2 != null)
                                                 {
                                                     Color.Green();
@@ -897,7 +1082,6 @@ class Program // <--- (standard/default)
                                                         Giacenza = giacenzaAggiornata,
                                                         Categoria = nuovaCategoria,
                                                     };
-
                                                     manager.AggiornaProdotto(idProdottoDaAggiornare, prodottoAggiornato);
                                                 }
                                                 else
@@ -918,19 +1102,22 @@ class Program // <--- (standard/default)
                                                     Console.Write("aggiornato correttamente!\n");
                                                     NewLine();
                                                 }
-
                                                 break;
+
                                             case "5": // MODALITA' MAGAZZINIERE > ELIMINA PRODOTTO
-                                                prodotti = repositoryProdotti.CaricaProdotti();
+
                                                 Color.Red();
-                                                Console.WriteLine(
-                                                    "INSERIRE ID DEL PRODOTTO DA ELIMINARE\n"
-                                                );
+                                                Console.WriteLine("INSERIRE ID DEL PRODOTTO DA ELIMINARE\n");
                                                 Color.Reset();
+
+                                                // in seguito alla stampa personalizzata, il magazziniere può
+                                                // selezionare tramite ID il prodotto da eliminare
+
+                                                prodotti = repositoryProdotti.CaricaProdotti();
                                                 Prodotto prodottoDaEliminareTemp = new Prodotto();
+
                                                 StampaTabella.ComeAdmin(prodotti);
-                                                //Console.Write("ID > ");
-                                                // int idProdottoDaEliminare = int.Parse(Console.ReadLine());
+                                                
                                                 Color.Red();
                                                 int idProdottoDaEliminare = InputManager.LeggiIntero("\n> ", 0);
                                                 Color.Reset();
@@ -948,12 +1135,16 @@ class Program // <--- (standard/default)
 
                                                 break;
                                             case "6": // MODALITA' MAGAZZINIERE > GESTIONE CATEGORIE CATEGORIE
+
                                                 bool continuaInCategorie = true;
-                                                while (continuaInCategorie)
+                                                while (continuaInCategorie) // PROGRAMMA CATEGORIE
                                                 {
                                                     Color.Magenta();
                                                     Console.WriteLine("GESTISCI LE CATEGORIE\n");
                                                     Color.Reset();
+
+                                                    // operazioni CRUD per le categorie, aggiornate in tempo reale in data/categorie
+
                                                     Console.WriteLine("1. Nuova Categoria");
                                                     Console.WriteLine("2. Modifica Categoria");
                                                     Console.WriteLine("3. Elimina Categoria");
@@ -965,7 +1156,8 @@ class Program // <--- (standard/default)
                                                     Console.Clear();
                                                     switch (sceltaCategorie)
                                                     {
-                                                        case 1:
+                                                        case 1: // NUOVA CATEGORIA
+
                                                             Color.Magenta();
                                                             Console.WriteLine("NUOVA CATEGORIA \n");
                                                             Color.Green();
@@ -974,27 +1166,36 @@ class Program // <--- (standard/default)
                                                             managerCategorie.AggiungiCategoria(new Categoria
                                                             {
                                                                 Name = nomeNuovaCategoria,
-                                                            }
-                                                            );
+                                                            });
+
                                                             repositoryCategorie.SalvaCategorie(listaCategorie);
+
                                                             Console.Clear();
                                                             Color.Green();
                                                             Console.Write($"'{nomeNuovaCategoria}' ");
                                                             Color.Reset();
+
                                                             Console.Write("inserita tra le categorie.\n");
                                                             NewLine();
-
                                                             break;
-                                                        case 2:
-                                                            string nomeCategoriaDaModificare;
-                                                            bool trovato = false;
+
+                                                        case 2: // MODIFICA CATEGORIA TRAMITE ID
+
                                                             Color.Green();
                                                             Console.WriteLine("MODIFICA CATEGORIA TRAMITE ID\n");
+
+                                                            // stampa delle categorie e acquisizione dell'ID
+                                                            // scelto per la modifica. In caso di mancata corrispondenza
+                                                            // viene comunicato e nessuna operazione verrà eseguita
+
+                                                            string nomeCategoriaDaModificare;
+                                                            bool trovato = false;
 
                                                             StampaTabella.Categorie(listaCategorie);
                                                             Color.Green();
                                                             int idCategoriaDaModificare = InputManager.LeggiIntero("> ", 0);
                                                             NewLine();
+
                                                             foreach (var categoria in listaCategorie)
                                                             {
                                                                 if (categoria.ID == idCategoriaDaModificare)
@@ -1003,8 +1204,10 @@ class Program // <--- (standard/default)
                                                                     Console.Write($"Aggiorna da {categoria.Name} a ");
                                                                     Color.Green();
                                                                     nomeCategoriaDaModificare = InputManager.LeggiStringa("");
+
                                                                     managerCategorie.AggiornaCategoria(idCategoriaDaModificare, new Categoria { Name = nomeCategoriaDaModificare, });
                                                                     repositoryCategorie.SalvaCategorie(listaCategorie);
+
                                                                     trovato = true;
                                                                     Console.Clear();
 
@@ -1019,40 +1222,62 @@ class Program // <--- (standard/default)
                                                                 Color.Red();
                                                                 Console.WriteLine($"Nessuna categoria trovata per ID:{idCategoriaDaModificare}");
                                                             }
+                                                            break;
 
-                                                            break;
-                                                        case 3:
+                                                        case 3: // ELIMINA CATEGORIA TRAMITE ID
+
+                                                            Color.Green();
+                                                            Console.WriteLine("ELIMINA CATEGORIA TRAMITE ID\n");
+                                                            Color.Reset();
+
                                                             StampaTabella.Categorie(listaCategorie);
+
+                                                            Color.Red();
                                                             int idCategoriaDaEliminare = InputManager.LeggiIntero("Inserisci ID categoria da eliminare> ", 0);
+                                                            Color.Reset();
+
                                                             managerCategorie.EliminaCategoria(idCategoriaDaEliminare);
-                                                            Console.Clear();
                                                             repositoryCategorie.SalvaCategorie(listaCategorie);
+
+                                                            Console.Clear();
                                                             StampaTabella.Categorie(listaCategorie);
                                                             break;
-                                                        case 4:
+
+                                                        case 4: // TUTTE LE CATEGORIE
+
                                                             Color.Magenta();
                                                             Console.WriteLine("TUTTE LE CATEGORIE\n");
                                                             Color.Reset();
+
+                                                            // stampa tutte le categorie presenti in data/categorie
                                                             StampaTabella.Categorie(listaCategorie);
                                                             break;
-                                                        case 0:
+
+                                                        case 0: // ESCI
+
+                                                            // TERMINA PROGRAMMA CATEGORIE
                                                             continuaInCategorie = false;
                                                             break;
+
                                                     }
                                                 }
-
                                                 break;
+
                                             case "0": // ESCI
+
+                                                // TERMINA PROGRAMMA MAGAZZINIERE
                                                 continuaComeMagazziniere = false;
                                                 break;
+
                                             default:
                                                 Console.WriteLine("INSERIMENTO MENU NON VALIDO\n");
                                                 break;
                                         }
                                     }
-
                                     break;
-                                case 3: //* MODALITA' AMMINISTRATORE
+
+                                case 3: // MODALITA' AMMINISTRATORE
+
                                     bool continuaComeAmministratore = true;
                                     if (!PermessiAmministratore(dipendente))
                                     {
@@ -1060,15 +1285,23 @@ class Program // <--- (standard/default)
                                         Console.WriteLine("Non hai i permessi dell'Amministratore\n");
                                         Color.Reset();
                                     }
-                                    while (continuaComeAmministratore && PermessiAmministratore(dipendente))
+
+                                    while (continuaComeAmministratore && PermessiAmministratore(dipendente)) // PROGRAMMA AMMINISTRATORE
                                     {
-                                        repositoryProdotti.SalvaProdotti(prodotti);
-                                        prodotti = repositoryProdotti.CaricaProdotti();
                                         Color.Magenta();
                                         Console.WriteLine("MODALITA' AMMINISTRATORE");
                                         Console.WriteLine(new string('-', 48));
                                         NewLine();
                                         Color.Reset();
+
+                                        // amministratore gestisce i dipendenti
+                                        // gestisce le casse ed il fatturato di ogni singola cassa
+                                        // calcola il fatturato totale, le spese di ogni cliente
+                                        // e la data del loro ultimo acquisto
+
+                                        repositoryProdotti.SalvaProdotti(prodotti);
+                                        prodotti = repositoryProdotti.CaricaProdotti();
+
                                         Console.WriteLine("1. Visualizza Dipendenti");
                                         Console.WriteLine("2. Aggiungi Dipendente");
                                         Console.WriteLine("3. Elimina Dipendente");
@@ -1086,30 +1319,45 @@ class Program // <--- (standard/default)
                                         switch (sceltaAmministratore) // MENU AMMINISTRATORE
                                         {
                                             case "1": // MODALITA' AMMINISTRATORE > VISUALIZZA DIPENDENTI
+
                                                 Color.Magenta();
                                                 Console.WriteLine("MODALITA' AMMINISTRATORE > VISUALIZZA DIPENDENTI");
                                                 NewLine();
                                                 Color.Reset();
+
+                                                // visualizzazione personalizzata dei dipendenti
+                                                // con ID | USERNAME | RUOLO
+
                                                 StampaDipendenti.Tabella(dipendenti);
                                                 NewLine();
-                                                //Console.WriteLine("Visualizzazione ancora non disponibile");
                                                 break;
+
                                             case "2": // MODALITA' AMMINISTRATORE > AGGIUNGI DIPENDENTE
+
                                                 Color.Magenta();
                                                 Console.WriteLine("MODALITA' AMMINISTRATORE > AGGIUNGI DIPENDENTE");
                                                 Console.WriteLine(new string('-', 48));
                                                 NewLine();
                                                 Color.Reset();
 
+                                                // crea nuovi dipendenti e seleziona il ruolo da una lista prestabilita
+                                                // per evitare errori di battitura durante l'inserimento
+                                                // infine attraverso una stampa personaizzata visualizza singolarmente
+                                                // il nuovo dipendente aggiunto
+
                                                 Dipendente nuovoDipendente = new Dipendente();
+
                                                 Color.Green();
                                                 string username = InputManager.LeggiStringa("Username del nuovo dipendente: ");
                                                 Console.WriteLine("Ruolo del nuovo dipendente:");
                                                 Color.Reset();
+
                                                 Console.WriteLine("\n1. Cassiere\n2. Magazziniere\n3. Amministratore");
                                                 string ruolo = "";
+
                                                 Color.DarkGreen();
                                                 int selezionaRuolo = InputManager.LeggiIntero("\n> ", 1, 3);
+
                                                 switch (selezionaRuolo)
                                                 {
                                                     case 1:
@@ -1122,22 +1370,26 @@ class Program // <--- (standard/default)
                                                         ruolo = "Amministratore";
                                                         break;
                                                 }
-                                                Color.Reset();
+
                                                 Dipendente tempDipendente = new Dipendente
                                                 {
                                                     Username = username,
                                                     Ruolo = ruolo,
                                                 };
+
                                                 managerDipendenti.AggiungiDipendente(tempDipendente);
                                                 repositoryDipendenti.SalvaDipendenti(dipendenti);
-                                                Color.Reset();
+                
+                                        
                                                 Console.Clear();
                                                 Color.Green();
                                                 Console.WriteLine("Nuovo dipendente aggiunto\n");
                                                 Color.Reset();
+
                                                 StampaDipendenti.Singolo(tempDipendente);
                                                 NewLine();
                                                 break;
+
                                             case "3": // MODALITA' AMMINISTRATORE > ELIMINA DIPENDENTE
 
                                                 Color.Magenta();
@@ -1146,21 +1398,30 @@ class Program // <--- (standard/default)
                                                 NewLine();
                                                 Color.Reset();
 
+                                                // stampa personalizzata di tutti i dipendenti
+                                                // inserimento id del dipendente da eliminare
+                                                // conferma operazione completata e visualizzazione 
+                                                // dei dati del singolo dipendente
+                                            
                                                 StampaDipendenti.Tabella(dipendenti);
+
                                                 Color.Red();
                                                 int idPerElimina = InputManager.LeggiIntero("\nInserisci ID del dipendente da eliminare > ");
                                                 Color.Reset();
+
                                                 Dipendente dipendenteEliminato = managerDipendenti.TrovaDipendentePerId(idPerElimina);
                                                 managerDipendenti.EliminaDipendente(idPerElimina);
                                                 repositoryDipendenti.SalvaDipendenti(dipendenti);
                                                 Console.Clear();
+
                                                 Color.Red();
                                                 Console.WriteLine("Dipendente eliminato\n");
                                                 Color.Reset();
+
                                                 StampaDipendenti.Singolo(dipendenteEliminato);
                                                 NewLine();
-
                                                 break;
+
                                             case "4": // MODALITA' AMMINISTRATORE > AGGIORNA DIPENDENTE
 
                                                 Color.Magenta();
@@ -1168,10 +1429,17 @@ class Program // <--- (standard/default)
                                                 NewLine();
                                                 Color.Reset();
 
+                                                // stampa personalizzata di tutti i dipendenti
+                                                // inserimento id del dipendente da aggiornare
+                                                // conferma aggiornamento tramite visualizzazione 
+                                                // dei dati del singolo dipendente 
+
                                                 StampaDipendenti.Tabella(dipendenti);
+
                                                 Color.DarkYellow();
                                                 int idPerAggiorna = InputManager.LeggiIntero("\nInserisci ID Cliente da aggiornare > ", 0);
                                                 Color.Reset();
+
                                                 Dipendente dipendenteDaAggiornare = managerDipendenti.TrovaDipendentePerId(idPerAggiorna);
                                                 managerDipendenti.AggiornaDipendente(idPerAggiorna);
                                                 repositoryDipendenti.SalvaDipendenti(dipendenti);
@@ -1182,15 +1450,20 @@ class Program // <--- (standard/default)
                                                 Color.Reset();
 
                                                 StampaDipendenti.Singolo(dipendenteDaAggiornare);
-
                                                 NewLine();
                                                 break;
+
                                             case "5": // MODALITA' AMMINISTRATORE > CALCOLA FATTURATO
 
                                                 Color.Magenta();
                                                 Console.WriteLine("MODALITA' AMMINISTRATORE > CALCOLA FATTURATO");
                                                 NewLine();
                                                 Color.Reset();
+
+                                                // prendendo i dati da data/purchase, calcola, visualizza e stampa
+                                                // le diverse operazioni e il fatturato raggiunto
+                                                // in seguito alla visualizzazione, premere un qualsiasi tasto per 
+                                                // tornare al menu
 
                                                 listaPurchase = repostoryPurchase.CaricaPurchases();
 
@@ -1208,10 +1481,12 @@ class Program // <--- (standard/default)
                                                         totaleFatturato += purchase.Totale;
                                                     }
                                                 }
+
                                                 NewLine();
                                                 Color.DarkGray();
                                                 Console.WriteLine(new string('-', 76));
                                                 NewLine();
+
                                                 Color.Reset();
                                                 Console.Write($"{"TOTALE FATTURATO:",-20}");
                                                 Color.Green();
@@ -1226,37 +1501,54 @@ class Program // <--- (standard/default)
                                                 Console.ReadKey();
                                                 Console.Clear();
                                                 break;
+
                                             case "6": // MODALITA' AMMINISTRATORE > VISUALIZZA CLIENTI
+
                                                 Color.Magenta();
                                                 Console.WriteLine("MODALITA' AMMINISTRATORE > VISUALIZZA CLIENTI");
                                                 NewLine();
                                                 Color.Reset();
+
+                                                // visualizzazione dei clienti, 
+                                                // ID | NOME | TOTALE COMPLESSIVO SPESO | DATA ULTIMO ACQUISTO
+
                                                 clienti = repositoryClienti.CaricaClienti();
                                                 StampaClienti.Tabella(clienti);
                                                 NewLine();
                                                 break;
+
                                             case "7": // MODALITA' AMMINISTRATORE > GESTIONE CASSE
+
                                                 bool continuaInGestioneCasse = true;
-                                                while (continuaInGestioneCasse)
+                                                while (continuaInGestioneCasse) // PROGRAMMA GESTIONE CASSE
                                                 {
                                                     Color.Magenta();
                                                     Console.WriteLine("GESTIONE CASSE\n");
                                                     Color.Reset();
+
+                                                    // operazioni CRUD semplificate per gestione
+                                                    // e monitoraggio dei fatturati delle casse
+
                                                     Console.WriteLine("1. Nuova Cassa");
                                                     Console.WriteLine("2. Elimina Cassa");
                                                     Console.WriteLine("3. Visualizza Casse");
                                                     Console.WriteLine("0. Indietro");
+
                                                     Color.Magenta();
                                                     int sceltaGestioneCasse = InputManager.LeggiIntero("\n> ", 0, 3);
                                                     Color.Reset();
                                                     Console.Clear();
 
-                                                    switch (sceltaGestioneCasse)
+                                                    switch (sceltaGestioneCasse) // PROGRAMMA GESTIONE CASSE
                                                     {
                                                         case 1: // NUOVA CASSA
+
                                                             Color.Magenta();
                                                             Console.WriteLine("NUOVA CASSA \n");
                                                             Color.Green();
+
+                                                            // crea una nuova cassa o torna indietro
+
                                                             bool confermaCreazioneCassa = InputManager.LeggiConferma("Creare una nuova cassa?");
                                                             if (confermaCreazioneCassa)
                                                             {
@@ -1264,6 +1556,7 @@ class Program // <--- (standard/default)
                                                                 repositoryCasse.SalvaCassaSingola(nuovaCassa);
                                                                 listaCasse = repositoryCasse.CaricaCasse();
                                                                 Console.Clear();
+
                                                                 Color.Reset();
                                                                 Console.Write("La Cassa 'Numero ");
                                                                 Color.Green();
@@ -1277,60 +1570,65 @@ class Program // <--- (standard/default)
                                                                 Console.Clear();
                                                             }
                                                             break;
+
                                                         case 2: // ELIMINA CASSA TRAMITE ID
-                                                                //      string nomeCategoriaDaModificare;
-                                                            bool trovato = false;
+
                                                             Color.Green();
                                                             Console.WriteLine("ELIMINA CASSA TRAMITE ID\n");
-                                                            //      StampaTabella.Categorie(listaCategorie);
+
+                                                            // visualizza casse e seleziona tramite ID quale eliminare
+                                                            // un messaggio conferma la riuscita o meno dell'operazione
+
                                                             StampaTabella.VisualizzaCasse(managerCasse.OttieniCasse());
+
                                                             Color.Green();
                                                             int idCassaDaEliminare = InputManager.LeggiIntero("> ", 0);
                                                             NewLine();
+
                                                             bool cassaEliminata = managerCasse.EliminaCassaPerId(idCassaDaEliminare);
                                                             if (cassaEliminata)
                                                             {
-
                                                                 Color.Green();
                                                                 Console.WriteLine($"La cassa Numero {idCassaDaEliminare} è stata eliminata correttamente!");
                                                                 Color.Reset();
                                                             }
                                                             break;
-                                                        case 3:
+
+                                                        case 3: // VISUALIZZA CASSE
+
                                                             Color.Magenta();
                                                             Console.WriteLine("VISUALIZZA CASSE \n");
                                                             StampaTabella.VisualizzaCasse(managerCasse.OttieniCasse());
                                                             Color.Reset();
-                                                            //         StampaTabella.Categorie(listaCategorie);
-                                                            //         int idCategoriaDaEliminare = InputManager.LeggiIntero("Inserisci ID categoria da eliminare> ", 0);
-                                                            //         managerCategorie.EliminaCategoria(idCategoriaDaEliminare);
-                                                            //         Console.Clear();
-                                                            //         repositoryCategorie.SalvaCategorie(listaCategorie);
-                                                            //         StampaTabella.Categorie(listaCategorie);
                                                             break;
-                                                        // case 4:
-                                                        //         Color.Magenta();
-                                                        //         Console.WriteLine("TUTTE LE CATEGORIE\n");
-                                                        //         Color.Reset();
-                                                        //         StampaTabella.Categorie(listaCategorie);
-                                                        //         break;
-                                                        case 0:
+                                                        
+                                                        case 0: // ESCI
+
+                                                            // TERMINA PROGRAMMA GESTIONE CASSE
                                                             continuaInGestioneCasse = false;
                                                             break;
                                                     }
                                                 }
                                                 break;
+
                                             case "0": // ESCI
+
+                                                // TERMINA PROGRAMMA AMMINISTRATORE
                                                 continuaComeAmministratore = false;
                                                 break;
                                         }
                                     }
                                     break;
-                                case 0: //* ESCI
+                                case 0: // ESCI
+
+                                    // esce dalla modalità dipententi, ma non termina il programma
+                                    // a meno che non venga specificato tramite conferma
+
                                     Color.Red();
                                     continua = !InputManager.LeggiConferma("Terminare l'applicazione?");
                                     Color.Reset();
                                     Console.Clear();
+
                                     continuaComeDipendente = false;
                                     if (!continua)
                                     {
@@ -1341,6 +1639,8 @@ class Program // <--- (standard/default)
                         }
                         else
                         {
+                            // in caso lo Username inserito tentando di entrare 
+                            // nella modalità dipendenti non sia presente
                             Color.Red();
                             Console.WriteLine("ACCESSO NEGATO\n");
                             Color.Reset();
@@ -1350,9 +1650,12 @@ class Program // <--- (standard/default)
                     break;
             }
             continuaComeDipendente = true;
-        } // chiusa switch (scelta)
-    } // chiusa while (continua)
+        } 
+    } // TERMINA PROGRAMMA
+
     #region PERMESSI
+
+    // funzioni per la gestione dei permessi
     static bool PermessiMagazziniere(Dipendente dipendente)
     {
         if (dipendente.Ruolo == "Magazziniere" || dipendente.Ruolo == "admin")
@@ -1361,7 +1664,6 @@ class Program // <--- (standard/default)
         }
         return false;
     }
-
     static bool PermessiAmministratore(Dipendente dipendente)
     {
         if (dipendente.Ruolo == "Amministratore" || dipendente.Ruolo == "admin")
@@ -1370,7 +1672,6 @@ class Program // <--- (standard/default)
         }
         return false;
     }
-
     static bool PermessiCassiere(Dipendente dipendente)
     {
         if (dipendente.Ruolo == "Cassiere" || dipendente.Ruolo == "admin")
@@ -1381,6 +1682,7 @@ class Program // <--- (standard/default)
     }
     #endregion
 
+    // funzione di servizio
     static void NewLine()
     {
         Console.WriteLine();
