@@ -684,7 +684,7 @@ class Program
                                                                     {
                                                                         Color.Magenta();
                                                                         Console.WriteLine("VISUALIZZA CASSE \n");
-                                                                        StampaTabella.VisualizzaCasse(managerCasse.OttieniCasse());
+                                                                        StampaTabella.VisualizzaCasse();
                                                                         Color.Reset();
                                                                         int selezioneCassa = InputManager.LeggiIntero("\nSeleziona la Cassa> ", 0);
                                                                         cassaSelezionata = repositoryCasse.CaricaCassaSingola(selezioneCassa);
@@ -704,9 +704,9 @@ class Program
                                                                     cassaSelezionata.Acquisti.Add(tempStoricoAcquisti);
                                                                     cassaSelezionata.Fatturato += carrelloManager.CalcolaTotale(cliente.Cart.Cart);
                                                                     cassaSelezionata.ScontrinoProcessato = managerCasse.GeneraScontrino(prodottiTemp, tempPurchase.Totale, cassaSelezionata.Id, tempPurchase.Data, tempPurchase.IdPurchase);
+                                                                    cliente.StoricoAcquisti.Add(tempStoricoAcquisti);
                                                                     repositoryCasse.SalvaCassaSingola(cassaSelezionata);
 
-                                                                    cliente.StoricoAcquisti.Add(tempStoricoAcquisti);
                                                                     cliente.Credito -= carrelloManager.CalcolaTotale(cliente.Cart.Cart);
                                                                     cliente.Cart.Cart = new List<ProdottoCarrello>();
                                                                     cliente.Cart.Completed = false;
@@ -1132,8 +1132,8 @@ class Program
                                                 Color.Reset();
                                                 Console.Write("eliminato correttamente\n");
                                                 NewLine();
-
                                                 break;
+
                                             case "6": // MODALITA' MAGAZZINIERE > GESTIONE CATEGORIE CATEGORIE
 
                                                 bool continuaInCategorie = true;
@@ -1509,7 +1509,7 @@ class Program
                                                 NewLine();
                                                 Color.Reset();
 
-                                                // visualizzazione dei clienti, 
+                                                // visualizzazione dei clienti
                                                 // ID | NOME | TOTALE COMPLESSIVO SPESO | DATA ULTIMO ACQUISTO
 
                                                 clienti = repositoryClienti.CaricaClienti();
@@ -1579,7 +1579,7 @@ class Program
                                                             // visualizza casse e seleziona tramite ID quale eliminare
                                                             // un messaggio conferma la riuscita o meno dell'operazione
 
-                                                            StampaTabella.VisualizzaCasse(managerCasse.OttieniCasse());
+                                                            StampaTabella.VisualizzaCasse();
 
                                                             Color.Green();
                                                             int idCassaDaEliminare = InputManager.LeggiIntero("> ", 0);
@@ -1598,7 +1598,7 @@ class Program
 
                                                             Color.Magenta();
                                                             Console.WriteLine("VISUALIZZA CASSE \n");
-                                                            StampaTabella.VisualizzaCasse(managerCasse.OttieniCasse());
+                                                            StampaTabella.VisualizzaCasse();
                                                             Color.Reset();
                                                             break;
                                                         

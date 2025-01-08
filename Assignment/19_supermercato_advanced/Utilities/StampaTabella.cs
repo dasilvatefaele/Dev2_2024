@@ -15,6 +15,7 @@ static public class StampaTabella
     const int COLONNA_LARGE = -50;
 
     static CarrelloAdvancedManager managerCarrello = new CarrelloAdvancedManager();
+    static CasseRepository casseRepository = new CasseRepository();
     static public void ComeAdmin(List<Prodotto> prodotti)
     {
         const int LUNGHEZZA_BR = 65;
@@ -145,8 +146,10 @@ static public class StampaTabella
 
     }
 
-    static public void VisualizzaCasse (List<Cassa> listaCasse)
+    static public void VisualizzaCasse ()
     {
+
+        var listaCasse = casseRepository.CaricaCasse();
         Color.DarkGray();
         const int LUNGHEZZA_BR = 20;
         if (listaCasse.Count > 0)

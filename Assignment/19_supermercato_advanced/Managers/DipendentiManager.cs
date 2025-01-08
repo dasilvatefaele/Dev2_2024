@@ -102,8 +102,31 @@ public class DipendentiManager
                 dipendente.Username = InputManager.LeggiStringa("Username > ");
             }
             risposta = InputManager.LeggiConferma("Modificare Ruolo?");
+            if (risposta)
             {
-                dipendente.Ruolo = InputManager.LeggiStringa("Ruolo > ");
+                Console.WriteLine("Nuobo ruolo del dipendente:");
+                Color.Reset();
+
+                Console.WriteLine("\n1. Cassiere\n2. Magazziniere\n3. Amministratore");
+                string ruolo = "";
+
+                Color.DarkGreen();
+                int selezionaRuolo = InputManager.LeggiIntero("\n> ", 1, 3);
+
+                switch (selezionaRuolo)
+                {
+                    case 1:
+                        ruolo = "Cassiere";
+                        break;
+                    case 2:
+                        ruolo = "Magazziniere";
+                        break;
+                    case 3:
+                        ruolo = "Amministratore";
+                        break;
+                }
+                dipendente.Ruolo = ruolo;
+
             }
             repositoryDipendenti.SalvaDipendenti(dipendenti);
         }

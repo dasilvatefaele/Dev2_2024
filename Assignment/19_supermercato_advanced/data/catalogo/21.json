@@ -1,7 +1,7 @@
 {
-  "Id": 19,
-  "Nome": "Articolo2",
-  "Prezzo": 16.0,
+  "Id": 21,
+  "Nome": "Articolo3",
+  "Prezzo": 8.0,
   "Giacenza": 999,
   "Categoria": {
     "Name": "(none)",

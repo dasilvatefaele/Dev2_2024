@@ -60,7 +60,7 @@ Nome|string|
 
 ---
 
-# Stato dell'ultimo commit:
+# Primo commit: progettazione della navigazione
 
 ```mermaid
 flowchart 
@@ -1185,7 +1185,7 @@ git push -u origin main
 * [x] Gestione permessi per l'accesso ai differenti terminali dei dipendenti
 * [x] Creazione di un account admin che permette l'accesso completo a tutti i terminali
 * [x] Correzione bug nell'aggiunta al carrello di un prodotto e di una sua restituzione
-    - NOTA: esclusa temporaneamente la possibilità di "modifica". In caso l'utente voglia cambiare la quantità acquistata dovrà rimuovere l'articolo dal carrello e reinserirlo con la quantità desiderata. Implementazioni future per questa funzionalità.
+> NOTA: esclusa temporaneamente la possibilità di "modifica". In caso l'utente voglia cambiare la quantità acquistata dovrà rimuovere l'articolo dal carrello e reinserirlo con la quantità desiderata. Implementazioni future per questa funzionalità.
 * [x] CRUD delle categorie da parte del magazziniere, che ora può creare, modificare, eliminare categorie. Inoltre durante la creazione di un nuovo Prodotto è possibile scegliere la categoria da una lista aggiornata.
     - [x] Creazione CategorieRepository
     - [x] Creazione CategorieManager
@@ -1409,5 +1409,120 @@ git add --all
 git commit -m "Supermercato Advanced - v12 (documentazione Program.cs)"
 git push -u origin main
 ```
+* [x] Scrivere note finali
 
-* [ ] Scrivere un nuovo file README di documentazione
+# NOTE FINALI: 
+
+## Considerazioni
+Ho trovato necessario rivedere la definizioni di alcuni modelli affinché non si verificassero delle problematiche ricorsività e oggetti annidati, discostandomi dalla loro progettazione di partenza. Ciò è stato fatto per avere il comportamento logico che ci si aspettava, adattandoli ai miei casi ma cercando di mantenerne la logica concettuale.
+
+Nello specifico:
+
+## CLIENTE PROGETATTO (PRIMA)
+
+|Cliente|Tipo di dato|
+|---|---|
+|ID|int|
+|username|String|
+|carrello|Prodotto[]||
+|storico_acquisti|Purchases[]|
+|percentuale_sconto|int|
+|credito|double|
+
+## PURCHASES PROGETTATO (PRIMA)
+|Purchases|Tipo di dato|
+|---|---
+|ID|int|
+|cliente|Cliente||
+|prodotti|Prodotto[]|
+|quantita|int|
+|data|Date|
+|stato|Bool|
+---
+## CLIENTE REALIZZATO (DOPO)
+
+|Cliente|Tipo di dato|
+|---|---|
+|ID|int|
+|username|String|
+|Cart|Carrello|
+|storico_acquisti|StoricoAcquisti[]|
+|percentuale_sconto|int|
+|credito|decimal|
+
+Il modello `Carrello` contiene i prodotti nel carrello e un `bool Completed` di conferma per quando il cliente decide di pagare
+
+|Carrello|Tipo di dato|
+|--|--|
+Cart|Prodotto[]
+Completed|Bool|
+
+Il modello `StoricoAcquisti` è un oggetto che contiene i prodotti di un carrello datato e il totale speso 
+
+
+|StoricicoAcquisti|Tipo di dato|
+|--|--|
+MyPurchase| Prodotto[]
+Data | String
+Totale | Decimal
+
+Il modello `Purchases` salva solo `IdCliente` e `NomeCliente` piuttosto che l'intero oggetto `Cliente`. Il `Completed` diventa a True quando avviene l'effettivo pagamento.
+
+|Purchases|Tipo di dato|
+|---|---
+|IdPurchase|int|
+|IdCliente|int|
+|NomeCliente|string|
+|MyPurchase|Carrello|
+|Data|String|
+|Totale|Decimal|
+|Completed|Bool|
+
+> prima `Purchases` conteneva `Cliente`, che contenteva `Purchases[]`, e ognuno conteneva `Cliente`, che contenteva `Purchases[]`, e ognuno conteneva `Cliente`, che contenteva `Purchases[]`, e ognuno conteneva `Cliente`, e così all'infinito...
+
+> EXTRA: tutti i dati di tipo `Data` viengono creati come `DateTime` ma consolidati in `String`
+
+---
+
+## Documentazione
+E' necessario per me individuare uno stile di documentazione facile da aggiornare e da mantenere,
+con l'obiettivo di tenere traccia di: 
+
++ OBIETTIVI 
++ PROGRESSI
++ BUG RISCONTRATI
++ RAGIONAMENTI SU COME RISOLVERLI
++ CODICE DI BACKUP
++ COMMIT PROGRESSIVI
+
+> DOMANDA: è il modo corretto di pensare alla documentazione? C'è qualcosa di troppo? Manca qualcosa?
+
+> DOMANDA: data la lunghezza del codice e delle sue diverse parti, è comunque buona prassi avere dei backup nel README anche se i commit delle versioni stabili vengono eseguiti regolarmente?
+
+## In questo specifico esercizio ho compreso l'importanza:
+
++ di progettare in modo elastico, dal momento che non sempre mi è possibile prevedere quali potrebbero essere gli ostacoli nascosti nella risoluzione di un problema
+
++ la piena comprensione dei requisiti
+
++ del nome delle variabili e dei metodi, perché aumenta la leggibilità del codice e la sua manutenzione
+
++ dell'uniformità delle strutture del codice, perché permette di rendere il codice più riutilizzabile e riadattabile
+
++ di avere uno stile di formattazione facilmente navigabile a colpo d'occhio
+
++ creare uno scheletro (almeno di navigazione) prima ancora di costruire funzioni specifiche
+
++ di commentare in corso d'opera, per sapere `come`, `dove` e `perché` accadono le cose senza per forza dover decifrare codice
+
++ interpretare i messaggi di errore e correggere i bug più velocemente
+
+## Difficoltà
+
+Non ho ritrovato particolari difficoltà, se non per la mancanza delle consapevolezze qui sopra citate e che ho cercato di integrare durante lo sviluppo. Alla fine mi sono concentrato sul refactoring del Program.cs tenendo conto di queste considerazioni, ma non sono riuscito in tempo a rivisitare le classi.
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced - v12 (Note Finali)"
+git push -u origin main
+```

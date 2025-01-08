@@ -30,6 +30,7 @@ public class CassaManager
         cassa.Id = prossimoId;
         prossimoId++;
         _casse.Add(cassa); // quella private
+        cassa.Acquisti = new List<StoricoAcquisti>();
         repoCasse.SalvaCassaSingola(cassa);
         return cassa;
     }
@@ -42,6 +43,7 @@ public class CassaManager
 
     public List<Cassa> OttieniCasse()
     {
+        _casse = repoCasse.CaricaCasse();
         return _casse;
     }
 
