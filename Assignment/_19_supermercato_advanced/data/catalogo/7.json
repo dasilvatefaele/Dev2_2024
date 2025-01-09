@@ -1,0 +1,10 @@
+{
+  "Id": 7,
+  "Nome": "Mele Fuji",
+  "Prezzo": 0.79,
+  "Giacenza": 67,
+  "Categoria": {
+    "Name": "Verdure",
+    "ID": 1
+  }
+}

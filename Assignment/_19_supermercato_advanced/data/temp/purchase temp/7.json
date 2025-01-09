@@ -1,0 +1,23 @@
+{
+  "IdPurchase": 7,
+  "IdCliente": 1,
+  "NomeCliente": "Felipe",
+  "MyPurchase": {
+    "Cart": [
+      {
+        "Id": 16,
+        "Nome": "Guarana",
+        "Prezzo": 2.0,
+        "Quantita": 10,
+        "Categoria": {
+          "Name": "Bevande",
+          "ID": 3
+        }
+      }
+    ],
+    "Completed": true
+  },
+  "Data": "02/01/2025 alle 02:38",
+  "Totale": 18.0,
+  "Completed": true
+}

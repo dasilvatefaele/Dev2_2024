@@ -1,0 +1,10 @@
+{
+  "Id": 12,
+  "Nome": "Deodorante",
+  "Prezzo": 2.49,
+  "Giacenza": 148,
+  "Categoria": {
+    "Name": "Pulizia",
+    "ID": 2
+  }
+}

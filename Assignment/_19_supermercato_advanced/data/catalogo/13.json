@@ -1,0 +1,10 @@
+{
+  "Id": 13,
+  "Nome": "Mozzarella",
+  "Prezzo": 3.69,
+  "Giacenza": 34,
+  "Categoria": {
+    "Name": "Latticini",
+    "ID": 11
+  }
+}

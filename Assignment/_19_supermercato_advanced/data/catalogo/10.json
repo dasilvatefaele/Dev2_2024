@@ -1,0 +1,10 @@
+{
+  "Id": 10,
+  "Nome": "Vino",
+  "Prezzo": 18.50,
+  "Giacenza": 2,
+  "Categoria": {
+    "Name": "Alcolici",
+    "ID": 7
+  }
+}

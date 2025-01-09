@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks.Dataflow;
 using Newtonsoft.Json;
 
 public class CarrelloAdvancedManager
@@ -99,6 +100,8 @@ public class CarrelloAdvancedManager
         int quantitaIndietro = 0;
         Prodotto prodottoRestituito = new Prodotto();
         ProdottoCarrello prodottoRimosso = new ProdottoCarrello();
+        // ProdottoRepository prodottoRepository = new ProdottoRepository();
+
 
         Console.Clear();
 
@@ -123,7 +126,18 @@ public class CarrelloAdvancedManager
                 if (prodotto.Id == prodottoRimosso.Id)
                 {
                     // e aggiunge la quantità alla giacenza del prodotto in magazzino
-                    prodotto.Giacenza += quantitaIndietro;
+                    prodotto.Giacenza -= quantitaIndietro;
+                    Console.WriteLine($"DEBUG quantitaIndietro:{quantitaIndietro}");
+                    Console.WriteLine($"DEBUG prodottoRimosso:{prodottoRimosso.Nome}");
+                    foreach (var item in prodotti)
+                    {
+                        if( item.Id==prodottoRimosso.Id)
+                        {
+                              Console.WriteLine($"DEBUG prodotto Lista:{item.Giacenza}");
+                        }
+                    }
+                   // 
+                    Console.ReadKey();
                 }
             }
             Color.Red();

@@ -27,8 +27,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06_metodi_array", "esercita
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07_metodi_lista", "esercitazioni\07_metodi_lista\07_metodi_lista.csproj", "{BACF627A-E719-4876-B21D-4E854F206ECC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A_Prove", "esercitazioni\A_Prove\A_Prove.csproj", "{B6BAD06F-7453-4DF8-8B31-F79D0950B69E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment", "Assignment", "{2E32A539-E6CA-4A43-8142-12F138192BBC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01_indovina_numero", "Assignment\01_indovina_numero\01_indovina_numero.csproj", "{9ACBA89A-F330-4A90-9F0F-12A606614C40}"

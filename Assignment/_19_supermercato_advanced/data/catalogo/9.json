@@ -1,0 +1,10 @@
+{
+  "Id": 9,
+  "Nome": "Succo di pera",
+  "Prezzo": 1.09,
+  "Giacenza": 60,
+  "Categoria": {
+    "Name": "Bevande",
+    "ID": 3
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "Id": 11,
+  "Nome": "Avocado",
+  "Prezzo": 2.19,
+  "Giacenza": 77,
+  "Categoria": {
+    "Name": "Verdure",
+    "ID": 1
+  }
+}

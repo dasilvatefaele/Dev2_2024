@@ -1,0 +1,76 @@
+{
+  "Id": 3,
+  "Username": "Marcia",
+  "Cart": {
+    "Cart": [],
+    "Completed": false
+  },
+  "StoricoAcquisti": [
+    {
+      "MyPurchase": [
+        {
+          "Id": 16,
+          "Nome": "Guarana",
+          "Prezzo": 2.0,
+          "Quantita": 5,
+          "Categoria": {
+            "Name": "Bevande",
+            "ID": 3
+          }
+        },
+        {
+          "Id": 1,
+          "Nome": "Coca Cola",
+          "Prezzo": 1.49,
+          "Quantita": 10,
+          "Categoria": {
+            "Name": "Bevande",
+            "ID": 3
+          }
+        }
+      ],
+      "Data": "02/01/2025 alle 01:55",
+      "CreditoResiduo": 200.00,
+      "Totale": 24.90
+    },
+    {
+      "MyPurchase": [
+        {
+          "Id": 16,
+          "Nome": "Guarana",
+          "Prezzo": 2.0,
+          "Quantita": 5,
+          "Categoria": {
+            "Name": "Bevande",
+            "ID": 3
+          }
+        },
+        {
+          "Id": 6,
+          "Nome": "Spugna",
+          "Prezzo": 0.99,
+          "Quantita": 10,
+          "Categoria": {
+            "Name": "Pulizia",
+            "ID": 2
+          }
+        },
+        {
+          "Id": 16,
+          "Nome": "Guarana",
+          "Prezzo": 2.0,
+          "Quantita": 5,
+          "Categoria": {
+            "Name": "Bevande",
+            "ID": 3
+          }
+        }
+      ],
+      "Data": "02/01/2025 alle 02:36",
+      "CreditoResiduo": 175.10,
+      "Totale": 29.90
+    }
+  ],
+  "PercentualeSconto": 0,
+  "Credito": 145.20
+}
