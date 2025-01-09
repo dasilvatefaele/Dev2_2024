@@ -49,10 +49,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3133 Minimum Array End", "e
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{AAF17903-7FEA-4C73-9BAB-5D9FC7B350B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArkanoidClone", "Games\ArkanoidClone\ArkanoidClone.csproj", "{ED4D831D-3520-4315-8656-F9A1984FBD7F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tris_Raylib", "Games\Tris_Raylib\Tris_Raylib.csproj", "{2060ED38-D96A-495C-A1DF-0441B1F61E3D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11_gestione_eccezioni", "esercitazioni\11_gestione_eccezioni\11_gestione_eccezioni.csproj", "{9CA83BC5-5C43-414E-8B96-F03E4F0D5937}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03_calcolatrice", "Assignment\03_calcolatrice\03_calcolatrice.csproj", "{BB857799-A23D-401B-B632-AF5AFD646C25}"
