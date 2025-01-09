@@ -1,0 +1,23 @@
+{
+  "IdPurchase": 3,
+  "IdCliente": 2,
+  "NomeCliente": "Felipe",
+  "MyPurchase": {
+    "Cart": [
+      {
+        "Id": 9,
+        "Nome": "Succo di pera",
+        "Prezzo": 1.09,
+        "Quantita": 3,
+        "Categoria": {
+          "Name": "Bevande",
+          "ID": 3
+        }
+      }
+    ],
+    "Completed": true
+  },
+  "Data": "09/01/2025 alle 15:34",
+  "Totale": 3.11,
+  "Completed": true
+}

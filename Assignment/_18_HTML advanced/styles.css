@@ -60,7 +60,7 @@ body {
 
 .glass-container {
     border: 0.5px solid rgba(128, 128, 128, 0.271);
-    border-radius: 80px;
+    border-radius: 50px;
     /* padding: 10px; */
     backdrop-filter: blur(10px);
     /* Sfocatura dello sfondo */

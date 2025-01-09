@@ -1,0 +1,23 @@
+{
+  "IdPurchase": 2,
+  "IdCliente": 2,
+  "NomeCliente": "Felipe",
+  "MyPurchase": {
+    "Cart": [
+      {
+        "Id": 19,
+        "Nome": "Articolo2",
+        "Prezzo": 16.0,
+        "Quantita": 5,
+        "Categoria": {
+          "Name": "(none)",
+          "ID": 10
+        }
+      }
+    ],
+    "Completed": true
+  },
+  "Data": "09/01/2025 alle 15:26",
+  "Totale": 80.0,
+  "Completed": true
+}

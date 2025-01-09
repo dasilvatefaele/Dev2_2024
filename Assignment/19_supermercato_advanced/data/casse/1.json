@@ -1,0 +1,70 @@
+{
+  "Id": 1,
+  "Cassiere": {
+    "Ruolo": "Cassiere",
+    "Username": "Michael",
+    "Id": 17
+  },
+  "Acquisti": [
+    {
+      "MyPurchase": [
+        {
+          "Id": 19,
+          "Nome": "Articolo2",
+          "Prezzo": 16.0,
+          "Quantita": 5,
+          "Categoria": {
+            "Name": "(none)",
+            "ID": 10
+          }
+        }
+      ],
+      "Data": "09/01/2025 alle 15:26",
+      "Totale": 80.0
+    },
+    {
+      "MyPurchase": [
+        {
+          "Id": 4,
+          "Nome": "Biscotti",
+          "Prezzo": 1.19,
+          "Quantita": 2,
+          "Categoria": {
+            "Name": "Dolci",
+            "ID": 4
+          }
+        },
+        {
+          "Id": 1,
+          "Nome": "Coca Cola",
+          "Prezzo": 1.49,
+          "Quantita": 3,
+          "Categoria": {
+            "Name": "Bevande",
+            "ID": 3
+          }
+        }
+      ],
+      "Data": "09/01/2025 alle 15:24",
+      "Totale": 6.85
+    },
+    {
+      "MyPurchase": [
+        {
+          "Id": 9,
+          "Nome": "Succo di pera",
+          "Prezzo": 1.09,
+          "Quantita": 3,
+          "Categoria": {
+            "Name": "Bevande",
+            "ID": 3
+          }
+        }
+      ],
+      "Data": "09/01/2025 alle 15:34",
+      "Totale": 3.11
+    }
+  ],
+  "ScontrinoProcessato": true,
+  "Fatturato": 90.12
+}

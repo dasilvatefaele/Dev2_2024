@@ -1,0 +1,55 @@
+{
+  "Id": 2,
+  "Username": "Felipe",
+  "Cart": {
+    "Cart": [
+      {
+        "Id": 5,
+        "Nome": "Carote",
+        "Prezzo": 0.99,
+        "Quantita": 1,
+        "Categoria": {
+          "Name": "Verdure",
+          "ID": 1
+        }
+      }
+    ],
+    "Completed": false
+  },
+  "StoricoAcquisti": [
+    {
+      "MyPurchase": [
+        {
+          "Id": 19,
+          "Nome": "Articolo2",
+          "Prezzo": 16.0,
+          "Quantita": 5,
+          "Categoria": {
+            "Name": "(none)",
+            "ID": 10
+          }
+        }
+      ],
+      "Data": "09/01/2025 alle 15:26",
+      "Totale": 80.0
+    },
+    {
+      "MyPurchase": [
+        {
+          "Id": 9,
+          "Nome": "Succo di pera",
+          "Prezzo": 1.09,
+          "Quantita": 3,
+          "Categoria": {
+            "Name": "Bevande",
+            "ID": 3
+          }
+        }
+      ],
+      "Data": "09/01/2025 alle 15:34",
+      "Totale": 3.11
+    }
+  ],
+  "PercentualeSconto": 5,
+  "Credito": 196.73
+}

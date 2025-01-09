@@ -1,0 +1,57 @@
+
+
+### DIPENDENZE
+```bash
+dotnet add package System.Data.SQLite
+```
+
+```c#
+using System.Data.SQLite;
+```
+
+---
+
+
+#### MOLTO IMPORTANTE
+
+```C#
+// rotta del file database
+string path = "database.db"; 
+
+// se non esiste crealo
+if (!File.Exists(path))
+{
+    // crea l file el database
+    SQLiteConnection.CreateFile(path); 
+    // creo la connessione al database, la versione 3 è un indicicazione della versione del database
+    // e può essere personalizzata
+    SQLiteConnection connection = new SQLiteConnection($"Data Source={path};Version=3;");
+
+    connection.Open(); // apre la connessione
+
+    string sql = @"
+                CREATE TABLE categorie (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT UNIQUE);
+                INSERT INTO categorie (nome) VALUES ('frutta'),('verdura'),('verura');
+                INSERT INTO categorie (nome) VALUES ('latticini');
+                ";
+
+    // creiamo il comando per eseguire lo script su quella connessione a quel database
+    SQLiteCommand command = new SQLiteCommand(sql, connection);
+
+    // esegue la Query senza ricevere un ritorno (.ExecuteNonQuery)
+    command.ExecuteNonQuery();
+
+    //chiudiamo la connessione (! MOLTO IMPORTANTE: ogni azione  )
+
+        /*
+
+    connection.Open(); // apre la connessione
+
+    // i comandi sql vanni qui
+
+    connection.Close() // chiude la connessione
+    
+    */
+}
+
+```

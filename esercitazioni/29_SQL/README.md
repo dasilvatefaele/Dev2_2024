@@ -1,11 +1,24 @@
 # SQLite
 
+### DIPENDENZE
+```bash
+dotnet add package System.Data.SQLite
+```
+
+```c#
+using System.Data.SQLite;
+```
+
 > in SQLite i comandi sono in MAIUSCOLO
 
+
+
 ```
-necessaria estensione:
+Utile per la visualizzazione per sviluppatori estensione:
 SQLite Viewer 
 ```
+
+
 
 ## Inizio
 
@@ -190,3 +203,4 @@ UPDATE prodotti SET disponibile = TRUE  WHERE id = 2;
 UPDATE prodotti SET disponibile = FALSE  WHERE id = 3; 
 ```
 
+> fase di seed: creazione dati fittizi per un database

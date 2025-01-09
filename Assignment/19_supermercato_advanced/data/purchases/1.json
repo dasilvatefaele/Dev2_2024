@@ -1,0 +1,33 @@
+{
+  "IdPurchase": 1,
+  "IdCliente": 1,
+  "NomeCliente": "Tamer",
+  "MyPurchase": {
+    "Cart": [
+      {
+        "Id": 4,
+        "Nome": "Biscotti",
+        "Prezzo": 1.19,
+        "Quantita": 2,
+        "Categoria": {
+          "Name": "Dolci",
+          "ID": 4
+        }
+      },
+      {
+        "Id": 1,
+        "Nome": "Coca Cola",
+        "Prezzo": 1.49,
+        "Quantita": 3,
+        "Categoria": {
+          "Name": "Bevande",
+          "ID": 3
+        }
+      }
+    ],
+    "Completed": true
+  },
+  "Data": "09/01/2025 alle 15:24",
+  "Totale": 6.85,
+  "Completed": true
+}
