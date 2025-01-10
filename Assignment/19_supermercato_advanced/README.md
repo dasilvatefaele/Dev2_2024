@@ -1526,3 +1526,13 @@ git add --all
 git commit -m "Supermercato Advanced - v12 (Note Finali)"
 git push -u origin main
 ```
+
+# Supermercato Advanced v12.1
+
+- [x] risoluzione bug giacenza in caso di ritorno dal carrello al magazzino
+
+```bash
+git add --all
+git commit -m "Supermercato Advanced v12.1 - Correzione Bug Giacenza"
+git push -u origin main
+```
