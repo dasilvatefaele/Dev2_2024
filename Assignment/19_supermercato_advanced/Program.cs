@@ -212,6 +212,7 @@ class Program
 
                             case "3": // CLIENTE > RIMUOVI DAL CARRELLO
 
+                                prodotti = repositoryProdotti.CaricaProdotti();
                                 Console.WriteLine($"{cliente.Username}: RIMUOVI DAL CARRELLO\n");
 
                                 // stampa personalizzata del carrello con 'Qnt. |  Nome | Prezzo'
@@ -219,7 +220,6 @@ class Program
                                 // infine chiede IN ROSSO di inserire l'elento da eliminare
                                 // se acquisisco 0 torno al menu senza far nulla, altrimenti 
                                 // procede alla rimozione
-            
                                 StampaTabella.Carrello(cliente.Cart.Cart);
                                 NewLine();
                                 Color.Red();
@@ -227,7 +227,7 @@ class Program
                                 
                                 if (prodottoDaRimuovere != "0")
                                 {
-                                    carrelloManager.RimuoviProdottoDalCarrello(prodottoDaRimuovere,ref cliente,manager.OttieniProdotti());
+                                    carrelloManager.RimuoviProdottoDalCarrello(prodottoDaRimuovere,ref cliente,prodotti);
                                 }
                                 else
                                 {

@@ -1,0 +1,28 @@
+{
+  "Id": 1,
+  "Cassiere": {
+    "Ruolo": "admin",
+    "Username": "admin",
+    "Id": 7
+  },
+  "Acquisti": [
+    {
+      "MyPurchase": [
+        {
+          "Id": 1,
+          "Nome": "Coca Cola",
+          "Prezzo": 1.49,
+          "Quantita": 1,
+          "Categoria": {
+            "Name": "Bevande",
+            "ID": 3
+          }
+        }
+      ],
+      "Data": "10/01/2025 alle 09:25",
+      "Totale": 1.49
+    }
+  ],
+  "ScontrinoProcessato": true,
+  "Fatturato": 1.49
+}
