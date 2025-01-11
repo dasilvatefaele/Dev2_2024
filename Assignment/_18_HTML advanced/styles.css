@@ -32,6 +32,15 @@ body {
     border: 1 solid rgba(211, 211, 211, 0);
 }
 
+
+#nextpage{
+    height: fit-content;
+    width: fit-content;
+    color: rgb(211, 211, 211);
+    border: 1 solid rgb(211, 211, 211);
+}
+
+
 #tastoAcquista:hover {
 
     border: 1 solid lightgrey;
@@ -75,6 +84,7 @@ navbarNavAltMarkup h1 {
 
 h4 {
     line-height: 0.8;
+    text-wrap-mode:nowrap;
 }
 
 p {

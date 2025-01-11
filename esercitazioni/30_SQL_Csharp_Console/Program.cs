@@ -1,5 +1,5 @@
-﻿using System.Data.SqlClient;
-using System.Data.SQLite;
+﻿using System.Data.SQLite;
+
 
 // rotta del file database
 string path = "database.db";
