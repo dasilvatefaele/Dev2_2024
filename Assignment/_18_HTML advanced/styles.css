@@ -1,3 +1,7 @@
+:root{
+    --accordion-active-bg: #white !important;
+}
+
 body {
     font-family: "Inter", serif;
     font-optical-sizing: auto;
@@ -9,10 +13,11 @@ body {
 .userpicprofile {
 
     border-radius: 100%;
-
-    ;
+    object-fit:cover;
+    border: 1px solid rgba(0, 0, 0, 0.118);
     width: 50px;
-    ;
+    height: 50px;
+    
 }
 
 #transparent {
@@ -33,15 +38,6 @@ body {
     border: 1 solid rgba(211, 211, 211, 0);
 }
 
-
-#nextpage{
-    height: fit-content;
-    width: fit-content;
-    color: rgb(211, 211, 211);
-    border: 1 solid rgb(211, 211, 211);
-}
-
-
 #tastoAcquista:hover {
 
     border: 1 solid lightgrey;
@@ -51,6 +47,34 @@ body {
     color: white;
     transition: background-color .4s ease-in-out;
 }
+
+#compra {
+    box-shadow: 10px 0 100px #0f9d5800;
+    height: 40px;
+    color:white;
+    border: 1 solid lightgrey;
+    background-color: #0F9D58;
+
+}
+
+#compra:hover {
+    box-shadow: 10px 0 100px #0f9d58;
+    height: 40px;
+    color:white;
+    border: 1 solid lightgrey;
+    background-color: #0F9D58;
+
+}
+
+#nextpage{
+    height: fit-content;
+    width: fit-content;
+    color: rgb(211, 211, 211);
+    border: 1 solid rgb(211, 211, 211);
+}
+
+
+
 
 .navbar-brand {
     padding-bottom: 0px;
@@ -156,7 +180,21 @@ p {
 }
 
 
+.inline-text {
+    display: inline;
+    margin: 0;
+}
 
+.bold {
+    font-weight: bold;
+    margin: 0;
+    
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
 
 /* div {
     border: 0.5px solid rgba(128, 128, 128, 0.271);
