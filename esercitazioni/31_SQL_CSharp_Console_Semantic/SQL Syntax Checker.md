@@ -9,6 +9,8 @@ CREATE TABLE prodotti ( id INTEGER PRIMARY KEY AUTOINCREMENT, nome Text, prezzo 
 INSERT INTO categorie (nome) VALUES ('cat1'), ('cat2'), ('cat3');
 INSERT INTO prodotti (nome, prezzo, quantita, id_categoria) VALUES ('prodotto1', 1, 10,1), ('prodotto2', 2, 20, 2),  ('prodotto3', 3, 30, 3);
 
+CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)
+
 
 
 
