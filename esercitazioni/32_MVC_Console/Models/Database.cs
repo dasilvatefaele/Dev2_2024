@@ -1,3 +1,5 @@
+using System.Data;
+using System.Data.Entity.Core.Common.EntitySql;
 using System.Data.SqlClient;
 using System.Data.SQLite;
 
@@ -6,7 +8,7 @@ class Database
     private SQLiteConnection _connection;
     // connessione al database che è privaata perché non deve essere accessibile dall'esterno
     // utilizziamo _ davanti al nome per indicare che è una variabile privata
-    private string path = "database.db";
+    private string path = @"data/database.db";
 
     public Database() // costruttore della classe database
     {
@@ -36,15 +38,21 @@ class Database
     }
 
     // ottenere lista utenti, non li stampa, li restituisce solo, perché la stampa appartiene al View
-    public List<string> GetUsers() 
+    public List<User> GetUsers() 
     {
-        var command = new SQLiteCommand("SELECT name FROM users", _connection);
+        var command = new SQLiteCommand("SELECT * FROM users", _connection);
         var reader = command.ExecuteReader();
-        var users = new List<string>();
+        var users = new List<User>();
 
         while (reader.Read())
         {
-            users.Add(reader.GetString(0));
+            users.Add(new User
+            {
+                id = reader.GetInt32(0),
+                nome = reader.GetString(1)
+            });
+            
+            //users.Add(reader.GetString(0));
             // Aggiunta del nome dell'utente alla lista, 
             // IMPORTANTE: GetString(0) dove 0 è l'indice della colonna "nome" 
 

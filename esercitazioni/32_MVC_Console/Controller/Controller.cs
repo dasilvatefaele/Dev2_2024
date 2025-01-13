@@ -1,12 +1,12 @@
 using System.Data.SQLite;
 
-class Controller
+class UserController
 {
 
     private Database _db; // riferimento al modello
     private View _view; // riferimento alla vista
 
-    public Controller(Database db, View view) // costruttore con inizializzazione riferimenti
+    public UserController(Database db, View view) // costruttore con inizializzazione riferimenti
     {
         _db = db;
         _view = view;

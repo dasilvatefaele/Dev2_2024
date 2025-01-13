@@ -3,7 +3,6 @@ using System.Data.SQLite;
 
 class View
 {
-
     // Acquisizione e visualizzazione viene gestito dal View
     //? Quindi nell'archettura MVC il View serve per la visualizzazione. 
     //? in questo caso avendo anche il metodo GetInput si occupa anche dell'acquisizione 
@@ -25,11 +24,11 @@ class View
     }
 
     // View Users
-    public void MostraUsers(List<string> users)
+    public void MostraUsers(List<User> users)
     {
         foreach (var user in users)
         {
-            Console.WriteLine($"{user}");
+            Console.WriteLine($"{user.nome.ToString()}");
 
         }
     }
