@@ -1,3 +1,10 @@
+DIPENDENZE FREQUENTI
+```
+dotnet add package Newtonsoft.Json
+
+```
+
+
 # Strutture Di Dati e Metodi
 
 <details>
