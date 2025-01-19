@@ -907,7 +907,6 @@ if (Console.KeyAvailable) {
 
 # FILE
 
-
 ### Task: Creare, Leggere, Scrivere da un file .txt
 
 NOTA: file deve essere contenuto/viene creato all'interno della directory del progetto
@@ -960,12 +959,9 @@ foreach (string nome in nomi)
 
 string path = @"test.txt"; // come string STRINGA_CON_NOME_FILE = @"test.txt", solo che qui la chiamo path
 File.Create(path).Close(); // creo il file chiamato test.txt, perché dentro "path" c'è scritto "text.txt"
-
 ```
 
 #### CREARE UN FILE CON UN NOME PERSONALIZZATO
-
-
 
 ```c#
 string nomeUtente = Console.ReadLine();     // leggo inserimento dell'utente e lo salvo in nomeUtente
@@ -981,10 +977,10 @@ File.Create(nomeFile).Close(); // <---- creo il file (QuelloCheHaScrittolUtente)
 // STESSA OPERAZIONE, MODO ALTERNATIVO
 string nomeFile2 = $"@{nomeUtente}.txt"     // stessa identica cosa ma con la concatenazione di stringe usando il $
 File.Create(nomeFile2).Close();
-
-
 ```
+
 ---
+
 #### SOVRASCRIVERE UN FILE
 
 ### `File.WriteAllText(STRING_NOME_FILE, VAR_DA_SCRIVERE); `
@@ -998,6 +994,7 @@ File.WriteAllText(path, "Hello World!");        // sovrascrivo "Hello World!" de
 #### SCRIVERE ALLA FINE DI UN FILE
 
 ### `File.AppendAllText(STRING_NOME_FILE, VAR_DA_SCRIVERE);`
+
 ```c#
 File.AppendAllText(path, "Hello World! \n" );   
 
@@ -1005,13 +1002,17 @@ File.AppendAllText(path, "Hello World! \n" );
 // uso .AppendAllText
 // "\n" è come andare a capo premendo invio
 ```
+
 #### STESSA OPERAZIONE, MODO ALTERNATIVO
+
 ```c#
 File.AppendAllText(path, numero + "\n");  
 
 // IN QUESTO CASO viene scritto nel file qualunque numero ci sia scritto dentro la variabile "numero" 
 ```
+
 ---
+
 #### SCRIVO UNA LISTA DENTRO UN FILE
 
 ### `File.AppendAllLines(STRING_NOME_FILE, VAR_LISTA);`
@@ -1026,6 +1027,7 @@ File.AppendAllLines(path, elencoDiAnimali); // <---
 ```
 
 #### OPERAZIONI CON I FILE
+
 ```C#
 // Leggere da un file
 string content = File.ReadAllText(path);
@@ -1097,8 +1099,6 @@ foreach (string a in all)
         Directory.Delete(a,true);
     }
 }
-
-
 ```
 
 ## METODI DIRECTORY
@@ -1166,4 +1166,61 @@ Console.WriteLine(tempFile);
 string tempDir = Path.Combine(Path.GetTempPath(), "temp");
 Directory.CreateDirectory(tempDir);
 ```
+
 </details>
+
+# GIT
+
+1. Clone del repository di partenza (partire dalla versione più aggiornata del repository)
+
+2. Lavorare per `File`, non per Task
+
+3. Scegliere la Task.
+
+4. Creare branch e verificare di essere in un branch
+
+5. Committare le modifiche sul proprio branch 
+   
+   
+   
+   Merge Individuale: 
+   
+   - dev si sposta sul main 
+   
+   - digita il merge del branch modificato
+   
+   - push 
+   
+   
+   
+   Pull Request 
+   
+   - Sul proprio branch, dev fa il pull del main (o del branch da incorporare)
+   
+   - Commit e Push sul proprio branch proprio branch
+   
+   Merge (fatto dall'HOST)
+   
+   - Spostarsi sul main
+   
+   - Pull origin main per aggiornare il main in locale
+   
+   - Merge del branch 
+   
+   - git push -u origin main
+
+
+
+# TASK: Elimina
+
+che coinvolge USER CONTROLLER, USER VIEW, interazione con la classe Database
+
+
+
+ANDREA : USER CONTROLLER
+
+FELIPE: USER VIEW
+
+DIEGO: README.MD
+
+GIORGIO: DATABASE
