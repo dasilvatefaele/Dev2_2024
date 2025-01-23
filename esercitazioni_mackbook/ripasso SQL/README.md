@@ -26,3 +26,19 @@ Unfolding del codice| `ctrl + K + J`|🟡
 Muoversi tra le schede aperte|`ctrl + alt + →` `ctrl + alt + ←`|🟠
 Navigazione dei file dalla barra di ricerca| `ctrl + P`|🟠
 Ricerca impostazione dalla barra di ricerca| `ctrl + P + > [impostazione]`|🔴
+
+# Dipendenze esterne frequenti
+
+*Dominio*|*Comando nel terminale*|*C#*
+--|--|--
+ JSON | `dotnet add package Newtonsoft.Json`| `using Newtonsoft.Json`
+ SQLite | `dotnet add package System.Data.SQLite`| `using System.Data.SQLite`
+
+ # Librerie interne frequenti
+
+ *Dominio*|*Comando*
+--|--
+ JSON | `dotnet add package Newtonsoft.Json`
+ SQLite | `dotnet add package System.Data.SQLite`
+
+
