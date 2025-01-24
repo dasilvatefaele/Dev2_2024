@@ -1,0 +1,17 @@
+[
+  {
+    "Nome": "Pasta",
+    "Prezzo": 1.5,
+    "Quantita": 5
+  },
+  {
+    "Nome": "Latte",
+    "Prezzo": 1.2,
+    "Quantita": 20
+  },
+  {
+    "Nome": "uova",
+    "Prezzo": 1.0,
+    "Quantita": 120
+  }
+]

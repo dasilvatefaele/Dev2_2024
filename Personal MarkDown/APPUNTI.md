@@ -1173,42 +1173,34 @@ Directory.CreateDirectory(tempDir);
 4. Creare branch e verificare di essere in un branch
 
 5. Committare le modifiche sul proprio branch 
-   
-   
-   
+
    Merge Individuale: 
-   
-   - dev si sposta sul main 
-   
-   - digita il merge del branch modificato
-   
-   - push 
-   
-   
-   
+
+- dev si sposta sul main 
+
+- digita il merge del branch modificato
+
+- push 
+
    Pull Request 
-   
-   - Sul proprio branch, dev fa il pull del main (o del branch da incorporare)
-   
-   - Commit e Push sul proprio branch proprio branch
-   
-   Merge (fatto dall'HOST)
-   
-   - Spostarsi sul main
-   
-   - Pull origin main per aggiornare il main in locale
-   
-   - Merge del branch 
-   
-   - git push -u origin main
 
+- Sul proprio branch, dev fa il pull del main (o del branch da incorporare)
 
+- Commit e Push sul proprio branch proprio branch
+  
+  Merge (fatto dall'HOST)
+
+- Spostarsi sul main
+
+- Pull origin main per aggiornare il main in locale
+
+- Merge del branch 
+
+- git push -u origin main
 
 # TASK: Elimina
 
 che coinvolge USER CONTROLLER, USER VIEW, interazione con la classe Database
-
-
 
 ANDREA : USER CONTROLLER
 
@@ -1217,3 +1209,72 @@ FELIPE: USER VIEW
 DIEGO: README.MD
 
 GIORGIO: DATABASE
+
+
+
+
+
+
+
+Git Shash
+
+
+
+comando che consente di saklvare temporaneamente le modifiche non commitate nel repository Git senza applicarle diretamente al branch
+
+(salvato in locale)
+
+
+
+utile per passare ad un alro branch senza dover committare modifiche
+
+Salvare il lavoro in corso per risolvere un conflitto o aggiornre il branch
+
+mantenere pulito il tuo storico di commit
+
+
+
+comandi di base
+
+``````
+git stash save "Nome dello stash"
+```
+
+non tracciati
+
+```
+git stash -u
+```
+
+Spplicare uno stash salvato
+
+```
+git stash apply
+```
+
+rimuovere
+
+```
+git stash drop
+```
+
+cancellare tutti gli stash
+
+```
+git stash clear
+```
+
+Procedimento
+
+```
+git stash -m "pausa"
+git checkout nuovo-branch
+git stash pop
+
+
+```
+
+```
+
+git stash show -p stash@{0}
+```
