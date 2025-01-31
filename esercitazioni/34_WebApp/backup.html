@@ -1,0 +1,324 @@
+@*
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SupermercatoWeb</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/_34_WebApp.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">SupermercatoWeb</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Prodotti">Prodotti</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - _34_WebApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html> *@
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Home</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/_34_WebApp.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+    <header>
+        <!-- place navbar here -->
+    </header>
+    <main>
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary p-2 p-lg-5 sticky-top" id="transparent">
+            <div class="container-fluid p-0 justify-content-center ">
+                <div class="row w-100 glass-container ">
+
+                    <div class="col-6 d-flex flex-column justify-content-center">
+
+                        <a class="navbar-brand d-flex flex-column justify-content-center  mt-3 ms-4 " href="#">
+                            <div class="d-flex flex-row align-items-center justify-content-start">
+                                <img src="./img/logo/GMusicLogo.png" alt="Bootstrap" height="24">
+                            </div>
+                        </a>
+                        <br>
+
+                        <div class="container-fluid  d-sm-block d-lg-none ">
+                            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+                                <div class="container p-0 m-0 ms-1 mb-sm-3  w-100">
+                                    <p class="fs-5 mb-3" style="color: rgb(171, 171, 171);">Un nuovo modo <br>di
+                                        ascoltare la musica
+                                    </p>
+                                    <p style="color: rgba(171, 171, 171, 0.542);">I tuoi vinili preferiti, a casa tua
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-6 d-flex justify-content-center p-0">
+                        <div class="flex-column d-flex justify-content-center p-0 p-sm-3 w-100">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+                                aria-expanded="false" aria-label="Toggle navigation"
+                                style="border: none; outline: none; box-shadow: none;">
+                                <div class="d-flex flex-row align-items-center justify-content-end">
+                                    <img src="./img/elements/user pic.jpg" alt="" class="userpicprofile mt-0 mb-0"
+                                        style="position: relative;">
+
+                                </div></span>
+                            </button>
+
+
+                            <div class="d-flex justify-content-end">
+                                <div class="d-none d-lg-block d-flex ">
+                                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                                        <div class="navbar-nav">
+                                            <a class="nav-link active" aria-current="page" href="#">Esplora</a>
+                                            <a class="nav-link" href="#">Preferiti</a>
+                                            <!-- <a class="nav-link" href="#">Accedi</a> -->
+                                            <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"
+                                                    style="color:lightgray"></i></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-block d-lg-none">
+                                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                                    <div class="navbar-nav d-flex  text-center">
+                                        <a class="nav-link" href="#">Il Tuo Carrello <i
+                                                class="fa-solid fa-cart-shopping" style="color:lightgray"></i></a>
+                                        <a class="nav-link" href="#">Scelti Per Te</a>
+                                        <a class="nav-link" href="#">Categorie</a>
+                                        <a class="nav-link" href="#">Preferiti</a>
+                                        <a class="nav-link active " aria-current="page" href="#">Esplora</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </nav> <!-- fine NAVBAR-->
+
+        <!-- HEADER -->
+        <div class="row ">
+            <div class="col-lg-6 col-sm-12 " style="position: relative;">
+                <div class="d-flex justify-content-center justify-content-lg-end pe-lg-5">
+                    <img src="./img/elements/customer.png" style="background-size:contain; height: 80vh; ">
+                </div>
+                <div class="d-block d-lg-none">
+                    <div class="d-flex justify-content-center">
+                        <div class="btn btn-primary col-4 p-4 "
+                            style="position: absolute; top: 60%; display: inline-block; white-space: nowrap; width: fit-content;">
+                            <!-- compare da lg in giù-->
+                            Sfoglia la nostra collezione
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 d-none d-lg-block">
+                <div class="container p-4">
+                    <div class="d-none d-lg-block">
+                        <div class="row " style="height: 18vh;"></div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3" id="hero-phrase">
+                            <h1>La musica di un tempo, </h1>
+                            <h1>la tecnologia di oggi</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h4 class="mb-4">Un nuovo modo di ascoltare la musica</h4>
+                        <br>
+                        <div class="d-none d-lg-block">
+                            <p>Con un paio di TAP i tuoi vinili preferiti arriveranno a casa tua,<br>oppure assapora il
+                                fascino
+                                del vinile col nostro player!</p>
+                        </div>
+                        <div class="col-12 col-lg-5">
+                            <div class="mt-4 ">
+                                <div class="btn btn-primary">
+                                    <p class="d-flex ps-3 pe-3 pt-1 pb-1 flex-column justify-content-center"
+                                        style="display: inline-block; white-space: nowrap">Sfoglia la nostra collezione
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- fine HEADER -->
+
+        <div class="container">
+            <!-- COLONNA SEMI SCROLLANTE -->
+            <div class="row">
+                <!-- COLONNA STICKY-->
+                <div class="col-lg-3 d-none d-lg-block" style="position: sticky; top: 35vh; height: fit-content;">
+                    <div class="d-flex flex-column  ">
+                        <ul style="height: 15vh;" class="d-flex flex-column justify-content-between ">
+                            <li class="card pt-3 pb-3 ps-3 mb-2">Categorie</li>
+                            <li class="card pt-3 pb-3 ps-3 mb-2">I Più Acquistati</li>
+                            <li class="card pt-3 pb-3 ps-3 mb-2">Fai Una Richiesta</li>
+
+                        </ul>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12" style="position: sticky; margin-top: 25vh; height: fit-content">
+                            <ul>
+                                <li>
+                                    <nav class="navbar">
+                                        <div class="container-fluid">
+                                            <form class="d-flex" role="search">
+                                                <input class="form-control me-2" type="search" placeholder=" Cerca"
+                                                    aria-label="Search" style="border-radius: 80px !important;">
+                                                <button class="btn" type="submit"><i
+                                                        class="fa-solid fa-magnifying-glass"
+                                                        style="color:lightgray"></i></button>
+                                            </form>
+                                        </div>
+                                    </nav>
+                                </li>
+                                <div class="separator"></div>
+                                <div class="card px-4 py-2">
+                                    <div class=" d-flex flex-row align-items-center">
+                                        <img src="./img/elements/user pic.jpg" alt="" class="userpicprofile me-3">
+                                        <li>Bentornato!</li>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div style="margin: 105px 0px;"></div> <!-- SEPARATORE INVISIBILE -->
+
+
+                </div> <!-- fine COLONNA STICKY-->
+
+                <!-- COLONNA SCORREVOLE -->
+
+                <div class="col-12 col-lg-9">
+
+                    @RenderBody()
+                    <div style="margin: 120px 0px;"></div> <!-- SEPARATORE INVISIBILE -->
+
+                </div> <!-- fine COLONNA SCORREVOLE -->
+            </div>
+            <!-- fine COLONNA SEMI SCROLLANTE -->
+        </div>
+    </main>
+
+
+    <footer>
+        <!-- FOOTER DESIGN -->
+        <div
+            style="height: 400px; ; background-color: #4285F4; border-top-right-radius: 80px; box-shadow: 0 0 10px black">
+            <div
+                style="height: 385px; position: relative; right: 15px; top: 15px; background-color: #DB4437; border-top-right-radius: 80px; box-shadow: 0 0 10px black">
+                <div
+                    style="height: 370px; position: relative; right: 15px; top: 15px; background-color: #F4B400; border-top-right-radius: 80px; box-shadow: 0 0 10px black">
+                    <div
+                        style="height: 355px; position: relative; right: 15px; top: 15px; background-color: #0F9D58; border-top-right-radius: 80px; box-shadow: 0 0 10px black;">
+                        <!-- CONTENUTO FOOTER-->
+
+
+                        <!-- fine CONTENUTO FOOTER-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Bootstrap JavaScript Libraries -->
+    @*
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script> *@
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

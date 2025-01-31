@@ -1,0 +1,208 @@
+html {
+background-color: black !important;
+color: white !important;
+}
+
+:root{
+    --accordion-active-bg: #white !important;
+    background-color: black !important;
+    color: white !important;
+}
+
+body {
+    font-family: "Inter", serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    overflow-x: hidden;
+}
+
+.userpicprofile {
+
+    border-radius: 100%;
+    object-fit:cover;
+    border: 1px solid rgba(0, 0, 0, 0.118);
+    width: 50px;
+    height: 50px;
+    
+}
+
+#transparent {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+#modern-side-bar {
+    margin-top: 5vh;
+}
+
+#tastoAcquista {
+    /* width: max-width;
+    height: 10%;
+    background-color: white;
+    color: white; */
+    box-shadow: 10px 0 100px #0f9d5800;
+    height: 40px;
+    border: 1 solid rgba(211, 211, 211, 0);
+}
+
+#tastoAcquista:hover {
+
+    border: 1 solid lightgrey;
+    background-color: #0F9D58;
+    /* box-shadow: 0px 0 10px #0f9d5879; */
+    /* border: 1px solid #0F9D58; */
+    color: white;
+    transition: background-color .4s ease-in-out;
+}
+
+#compra {
+    box-shadow: 10px 0 100px #0f9d5800;
+    height: 40px;
+    color:white;
+    border: 1 solid lightgrey;
+    background-color: #0F9D58;
+
+}
+
+#compra:hover {
+    box-shadow: 10px 0 100px #0f9d58;
+    height: 40px;
+    color:white;
+    border: 1 solid lightgrey;
+    background-color: #0F9D58;
+
+}
+
+#nextpage{
+    height: fit-content;
+    width: fit-content;
+    color: rgb(211, 211, 211);
+    border: 1 solid rgb(211, 211, 211);
+}
+
+
+
+
+.navbar-brand {
+    padding-bottom: 0px;
+}
+
+#navbarNavAltMarkup {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+#navbarNavAltMarkup a:hover {
+
+    color: white;
+    text-shadow: 0 0 15px black;
+}
+
+.glass-container {
+    border: 0.5px solid rgba(128, 128, 128, 0.271);
+    border-radius: 80px;
+    /* padding: 10px; */
+    backdrop-filter: blur(10px);
+    /* Sfocatura dello sfondo */
+    -webkit-backdrop-filter: blur(10px);
+    /* Supporto per browser WebKit */
+}
+
+navbarNavAltMarkup h1 {
+    line-height: 0.9;
+
+}
+
+h4 {
+    line-height: 0.8;
+    text-wrap-mode:nowrap;
+}
+
+p {
+    line-height: 1.5;
+
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 200px #ffbb00;
+    background-color: #F4B400;
+    transition: box-shadow .4s ease-in-out;
+}
+
+
+
+.btn-primary {
+    border-radius: 80px;
+    background-color: #F4B400;
+    border: none;
+}
+
+.btn {
+    border-radius: 80px;
+}
+
+ul {
+    list-style: none;
+}
+
+.card-text {
+    border: none;
+
+}
+
+.card {
+    border: none;
+    shadow: 0 0 10px rgba(0, 0, 0, 0);
+    opacity: 1;
+
+}
+
+.card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: none;
+    opacity: 1;
+    /* Diventa trasparente */
+    transition: box-shadow .4s ease-in-out;
+}
+
+.separator {
+    height: 1px;
+    /* Spessore della linea */
+    background-color: lightgray;
+    /* Colore */
+    width: 100%;
+    /* Larghezza della linea */
+    margin: 20px 0;
+    /* Spaziatura sopra e sotto */
+}
+
+.no-wrap {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+p {
+    margin-bottom: 0 !important;
+}
+
+
+.inline-text {
+    display: inline;
+    margin: 0;
+}
+
+.bold {
+    font-weight: bold;
+    margin: 0;
+    
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+/* div {
+    border: 0.5px solid rgba(128, 128, 128, 0.271);
+} */

@@ -1,0 +1,333 @@
+@page
+@model ProdottiModel
+@{
+    @* ViewData["Title"] = "Prodotti"; *@
+}
+<h1>@ViewData["Title"]</h1>
+
+<div style="height: 5vh;"></div> <!-- SEPARATORE INVISIBILE -->
+
+<div class="row" style="height: fit-content;"> <!-- PRODOTTO -->
+
+    <div class="col-12 col-lg-8 d-flex justify-content-lg-end justify-content-center">
+        <img src="./img/products/daft punk.webp" class="me-lg-3 m-0" style="height:38vh; object-fit: contain">
+    </div>
+
+
+    <div class="col-lg-4 col d-flex flex-column justify-content-between d-none d-lg-flex"> <!-- scheda prodotto LG-->
+        <div class="row ">
+            <div class="col-12 d-flex flex-column" style="height: fit-content;">
+                <h2 style="font-weight: bold;">Daft Punk</h2>
+                <h3 style="line-height: 0.7;">Homework</h3>
+                <h5 style="color: lightgrey; font-weight: 300; line-height: 2; font-size: small;">2LP Vinyl</h5>
+                <p class="fs-5" style="font-weight: 600;">€28.95</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 d-flex align-items-end">
+                <div class="btn d-flex align-items-center justify-content-center" id="compra" style="width: 300px;">
+                    ACQUISTA</div>
+            </div>
+            <!-- <div class="col d-flex align-items-center justify-content-start"><i class="fa-solid fa-heart fs-3" style="color:#DB4437"></i></div> -->
+        </div>
+
+        <div> <!-- TABELLINA DESCRIZIONE LG -->
+            <div class="row">
+                <div class="col-3 col-xl-2">
+                    <p class="fs-6" style="font-weight: bold;">Etichetta</p>
+                </div>
+                <div class="col">
+                    <p class="fs-6 p-0 ps-xl-2">Warner</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3 col-xl-2">
+                    <p class="fs-6" style="font-weight: bold;">Colore</p>
+                </div>
+                <div class="col">
+                    <p class="fs-6 p-0 ps-xl-2">Nero</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3 col-xl-2">
+                    <p class="fs-6" style="font-weight: bold;">Genere</p>
+                </div>
+                <div class="col">
+                    <p class="fs-6 p-0 ps-xl-2">Elettronica</p>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+    <!-- scheda prodotto MOBILE-->
+    <div class="col-12 d-flex flex-row justify-content-center d-lg-none mt-4">
+        <div class="container w-100">
+            <div class="row d-flex justify-content-center mb-2">
+                <div class="col-12 d-flex flex-column align-items-center">
+                    <h1 style="font-weight: bold;">Daft Punk</h1>
+                    <h2 style="line-height: 0.7;">Homework</h2>
+                    <h5 style="color: lightgrey; font-weight: bold;line-height: 2">2LP Vinyl</h5>
+                    <p class="fs-3" style="font-weight: 600;">€28.95</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col d-flex justify-content-center mb-2">
+                    <div class="btn d-flex align-items-center justify-content-center my-3" id="compra"
+                        style="width: 300px;">ACQUISTA</div>
+
+                </div>
+            </div>
+
+            <div class="d-flex flex-row gap-4 justify-content-center mt-3 px-5">
+                <div class="row">
+                    <div class="col col-xl-2 text-center p-3 mx-1"
+                        style="   border: 0.5px solid rgba(128, 128, 128, 0.271); border-radius: 22px;">
+                        <p class="fs-6" style="font-weight: bold;">Etichetta</p>
+
+                        <p class="fs-6 p-0 ps-xl-2">Warner</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-xl-2 text-center p-3 mx-1"
+                        style="   border: 0.5px solid rgba(128, 128, 128, 0.271); border-radius: 22px;">
+                        <p class="fs-6" style="font-weight: bold;">Colore</p>
+                        <p class="fs-6 p-0 ps-xl-2">Nero</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-xl-2 text-center p-3 mx-1"
+                        style="   border: 0.5px solid rgba(128, 128, 128, 0.271); border-radius: 22px;">
+                        <p class="fs-6" style="font-weight: bold;">Genere</p>
+                        <p class="fs-6 p-0 ps-xl-2">Elettronica</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div> <!-- fine PRODOTO -->
+<div class="container w-50 d-none d-lg-block">
+    @* <div style="margin: 75px 0px;"></div> <!-- SEPARATORE INVISIBILE --> *@
+
+    <p>
+        È solo ora che ti rendi conto di quanto i Daft Punk abbiano cambiato
+        la direzione della musica dance, e lo hanno fatto con questo album. Ha quasi 10 anni, ma
+        rimane ancora nettamente superiore a qualsiasi altro album dance mai realizzato. Si potrebbe
+        dire che abbiano semplicemente aggiornato il sound di Chicago, ma hanno aggiunto il loro
+        tocco personale e uno stile parigino, creando un capolavoro straordinario e al tempo stesso
+        semplice. Se non fosse stato per questo, non avresti Kitsuné, Ed Banger, Soulwax, Switch...
+        la lista è infinita. Ogni casa dovrebbe averne una copia.
+    </p>
+</div>
+
+<div class="container w-100 d-block d-lg-none">
+    <div style="margin: 40px 0px;"></div> <!-- SEPARATORE INVISIBILE -->
+
+    <p>
+        È solo ora che ti rendi conto di quanto i Daft Punk abbiano cambiato
+        la direzione della musica dance, e lo hanno fatto con questo album. Ha quasi 10 anni, ma
+        rimane ancora nettamente superiore a qualsiasi altro album dance mai realizzato. Si potrebbe
+        dire che abbiano semplicemente aggiornato il sound di Chicago, ma hanno aggiunto il loro
+        tocco personale e uno stile parigino, creando un capolavoro straordinario e al tempo stesso
+        semplice. Se non fosse stato per questo, non avresti Kitsuné, Ed Banger, Soulwax, Switch...
+        la lista è infinita. Ogni casa dovrebbe averne una copia.
+    </p>
+</div>
+
+
+<div style="margin: 45px 0px;"></div> <!-- SEPARATORE INVISIBILE -->
+
+<div class="container w-100 d-block d-lg-none">
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    Tracklist
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+
+                    <ol start="1">
+                        <li>"Daftendirekt" 2:44</li>
+                        <li>"WDPK 83.7 FM" 0:28</li>
+                        <li>"Revolution 909" 5:26</li>
+                        <li>"Da Funk" 5:28</li>
+                        <li>"Phœnix" 4:55</li>
+                        <li>"Fresh" 4:03</li>
+                        <li>"Around the World" 7:08</li>
+                        <li>"Rollin' & Scratchin'" 7:26</li>
+                        <li>"Teachers" 2:52</li>
+                        <li>"High Fidelity" 6:00</li>
+                        <li>"Rock'n Roll" 7:32</li>
+                        <li>"Oh Yeah" 2:01</li>
+                        <li>"Burnin'" 6:53</li>
+                        <li>"Indo Silver Club" 4:32</li>
+                        <li>"Alive" 5:15</li>
+                        <li>"Funk Ad"</li>
+                    </ol>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container w-50 d-none d-lg-block">
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    Tracklist
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+
+                    <ol start="1">
+                        <li>"Daftendirekt" 2:44</li>
+                        <li>"WDPK 83.7 FM" 0:28</li>
+                        <li>"Revolution 909" 5:26</li>
+                        <li>"Da Funk" 5:28</li>
+                        <li>"Phœnix" 4:55</li>
+                        <li>"Fresh" 4:03</li>
+                        <li>"Around the World" 7:08</li>
+                        <li>"Rollin' & Scratchin'" 7:26</li>
+                        <li>"Teachers" 2:52</li>
+                        <li>"High Fidelity" 6:00</li>
+                        <li>"Rock'n Roll" 7:32</li>
+                        <li>"Oh Yeah" 2:01</li>
+                        <li>"Burnin'" 6:53</li>
+                        <li>"Indo Silver Club" 4:32</li>
+                        <li>"Alive" 5:15</li>
+                        <li>"Funk Ad"</li>
+                    </ol>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="margin: 45px 0px;"></div> <!-- SEPARATORE INVISIBILE -->
+
+
+
+<!-- TITOLO SEZIONE -->
+<div class="container w-100">
+    <div class="container m-0 p-0 d-flex justify-content-center w-100">
+        @Html.Partial("_Partial")
+    </div>
+</div>
+<div class="d-flex justify-content-center w-100">
+    <div class="separator my-3" style="width: 25%;"></div> <!-- SEPARATORE ESTETICO -->
+</div>
+<!-- fine TITOLO SESIONE-->
+
+@* <div class="col-12 col-lg-9"> *@
+    <div class="container"> <!-- POTREBBERO PIACERTI ANCHE -->
+        <div class="row">
+            <div class="row flex-row justify-content-between   "> <!-- SEZIONE DISCHI  -->
+
+
+                <div class="col-6 col-lg-3 mt-3">
+                    <div class="card" style="width: auto;">
+                        <img src="./img/products/abbey road the beatles.webp" class="card-img-top pt-4" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">
+                            <div class="d-flex flex-column align-items-center">
+                                <h4> The Beatles</h4>
+                                <h6>Abbey Road</h6>
+                                <h6>LP Vinyl</h6>
+                                <p style="font-weight: 600;">€31.95</p>
+                            </div>
+                            </p>
+                            <div class=" d-flex  justify-content-center align-items-center glass-container mt-4"
+                                id="tastoAcquista">
+                                <p class="ms-2" style="font-weight: 300; font-size: small;">ORDINA </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-lg-3 mt-3">
+                    <div class="card" style="width: auto;">
+                        <img src="./img/products/bad michael jackson.webp" class="card-img-top pt-4" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">
+                            <div class="d-flex flex-column align-items-center">
+                                <h4> Michael Jackson</h4>
+                                <h6>Bad</h6>
+                                <h6>LP Vinyl</h6>
+                                <p style="font-weight: 600;">€30.95</p>
+                            </div>
+                            </p>
+                            <div class=" d-flex  justify-content-center align-items-center glass-container mt-4"
+                                id="tastoAcquista">
+                                <p class="ms-2" style="font-weight: 300; font-size: small;">ORDINA </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-lg-3 mt-3">
+                    <div class="card" style="width: auto;">
+                        <img src="./img/products/beatles past remastered.webp" class="card-img-top pt-4" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">
+                            <div class="d-flex flex-column align-items-center">
+                                <h4> The Beatles</h4>
+                                <h6>Past Masters</h6>
+                                <h6>2LP Vinyl</h6>
+                                <p style="font-weight: 600;">€52.95</p>
+                            </div>
+                            </p>
+                            <div class=" d-flex  justify-content-center align-items-center glass-container mt-4"
+                                id="tastoAcquista">
+                                <p class="ms-2" style="font-weight: 300; font-size: small;">ORDINA </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-6 col-lg-3 mt-3">
+                    <div class="card" style="width: auto;">
+                        <img src="./img/products/CollegeDropout.webp" class="card-img-top pt-4" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">
+                            <div class="d-flex flex-column align-items-center">
+                                <h4> Kanye West</h4>
+                                <h6>College Dropout</h6>
+                                <h6>2LP Vinyl</h6>
+                                <p style="font-weight: 600;">€43.95</p>
+                            </div>
+                            </p>
+                            <div class=" d-flex  justify-content-center align-items-center glass-container mt-4"
+                                id="tastoAcquista">
+                                <p class="ms-2" style="font-weight: 300; font-size: small;">ORDINA </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div> <!-- fine POTREBBERO PIACERTI ANCHE -->
+@* </div> *@
+
+
+<div class="row"> <!-- GUARDATI DI RECENTE -->
+
+</div> <!-- fine GUARDATI DI RECENTE -->
