@@ -8,10 +8,15 @@
 
 <div>
     <form method="get">
-        <div class="form-group">
-            <input type="text" name="ricerca" class="form-control" placeholder="Cerca..." />
-        </div>
-        <button type="submit" class="btn btn-primary">Cerca</button>
+        <div class="row"</div>
+            <div class="col-12">
+                <div class="form-group">
+                    <input type="text" name="ricerca" class="form-control" placeholder="Cerca..." />
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary">Cerca</button>
+                </div>
+            </div>
     </form>
 
     <table class="table">
@@ -26,8 +31,12 @@
             @foreach (var prodotto in Model.Prodotti)
             {
                 <tr>
-                    <td><a asp-page="/DettaglioProdotto" asp-route-nome="@prodotto.Nome" asp-route-prezzo="@prodotto.Prezzo"
-                            asp-route-dettaglio="@prodotto.Dettaglio">@prodotto.Nome</a></td>
+                    <td><a asp-page="/DettaglioProdotto" 
+                            asp-route-nome="@prodotto.Nome" 
+                            asp-route-prezzo="@prodotto.Prezzo"
+                            asp-route-dettaglio="@prodotto.Dettaglio">  
+                                @prodotto.Nome  
+                        </a></td>
                     <td>@prodotto.Prezzo</td>
                     <td class="d-lg-block d-none">@prodotto.Dettaglio</td>
                 </tr>

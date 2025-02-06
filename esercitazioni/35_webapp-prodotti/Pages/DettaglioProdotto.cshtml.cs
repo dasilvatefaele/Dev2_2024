@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
+
 public class DettaglioProdotto : PageModel
 {
     private readonly ILogger<ProdottiModel> _logger;
@@ -16,6 +17,7 @@ public class DettaglioProdotto : PageModel
     {
         //Prodotto = new Prodotto {Nome = nome, Prezzo = prezzo, Dettaglio = dettaglio};
         Prodotto = prodotto;
+        
     }
 }
 

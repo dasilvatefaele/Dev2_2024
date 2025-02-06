@@ -1,0 +1,48 @@
+@page
+@model ProdottoDettaglioModel
+@{
+    ViewData["Title"] = "Prodotto Dettaglio";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Foto</th>
+                <th>Nome</th>
+                <th>Prezzo</th>
+                <th>Dettaglio</th>
+            </tr>
+        <tbody>
+                <tr>
+                    <td><img src="@Model.Prodotto.Immagine" alt="@Model.Prodotto.Nome" width="100" height="100"/></td>
+                    <td>@Model.Prodotto.Nome</td>
+                    <td>@Model.Prodotto.Prezzo</td>
+                    <td>@Model.Prodotto.Dettaglio</td>
+                </tr>
+    
+        </tbody>
+        </thead>
+        <a asp-page="/Prodotti">Torna a Prodotti</a>
+    </table>
+</div>
+
+    @* "Prodotti.cshtml"
+    include codice HTML, quindi è una View. Per indicare quale modello utilizza viene 
+    incluso a inizio file la direttiva @model ProdottiModel.
+    Dal momento che abbiamo a che fare con una lista di prodotti, si utilizza un ciclo
+    in questo caso foreach. Per accedere a questa lista il framework ci mette a disposizione
+    la proprietà Model, che contiene il modello "Prodotto.cshtml.cs" passato alla View.
+    Attraverso Model.Prodotti possiamo accedere alla lista di prodotti e iterarla.
+    e visualizzarla a piacimento attraverso il la sintassi "@prodotto.Nome" per esporre il nome
+    come una stringa. 
+
+    asp-route-nome="nome" è un "..." che permette di passare una rotta virtuale alla pagina
+    asp-page="./Dettaglio" che permette di generare sul momento "Dettaglio.cshtml"
+    di quello specifico prodotto *@
+
+    @* Per utilizzare un immagine, il modello fornisce solo la STRINGA DEL PERCORSO (string prodotto.Immagine). quest'ultima deve essere inserita
+    in un tag html per essere interpretata come percorso di un'immagine 
+    <img src=@prodotto.Immagine" width="100" height="100"/> *@

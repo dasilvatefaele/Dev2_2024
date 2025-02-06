@@ -1,0 +1,29 @@
+[
+  {
+    "Id": 1,
+    "Nome": "Latte",
+    "Prezzo": 1.50,
+    "Dettaglio": "1L",
+    "Immagine": "img/latte.png",
+    "Quantita": 1,
+    "Categoria": "Descrizione prodotto 1"
+  },
+  {
+    "Id": 2,
+    "Nome": "Pane",
+    "Prezzo": 2.50,
+    "Dettaglio": "Pane appena sfornato",
+    "Immagine": "img/pane.webp",
+    "Quantita": 2,
+    "Categoria": "Descrizione prodotto 2"
+  },
+  {
+    "Id": 3,
+    "Nome": "Pasta ",
+    "Prezzo": 3.50,
+    "Dettaglio": "Fresca all'uovo",
+    "Immagine": "img/pasta.jpg",
+    "Quantita": 3,
+    "Categoria": "Descrizione prodotto 3"
+  }
+]

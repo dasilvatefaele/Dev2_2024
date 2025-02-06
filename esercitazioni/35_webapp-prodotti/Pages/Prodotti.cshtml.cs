@@ -7,6 +7,7 @@ public class ProdottiModel : PageModel
     public ProdottiModel(ILogger<ProdottiModel> logger)
     {
         _logger = logger;
+        
     }
 
     public IEnumerable<Prodotto> Prodotti { get; set; } // una sequenza di elementi che non supporta la modifica
@@ -17,9 +18,9 @@ public class ProdottiModel : PageModel
         Ricerca = ricerca;
         Prodotti = new List<Prodotto>
         {
-            new Prodotto { Nome = "Prodotto 1", Prezzo = 10, Dettaglio = "Dettaglio 1" },
-            new Prodotto { Nome = "Prodotto 2", Prezzo = 20, Dettaglio = "Dettaglio 2" },
-            new Prodotto { Nome = "Prodotto 3", Prezzo = 30, Dettaglio = "Dettaglio 3" }
+            new Prodotto { Nome = "Carote", Prezzo = 1.30m, Dettaglio = "Confezione da 250gr" },
+            new Prodotto { Nome = "Avocado", Prezzo = 2.20m, Dettaglio = "Da piantagioni siciliane" },
+            new Prodotto { Nome = "Acqua", Prezzo = 0.99m, Dettaglio = "Confezione da 500ml" }
         };
 
         List<Prodotto> prodottiFiltrati = new List<Prodotto>();
@@ -34,10 +35,6 @@ public class ProdottiModel : PageModel
                 }
             }
             Prodotti = prodottiFiltrati;
-        }
-        else 
-        {
-            Prodotti = Prodotti;
         }
     }
 }

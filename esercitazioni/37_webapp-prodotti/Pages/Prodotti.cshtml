@@ -1,0 +1,81 @@
+@page
+@model ProdottiModel
+@{
+    ViewData["Title"] = "Prodotti";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="btn btn-primary">
+<a asp-page="AggiungiProdotto"><strong>Aggiungi prodotto</strong></a>
+
+</div>
+
+<div>
+    <form method="get">
+        <div class="form-group">
+            <label for="minPrezzo">Min Prezzo</label>
+            <input type="text" class="form-control" name="minPrezzo">
+        </div>
+        <div class="form-group">
+            <label for="maxPrezzo">Max Prezzo</label>
+            <input type="text" class="form-control" name="maxPrezzo">
+            <button type="submit" class="btn btn-primary">Filtra</button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-white">Foto</th>
+                <th class="text-white">Nome</th>
+                <th class="text-white">Prezzo</th>
+                <th class="text-white">Dettaglio</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prodotto in Model.Prodotti)
+            {
+                <tr>
+                    <td><img src="@prodotto.Immagine" alt="@prodotto.Nome" width="100" height="100" /></td>
+                    <td class="text-white">@prodotto.Nome</td>
+                    <td class="text-white">@prodotto.Prezzo</td>
+                    <td class="text-white"><a asp-page="ProdottoDettaglio" asp-route-id="@prodotto.Id">@prodotto.Dettaglio</a></td>
+                    <td> <a asp-page="ModificaProdotto" asp-route-id="@prodotto.Id"><div class="btn btn-primary"><strong>Modifica prodotto</strong></div></a></td>
+                    <td> <a asp-page="CancellaProdotto" asp-route-id="@prodotto.Id"><div class="btn btn-primary"><strong>Cancella prodotto</strong></div></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <form method="get">
+        <input type="hidden" name="minPrezzo" value="@Request.Query["minPrezzo"]" />
+        <input type="hidden" name="maxPrezzo" value="@Request.Query["maxPrezzo"]" />
+        @for (int i = 1; i <= Model.numeroPagine; i++)
+        {
+            <button type="submit" class="btn btn-primary" name="pageIndex" value="@i">@i</button>
+        }
+    </form>
+</div>
+
+@* "Prodotti.cshtml"
+    include codice HTML, quindi è una View. Per indicare quale modello utilizza viene 
+    incluso a inizio file la direttiva @model ProdottiModel.
+    Dal momento che abbiamo a che fare con una lista di prodotti, si utilizza un ciclo
+    in questo caso foreach. Per accedere a questa lista il framework ci mette a disposizione
+    la proprietà Model, che contiene il modello "Prodotto.cshtml.cs" passato alla View.
+    Attraverso Model.Prodotti possiamo accedere alla lista di prodotti e iterarla.
+    e visualizzarla a piacimento attraverso il la sintassi "@prodotto.Nome" per esporre il nome
+    come una stringa. 
+
+    asp-route-nome="nome" è un "..." che permette di passare una rotta virtuale alla pagina
+    asp-page="./Dettaglio" che permette di generare sul momento "Dettaglio.cshtml"
+    di quello specifico prodotto *@
+
+@* Per utilizzare un immagine, il modello fornisce solo la STRINGA DEL PERCORSO (string prodotto.Immagine). quest'ultima deve essere inserita
+    in un tag html per essere interpretata come percorso di un'immagine 
+    <img src=@prodotto.Immagine" width="100" height="100"/> *@

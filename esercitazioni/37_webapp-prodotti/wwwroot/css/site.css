@@ -1,0 +1,96 @@
+/* Modalità Notte / Dark Mode */
+html {
+  font-size: 14px;
+  background-color: #121212 !important; /* Colore di sfondo scuro */
+  color: #e0e0e0 !important; /* Colore testo chiaro per contrastare il fondo scuro */
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+th, td{
+  color: white
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem #ffffff, 0 0 0 0.25rem #258cfb; /* Aggiungi un effetto di focus luminoso */
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+input[type="text"] {
+  background-color: #121212;
+  color: white;
+  cursor: pointer;
+}
+input[type="text"]:focus {
+  background-color: #121212;
+  color: white;
+  cursor: pointer;
+}
+
+body {
+  margin-bottom: 60px;
+  background-color: #121212; /* Sfondo scuro per il corpo della pagina */
+}
+
+/* Aggiungi un colore di sfondo per le aree di contenuto per migliorare la leggibilità */
+.container, .content, .card, .panel {
+  background-color: #1e1e1e; /* Sfondo scuro per i contenuti */
+  border-color: #333; /* Bordo più scuro */
+  color: #e0e0e0; /* Colore chiaro per il testo */
+}
+
+/* Pulsanti con tema scuro */
+.btn {
+  background-color: #333333; /* Sfondo più scuro per il pulsante */
+  color: #e0e0e0; /* Colore chiaro per il testo dei pulsanti */
+  border: 1px solid #444; /* Bordo del pulsante */
+}
+
+.btn:hover, .btn:active {
+  background-color: #444444; /* Colore di hover più scuro */
+  border-color: #555; /* Bordo più chiaro al passaggio del mouse */
+}
+
+/* Modifica per i bordi */
+/* div {
+  border: 0.5px solid rgba(128, 128, 128, 0.3); 
+} */
+
+/* Media query per il supporto della modalità scura, in base alle preferenze del sistema */
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+
+  body {
+    background-color: #121212;
+  }
+
+  .btn {
+    background-color: #333;
+    color: #e0e0e0;
+  }
+}
+
+.navbar a{
+  color: #e0e0e0 !important; /* Testo chiaro */
+}
+
+/* Sezione di link e navbar */
+.navbar, .navbar-light .navbar-nav .nav-link {
+  background-color: #1e1e1e !important; /* Navbar più scura */
+  color: #e0e0e0 !important; /* Testo chiaro */
+}
+
+.navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {
+  color: #258cfb; /* Colore di hover dei link */
+}

@@ -1,0 +1,36 @@
+@page
+@model ProdottiModel
+@{
+    ViewData["Title"] = "Prodotti";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    @foreach (var item in Model.Prodotti)
+    {
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-white">@item.Nome</h5>
+                    @if(item.Prezzo < 300)
+                        {
+                            <p class="card-text text-success">@item.Prezzo</p>
+                        }
+                        else if(item.Prezzo < 600)
+                        {
+                            <p class="=card-text text-warning">@item.Prezzo</p>
+                        }
+                        else
+                        {
+                            <p class="=card-text text-danger">@item.Prezzo</p>
+                        }
+                </div>
+
+            </div>
+        </div>
+
+    }
+
+
+</div>
