@@ -11,7 +11,6 @@ public class ModificaProdottoModel : PageModel
     public ModificaProdottoModel(ILogger<ModificaProdottoModel> logger)
     {
         _logger = logger;
-        _logger.
     }
 
     public Prodotto Prodotto;
