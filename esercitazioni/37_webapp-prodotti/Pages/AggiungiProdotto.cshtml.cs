@@ -10,6 +10,9 @@ public class AggiungiProdottoModel : PageModel
 
     public List<string> Categorie {get; set;}
 
+    [TempData]
+    public string ConfermaAggiunta { get; set;} = null;
+
     public AggiungiProdottoModel(ILogger<AggiungiProdottoModel> logger)
     {
         _logger = logger;
@@ -57,9 +60,9 @@ public class AggiungiProdottoModel : PageModel
 
         // Scrive la lista aggiornata di prodotti nel file JSON, serializzandola di nuovo in formato JSON.
         System.IO.File.WriteAllText("wwwroot/json/prodotti.json", JsonConvert.SerializeObject(prodotti, Formatting.Indented));
-
+        ConfermaAggiunta = "Aggiunto correttamente";
         // Reindirizza l'utente alla pagina "Prodotti" dopo aver aggiunto il nuovo prodotto.
-        return RedirectToPage("Prodotti");
+        return RedirectToPage();
     }
 }
 

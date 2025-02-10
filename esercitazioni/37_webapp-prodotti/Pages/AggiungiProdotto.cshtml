@@ -28,6 +28,14 @@
         </select>
 
         <button type="submit" class="btn btn-primary">Aggiungi</button>
-        
     </form>
+
+    @if (Model.ConfermaAggiunta != null)
+    {
+        <p> @TempData["ConfermaAggiunta"]</p>
+    }
+    
+    <a asp-page="/Prodotti">Torna a Prodotti</a>
+
+
 </div>
