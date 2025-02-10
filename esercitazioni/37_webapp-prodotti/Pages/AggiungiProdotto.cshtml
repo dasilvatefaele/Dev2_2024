@@ -18,6 +18,16 @@
             <label for="Dettaglio">Dettaglio</label>
             <input type="text" class="form-control" name="dettaglio">
         </div>
+
+        <select name="categoria" class="form-control"
+        <option value="--- Seleziona Categoria ---"></option>
+        @foreach (var categoria in Model.Categorie)
+        {
+            <option value="@categoria">@categoria</option>
+        }
+        </select>
+
         <button type="submit" class="btn btn-primary">Aggiungi</button>
+        
     </form>
 </div>

@@ -7,6 +7,7 @@ public class Prodotto
     public string Immagine { get; set; }    
     public int Quantita { get; set; }
     public string Categoria { get; set; }
+    public string Data { get; set; }
 }
 
 // Modello, come in console, che distribzuisce i dati all'applicazione 

@@ -22,6 +22,19 @@
             <label for="Dettaglio">Immagine</label>
             <input type="text" class="form-control" name="immagine" value="@Model.Prodotto.Immagine">
         </div>
+
+         <select name="categoria" class="form-control"
+        <option value="--- Seleziona Categoria ---"></option>
+        @foreach (var categoria in Model.Categorie)
+        {
+            <option value="@categoria">@categoria</option>
+        }
+        </select>
+
+        
         <button type="submit" class="btn btn-primary">Modifica</button>
+    </form>
+    <form method="get">
+        <h1>@TempData["Messaggio"]</h1>
     </form>
 </div>

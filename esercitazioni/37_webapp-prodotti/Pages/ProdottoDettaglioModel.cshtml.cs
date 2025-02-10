@@ -1,13 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Text.Json;
-using System;
-using System.IO;
 using Newtonsoft.Json;
-
-
 
 public class ProdottoDettaglioModel : PageModel
 {
@@ -20,7 +12,7 @@ public class ProdottoDettaglioModel : PageModel
     public Prodotto Prodotto { get; set; }
     public void OnGet(int id)
     {
-        string filePath = "wwwroot/prodotti.json";
+        string filePath = "wwwroot/json/prodotti.json";
         string json = System.IO.File.ReadAllText(filePath);
         var prodotti = JsonConvert.DeserializeObject<IEnumerable<Prodotto>>(json);
 
@@ -28,7 +20,7 @@ public class ProdottoDettaglioModel : PageModel
         {
             if (prod.Id == id)
             {
-                Prodotto = new Prodotto { Id = prod.Id, Nome = prod.Nome, Prezzo = prod.Prezzo, Dettaglio = prod.Dettaglio, Immagine = prod.Immagine, Quantita = prod.Quantita, Categoria = prod.Categoria };
+                Prodotto = prod;
                 _logger.LogInformation($"Prodotto {Prodotto.Nome} caricato correttamente.");
             }
         }

@@ -16,7 +16,7 @@ public class CancellaProdottoModel : PageModel
     public Prodotto Prodotto;
     public void OnGet(int id)
     {
-        string filePath = "wwwroot/prodotti.json";
+        string filePath = "wwwroot/json/prodotti.json";
         var json = System.IO.File.ReadAllText(filePath);
         var prodotti = JsonConvert.DeserializeObject<IEnumerable<Prodotto>>(json);
 
@@ -32,7 +32,7 @@ public class CancellaProdottoModel : PageModel
 
     public IActionResult OnPost(int id)
     {
-        string filePath = "wwwroot/prodotti.json";
+        string filePath = "wwwroot/json/prodotti.json";
         var json = System.IO.File.ReadAllText(filePath);
         var prodotti = JsonConvert.DeserializeObject<List<Prodotto>>(json);
 
@@ -45,7 +45,7 @@ public class CancellaProdottoModel : PageModel
             }
         }
 
-        System.IO.File.WriteAllText("wwwroot/prodotti.json", JsonConvert.SerializeObject(prodotti, Formatting.Indented));
+        System.IO.File.WriteAllText("wwwroot/json/prodotti.json", JsonConvert.SerializeObject(prodotti, Formatting.Indented));
         return RedirectToPage("Prodotti");
     }
 }

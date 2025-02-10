@@ -11,6 +11,14 @@ html {
   }
 }
 
+.green{
+  background-color: green !important;
+}
+
+.red{
+  background-color: red !important;
+}
+
 th, td{
   color: white
 }
@@ -93,4 +101,9 @@ body {
 
 .navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {
   color: #258cfb; /* Colore di hover dei link */
+}
+
+a{
+  color:goldenrod !important;
+  text-decoration: dotted;
 }

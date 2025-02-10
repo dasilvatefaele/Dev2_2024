@@ -7,10 +7,9 @@
 <h1>@ViewData["Title"]</h1>
 
 <div class="btn btn-primary">
-<a asp-page="AggiungiProdotto"><strong>Aggiungi prodotto</strong></a>
+    <a asp-page="AggiungiProdotto"><strong>Aggiungi prodotto</strong></a>
 
 </div>
-
 <div>
     <form method="get">
         <div class="form-group">
@@ -32,27 +31,47 @@
                 <th class="text-white">Foto</th>
                 <th class="text-white">Nome</th>
                 <th class="text-white">Prezzo</th>
+                <th class="text-white">Categoria</th>
                 <th class="text-white">Dettaglio</th>
+                <th class="text-white">Creato il</th>
+                <th class="text-white">Actions</th>
+                @* <th class="text-white">Action 2</th> *@
             </tr>
         </thead>
         <tbody>
             @foreach (var prodotto in Model.Prodotti)
             {
                 <tr>
-                    <td><img src="@prodotto.Immagine" alt="@prodotto.Nome" width="100" height="100" /></td>
+                    <td>
+                        <a asp-page="ProdottoDettaglio" asp-route-id="@prodotto.Id">
+                            <img src="@prodotto.Immagine" alt="@prodotto.Nome" width="100" height="100" />
+                        </a>
+                    </td>
                     <td class="text-white">@prodotto.Nome</td>
                     <td class="text-white">@prodotto.Prezzo</td>
-                    <td class="text-white"><a asp-page="ProdottoDettaglio" asp-route-id="@prodotto.Id">@prodotto.Dettaglio</a></td>
-                    <td> <a asp-page="ModificaProdotto" asp-route-id="@prodotto.Id"><div class="btn btn-primary"><strong>Modifica prodotto</strong></div></a></td>
-                    <td> <a asp-page="CancellaProdotto" asp-route-id="@prodotto.Id"><div class="btn btn-primary"><strong>Cancella prodotto</strong></div></a></td>
+                    <td class="text-white">@prodotto.Categoria</td>
+                    <td class="text-white">@prodotto.Dettaglio</td>
+                    <td class="text-white">@prodotto.Data</td>
+                    <td> <a asp-page="ModificaProdotto" asp-route-id="@prodotto.Id">
+                            <div class="btn green"><i class="fa-solid fa-pen-to-square" style="color:white"></i>
+                            </div>
+                        </a>
+                  
+
+                   <a asp-page="CancellaProdotto" asp-route-id="@prodotto.Id">
+                            <div class="btn red"><i class="fa-solid fa-trash" style="color:white"></i></div>
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
 
+
+@*Questo blocco di codice serve per mantenere le impostazioni del filtro anche spostandoci nella paginazione*@
 <div>
-    <form method="get">
+    <form method="get"> @*value = @Request.Query è una variabile (contenitore) che memorizza i dati passati che vogliamo passare (è un dizionario)*@
         <input type="hidden" name="minPrezzo" value="@Request.Query["minPrezzo"]" />
         <input type="hidden" name="maxPrezzo" value="@Request.Query["maxPrezzo"]" />
         @for (int i = 1; i <= Model.numeroPagine; i++)

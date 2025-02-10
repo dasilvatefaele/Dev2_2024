@@ -61,12 +61,42 @@
   },
   {
     "Id": 7,
-    "Nome": "Prodotto di Test DateTime",
-    "Prezzo": 1.6,
-    "Dettaglio": "provo a inserire il prezzo via post",
+    "Nome": "Daft Punk",
+    "Prezzo": 25.60,
+    "Dettaglio": "One More Time",
     "Immagine": "img/img_demo.webp",
     "Quantita": 0,
     "Categoria": "Elettronica",
     "Data": "10/02/25 a 10:39"
+  },
+  {
+    "Id": 8,
+    "Nome": "Queen",
+    "Prezzo": 42.50,
+    "Dettaglio": "Bohemian Rhapsody",
+    "Immagine": "img/img_demo.webp",
+    "Quantita": 0,
+    "Categoria": "Musica",
+    "Data": "10/02/25 a 10:47"
+  },
+  {
+    "Id": 9,
+    "Nome": "test nuovo prodotto categoria",
+    "Prezzo": 1.0,
+    "Dettaglio": "provo a inserire la categoria",
+    "Immagine": "img/img_demo.webp",
+    "Quantita": 0,
+    "Categoria": null,
+    "Data": "10/02/25 a 10:47"
+  },
+  {
+    "Id": 10,
+    "Nome": "salvo subito la cateogira",
+    "Prezzo": 1.0,
+    "Dettaglio": "scelgo musica",
+    "Immagine": "img/img_demo.webp",
+    "Quantita": 0,
+    "Categoria": "Musica",
+    "Data": "10/02/25 a 10:49"
   }
 ]

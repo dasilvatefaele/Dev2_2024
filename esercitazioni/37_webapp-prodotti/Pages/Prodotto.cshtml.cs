@@ -1,15 +1,12 @@
-using System.Collections.Generic;
-using System.Text.Json;
-using System;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using System.Text.Json;
-using System.IO;
 using Newtonsoft.Json;
 
-public class ProdottiModel : PageModel
+// CAMPO di una classe, se vogliamo PROPRIETA' di una classe
+
+public class ProdottiModel : PageModel // Questo "ProdottiModel" è lo stesso che usamo nella view @model ProdottiModel
 {
+
+
     private readonly ILogger<ProdottiModel> _logger;
 
     public ProdottiModel(ILogger<ProdottiModel> logger)
@@ -17,46 +14,35 @@ public class ProdottiModel : PageModel
         _logger = logger;
     }
 
+    // questi "VARIABILI" sono propriamente detti "CAMPI" di una classe, se vogliamo "PROPRIETA" di una classe - "ATTRIBUTO" è un termine più generico
     public int numeroPagine { get; set; }
     public IEnumerable<Prodotto> Prodotti { get; set; }
     string filePath;
     public void OnGet(decimal? minPrezzo, decimal? maxPrezzo, int? pageIndex)
     {
-        filePath = "wwwroot/prodotti.json";
+        filePath = "wwwroot/json/prodotti.json";
         string json = System.IO.File.ReadAllText(filePath);
         Prodotti = JsonConvert.DeserializeObject<IEnumerable<Prodotto>>(json);
 
-        var allProdotti = Prodotti;
-        //lista di tutti i prodotti
-        // var allProdotti = new List<Prodotto>
-        // {
-        //     new Prodotto { Id = 1, Nome = "Pasta", Prezzo = 1m, Dettaglio = "Pasta di grano duro Pasta di grano duroPasta di grano duroPasta di grano duro", Immagine = "img/pasta.jpg" },
-        //     new Prodotto { Id = 2, Nome = "Latte", Prezzo = 2m, Dettaglio = "Latte intero", Immagine = "img/latte.png"},
-        //     new Prodotto { Id = 3, Nome = "Pane", Prezzo = 3m, Dettaglio = "Pane integrale", Immagine = "img/pane.webp"},
-        //     new Prodotto { Id = 4, Nome = "Pasta", Prezzo = 1m, Dettaglio = "Pasta di grano duro", Immagine = "img/pasta.jpg" },
-        //     new Prodotto { Id = 5, Nome = "Latte", Prezzo = 2m, Dettaglio = "Latte intero", Immagine = "img/latte.png"},
-        //     new Prodotto { Id = 6, Nome = "Pane", Prezzo = 3m, Dettaglio = "Pane integrale", Immagine = "img/pane.webp"},
-        //     new Prodotto { Id = 7, Nome = "Pasta", Prezzo = 1m, Dettaglio = "Pasta di grano duro", Immagine = "img/pasta.jpg" },
-        //     new Prodotto { Id = 8, Nome = "Latte", Prezzo = 2m, Dettaglio = "Latte intero", Immagine = "img/latte.png"},
-        //     new Prodotto { Id = 9, Nome = "Pane", Prezzo = 3m, Dettaglio = "Pane integrale", Immagine = "img/pane.webp"}      
-        // };
+      
         _logger.LogInformation("Prodotti caricati");
 
         //inizializimo la lista filtrata
         var prodottiFiltrati = new List<Prodotto>();
 
-        foreach (var prodotto in allProdotti)
+        foreach (var prodotto in Prodotti)
         {
             bool aggiungi = true;
 
-            if (minPrezzo.HasValue)
+            if (minPrezzo.HasValue) // se usimo HasValue vuol dire che il tipo è nullable (in pratica, SE HA VALORE)
             {
-                if (prodotto.Prezzo < minPrezzo.Value)
+                if (prodotto.Prezzo < minPrezzo.Value) // .Value restituisce il valore di un tipo nullable (in pratica, RESTITUISCIMI IL VALORE)
                 {
-                    aggiungi = false;
+                    aggiungi = false; // se il prezzo del prodotto è minore del prezzo minimo, non lo aggiungiamo alla lista
                 }
             }
 
+            // stessa cosa per il prezzo massimo
             if (maxPrezzo.HasValue)
             {
                 if (prodotto.Prezzo > maxPrezzo.Value)
@@ -76,15 +62,17 @@ public class ProdottiModel : PageModel
         // calcola il numero di pagine Math.eiling arrotonda il numero di pagine all'interno del pià vicino 
         // Prodotti,Count restituisc il numero di elementi nella lista Prodotti
         // 6.0 è il numero di prodotti per pagina
-    
-        Prodotti = Prodotti.Skip(((pageIndex ?? 1) - 1) * 6).Take(6);
+
+        Prodotti = Prodotti.Skip(((pageIndex ?? 1) - 1) * 6).Take(6); // qui viene inizializzato pageIndex a 1 
+
+        // se pageIndex è null o indefinito, restituisce 1
         // esegue la paginazione
         // skip salta i primi ((pageIndex ?? 1) - 1) * 6 elementi
         // take prende i successivi 6 prodotti
         // i ?? restituisce 1 se pageIndex è null o indefinito
         // facciamo -1 in modo che pageIndex inizi da 1 unvece ghe da 0.
         // questo ci permette di avere pPageIndex = 1 come prima pagina
-        // perché non facciamo pageIndex + 1 ?? perch se poageIndex è null o indefinito
+        // perché non facciamo pageIndex + 1 ?? perch se paageIndex è null o indefinito
         // quindi bisogna fare pageIndex -1
     }
 }
