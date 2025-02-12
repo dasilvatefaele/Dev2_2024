@@ -1,0 +1,31 @@
+@page
+@model AggiungiProdottoModel
+@namespace _04_webapp_sqlite.Prodotti
+@{
+    ViewData["Title"] = "Aggiungi Prodotto";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div class="container">
+    <form method="post">
+        <div class="form-control">
+            <label asp-for="Prodotto.Nome">Nome</label>
+            <input type="text" class="form-control" asp-for="Prodotto.Nome" />
+        </div>
+        <div class="form-control">
+            <label asp-for="Prodotto.Prezzo">Prezzo</label>
+            <input type="text" class="form-control" asp-for="Prodotto.Prezzo" />
+        </div>
+        <div class="form-control">
+            <label asp-for="Prodotto.CategoriaId">Categoria</label>
+            <div>
+                <select asp-for="Prodotto.CategoriaId" asp-items="Model.Categorie">
+                    <option value="">--- SELEZIONA CATEGORIA ---</option>
+                </select>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary my-3">Aggingi</button>
+        </div>
+    </form>
+</div>

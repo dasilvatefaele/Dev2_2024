@@ -48,7 +48,8 @@ Obiettivo
 
 
 # da vedere:
-- [ ] SQL (creare tabelle, operazioni CRUD, JOIN, Paginazione, OFFSET, parametri, Seeding, evitare le Injection) (rendere le query più sicure)
+- [ ] SQL (creare tabelle, operazioni CRUD, JOIN, Paginazione, 
+      OFFSET, parametri, Seeding, evitare le Injection) (rendere le query più sicure)
 - [ ] data-notation / o decorator (tecniche di validazioni degli inserimenti)
 - [ ] classi utilities per il front-end (active-class)
 - [ ] integrazione partial views (front-end modulare)

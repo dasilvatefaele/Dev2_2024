@@ -1,0 +1,33 @@
+@page
+@model Modifica
+@namespace _04_webapp_sqlite.Prodotti
+@{
+    ViewData["Title"] = "Modifica Prodotto";
+}
+<h1>@ViewData["Title"]</h1>
+
+
+<div class="container">
+    <form method="post">
+        <input type="hidden" asp-for="Prodotto.Id"> <!-- rimandargli indietro -->
+        <div class="form-control">
+            <label asp-for="Prodotto.Nome">Nome</label>
+            <input type="text" class="form-control" asp-for="Prodotto.Nome" />
+        </div>
+        <div class="form-control">
+            <label asp-for="Prodotto.Prezzo">Prezzo</label>
+            <input type="text" class="form-control" asp-for="Prodotto.Prezzo" />
+        </div>
+        <div class="form-control">
+            <label asp-for="Prodotto.CategoriaId">Categoria</label>
+            <div>
+                <select asp-for="Prodotto.CategoriaId" asp-items="Model.CategoriaSelectList">
+                    <option value="">--- SELEZIONA CATEGORIA ---</option>
+                </select>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary my-3">Aggingi</button>
+        </div>
+    </form>
+</div>
