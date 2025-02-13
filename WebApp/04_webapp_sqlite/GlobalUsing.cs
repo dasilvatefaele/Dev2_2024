@@ -1,4 +1,3 @@
-global using WebAppSqlite.Models.View;
 global using WebAppSqlite.Models;
 global using WebAppSqlite.Data;
 global using WebAppSqlite.Pages;

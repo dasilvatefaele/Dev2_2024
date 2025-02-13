@@ -51,7 +51,6 @@ public class Modifica : PageModel
 
     public IActionResult OnPost()
     {
-
         if (!ModelState.IsValid) // se il modello non è valido
         {
             CaricaCategorie();

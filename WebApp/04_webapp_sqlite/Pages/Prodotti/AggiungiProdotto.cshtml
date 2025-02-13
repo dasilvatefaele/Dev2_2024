@@ -7,14 +7,21 @@
 <h1>@ViewData["Title"]</h1>
 
 <div class="container">
+     @section Scripts
+    {
+        <partial name="_ValidationScriptsPartial"/>
+    }
     <form method="post">
         <div class="form-control">
             <label asp-for="Prodotto.Nome">Nome</label>
             <input type="text" class="form-control" asp-for="Prodotto.Nome" />
+            <span asp-validation-for="Prodotto.Nome" class="text-danger"></span>
         </div>
         <div class="form-control">
             <label asp-for="Prodotto.Prezzo">Prezzo</label>
             <input type="text" class="form-control" asp-for="Prodotto.Prezzo" />
+            <span asp-validation-for="Prodotto.Prezzo" class="text-danger"></span>
+
         </div>
         <div class="form-control">
             <label asp-for="Prodotto.CategoriaId">Categoria</label>
@@ -22,6 +29,8 @@
                 <select asp-for="Prodotto.CategoriaId" asp-items="Model.Categorie">
                     <option value="">--- SELEZIONA CATEGORIA ---</option>
                 </select>
+                <span asp-validation-for="Prodotto.CategoriaId" class="text-danger"></span>
+
             </div>
         </div>
         <div>

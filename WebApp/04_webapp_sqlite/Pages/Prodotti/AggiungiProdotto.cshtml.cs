@@ -26,6 +26,11 @@ public class AggiungiProdottoModel : PageModel
 
     public IActionResult OnPost()
     {
+        if (!ModelState.IsValid)
+        {
+            CaricaCategorie();
+            return Page();
+        }
         using (var connection = DatabaseInitializer.GetConnection())
         {
             // aprire la connessione 
