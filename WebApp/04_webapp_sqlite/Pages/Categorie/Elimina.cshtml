@@ -1,0 +1,20 @@
+@page
+@model Elimina
+@namespace _04_webapp_sqlite.Categorie
+@{
+    ViewData["Title"] = "Elimina?";
+}
+<h1>@ViewData["Title"]</h1>
+
+
+<div class="container">
+
+    <h1>Vuoi eliminare @Model.Categoria.Nome?</h1>
+    <form method="post">
+            <input type="hidden" asp-for="Categoria.Id">
+        <div>
+            <button type="submit" class="btn btn-primary my-3 red">Elimina</button>
+        </div>
+    </form>
+    <a asp-page="/Categorie/Index"><button class="btn btn-primary my-3">Torna Indietro</button></a>
+</div>

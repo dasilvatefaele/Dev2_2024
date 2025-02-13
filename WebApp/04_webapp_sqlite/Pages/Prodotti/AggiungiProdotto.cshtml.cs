@@ -14,10 +14,17 @@ public class AggiungiProdottoModel : PageModel
 
     public List<SelectListItem> Categorie { get; set; } = new List<SelectListItem>();
 
-    public AggiungiProdottoModel(ILogger<AggiungiProdottoModel> logger)
+
+    public AggiungiProdottoModel()
     {
-        _logger = logger;
+         Prodotto = new Prodotto();
+         CaricaCategorie();
     }
+
+    // public AggiungiProdottoModel(ILogger<AggiungiProdottoModel> logger)
+    // {
+    //     _logger = logger;
+    // }
 
     public void OnGet()
     {

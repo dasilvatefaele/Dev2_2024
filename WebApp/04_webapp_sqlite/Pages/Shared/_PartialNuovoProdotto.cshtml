@@ -1,0 +1,30 @@
+@{
+    Prodotto Prodotto = Model.Prodotto;
+    List<SelectListItem> Categorie = Model.Categorie;
+}
+
+
+    <th scope="row">
+        #
+    </th>
+<td>
+    <input type="text" class="form-control" asp-for="@Prodotto.Nome" />
+    <span asp-validation-for="@Prodotto.Nome" class="text-danger"></span>
+</td>
+
+<td>
+    <input type="number" class="form-control" asp-for="@Prodotto.Prezzo" />
+    <span asp-validation-for="@Prodotto.Prezzo" class="text-danger"></span>
+</td>
+
+
+<td>
+    <select asp-for="@Prodotto.CategoriaId" class="form-control" asp-items="@Categorie">
+        <option value="">SCEGLI CATEGORIA</option>
+    </select>
+    <span asp-validation-for="@Prodotto.CategoriaId" class="text-danger"></span>
+</td>
+
+<td>
+    <button type="submit" class="btn btn-primary" >Aggingi</button>
+</td>

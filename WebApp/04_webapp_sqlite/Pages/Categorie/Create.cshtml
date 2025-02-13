@@ -1,0 +1,24 @@
+@page
+@model CreateModel
+@namespace _04_webapp_sqlite.Categorie
+@{
+    ViewData["Title"] = "Aggiungi Categoria";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div class="container">
+     @section Scripts
+    {
+        <partial name="_ValidationScriptsPartial"/>
+    }
+    <form method="post">
+        <div class="form-control">
+            <label asp-for="Categoria.Nome">Nome</label>
+            <input type="text" class="form-control" asp-for="Categoria.Nome" />
+            <span asp-validation-for="Categoria.Nome" class="text-danger"></span>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary my-3">Aggingi</button>
+        </div>
+    </form>
+</div>

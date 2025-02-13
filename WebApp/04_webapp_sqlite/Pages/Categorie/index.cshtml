@@ -1,0 +1,47 @@
+@page "Index"
+@model IndexCategorieModel
+@namespace _04_webapp_sqlite.Categorie
+@{
+    ViewData["Title"] = "Gestione Categorie";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="container-fluid">
+    <div>
+        <a asp-area="" asp-page="Create" class="btn btn-primary green"><i class="fa-solid fa-plus text-white"></i>
+            Crea</a>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                @if (Model.Categorie != null)
+                {
+                    @foreach (var categoria in Model.Categorie)
+                    {
+                        <tr>
+                            <td>@categoria.Id</td>
+                            <td>@categoria.Nome</td>
+                            <td><a asp-route-id="@categoria.Id" asp-page="Modifica">
+                                    <div class="btn green"><i class="fa-solid fa-pen-to-square" style="color:white"></i>
+                                    </div>
+                                </a>
+                                <a asp-page="Elimina" asp-route-id="@categoria.Id">
+                                    <div class="btn red"><i class="fa-solid fa-trash" style="color:white"></i></div>
+                                </a>
+                            </td>
+
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>

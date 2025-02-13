@@ -3,7 +3,20 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-var app = builder.Build();
+//var app = builder.Build(); //* default 
+
+//------ //* Con Globalization
+var cultureInfo = new CultureInfo("it-IT");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
+var app = builder.Build();  
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("it-IT"),
+    SupportedCultures = new List<CultureInfo> { cultureInfo },
+    SupportedUICultures = new List<CultureInfo> { cultureInfo }
+});
 
 // Posizioniamo qui l'inizializzione del database
 DatabaseInitializer.InitializeDatabase();
