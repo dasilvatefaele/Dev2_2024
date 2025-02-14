@@ -14,52 +14,56 @@
 <div class="container-fluid">
 
 
-    @* <div>
-        <a asp-area="" asp-page="AggiungiProdotto" class="btn btn-primary green"><i class="fa-solid fa-plus text-white"></i>
-            Crea</a>
-    </div> *@
-    <form method="post" asp-page="AggiungiProdotto">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="">Id</th>
-                    <th class="">Nome</th>
-                    <th class="">Prezzo</th>
-                    <th class="">Categoria</th>
-                    <th class="">Actions</th>
-                    @* <th class="">Action 2</th> *@
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
 
+
+    <table class="table">
+        <thead>
+            <tr>
+                @* <th class="">Id</th> *@
+                <th class="">Nome</th>
+                <th class="" style="display:block">Prezzo
+                    <a asp-page="Index" asp-route-ordine="0">
+                        <i class="fa-solid fa-arrow-up" id="ArrowFilter"></i>
+                    </a>
+                    <a asp-page="Index" asp-route-ordine="1">
+                        <i class="fa-solid fa-arrow-down " id="ArrowFilter"></i>
+                    </a>
+                </th>
+                <th class="">Categoria</th>
+                <th class="">Actions</th>
+                @* <th class="">Action 2</th> *@
+            </tr>
+        </thead>
+        <tbody>
+            <form method="post" asp-page="AggiungiProdotto">
+                <tr>
                     <partial name="_PartialNuovoProdotto" model="@CreateModel" />
+                </tr>
+            </form>
+            @foreach (var prodotto in Model.Prodotti)
+            {
+                <tr>
+                    @* <td class="">@prodotto.Id</td> *@
+                    <td class="">@prodotto.Nome</td>
+                    <td class="">@prodotto.Prezzo €</td>
+                    <td class="">@prodotto.CategoriaNome</td>
+
+                    <td><a asp-route-id="@prodotto.Id" asp-page="Modifica">
+                            <div class="btn green"><i class="fa-solid fa-pen-to-square" style="color:white"></i>
+                            </div>
+                        </a>
+
+                        <a asp-page="Elimina" asp-route-id="@prodotto.Id">
+                            <div class="btn red"><i class="fa-solid fa-trash" style="color:white"></i></div>
+                        </a>
+                    </td>
 
                 </tr>
-                @foreach (var prodotto in Model.Prodotti)
-                {
-                    <tr>
-                        <td class="">@prodotto.Id</td>
-                        <td class="">@prodotto.Nome</td>
-                        <td class="">@prodotto.Prezzo</td>
-                        <td class="">@prodotto.CategoriaNome</td>
 
-                        <td><a asp-route-id="@prodotto.Id" asp-page="Modifica">
-                                <div class="btn green"><i class="fa-solid fa-pen-to-square" style="color:white"></i>
-                                </div>
-                            </a>
+            }
 
-                            <a asp-page="Elimina" asp-route-id="@prodotto.Id">
-                                <div class="btn red"><i class="fa-solid fa-trash" style="color:white"></i></div>
-                            </a>
-                        </td>
-
-                    </tr>
-
-                }
-            </tbody>
-        </table>
-    </form>
+        </tbody>
+    </table>
 
 
 </div>
