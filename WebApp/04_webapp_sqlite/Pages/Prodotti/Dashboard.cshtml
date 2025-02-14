@@ -1,0 +1,24 @@
+@page
+@model IndexProdottiModel
+@namespace _04_webapp_sqlite.Prodotti
+@{
+    ViewData["Title"] = "Dashboard";
+    IndexProdottiModel ProdottiModel = new();
+    List<SelectListItem> Categorie = new();
+}
+<h1>@ViewData["Title"]</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4">
+            <partial name="_ProdottiPiuCostosi" model="@ProdottiModel" />
+        </div> 
+        <div class="col-4">
+            <partial name="_ProdottiRecenti" model="@ProdottiModel" />
+        </div>
+        <div class="col-4"> 
+            <partial name="_ProdottiCategoriaSpecifica" model="@ProdottiModel" />
+        </div>
+    </div>
+
+
+</div>

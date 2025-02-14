@@ -1,27 +1,22 @@
 namespace _04_webapp_sqlite.Prodotti;
 
-public class IndexProdottiModel : PageModel
+public class Dashboard : PageModel
 {
-    // private readonly ILogger<PrivacyModel> _logger;
+    private readonly ILogger<Dashboard> _logger;
 
     #region Proprietà prodotti
     public List<ProdottoViewModel>? Prodotti { get; set; } = new();
     public int totaleProdotti { get; set; }
     #endregion
 
-    [BindProperty(SupportsGet = true)]
-    public int Ordine { get; set; }
-
-    public IndexProdottiModel()
+    public Dashboard(ILogger<Dashboard> logger)
     {
-        //_logger = logger;
-        OnGet();
+        _logger = logger;
     }
 
     public void OnGet()
-    {
-        // Creiamo e apriamo la connessione al database
-
+    {   
+        // se i prodotti non sono caricati li carico
         if (Prodotti.Count == 0)
         {
             using (var connection = DatabaseInitializer.GetConnection())
@@ -62,30 +57,12 @@ public class IndexProdottiModel : PageModel
                 }
                 // Chiudiamo la connessione
                 // connection.Close();
-            }
-            ;
-        }
-        if (Ordine == 0)
-        {
+            };
 
-            Prodotti = Prodotti?.OrderBy(p => p.Prezzo).ToList();
+            
         }
-        else if (Ordine == 1)
-        {
-            Prodotti = Prodotti?.OrderByDescending(p => p.Prezzo).ToList();
-        }
-        else
-        {
-            Prodotti = Prodotti?.OrderBy(p => p.Id).ToList();
-        }
+        
     }
-
-    public IActionResult OnPost()
-    {
-
-        return RedirectToPage("Index", new { Ordine });
-    }
-
 }
 
 

@@ -1,0 +1,16 @@
+@{
+    List<ProdottoViewModel> Prodotti  = Model.Prodotti;
+    List<SelectListItem> Categorie = new ();
+    Prodotti?.OrderByDescending(p => p.Prezzo).ToList();
+}
+
+<h3>Prodotti Più Costosi</h3>
+
+@for (int i = 0; i < 5; i++)
+{
+    <strong class="fs-6" style="text-decoration: underline;">@Prodotti[i].Nome</strong>
+    <p class="fs-6" style=" display: inline;">@Prodotti[i].Prezzo €</p>
+    <p class="fs-6">@Prodotti[i].CategoriaNome</p>
+
+}
+
