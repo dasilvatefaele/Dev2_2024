@@ -67,7 +67,6 @@ public class IndexProdottiModel : PageModel
         }
         if (Ordine == 0)
         {
-
             Prodotti = Prodotti?.OrderBy(p => p.Prezzo).ToList();
         }
         else if (Ordine == 1)

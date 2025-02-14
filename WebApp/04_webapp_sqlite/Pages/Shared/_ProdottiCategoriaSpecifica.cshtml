@@ -1,13 +1,14 @@
+@model List<ProdottoViewModel>
 @{
-        string categoria = null;
-
+        //string categoria = null;
         //ciclo per estrapolare nome categoria 
-        foreach (var p in Model)
-        {
-                categoria = p.CategoriaNome;
-        }
+        //categoria = Model.First().CategoriaNome;
+        //foreach (var p in Model)
+        //{
+        //        categoria = p.CategoriaNome;
+        //}
 
-        <h3>Prodotti in @categoria</h3>
+        <h3>Prodotti in @Model.First().CategoriaNome</h3>
 
         @foreach (var prodotto in Model)
         {

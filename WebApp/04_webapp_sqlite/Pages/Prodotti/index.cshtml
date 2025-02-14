@@ -45,7 +45,7 @@
                 <tr>
                     @* <td class="">@prodotto.Id</td> *@
                     <td class="">@prodotto.Nome</td>
-                    <td class="">@prodotto.Prezzo €</td>
+                    <td class="">@prodotto.Prezzo.ToString("F2") €</td>
                     <td class="">@prodotto.CategoriaNome</td>
 
                     <td><a asp-route-id="@prodotto.Id" asp-page="Modifica">
