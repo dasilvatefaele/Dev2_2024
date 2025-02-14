@@ -5,8 +5,10 @@ public class Dashboard : PageModel
     private readonly ILogger<Dashboard> _logger;
 
     #region Proprietà prodotti
-    public List<ProdottoViewModel>? Prodotti { get; set; } = new();
-    public int totaleProdotti { get; set; }
+    public List<ProdottoViewModel>? ProdottiPiuCostosi { get; set; } = new();
+    public List<ProdottoViewModel>? ProdottiRecenti { get; set; } = new();
+    public List<ProdottoViewModel>? ProdottiCategoria { get; set; } = new();
+
     #endregion
 
     public Dashboard(ILogger<Dashboard> logger)
@@ -15,53 +17,72 @@ public class Dashboard : PageModel
     }
 
     public void OnGet()
-    {   
+    {
         // se i prodotti non sono caricati li carico
-        if (Prodotti.Count == 0)
-        {
-            using (var connection = DatabaseInitializer.GetConnection())
-            {
-                // apriamo la connessione
-                connection.Open();
 
-                // Occorre creare una query di join con una LEFT JOIN tra la tabella Prodotti e la tabella Categorie
-                // Usiamo gli alias in SQLite per rendere più leggibile il codice. Useremo p per Prodotti e c per Categorie
-                var query = @"
+        var queryCostosi = @"
                 SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
                 FROM Prodotti p
                 LEFT JOIN Categorie c ON p.CategoriaId = c.Id
-                ORDER BY p.Nome";
+                ORDER BY p.Prezzo DESC LIMIT 5";
 
-                // Creiamo il comando
-                using (var command = new SQLiteCommand(query, connection))
+        ProdottiPiuCostosi = ExecuteQuery(queryCostosi);
+
+        var queryRecenti = @"
+                SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
+                FROM Prodotti p
+                LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+                ORDER BY p.Id DESC LIMIT 5";
+
+        ProdottiRecenti = ExecuteQuery(queryRecenti);
+
+        var queryCategoria = @"
+                SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
+                FROM Prodotti p
+                LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+                WHERE p.CategoriaId = 11 LIMIT 5";
+
+        ProdottiCategoria = ExecuteQuery(queryCategoria);
+
+    }
+
+    public List<ProdottoViewModel> ExecuteQuery(string query)
+    {
+        List<ProdottoViewModel> ProdottiFiltrati = new List<ProdottoViewModel>();
+        using (var connection = DatabaseInitializer.GetConnection())
+        {
+            // apriamo la connessione
+            connection.Open();
+
+            // Occorre creare una query di join con una LEFT JOIN tra la tabella Prodotti e la tabella Categorie
+            // Usiamo gli alias in SQLite per rendere più leggibile il codice. Useremo p per Prodotti e c per Categorie
+
+            // Creiamo il comando
+            using (var command = new SQLiteCommand(query, connection))
+            {
+                // Eseguiamo il comando
+                using (var reader = command.ExecuteReader())
                 {
-                    // Eseguiamo il comando
-                    using (var reader = command.ExecuteReader())
+                    // Leggiamo i dati
+                    while (reader.Read())
                     {
-                        // Leggiamo i dati
-                        while (reader.Read())
+                        // Creiamo un nuovo prodotto e lo aggiungiamo alla lista
+                        ProdottiFiltrati?.Add(new ProdottoViewModel
                         {
-                            // Creiamo un nuovo prodotto e lo aggiungiamo alla lista
-                            Prodotti?.Add(new ProdottoViewModel
-                            {
-                                Id = reader.GetInt32(0),
-                                Nome = reader.GetString(1),
-                                Prezzo = reader.GetDouble(2),
-                                // se la categoria è nulla, restituiamo "Nessuna categoria"
-                                CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
-                            });
-                        }
-                        // ordiniamo la lista secondo l'id
-
+                            Id = reader.GetInt32(0),
+                            Nome = reader.GetString(1),
+                            Prezzo = reader.GetDouble(2),
+                            // se la categoria è nulla, restituiamo "Nessuna categoria"
+                            CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
+                        });
                     }
-                }
-                // Chiudiamo la connessione
-                // connection.Close();
-            };
+                    // ordiniamo la lista secondo l'id
 
-            
+                }
+            }
         }
-        
+        ;
+        return ProdottiFiltrati;
     }
 }
 

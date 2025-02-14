@@ -1,16 +1,11 @@
-@{
-    List<ProdottoViewModel> Prodotti  = Model.Prodotti;
-    List<SelectListItem> Categorie = new ();
-    Prodotti = Prodotti?.OrderByDescending(p => p.Id).ToList();
-}
 
 <h3>Prodotti Recenti</h3>
 
-@for (int i = 0; i < 5; i++)
+@foreach (var prodotto in Model)
 {
-    <strong class="fs-6" style="text-decoration: underline;">@Prodotti[i].Nome</strong>
-    <p class="fs-6" style=" display: inline;">@Prodotti[i].Prezzo €</p>
-    <p class="fs-6">@Prodotti[i].CategoriaNome</p>
+    <strong class="fs-6" style="text-decoration: underline;">@prodotto.Nome</strong>
+    <p class="fs-6" style=" display: inline;">@prodotto.Prezzo.ToString("F2") €</p>
+    <p class="fs-6">@prodotto.CategoriaNome</p>
 
 }
 

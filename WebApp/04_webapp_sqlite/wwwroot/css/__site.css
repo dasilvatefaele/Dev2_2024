@@ -1,0 +1,65 @@
+/* Modalità scura */
+body {
+  background-color: #121212;
+  color: #ffffff; /* Testo bianco */
+  font-family: Arial, sans-serif;
+}
+
+/* Link */
+a {
+  color: #bb86fc;
+}
+
+a:hover {
+  color: #3700b3;
+}
+
+/* Intestazioni */
+h1, h2, h3, h4, h5, h6 {
+  color: #ffffff;
+}
+
+/* Barra di navigazione */
+nav {
+  background-color: #1f1f1f;
+}
+
+nav a {
+  color: #ffffff; /* Link bianchi nella barra di navigazione */
+}
+
+nav a:hover {
+  color: #bb86fc;
+}
+
+/* Form */
+input, textarea {
+  background-color: #333333;
+  color: #ffffff; /* Testo bianco negli input */
+  border: 1px solid #444444;
+}
+
+input:focus, textarea:focus {
+  border-color: #6200ee;
+}
+
+/* Pulsanti */
+button {
+  background-color: #6200ee; /* Pulsante colorato */
+  color: white; /* Testo del pulsante bianco */
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3700b3; /* Pulsante colorato su hover */
+}
+
+/* Footer */
+footer {
+  background-color: #1f1f1f;
+  color: #757575;
+  padding: 20px;
+  text-align: center;
+}

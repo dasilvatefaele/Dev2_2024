@@ -1,24 +1,19 @@
 @{
-    List<ProdottoViewModel> Prodotti = Model.Prodotti;
-    List<SelectListItem> Categorie = new();
-    Prodotti = Prodotti?.OrderBy(p => p.Id).ToList();
-    int i = 0;
-}
+        string categoria = null;
 
-<h3>Prodotti Recenti</h3>
+        //ciclo per estrapolare nome categoria 
+        foreach (var p in Model)
+        {
+                categoria = p.CategoriaNome;
+        }
 
-@foreach (var prodotto in Prodotti)
-{
-    @if (prodotto.CategoriaNome == "Elettronica")
-    {
-        <strong class="fs-6" style="text-decoration: underline;">@prodotto.Nome</strong>
-        <p class="fs-6" style=" display: inline;">@prodotto.Prezzo €</p>
-        <p class="fs-6">@prodotto.CategoriaNome</p>
-        i++;
-    }
-    if (i >= 5)
-    {
-        break;
-    }
+        <h3>Prodotti in @categoria</h3>
 
+        @foreach (var prodotto in Model)
+        {
+
+                <strong class="fs-6" style="text-decoration: underline;">@prodotto.Nome</strong>
+                <p class="fs-6" style=" display: inline;">@prodotto.Prezzo.ToString("F2") €</p>
+                <p class="fs-6">@prodotto.CategoriaNome</p>
+        }
 }
