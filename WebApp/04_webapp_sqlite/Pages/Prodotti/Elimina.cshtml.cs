@@ -9,7 +9,10 @@ public class Elimina : PageModel
     private readonly ILogger<Elimina> _logger;
 
     [BindProperty]
-    public Prodotto Prodotto { get; set; } = new Prodotto();
+    public ProdottoViewModel Prodotto { get; set; } = new ProdottoViewModel();
+   
+    [BindProperty(SupportsGet = true)]
+    public int Id { get; set; }
 
     public Elimina(ILogger<Elimina> logger)
     {
@@ -18,56 +21,93 @@ public class Elimina : PageModel
 
     public IActionResult OnGet(int id)
     {
-        using (var connection = DatabaseInitializer.GetConnection())
+
+        var sql = "SELECT Id, Nome, Prezzo, CategoriaId FROM Prodotti WHERE id = @id";
+        try
         {
-            connection.Open();
-
-            var sql = "SELECT Id, Nome, Prezzo, CategoriaId FROM Prodotti WHERE id = @id";
-
-            using (var command = new SQLiteCommand(sql, connection))
+           var Prodotti = UtilityDB.ExecuteReader(sql, reader => new ProdottoViewModel
+            {
+                Id = reader.GetInt32(0),
+                Nome = reader.GetString(1),
+                Prezzo = reader.GetDouble(2),
+                // se la categoria è nulla, restituiamo "Nessuna categoria"
+                CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
+            },
+            command => 
             {
                 command.Parameters.AddWithValue("@id", id);
-
-                using (var reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        Prodotto = new Prodotto
-                        {
-                            Id = reader.GetInt32(0),
-                            Nome = reader.GetString(1),
-                            Prezzo = reader.GetDouble(2),
-                            CategoriaId = reader.IsDBNull(3) ? 0 : reader.GetInt32(3)
-                        };
-                    }
-                    else
-                    {
-                        return NotFound();
-
-                    }
-                }
-            }
+            });
+            Id = Prodotti.First().Id;
+            Prodotto = Prodotti.First();
         }
+        catch (Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
+
+        // using (var connection = DatabaseInitializer.GetConnection())
+        // {
+        //     connection.Open();
+
+        // using (var command = new SQLiteCommand(sql, connection))
+        // {
+        //     command.Parameters.AddWithValue("@id", id);
+
+        //     using (var reader = command.ExecuteReader())
+        //     {
+        //         if (reader.Read())
+        //         {
+        //             Prodotto = new Prodotto
+        //             {
+        //                 Id = reader.GetInt32(0),
+        //                 Nome = reader.GetString(1),
+        //                 Prezzo = reader.GetDouble(2),
+        //                 CategoriaId = reader.IsDBNull(3) ? 0 : reader.GetInt32(3)
+        //             };
+        //         }
+        //         else
+        //         {
+        //             return NotFound();
+
+        //         }
+        //     }
+        // }
+        //}
         return Page();
     }
 
-
     public IActionResult OnPost()
     {
-        using (var connection = DatabaseInitializer.GetConnection())
+        var sql = $"DELETE FROM Prodotti WHERE id = @id";
+        try
         {
-            connection.Open();
-
-            // costruisco la query basandomi sull'input dell'utente
-
-            var sql = $"DELETE FROM Prodotti WHERE id = @id";
-            using (var command = new SQLiteCommand(sql, connection))
+            UtilityDB.ExecuteNonQuery(sql, command =>
             {
-                command.Parameters.AddWithValue("@id", Prodotto.Id);
-                command.ExecuteNonQuery();
-                _logger.LogInformation("Sto eseguendo il comando");
-            }
+                command.Parameters.AddWithValue("@id", Id);
+            });
         }
+        catch (Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
+
+
+        // using (var connection = DatabaseInitializer.GetConnection())
+        // {
+        //     connection.Open();
+
+        //     // costruisco la query basandomi sull'input dell'utente
+
+        //     var sql = $"DELETE FROM Prodotti WHERE id = @id";
+
+
+        //     using (var command = new SQLiteCommand(sql, connection))
+        //     {
+        //         command.Parameters.AddWithValue("@id", Prodotto.Id);
+        //         command.ExecuteNonQuery();
+        //         _logger.LogInformation("Sto eseguendo il comando");
+        //     }
+        // }
         return RedirectToPage("Index");
     }
 }

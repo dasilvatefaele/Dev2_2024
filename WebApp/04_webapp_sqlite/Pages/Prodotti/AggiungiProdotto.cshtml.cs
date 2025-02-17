@@ -28,26 +28,58 @@ public class AggiungiProdottoModel : PageModel
 
     public void OnGet()
     {
-        CaricaCategorie();
+        //CaricaCategorie();
+        try
+        {
+            Categorie = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new SelectListItem
+            {
+                Value = reader.GetInt32(0).ToString(),
+                Text = reader.GetString(1)
+            });
+        }
+        catch (Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
     }
 
     public IActionResult OnPost()
     {
         if (!ModelState.IsValid)
         {
-            CaricaCategorie();
+            //CaricaCategorie();
+            try
+            {
+                Categorie = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new SelectListItem
+                {
+                    Value = reader.GetInt32(0).ToString(),
+                    Text = reader.GetString(1)
+                });
+            }
+            catch (Exception ex)
+            {
+                SimpleLogger.Log(ex);
+            }
+
             return Page();
         }
 
         var sql = @"INSERT INTO Prodotti (Nome, Prezzo, CategoriaId) VALUES (@nome, @prezzo, @categoria)";
 
-        UtilityDB.ExecuteNonQuery(sql, command =>
+        try
         {
-            command.Parameters.AddWithValue("@nome", Prodotto.Nome);
-            command.Parameters.AddWithValue("@prezzo", Prodotto.Prezzo);
-            command.Parameters.AddWithValue("@categoria", Prodotto.CategoriaId);
+            UtilityDB.ExecuteNonQuery(sql, command =>
+            {
+                command.Parameters.AddWithValue("@nome", Prodotto.Nome);
+                command.Parameters.AddWithValue("@prezzo", Prodotto.Prezzo);
+                command.Parameters.AddWithValue("@categoria", Prodotto.CategoriaId);
+            }
+            );
         }
-        );
+        catch (Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
 
         // using (var connection = DatabaseInitializer.GetConnection())
         // {
