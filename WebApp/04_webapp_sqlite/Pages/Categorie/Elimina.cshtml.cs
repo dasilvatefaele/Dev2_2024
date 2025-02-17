@@ -18,53 +18,24 @@ public class Elimina : PageModel
 
     public IActionResult OnGet(int id)
     {
-        try{
-        var sql = "SELECT Id, Nome FROM Categorie WHERE id = @id";
-        var Categorie = UtilityDB.ExecuteReader(sql, reader => new Categoria
+        try
         {
-            Id = reader.GetInt32(0),
-            Nome = reader.GetString(1),
-        },
-        command =>
-        {
-            command.Parameters.AddWithValue("@id", id);
-        });
-        Categoria = Categorie.First();
+            var sql = "SELECT Id, Nome FROM Categorie WHERE id = @id";
+            var Categorie = UtilityDB.ExecuteReader(sql, reader => new Categoria
+            {
+                Id = reader.GetInt32(0),
+                Nome = reader.GetString(1),
+            },
+            command =>
+            {
+                command.Parameters.AddWithValue("@id", id);
+            });
+            Categoria = Categorie.First();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             SimpleLogger.Log(ex);
         }
-
-
-        // using (var connection = DatabaseInitializer.GetConnection())
-        // {
-        //     connection.Open();
-
-        //     var sql = "SELECT Id, Nome FROM Categorie WHERE id = @id";
-
-        //     using (var command = new SQLiteCommand(sql, connection))
-        //     {
-        //         command.Parameters.AddWithValue("@id", id);
-
-        //         using (var reader = command.ExecuteReader())
-        //         {
-        //             if (reader.Read())
-        //             {
-        //                 Categoria = new Categoria
-        //                 {
-        //                     Id = reader.GetInt32(0),
-        //                     Nome = reader.GetString(1),
-        //                 };
-        //             }
-        //             else
-        //             {
-        //                 return NotFound();
-
-        //             }
-        //         }
-        //     }
-        // }
         return Page();
     }
 
@@ -72,33 +43,18 @@ public class Elimina : PageModel
     public IActionResult OnPost()
     {
         var sql = $"DELETE FROM Categorie WHERE id = @id";
-        try{
-        UtilityDB.ExecuteNonQuery(sql, command =>
+        try
         {
-            command.Parameters.AddWithValue("@id", Categoria.Id);
-            command.ExecuteNonQuery();
-        });
+            UtilityDB.ExecuteNonQuery(sql, command =>
+            {
+                command.Parameters.AddWithValue("@id", Categoria.Id);
+                command.ExecuteNonQuery();
+            });
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             SimpleLogger.Log(ex);
         }
-
-
-        // using (var connection = DatabaseInitializer.GetConnection())
-        // {
-        //     connection.Open();
-
-        //     // costruisco la query basandomi sull'input dell'utente
-
-        //     var sql = $"DELETE FROM Categorie WHERE id = @id";
-        //     using (var command = new SQLiteCommand(sql, connection))
-        //     {
-        //         command.Parameters.AddWithValue("@id", Categoria.Id);
-        //         command.ExecuteNonQuery();
-        //         _logger.LogInformation("Sto eseguendo il comando");
-        //     }
-        // }
         return RedirectToPage("Index");
     }
 }

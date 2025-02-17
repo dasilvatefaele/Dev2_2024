@@ -2,16 +2,14 @@
 @model Elimina
 @namespace _04_webapp_sqlite.Prodotti
 @{
-    ViewData["Title"] = "Elimina?";
+    ViewData["Title"] = "Elimina";
 }
-<h1>@ViewData["Title"]</h1>
-
+<h1>@ViewData["Title"] </h1>
 
 <div class="container">
-
     <h1>Vuoi eliminare @Model.Prodotto.Nome?</h1>
     <form method="post">
-            <input type="hidden" asp-for="Prodotto.Id">
+        <input type="hidden" asp-for="Prodotto.Id">
         <div>
             <button type="submit" class="btn btn-primary my-3 red">Elimina</button>
         </div>

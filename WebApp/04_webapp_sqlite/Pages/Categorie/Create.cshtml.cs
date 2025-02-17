@@ -67,50 +67,7 @@ public class CreateModel : PageModel
         {
             SimpleLogger.Log(ex);
         }
-
-
-        // using (var connection = DatabaseInitializer.GetConnection())
-        // {
-        //     // aprire la connessione 
-        //     connection.Open();
-        //     var sql = @"INSERT INTO Categorie (Nome) VALUES (@nome)";
-
-        //     using (var command = new SQLiteCommand(sql, connection))
-        //     {
-        //         command.Parameters.AddWithValue("@nome", Categoria.Nome);
-        //         command.ExecuteNonQuery();
-        //     }
-        // }
         return RedirectToPage("Index");
     }
-
-    // public void CaricaCategorie()
-    // {
-    //     using (var connection = DatabaseInitializer.GetConnection())
-    //     {
-    //         // aprire la connessione 
-    //         connection.Open();
-
-    //         // leggere la tabella categorie
-    //         var sql = @" SELECT * FROM Categorie";
-
-    //         using (var command = new SQLiteCommand(sql, connection))
-    //         {
-    //             // mentre il reader legge
-    //             using (var reader = command.ExecuteReader())
-    //             {
-    //                 while (reader.Read())
-    //                 {
-    //                     // aggiungi nuovo oggetto SelectListItem con Value e Text
-    //                     Categorie.Add(new SelectListItem
-    //                     {
-    //                         Value = reader.GetInt32(0).ToString(),
-    //                         Text = reader.GetString(1)
-    //                     });
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
 }
 

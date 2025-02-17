@@ -34,7 +34,7 @@ public class IndexProdottiModel : PageModel
                 CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
             });
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             SimpleLogger.Log(ex);
         }

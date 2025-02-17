@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Data.SqlClient;
-using System.Data.SQLite;
+// using Microsoft.AspNetCore.Mvc;
+// using Microsoft.AspNetCore.Mvc.RazorPages;
+// using Microsoft.AspNetCore.Mvc.Rendering;
+// using System.Data.SqlClient;
+// using System.Data.SQLite;
 
 namespace _04_webapp_sqlite.Prodotti;
 public class AggiungiProdottoModel : PageModel
@@ -33,14 +33,8 @@ public class AggiungiProdottoModel : PageModel
         }
     }
 
-    // public AggiungiProdottoModel(ILogger<AggiungiProdottoModel> logger)
-    // {
-    //     _logger = logger;
-    // }
-
     public void OnGet()
     {
-        //CaricaCategorie();
         try
         {
             Categorie = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new SelectListItem
@@ -59,7 +53,6 @@ public class AggiungiProdottoModel : PageModel
     {
         if (!ModelState.IsValid)
         {
-            //CaricaCategorie();
             try
             {
                 Categorie = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new SelectListItem
@@ -92,51 +85,7 @@ public class AggiungiProdottoModel : PageModel
         {
             SimpleLogger.Log(ex);
         }
-
-        // using (var connection = DatabaseInitializer.GetConnection())
-        // {
-        //     // aprire la connessione
-        //     connection.Open();
-        //     var sql = @"INSERT INTO Prodotti (Nome, Prezzo, CategoriaId) VALUES (@nome, @prezzo, @categoria)";
-
-        //     using (var command = new SQLiteCommand(sql,connection))
-        //     {
-        //         command.Parameters.AddWithValue("@nome", Prodotto.Nome);
-        //         command.Parameters.AddWithValue("@prezzo", Prodotto.Prezzo);
-        //         command.Parameters.AddWithValue("@categoria", Prodotto.CategoriaId);
-        //         command.ExecuteNonQuery();
-        //     }
-        // }
         return RedirectToPage("Index");
-    }
-
-    public void CaricaCategorie()
-    {
-        using (var connection = DatabaseInitializer.GetConnection())
-        {
-            // aprire la connessione
-            connection.Open();
-
-            // leggere la tabella categorie
-            var sql = @" SELECT * FROM Categorie";
-
-            using (var command = new SQLiteCommand(sql, connection))
-            {
-                // mentre il reader legge
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        // aggiungi nuovo oggetto SelectListItem con Value e Text
-                        Categorie.Add(new SelectListItem
-                        {
-                            Value = reader.GetInt32(0).ToString(),
-                            Text = reader.GetString(1)
-                        });
-                    }
-                }
-            }
-        }
     }
 }
 
