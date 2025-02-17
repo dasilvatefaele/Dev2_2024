@@ -22,18 +22,15 @@ public class Categoria
 }
 ```
 
-
-- `[Required]` - è il DataAnnotation 
+- `[Required]` - è il DataAnnotation
 - `(ErrorMessage = "...")` - è il messaggio restituito in caso di errato inserimento
 
-Ne esistono diversi, come 
+Ne esistono diversi, come
 
 - `[Range]`
 - `[StringLength]`
 
 ecc...
-
-
 
 ```c#
 public class Prodotto
@@ -52,37 +49,43 @@ public class Prodotto
     public int CategoriaId { get; set; }
 }
 ```
---- 
+
+---
 
 # Utilizzo della validazione in HTML
 
 ```html
-<span asp-validation-for="Prodotto.Nome" class="text-danger"><span>
+<span asp-validation-for="Prodotto.Nome" class="text-danger"
+  ><span></span
+></span>
 ```
- e va inserito sotto l'input
 
- ```html
-    <label asp-for="Prodotto.Nome">Nome</label>
-    <input type="text" class="form-control" asp-for="Prodotto.Nome" />
-    <span asp-validation-for="Prodotto.Nome" class="text-danger"></span>
- ```
+e va inserito sotto l'input
+
+```html
+<label asp-for="Prodotto.Nome">Nome</label>
+<input type="text" class="form-control" asp-for="Prodotto.Nome" />
+<span asp-validation-for="Prodotto.Nome" class="text-danger"></span>
+```
+
 ---
 
- # E' necessario...
+# E' necessario...
 
- ## 1. che il modello abbia lo using System.ComponentModel.DataAnnotations
- ```cs
- using System.ComponentModel.DataAnnotations; 
- ```
+## 1. che il modello abbia lo using System.ComponentModel.DataAnnotations
 
- ## 2. che i DataAnnotation siano sopra il campo del modello
+```cs
+using System.ComponentModel.DataAnnotations;
+```
 
- ```cs
+## 2. che i DataAnnotation siano sopra il campo del modello
+
+```cs
 [Required(ErrorMessage = "Il nome del prodotto è obbligatorio.")]
 [StringLength(100, ErrorMessage = "Il nome non può superare i 100 caratteri.")]
 public string Nome { get; set; }
- ```
- 
+```
+
 ## 3. che nell'html, prima del form ci sia lo script per bypassare i messaggi di validazioni di default
 
 ```c#
@@ -103,8 +106,9 @@ if (!ModelState.IsValid) // se il modello non è valido
 ```
 
 Nel caso di questa WebApp, in `Modifica.cs` e in `AggiungiProdotto.cs` avremo come prima istruzione del `OnPost`:
+
 ```cs
-if (!ModelState.IsValid) 
+if (!ModelState.IsValid)
 {
     CaricaCategorie();
     return Page();
@@ -113,7 +117,8 @@ if (!ModelState.IsValid)
 
 # SQL, Partial, Model (14/02/2025)
 
-### Obiettivo: 
+### Obiettivo:
+
 Creare una Dashboard `Prodotti Piu Costosi`, `Prodotti Recenti`, `Prodotti in Elettronica` usando le `_PartialView`
 
 ---
@@ -132,11 +137,11 @@ Creare una Dashboard `Prodotti Piu Costosi`, `Prodotti Recenti`, `Prodotti in El
     <div class="row">
         <div class="col-4">
             <partial name="_ProdottiPiuCostosi" model="Model.ProdottiPiuCostosi" />
-        </div> 
+        </div>
         <div class="col-4">
             <partial name="_ProdottiRecenti" model="Model.ProdottiRecenti" />
         </div>
-        <div class="col-4"> 
+        <div class="col-4">
             <partial name="_ProdottiCategoriaSpecifica" model="Model.ProdottiCategoria" />
         </div>
     </div>
@@ -223,7 +228,7 @@ public class Dashboard : PageModel
 }
 ```
 
-3. Costruire le _PartialView
+3. Costruire le \_PartialView
 
 > Prodotti Recenti
 
@@ -258,7 +263,7 @@ public class Dashboard : PageModel
 @{
         string categoria = null;
 
-        //ciclo per estrapolare nome categoria 
+        //ciclo per estrapolare nome categoria
         //categoria = Model.First().CategoriaNome
         foreach (var p in Model)
         {
@@ -304,7 +309,7 @@ Siccome nel modello `Dashboard.cshtml.cs` abbiamo definito 3 campi public
     public List<ProdottoViewModel>? ProdottiCategoria { get; set; } = new();
 ```
 
-possiamo trasmettere al `<partial>` il campo tramite la dicitura 
+possiamo trasmettere al `<partial>` il campo tramite la dicitura
 
 ```cs
 Model.ProdottiPiuCostosi
@@ -319,13 +324,13 @@ Infatti, nel ciclo foreach, ciclo in Model.
 @{
         string categoria = null;
 
-        //Estrapolo CategoriaNome dal primo elemento della lista 
+        //Estrapolo CategoriaNome dal primo elemento della lista
         categoria = Model.First().CategoriaNome;
-    
+
         <h3>Prodotti in @categoria</h3>
 
         // ciclo dentro Model che in realtà è ProdottiCategoria del modello Dashboard
-        @foreach (var prodotto in Model) 
+        @foreach (var prodotto in Model)
         {
 
                 <strong class="fs-6" style="text-decoration: underline;">@prodotto.Nome</strong>
@@ -337,9 +342,132 @@ Infatti, nel ciclo foreach, ciclo in Model.
 
 ### Riassumendo:
 
-
 1. Gestisco il filtraggio via SQL
 2. Salvo le liste filtrate nei campi del modello Dashboard
-3. Distribuisco i dati alle _PartialView richiamando il campo interessato (es. Model.ProdottiPiuCostosi)
+3. Distribuisco i dati alle \_PartialView richiamando il campo interessato (es. Model.ProdottiPiuCostosi)
 
 ---
+
+# UutilityDB
+
+Tre metodi
+
+Esegue una query che non restituisce dati (INSERT, UPDATE, DELETE).
+
+```cs
+    public static int ExecuteNonQuery(string sql, Action<SqliteCommand> setupParameters = null)
+```
+
+Esegue una query che restituisce un valore scalare (esempio un Count)
+
+```cs
+    public static T ExecuteScalar<T>(string sql, Action<SqliteCommand> setupParameters = null)
+```
+
+Esegue una query che restituisce più righe e le converte in una lista di oggetti di tipo T.
+
+```cs
+    public static List<T> ExecuteReader<T>(string sql, Func<Sqlitereader, T> converter, Action<SQLiteCommand> setupParameters)
+```
+
+```cs
+using Microsoft.Data.Sqlite;
+
+public static class UtilityDB
+{
+    /// <summary>
+    /// Esegue una query che non restituisce dati (INSERT, UPDATE, DELETE).
+    /// </summary>
+    /// <param name="sql">La query SQL.</param>
+    /// <param name="setupParameters">Opzionale: callback per aggiungere parametri al comando.</param>
+    /// <returns>Il numero di righe interessate.</returns>
+    public static int ExecuteNonQuery(string sql, Action<SqliteCommand> setupParameters = null)
+    {
+        using var connection = DatabaseInitializer.GetConnection();
+        connection.Open();
+
+        using var command = new SqliteCommand(sql, connection);
+        setupParameters?.Invoke(command); // Il metodo Invoke esegue il delegate setupParameters, cioè la funzione che gli passiamo
+
+        return command.ExecuteNonQuery();
+    }
+    /// <summary>
+    /// Esegue una query che restituisce un valore scalare.
+    /// </summary>
+    /// <typeparam name="T">Il tipo del valore atteso.</typeparam>
+    /// <param name="sql">La query SQL.</param>
+    /// <param name="setupParameters">Opzionale: callback per aggiungere parametri al comando.</param>
+    /// <returns>Il valore restituito convertito al tipo T.</returns>
+    public static T ExecuteScalar<T>(string sql, Action<SqliteCommand> setupParameters = null)
+    {
+        using var connection = DatabaseInitializer.GetConnection();
+        connection.Open();
+
+        using var command = new SqliteCommand(sql, connection);
+        setupParameters?.Invoke(command);
+
+        var result = command.ExecuteScalar();
+        if (result == null || result == DBNull.Value)
+            return default(T);
+
+        return (T)Convert.ChangeType(result, typeof(T));
+    }
+    /// <summary>
+    /// Esegue una query che restituisce più righe e le converte in una lista di oggetti di tipo T.
+    /// </summary>
+    /// <typeparam name="T">Il tipo di oggetto da restituire per ogni riga.</typeparam>
+    /// <param name="sql">La query SQL.</param>
+    /// <param name="converter">Funzione per convertire una riga (<see cref="SqliteDataReader"/>) in un oggetto di tipo T.</param>
+    /// <param name="setupParameters">Opzionale: callback per aggiungere parametri al comando.</param>
+    /// <returns>Una lista di oggetti di tipo T.</returns>
+    public static List<T> ExecuteReader<T>(string sql, Func<Sqlitereader, T> converter, Action<SQLiteCommand> setupParameters)
+    {
+        var list = new List<T>();
+        using var connection = DatabaseInitializer.GetConnection();
+        using var command = new SQLiteCommand(sql, connection);
+        setupParameters?.Invoke(command);
+        using var reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            list.Add(converter(reader));
+        }
+        return list;
+    }
+}
+
+```
+
+SimpleLogger.cs
+```cs
+public static class SimpleLogger
+{
+    // Percorso del file di log (puoi modificare il percorso se necessario)
+    private static readonly string logFilePath = "log.txt";
+
+    /// <summary>
+    /// Registra un messaggio nel file di log con data e ora.
+    /// </summary>
+    /// <param name="message">Il messaggio da loggare.</param>
+    public static void Log(string message)
+    {
+        try
+        {
+            using StreamWriter writer = new StreamWriter(logFilePath, append: true);
+            writer.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {message}");
+        }
+        catch (Exception)
+        {
+            // Se il logging fallisce, l'errore viene ignorato.
+        }
+    }
+
+    /// <summary>
+    /// Registra un'eccezione nel file di log.
+    /// </summary>
+    /// <param name="ex">L'eccezione da loggare.</param>
+    public static void Log(Exception ex)
+    {
+        Log($"Exception: {ex.Message}\nStack Trace: {ex.StackTrace}");
+    }
+}
+```
