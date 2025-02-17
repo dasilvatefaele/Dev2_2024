@@ -14,7 +14,18 @@ public class IndexCategorieModel : PageModel {
 
     public void OnGet() 
     {
-        Categorie = GestioneCategorie.LoadFromDatabase();
+         try
+        {
+            Categorie = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new Categoria
+            {
+                Id = reader.GetInt32(0),
+                Nome = reader.GetString(1)
+            });
+        }
+        catch (Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
         _logger.LogInformation($"Categorie trovate: {Categorie.Count}");
     }
 }

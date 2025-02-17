@@ -9,42 +9,86 @@ public class Modifica : PageModel
 {
     [BindProperty]
     public Prodotto Prodotto { get; set; }
+
+    [BindProperty(SupportsGet = true)]
+    public int Id { get; set; }
+
     public List<SelectListItem> CategoriaSelectList { get; set; } = new List<SelectListItem>();
 
     public IActionResult OnGet(int id)
     {
-        using (var connection = DatabaseInitializer.GetConnection())
+
+        try
         {
-            connection.Open();
+            CategoriaSelectList = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new SelectListItem
+            {
+                Value = reader.GetInt32(0).ToString(),
+                Text = reader.GetString(1)
+            });
+        }
+        catch (Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
 
+        try
+        {
             var sql = "SELECT Id, Nome, Prezzo, CategoriaId FROM Prodotti WHERE id = @id";
-
-            using (var command = new SQLiteCommand(sql, connection))
+            var Prodotti = UtilityDB.ExecuteReader(sql, reader => new Prodotto
+            {
+                Id = reader.GetInt32(0),
+                Nome = reader.GetString(1),
+                Prezzo = reader.GetDouble(2),
+                // se la categoria è nulla, restituiamo "Nessuna categoria"
+                CategoriaId = reader.GetInt32(3)
+            },
+            command =>
             {
                 command.Parameters.AddWithValue("@id", id);
-
-                using (var reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        Prodotto = new Prodotto
-                        {
-                            Id = reader.GetInt32(0),
-                            Nome = reader.GetString(1),
-                            Prezzo = reader.GetDouble(2),
-                            CategoriaId = reader.IsDBNull(3) ? 0 : reader.GetInt32(3)
-                        };
-                    }
-                    else
-                    {
-                        return NotFound();
-
-                    }
-                }
-            }
-
-            CaricaCategorie();
+            });
+            Prodotto = Prodotti.First();
+            Id = Prodotto.Id;
         }
+        catch (Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
+
+
+        // using (var connection = DatabaseInitializer.GetConnection())
+        // {
+        //     connection.Open();
+
+        //     var sql = "SELECT Id, Nome, Prezzo, CategoriaId FROM Prodotti WHERE id = @id";
+
+        //     using (var command = new SQLiteCommand(sql, connection))
+        //     {
+        //         command.Parameters.AddWithValue("@id", id);
+
+        //         using (var reader = command.ExecuteReader())
+        //         {
+        //             if (reader.Read())
+        //             {
+        //                 Prodotto = new Prodotto
+        //                 {
+        //                     Id = reader.GetInt32(0),
+        //                     Nome = reader.GetString(1),
+        //                     Prezzo = reader.GetDouble(2),
+        //                     CategoriaId = reader.IsDBNull(3) ? 0 : reader.GetInt32(3)
+        //                 };
+        //             }
+        //             else
+        //             {
+        //                 return NotFound();
+
+        //             }
+        //         }
+        //     }
+
+        //     CaricaCategorie();
+        // }
+
+
 
         return Page();
     }
@@ -53,55 +97,86 @@ public class Modifica : PageModel
     {
         if (!ModelState.IsValid) // se il modello non è valido
         {
-            CaricaCategorie();
+            //CaricaCategorie();
+            try
+            {
+                CategoriaSelectList = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new SelectListItem
+                {
+                    Value = reader.GetInt32(0).ToString(),
+                    Text = reader.GetString(1)
+                });
+            }
+            catch (Exception ex)
+            {
+                SimpleLogger.Log(ex);
+            }
             return Page();
         }
 
-        using (var connection = DatabaseInitializer.GetConnection())
+        try
         {
-            connection.Open();
-
-            // costruisco la query basandomi sull'input dell'utente
-
             var sql = $"UPDATE Prodotti SET Nome = @nome, Prezzo = @prezzo, CategoriaId = @categoriaid WHERE id = @id";
-            using (var command = new SQLiteCommand(sql, connection))
+            UtilityDB.ExecuteNonQuery(sql, command =>
             {
                 command.Parameters.AddWithValue("@nome", Prodotto.Nome);
                 command.Parameters.AddWithValue("@prezzo", Prodotto.Prezzo);
                 command.Parameters.AddWithValue("@categoriaid", Prodotto.CategoriaId);
-                command.Parameters.AddWithValue("@id", Prodotto.Id);
-                command.ExecuteNonQuery();
-            }
+                command.Parameters.AddWithValue("@id", Prodotto.Id); ;
+            });
         }
+        catch (Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
+
+
+        // using (var connection = DatabaseInitializer.GetConnection())
+        // {
+        //     connection.Open();
+
+        //     // costruisco la query basandomi sull'input dell'utente
+
+        //     var sql = $"UPDATE Prodotti SET Nome = @nome, Prezzo = @prezzo, CategoriaId = @categoriaid WHERE id = @id";
+        //     using (var command = new SQLiteCommand(sql, connection))
+        //     {
+        //         command.Parameters.AddWithValue("@nome", Prodotto.Nome);
+        //         command.Parameters.AddWithValue("@prezzo", Prodotto.Prezzo);
+        //         command.Parameters.AddWithValue("@categoriaid", Prodotto.CategoriaId);
+        //         command.Parameters.AddWithValue("@id", Prodotto.Id);
+        //         command.ExecuteNonQuery();
+        //     }
+        // }
+
+
         return RedirectToPage("Index");
     }
 
-    public void CaricaCategorie()
-    {
-        using (var connection = DatabaseInitializer.GetConnection())
-        {
-            // aprire la connessione 
-            connection.Open();
+    // public void CaricaCategorie()
+    // {
+    //     using (var connection = DatabaseInitializer.GetConnection())
+    //     {
+    //         // aprire la connessione 
+    //         connection.Open();
 
-            // leggere la tabella categorie
-            var sql = @" SELECT * FROM Categorie";
+    //         // leggere la tabella categorie
+    //         var sql = @" SELECT * FROM Categorie";
 
-            using (var command = new SQLiteCommand(sql, connection))
-            {
-                // mentre il reader legge
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        // aggiungi nuovo oggetto SelectListItem con Value e Text
-                        CategoriaSelectList.Add(new SelectListItem
-                        {
-                            Value = reader.GetInt32(0).ToString(),
-                            Text = reader.GetString(1)
-                        });
-                    }
-                }
-            }
-        }
-    }
+    //         using (var command = new SQLiteCommand(sql, connection))
+    //         {
+    //             // mentre il reader legge
+    //             using (var reader = command.ExecuteReader())
+    //             {
+    //                 while (reader.Read())
+    //                 {
+    //                     // aggiungi nuovo oggetto SelectListItem con Value e Text
+    //                     CategoriaSelectList.Add(new SelectListItem
+    //                     {
+    //                         Value = reader.GetInt32(0).ToString(),
+    //                         Text = reader.GetString(1)
+    //                     });
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 }

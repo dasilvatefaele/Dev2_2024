@@ -18,7 +18,19 @@ public class AggiungiProdottoModel : PageModel
     public AggiungiProdottoModel()
     {
         Prodotto = new Prodotto();
-        CaricaCategorie();
+        //CaricaCategorie();
+         try
+        {
+            Categorie = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new SelectListItem
+            {
+                Value = reader.GetInt32(0).ToString(),
+                Text = reader.GetString(1)
+            });
+        }
+        catch (Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
     }
 
     // public AggiungiProdottoModel(ILogger<AggiungiProdottoModel> logger)
