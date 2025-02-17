@@ -1,19 +1,12 @@
 @model List<ProdottoViewModel>
 @{
-        //string categoria = null;
-        //ciclo per estrapolare nome categoria 
-        //categoria = Model.First().CategoriaNome;
-        //foreach (var p in Model)
-        //{
-        //        categoria = p.CategoriaNome;
-        //}
-
         <h3>Prodotti in @Model.First().CategoriaNome</h3>
 
         @foreach (var prodotto in Model)
         {
-
+                 <a asp-page="Dettaglio" asp-route-id="@prodotto.Id">
                 <strong class="fs-6" style="text-decoration: underline;">@prodotto.Nome</strong>
+                 </a>
                 <p class="fs-6" style=" display: inline;">@prodotto.Prezzo.ToString("F2") €</p>
                 <p class="fs-6">@prodotto.CategoriaNome</p>
         }

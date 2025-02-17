@@ -6,7 +6,14 @@ public class IndexProdottiModel : PageModel
 
     #region Proprietà prodotti
     public List<ProdottoViewModel>? Prodotti { get; set; } = new();
-    public int totaleProdotti { get; set; }
+
+    public List<ProdottoViewModel>? ProdottiPerCategoria { get; set; } = new();
+
+    public List<SelectListItem>? CategorieTendina { get; set; } = new List<SelectListItem>();
+
+    [BindProperty(SupportsGet = true)]
+    public int? IdCategoria { get; set; }
+
     #endregion
 
     [BindProperty(SupportsGet = true)]
@@ -15,24 +22,52 @@ public class IndexProdottiModel : PageModel
     public IndexProdottiModel()
     {
         //_logger = logger;
-        OnGet();
+        OnGet(IdCategoria, Ordine);
     }
 
-    public void OnGet()
+    public void OnGet(int? IdCategoria, int Ordine)
     {
         try
         {
-            Prodotti = UtilityDB.ExecuteReader(@"SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
+            if (IdCategoria.HasValue)
+            {
+                Prodotti = UtilityDB.ExecuteReader(@"SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
+                FROM Prodotti p
+                LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+                WHERE c.Id = @id", reader => new ProdottoViewModel
+                {
+                    Id = reader.GetInt32(0),
+                    Nome = reader.GetString(1),
+                    Prezzo = reader.GetDouble(2),
+                    // se la categoria è nulla, restituiamo "Nessuna categoria"
+                    CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
+                },
+                command =>
+                {
+                    command.Parameters.AddWithValue("@id", IdCategoria);
+                }
+                );
+            }
+            else
+            {
+
+                Prodotti = UtilityDB.ExecuteReader(@"SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
                 FROM Prodotti p
                 LEFT JOIN Categorie c ON p.CategoriaId = c.Id
                 ORDER BY p.Nome", reader => new ProdottoViewModel
-            {
-                Id = reader.GetInt32(0),
-                Nome = reader.GetString(1),
-                Prezzo = reader.GetDouble(2),
-                // se la categoria è nulla, restituiamo "Nessuna categoria"
-                CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
-            });
+                {
+                    Id = reader.GetInt32(0),
+                    Nome = reader.GetString(1),
+                    Prezzo = reader.GetDouble(2),
+                    // se la categoria è nulla, restituiamo "Nessuna categoria"
+                    CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
+                });
+                CategorieTendina = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new SelectListItem
+                {
+                    Value = reader.GetInt32(0).ToString(),
+                    Text = reader.GetString(1)
+                });
+            }
         }
         catch (Exception ex)
         {
@@ -52,12 +87,13 @@ public class IndexProdottiModel : PageModel
         {
             Prodotti = Prodotti?.OrderBy(p => p.Id).ToList();
         }
+
     }
 
     public IActionResult OnPost()
     {
 
-        return RedirectToPage("Index", new { Ordine });
+        return RedirectToPage("Index", new { IdCategoria, Ordine });
     }
 
 }

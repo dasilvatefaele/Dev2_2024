@@ -4,9 +4,36 @@
 @{
     ViewData["Title"] = "Elenco Prodotti";
     AggiungiProdottoModel CreateModel = new();
+
+
 }
 
+
 <h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-4 order-2">
+        <h5>Filtra per categoria</h5>
+        <div class="form-control">
+            <form method="post">
+                <select class="form-control" asp-for="IdCategoria" asp-items="Model.CategorieTendina">
+                    <option value="">SCEGLI CATEGORIA</option>
+                </select>
+                <button class="btn btn-primary form-control" type="submit">Filtra</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-4 order-1">
+        @* <h5>Filtra Recenti</h5>
+        <div class="form-control">
+            <form method="post">
+                <button></button>
+                <button class="btn btn-primary form-control" type="submit">Filtra</button>
+            </form>
+        </div> *@
+    </div>
+    <div class="col-4"></div>
+</div>
 
 <div class="container-fluid">
     <table class="table">
@@ -15,10 +42,10 @@
                 @* <th class="">Id</th> *@
                 <th class="">Nome</th>
                 <th class="" style="display:block">Prezzo
-                    <a asp-page="Index" asp-route-ordine="0">
+                    <a asp-page="Index" asp-route-ordine="0" asp-route-idcategoria="@Model.IdCategoria">
                         <i class="fa-solid fa-arrow-up" id="ArrowFilter"></i>
                     </a>
-                    <a asp-page="Index" asp-route-ordine="1">
+                    <a asp-page="Index" asp-route-ordine="1" asp-route-idcategoria="@Model.IdCategoria">
                         <i class="fa-solid fa-arrow-down " id="ArrowFilter"></i>
                     </a>
                 </th>
@@ -37,7 +64,11 @@
             {
                 <tr>
                     @* <td class="">@prodotto.Id</td> *@
-                    <td class="">@prodotto.Nome</td>
+                    <td class="">
+                        <a asp-page="Dettaglio" asp-route-id="@prodotto.Id">
+                            @prodotto.Nome
+                        </a>
+                    </td>
                     <td class="">@prodotto.Prezzo.ToString("F2") €</td>
                     <td class="">@prodotto.CategoriaNome</td>
 
