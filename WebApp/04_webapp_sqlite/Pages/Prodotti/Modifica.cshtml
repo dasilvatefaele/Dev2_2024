@@ -10,7 +10,7 @@
 <div class="container">
     @section Scripts
     {
-        <partial name="_ValidationScriptsPartial"/>
+        <partial name="_ValidationScriptsPartial" />
     }
     <form method="post">
         <input type="hidden" asp-for="Prodotto.Id"> <!-- rimandargli indietro -->
@@ -27,15 +27,16 @@
         <div class="form-control">
             <label asp-for="Prodotto.CategoriaId">Categoria</label>
             <div>
-                <select asp-for="Prodotto.CategoriaId" asp-items="Model.CategoriaSelectList">
+                <select asp-for="Prodotto.CategoriaId" class="form-control" asp-items="Model.CategoriaSelectList">
                     <option value="">--- SELEZIONA CATEGORIA ---</option>
                 </select>
                 <span asp-validation-for="Prodotto.CategoriaId" class="text-danger"></span>
-                
+
             </div>
         </div>
         <div>
             <button type="submit" class="btn btn-primary my-3">Aggingi</button>
+            <a asp-page="/Prodotti/Index"><button class="btn btn-primary my-3">Torna Indietro</button></a>
         </div>
     </form>
 </div>

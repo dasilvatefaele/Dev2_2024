@@ -1,5 +1,9 @@
 ﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+.navbar.navbar-light {
+  background-color: #1e1e1e !important; /* Navbar grigio scuro */
+  color: white !important; /* Testo navbar in bianco */
+}
 
 a.navbar-brand {
   white-space: normal;

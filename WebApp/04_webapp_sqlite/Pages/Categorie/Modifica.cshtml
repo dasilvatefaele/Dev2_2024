@@ -10,18 +10,19 @@
 <div class="container">
     @section Scripts
     {
-        <partial name="_ValidationScriptsPartial"/>
+        <partial name="_ValidationScriptsPartial" />
     }
     <form method="post">
         <input type="hidden" asp-for="Categoria.Id"> <!-- rimandargli indietro -->
         <div class="form-control">
             <label asp-for="Categoria.Nome">Nome</label>
-            <input type="text" class="form-control" asp-for="Categoria.Nome"/>
+            <input type="text" class="form-control" asp-for="Categoria.Nome" />
             <span asp-validation-for="Categoria.Nome" class="text-danger"></span>
         </div>
-        
+
         <div>
             <button type="submit" class="btn btn-primary my-3">Modifica</button>
+            <a asp-page="/Categorie/Index"><button class="btn btn-primary my-3">Torna Indietro</button></a>
         </div>
     </form>
 </div>

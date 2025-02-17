@@ -19,22 +19,52 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: #121212 !important; /* Sfondo grigio scuro */
+  color: white !important; /* Testo bianco */
 }
 
-.green{
+.nav-link{
+  color: white !important; /* Testo bianco */
+}
+
+a {
+  text-decoration: none;
+  color: white !important; /* Link in bianco */
+}
+
+#ArrowFilter {
+  color: white !important; /* Testo bianco per ArrowFilter */
+  text-decoration: none;
+}
+
+/* Assicura che tutti i testi siano bianchi */
+h1, h2, h3, h4, h5, h6, p, span, div, li, td, th, label, strong {
+  color: white !important;
+}
+
+/* Stile per input, textarea, select con sfondo grigio scuro e testo bianco */
+.form-control, input, textarea, select {
+  background-color: #1e1e1e !important; /* Sfondo grigio scuro */
+  color: white !important; /* Testo bianco */
+  border: 1px solid #444 !important;
+}
+
+/* Placeholder in grigio chiaro */
+::placeholder {
+  color: #bbbbbb !important;
+}
+
+/* Checkbox e radio button più visibili */
+.form-check-input {
+  background-color: #1e1e1e !important;
+  border: 1px solid #bbbbbb !important;
+}
+
+/* Mantieni i bottoni colorati */
+.green {
   background-color: green !important;
 }
 
-.red{
+.red {
   background-color: red !important;
-}
-
-#ArrowFilter
-{
-  color: black;
-  text-decoration: none;
-}
-
-a{
-  text-decoration: none;
 }

@@ -94,3 +94,21 @@ Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbTyp
    at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__10_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
    at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
    at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
+2025-02-17 12:57:21 - Exception: Specified cast is not valid.
+Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
+   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
+   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__10_0(SQLiteDataReader reader)
+   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters)
+   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id)
+2025-02-17 12:57:49 - Exception: Specified cast is not valid.
+Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
+   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
+   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__10_0(SQLiteDataReader reader)
+   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters)
+   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id)
+2025-02-17 12:58:08 - Exception: Specified cast is not valid.
+Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
+   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
+   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__10_0(SQLiteDataReader reader)
+   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters)
+   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id)
