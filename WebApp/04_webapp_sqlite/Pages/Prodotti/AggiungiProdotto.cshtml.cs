@@ -17,8 +17,8 @@ public class AggiungiProdottoModel : PageModel
 
     public AggiungiProdottoModel()
     {
-         Prodotto = new Prodotto();
-         CaricaCategorie();
+        Prodotto = new Prodotto();
+        CaricaCategorie();
     }
 
     // public AggiungiProdottoModel(ILogger<AggiungiProdottoModel> logger)
@@ -38,28 +38,39 @@ public class AggiungiProdottoModel : PageModel
             CaricaCategorie();
             return Page();
         }
-        using (var connection = DatabaseInitializer.GetConnection())
-        {
-            // aprire la connessione 
-            connection.Open();
-            var sql = @"INSERT INTO Prodotti (Nome, Prezzo, CategoriaId) VALUES (@nome, @prezzo, @categoria)";
 
-            using (var command = new SQLiteCommand(sql,connection))
-            {
-                command.Parameters.AddWithValue("@nome", Prodotto.Nome);
-                command.Parameters.AddWithValue("@prezzo", Prodotto.Prezzo);
-                command.Parameters.AddWithValue("@categoria", Prodotto.CategoriaId);
-                command.ExecuteNonQuery();
-            }
+        var sql = @"INSERT INTO Prodotti (Nome, Prezzo, CategoriaId) VALUES (@nome, @prezzo, @categoria)";
+
+        UtilityDB.ExecuteNonQuery(sql, command =>
+        {
+            command.Parameters.AddWithValue("@nome", Prodotto.Nome);
+            command.Parameters.AddWithValue("@prezzo", Prodotto.Prezzo);
+            command.Parameters.AddWithValue("@categoria", Prodotto.CategoriaId);
         }
+        );
+
+        // using (var connection = DatabaseInitializer.GetConnection())
+        // {
+        //     // aprire la connessione
+        //     connection.Open();
+        //     var sql = @"INSERT INTO Prodotti (Nome, Prezzo, CategoriaId) VALUES (@nome, @prezzo, @categoria)";
+
+        //     using (var command = new SQLiteCommand(sql,connection))
+        //     {
+        //         command.Parameters.AddWithValue("@nome", Prodotto.Nome);
+        //         command.Parameters.AddWithValue("@prezzo", Prodotto.Prezzo);
+        //         command.Parameters.AddWithValue("@categoria", Prodotto.CategoriaId);
+        //         command.ExecuteNonQuery();
+        //     }
+        // }
         return RedirectToPage("Index");
-    }     
+    }
 
     public void CaricaCategorie()
     {
         using (var connection = DatabaseInitializer.GetConnection())
         {
-            // aprire la connessione 
+            // aprire la connessione
             connection.Open();
 
             // leggere la tabella categorie
