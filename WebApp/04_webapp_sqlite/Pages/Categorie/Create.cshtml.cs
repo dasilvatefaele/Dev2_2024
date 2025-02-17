@@ -21,58 +21,96 @@ public class CreateModel : PageModel
 
     public void OnGet()
     {
-        CaricaCategorie();
+        try
+        {
+            Categorie = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new SelectListItem
+            {
+                Value = reader.GetInt32(0).ToString(),
+                Text = reader.GetString(1)
+            });
+        }
+        catch (Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
     }
 
     public IActionResult OnPost()
     {
         if (!ModelState.IsValid)
         {
-            CaricaCategorie();
+            //CaricaCategorie();
+            try
+            {
+                Categorie = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new SelectListItem
+                {
+                    Value = reader.GetInt32(0).ToString(),
+                    Text = reader.GetString(1)
+                });
+            }
+            catch (Exception ex)
+            {
+                SimpleLogger.Log(ex);
+            }
             return Page();
         }
-        using (var connection = DatabaseInitializer.GetConnection())
-        {
-            // aprire la connessione 
-            connection.Open();
-            var sql = @"INSERT INTO Categorie (Nome) VALUES (@nome)";
 
-            using (var command = new SQLiteCommand(sql,connection))
+        try
+        {
+            var sql = @"INSERT INTO Categorie (Nome) VALUES (@nome)";
+            UtilityDB.ExecuteNonQuery(sql, command =>
             {
                 command.Parameters.AddWithValue("@nome", Categoria.Nome);
-                command.ExecuteNonQuery();
-            }
+            });
         }
-        return RedirectToPage("Index");
-    }     
-
-    public void CaricaCategorie()
-    {
-        using (var connection = DatabaseInitializer.GetConnection())
+        catch (Exception ex)
         {
-            // aprire la connessione 
-            connection.Open();
-
-            // leggere la tabella categorie
-            var sql = @" SELECT * FROM Categorie";
-
-            using (var command = new SQLiteCommand(sql, connection))
-            {
-                // mentre il reader legge
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        // aggiungi nuovo oggetto SelectListItem con Value e Text
-                        Categorie.Add(new SelectListItem
-                        {
-                            Value = reader.GetInt32(0).ToString(),
-                            Text = reader.GetString(1)
-                        });
-                    }
-                }
-            }
+            SimpleLogger.Log(ex);
         }
+
+
+        // using (var connection = DatabaseInitializer.GetConnection())
+        // {
+        //     // aprire la connessione 
+        //     connection.Open();
+        //     var sql = @"INSERT INTO Categorie (Nome) VALUES (@nome)";
+
+        //     using (var command = new SQLiteCommand(sql, connection))
+        //     {
+        //         command.Parameters.AddWithValue("@nome", Categoria.Nome);
+        //         command.ExecuteNonQuery();
+        //     }
+        // }
+        return RedirectToPage("Index");
     }
+
+    // public void CaricaCategorie()
+    // {
+    //     using (var connection = DatabaseInitializer.GetConnection())
+    //     {
+    //         // aprire la connessione 
+    //         connection.Open();
+
+    //         // leggere la tabella categorie
+    //         var sql = @" SELECT * FROM Categorie";
+
+    //         using (var command = new SQLiteCommand(sql, connection))
+    //         {
+    //             // mentre il reader legge
+    //             using (var reader = command.ExecuteReader())
+    //             {
+    //                 while (reader.Read())
+    //                 {
+    //                     // aggiungi nuovo oggetto SelectListItem con Value e Text
+    //                     Categorie.Add(new SelectListItem
+    //                     {
+    //                         Value = reader.GetInt32(0).ToString(),
+    //                         Text = reader.GetString(1)
+    //                     });
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 }
 

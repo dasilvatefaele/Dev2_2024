@@ -12,59 +12,92 @@ public class Modifica : PageModel
 
     public IActionResult OnGet(int id)
     {
-        using (var connection = DatabaseInitializer.GetConnection())
+        try
         {
-            connection.Open();
-
             var sql = "SELECT Id, Nome FROM Categorie WHERE id = @id";
-
-            using (var command = new SQLiteCommand(sql, connection))
+            var Categorie = UtilityDB.ExecuteReader(sql, reader => new Categoria
+            {
+                Id = reader.GetInt32(0),
+                Nome = reader.GetString(1),
+            },
+            command =>
             {
                 command.Parameters.AddWithValue("@id", id);
-
-                using (var reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        Categoria = new Categoria
-                        {
-                            Id = reader.GetInt32(0),
-                            Nome = reader.GetString(1),
-                        };
-                    }
-                    else
-                    {
-                        return NotFound();
-
-                    }
-                }
             }
+            );
+            Categoria = Categorie.First();
         }
-         return Page();
+        catch (Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
+
+        // using (var connection = DatabaseInitializer.GetConnection())
+        // {
+        //     connection.Open();
+
+        //     var sql = "SELECT Id, Nome FROM Categorie WHERE id = @id";
+
+        //     using (var command = new SQLiteCommand(sql, connection))
+        //     {
+        //         command.Parameters.AddWithValue("@id", id);
+
+        //         using (var reader = command.ExecuteReader())
+        //         {
+        //             if (reader.Read())
+        //             {
+        //                 Categoria = new Categoria
+        //                 {
+        //                     Id = reader.GetInt32(0),
+        //                     Nome = reader.GetString(1),
+        //                 };
+        //             }
+        //             else
+        //             {
+        //                 return NotFound();
+
+        //             }
+        //         }
+        //     }
+        // }
+        return Page();
     }
 
     public IActionResult OnPost()
     {
         if (!ModelState.IsValid) // se il modello non è valido
         {
-         
+
             return Page();
         }
-
-        using (var connection = DatabaseInitializer.GetConnection())
+        
+        try{
+        var sql = $"UPDATE Categorie SET Nome = @nome WHERE id = @id";
+        UtilityDB.ExecuteNonQuery(sql, command =>
         {
-            connection.Open();
-
-            // costruisco la query basandomi sull'input dell'utente
-
-            var sql = $"UPDATE Categorie SET Nome = @nome WHERE id = @id";
-            using (var command = new SQLiteCommand(sql, connection))
-            {
-                command.Parameters.AddWithValue("@nome", Categoria.Nome);
+            command.Parameters.AddWithValue("@nome", Categoria.Nome);
                 command.Parameters.AddWithValue("@id", Categoria.Id);
-                command.ExecuteNonQuery();
-            }
+        });
         }
+        catch (Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
+
+        // using (var connection = DatabaseInitializer.GetConnection())
+        // {
+        //     connection.Open();
+
+        //     // costruisco la query basandomi sull'input dell'utente
+
+        //     var sql = $"UPDATE Categorie SET Nome = @nome WHERE id = @id";
+        //     using (var command = new SQLiteCommand(sql, connection))
+        //     {
+        //         command.Parameters.AddWithValue("@nome", Categoria.Nome);
+        //         command.Parameters.AddWithValue("@id", Categoria.Id);
+        //         command.ExecuteNonQuery();
+        //     }
+        // }
         return RedirectToPage("Index");
     }
 }
