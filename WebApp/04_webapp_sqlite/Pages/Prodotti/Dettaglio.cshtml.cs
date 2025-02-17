@@ -33,7 +33,7 @@ public class Dettaglio : PageModel
                 // se la categoria è nulla, restituiamo "Nessuna categoria"
                 CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
             },
-            command => 
+            command =>
             {
                 command.Parameters.AddWithValue("@id", id);
             }
@@ -45,15 +45,18 @@ public class Dettaglio : PageModel
             SimpleLogger.Log(ex);
         }
 
-        
+
     }
 
-    public IActionResult OnPost()
+    public IActionResult OnPost(string? returnUrl)
     {
+        if (!string.IsNullOrEmpty(returnUrl))
+        {
+            return Redirect(returnUrl);
+        }
 
-        return RedirectToPage("Index");
+        return RedirectToPage("Index"); // Se non c'è un URL di ritorno, vai alla home
     }
-
 }
 
 

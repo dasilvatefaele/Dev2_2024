@@ -33,25 +33,30 @@
                     <partial name="_PartialNuovoProdotto" model="@CreateModel" />
                 </tr>
             </form> *@
-          
-                <tr>
-                    @* <td class="">@prodotto.Id</td> *@
-                    <td class="">@Model.Prodotto.Nome</td>
-                    <td class="">@Model.Prodotto.Prezzo.ToString("F2") €</td>
-                    <td class="">@Model.Prodotto.CategoriaNome</td>
 
-                    <td><a asp-route-id="@Model.Prodotto.Id" asp-page="Modifica">
-                            <div class="btn green"><i class="fa-solid fa-pen-to-square" style="color:white"></i>
-                            </div>
-                        </a>
+            <tr>
+                @* <td class="">@prodotto.Id</td> *@
+                <td class="">@Model.Prodotto.Nome</td>
+                <td class="">@Model.Prodotto.Prezzo.ToString("F2") €</td>
+                <td class="">@Model.Prodotto.CategoriaNome</td>
 
-                        <a asp-page="Elimina" asp-route-id="@Model.Prodotto.Id">
-                            <div class="btn red"><i class="fa-solid fa-trash" style="color:white"></i></div>
-                        </a>
-                    </td>
-                </tr>
-            
+                <td><a asp-route-id="@Model.Prodotto.Id" asp-page="Modifica">
+                        <div class="btn green"><i class="fa-solid fa-pen-to-square" style="color:white"></i>
+                        </div>
+                    </a>
+
+                    <a asp-page="Elimina" asp-route-id="@Model.Prodotto.Id">
+                        <div class="btn red"><i class="fa-solid fa-trash" style="color:white"></i></div>
+                    </a>
+
+                </td>
+            </tr>
+
         </tbody>
     </table>
-    <a asp-page="/Prodotti/Index"><button class="btn btn-primary my-3">Torna Indietro</button></a>
+    <form method="post">
+        <input type="hidden" name="returnUrl" value="@HttpContext.Request.Headers["Referer"]" />
+        <button type="submit" class="btn btn-primary">Indietro</button>
+    </form>
+    @* <a asp-page="/Prodotti/Index"></a> *@
 </div>
