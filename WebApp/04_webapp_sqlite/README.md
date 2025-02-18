@@ -495,6 +495,7 @@ catch (Exception ex)
 ```
 
 Utilizzo della classe UtilityDB (esempio lettura `List<ProdottoViewModel>`):
+
 ```cs
 try
 {
@@ -513,7 +514,7 @@ try
     {
         command.Parameters.AddWithValue("@id", IdCategoria);
     }
-    );      
+    );
 }
 catch (Exception ex)
 {
@@ -567,10 +568,10 @@ try
     }
     );
 
-    // inizializzo il campo 'Prodotto' della classe Dettaglio.cshtml.cs 
-    // con il primo (e unico elemento) della lista 'var prodotti' attraverso 
+    // inizializzo il campo 'Prodotto' della classe Dettaglio.cshtml.cs
+    // con il primo (e unico elemento) della lista 'var prodotti' attraverso
     // il metodo .First()
-    Prodotto = prodotti.First(); 
+    Prodotto = prodotti.First();
 }
 catch (Exception ex)
 {
@@ -602,7 +603,6 @@ Prodotto = UtilityDB.ExecuteScalar<ProdottoViewModel>(@"SELECT p.Id, p.Nome, p.P
 ```
 
 ---
-
 
 Nuova classe Dashboard che esegue le query attraverso le UtilityDB:
 
@@ -674,4 +674,53 @@ public void OnGet()
     }
 ```
 
+---
 
+## Implementazione Extra: 
+
+Da pagina Dettaglio, il tasto `Indietro` fa tornare alla pagina precedente alla relativa
+
+Esempio:
+
+> Front-End
+```html
+<form method="post">
+        <input type="hidden" name="returnUrl" value="@HttpContext.Request.Headers["Referer"]" />
+        <button type="submit" class="btn btn-primary">Indietro</button>
+    </form>
+```
+
+> Back-End
+```cs
+public IActionResult OnPost(string? returnUrl)
+    {
+        if (!string.IsNullOrEmpty(returnUrl))
+        {
+            return Redirect(returnUrl);
+        }
+
+        return RedirectToPage("Index"); // Se non c'è un URL di ritorno, vai alla home
+    }
+```
+
+### Spiegazione: 
+
+Nel tag `<form method="post">`, attraverso un input nascosto 
+
+```html
+<input type="hidden" name="returnUrl" value="@HttpContext.Request.Headers["Referer"]" />
+```
+
+passiamo alla variabile stringa `returnUrl` il valore `@HttpContext.Request.Headers["Referer"]` che contiene la pagina precedente relativa alla pagina visitata.  
+
+```cs
+// OnPost ha come argomento proprio questa variabile (`returnUrl`)
+// che se non è nulla o vuota reindirizza verso la relativa pagina precedente
+return Redirect(returnUrl);
+```
+
+Nel caso la stringa sia vuota reindizza all'index
+
+```cs
+return RedirectToPage("Index"); // Se non c'è un URL di ritorno, vai alla home
+```
