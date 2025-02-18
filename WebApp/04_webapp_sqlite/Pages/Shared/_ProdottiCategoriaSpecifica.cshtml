@@ -7,7 +7,8 @@
                  <a asp-page="Dettaglio" asp-route-id="@prodotto.Id">
                 <strong class="fs-6" style="text-decoration: underline;">@prodotto.Nome</strong>
                  </a>
-                <p class="fs-6" style=" display: inline;">@prodotto.Prezzo.ToString("F2") €</p>
+                <p class="fs-6" style=" display: inline;">@PriceFormatter.Format(prodotto.Prezzo)</p>
+                
                 <p class="fs-6">@prodotto.CategoriaNome</p>
         }
 }

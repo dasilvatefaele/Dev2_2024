@@ -4,17 +4,16 @@ public class IndexProdottiModel : PageModel
 {
     // private readonly ILogger<PrivacyModel> _logger;
 
-    #region Proprietà prodotti
     public List<ProdottoViewModel>? Prodotti { get; set; } = new();
 
     public List<ProdottoViewModel>? ProdottiPerCategoria { get; set; } = new();
 
     public List<SelectListItem>? CategorieTendina { get; set; } = new List<SelectListItem>();
 
+    public int TotaleProdotti { get; set; }
+
     [BindProperty(SupportsGet = true)]
     public int? IdCategoria { get; set; }
-
-    #endregion
 
     [BindProperty(SupportsGet = true)]
     public int Ordine { get; set; }
@@ -50,7 +49,6 @@ public class IndexProdottiModel : PageModel
             }
             else
             {
-
                 Prodotti = UtilityDB.ExecuteReader(@"SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
                 FROM Prodotti p
                 LEFT JOIN Categorie c ON p.CategoriaId = c.Id
@@ -75,6 +73,7 @@ public class IndexProdottiModel : PageModel
         }
 
         // todo: filtri lambda (da implementare in SQL)
+        #region lambda
         if (Ordine == 0)
         {
             Prodotti = Prodotti?.OrderBy(p => p.Prezzo).ToList();
@@ -87,12 +86,22 @@ public class IndexProdottiModel : PageModel
         {
             Prodotti = Prodotti?.OrderBy(p => p.Id).ToList();
         }
+#endregion
+        try
+        {
+            TotaleProdotti = UtilityDB.ExecuteScalar<int>("SELECT COUNT (*) FROM Prodotti");
+        }
+
+        catch(Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
+
 
     }
 
     public IActionResult OnPost()
     {
-
         return RedirectToPage("Index", new { IdCategoria, Ordine });
     }
 

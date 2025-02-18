@@ -4,19 +4,18 @@
 @{
     ViewData["Title"] = "Elenco Prodotti";
     AggiungiProdottoModel CreateModel = new();
-
-
 }
 
 <h1>@ViewData["Title"]</h1>
-
+<h1>Totale prodotti: @Model.TotaleProdotti</h1>
+<h1>Nella List<>: @Model.Prodotti.Count</h1>
 <div class="row">
-    <div class="col-4 order-2">
+    <div class="col-4 order-1">
         <h5>Filtra per categoria</h5>
         <div class="form-control">
             <form method="post">
                 <select class="form-control" asp-for="IdCategoria" asp-items="Model.CategorieTendina">
-                    <option value="">SCEGLI CATEGORIA</option>
+                    <option value="">Tutte le categoria</option>
                 </select>
                 <button class="btn btn-primary form-control" type="submit">Filtra</button>
             </form>
@@ -68,7 +67,8 @@
                             @prodotto.Nome
                         </a>
                     </td>
-                    <td class="">@prodotto.Prezzo.ToString("F2") €</td>
+                    @* <td class="">@prodotto.Prezzo.ToString("F2") €</td> *@
+                    <td>@PriceFormatter.Format(prodotto.Prezzo)</td>
                     <td class="">@prodotto.CategoriaNome</td>
 
                     <td><a asp-route-id="@prodotto.Id" asp-page="Modifica">

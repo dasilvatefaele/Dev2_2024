@@ -174,9 +174,9 @@ public class Dashboard : PageModel
         var queryCostosi = @"
                 SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
                 FROM Prodotti p
-                LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+                LEFT JOIN Categorie c ON p.CategoriaId = c.Id 
                 ORDER BY p.Prezzo DESC LIMIT 5";
-
+                // Usiamo LEFT JOIN invece che JOIN per prendere anche i prodotti che non hanno una categoria associata
         ProdottiPiuCostosi = ExecuteQuery(queryCostosi);
 
         var queryRecenti = @"
@@ -371,6 +371,12 @@ Esegue una query che restituisce più righe e le converte in una lista di oggett
 ```cs
     public static List<T> ExecuteReader<T>(string sql, Func<Sqlitereader, T> converter, Action<SQLiteCommand> setupParameters)
 ```
+
+### Delegati
+
+Uso Action per passare un metodo come parametri (in questo caso`Action<SQLiteCommand> setupParameters`). 
+
+`Invoke()` invoca il metodo passando come parametro il comando.
 
 ```cs
 using Microsoft.Data.Sqlite;
@@ -581,7 +587,9 @@ catch (Exception ex)
 
 ---
 
-Estrazione di un singolo elemento attraverso ExecuteScalar (da testare):
+### Da testare (NON FUNZIONA)
+
+Estrazione di un singolo elemento attraverso ExecuteScalar:
 
 ```cs
 Prodotto = UtilityDB.ExecuteScalar<ProdottoViewModel>(@"SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
@@ -601,6 +609,28 @@ Prodotto = UtilityDB.ExecuteScalar<ProdottoViewModel>(@"SELECT p.Id, p.Nome, p.P
     }
     );
 ```
+### NON FUNZIONA: motivo
+
+`ExecuteScalar` non contiene il `ExecuteReader()` ma esegue il comando di SQLite `ExecuteScalar()`, che attraverso la Query restituisce un valore numerico, tipo `int`. 
+
+# USO CORRETTO: 
+
+
+```cs
+public int TotaleProdotti { get; set; }
+```
+
+```cs
+try
+        {
+            TotaleProdotti = UtilityDB.ExecuteScalar<int>("SELECT COUNT (*) FROM Prodotti");
+        }
+        catch(Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
+```
+
 
 ---
 
@@ -723,4 +753,68 @@ Nel caso invece la stringa sia vuota, reindizza all'index:
 
 ```cs
 return RedirectToPage("Index"); 
+```
+
+# 18/02/2025
+
+Necessita di:
+
+```cs
+using System.Globalization;
+```
+
+PriceFormatter.cs
+
+```cs
+/// <summary>
+///  Formatta un valore double come valuta.
+/// </summary>
+/// <param name="price">Il prezzo da formattare.</param>
+/// <returns>Una stringa formattata come valuta.</returns
+public static class PriceFormatter
+{
+    public static string Format (double price)
+    {
+        return price.ToString("C", CultureInfo.CurrentCulture);
+    }
+}
+```
+
+Esempio di utilizzo:
+
+```html
+
+<td>@PriceFormatter.Format(prodotto.Prezzo)</td>
+
+```
+
+---
+
+# Paginazione
+
+PaginatedList.cs
+
+```cs
+public class PaginatedList<T> : List<T>
+{
+    public int PageIndex { get; private set; }
+    public int TotalPages { get; private set; }
+    public int PageSize { get; private set; }
+    public int TotalCount { get; private set; }
+
+    public PaginatedList(List<T> items, int count, int pageIndex, int pageSize)
+    {
+        TotalCount = count;
+        PageSize = pageSize;
+        PageIndex = pageIndex;
+        TotalPages = (int)Math.Ceiling(count/(double)pageSize);
+        this.AddRange(items); // Aggiunge gli elementi alla lista usando 'this'
+        // che si riferisce alla lista stessa
+    }
+
+    public bool HasPreviewPage => PageIndex >1; // restituisce true 
+    // se c'è una pagina precedente
+    public bool HasNextPage => PageIndex < TotalPages; // restituisce true 
+    // se c'è una pagina successiva
+}
 ```

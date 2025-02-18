@@ -37,7 +37,8 @@
             <tr>
                 @* <td class="">@prodotto.Id</td> *@
                 <td class="">@Model.Prodotto.Nome</td>
-                <td class="">@Model.Prodotto.Prezzo.ToString("F2") €</td>
+                @* <td class="">@Model.Prodotto.Prezzo.ToString("F2") €</td> *@
+                <td>@PriceFormatter.Format(Model.Prodotto.Prezzo)</td>
                 <td class="">@Model.Prodotto.CategoriaNome</td>
 
                 <td><a asp-route-id="@Model.Prodotto.Id" asp-page="Modifica">
