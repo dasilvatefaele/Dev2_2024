@@ -699,7 +699,7 @@ public IActionResult OnPost(string? returnUrl)
             return Redirect(returnUrl);
         }
 
-        return RedirectToPage("Index"); // Se non c'è un URL di ritorno, vai alla home
+        return RedirectToPage("Index"); // Se non c'è un URL di ritorno, vai a Index
     }
 ```
 
@@ -711,16 +711,16 @@ Nel tag `<form method="post">`, attraverso un input nascosto
 <input type="hidden" name="returnUrl" value="@HttpContext.Request.Headers["Referer"]" />
 ```
 
-passiamo alla variabile stringa `returnUrl` il valore `@HttpContext.Request.Headers["Referer"]` che contiene la pagina precedente relativa alla pagina visitata.  
+passiamo alla variabile stringa `returnUrl` il valore `@HttpContext.Request.Headers["Referer"]`, dove  `"Referer"` contiene l'URL della pagina da cui proviene l'utente. 
+
+Se `returnUrl` NON è `Null` o `Empty` reindirizza verso la relativa pagina precedente:
 
 ```cs
-// OnPost ha come argomento proprio questa variabile (`returnUrl`)
-// che se non è nulla o vuota reindirizza verso la relativa pagina precedente
 return Redirect(returnUrl);
 ```
 
-Nel caso la stringa sia vuota reindizza all'index
+Nel caso invece la stringa sia vuota, reindizza all'index:
 
 ```cs
-return RedirectToPage("Index"); // Se non c'è un URL di ritorno, vai alla home
+return RedirectToPage("Index"); 
 ```
