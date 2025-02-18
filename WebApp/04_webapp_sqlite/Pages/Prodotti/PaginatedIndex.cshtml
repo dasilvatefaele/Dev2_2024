@@ -1,0 +1,52 @@
+@page "PaginatedIndex"
+@model PaginatedIndexModel
+@namespace _04_webapp_sqlite.Prodotti
+@{
+    ViewData["Title"] = "Prodotti impaginati";
+    // configuriamo il modello per la paginazione
+    PaginationModel paginationModel = new PaginationModel
+    {
+        PageIndex = Model.Products.PageIndex,
+        TotalPages = Model.Products.TotalPages,
+        PageUrl = page => Url.Page("PaginatedIndex", new { pageIndex = page })
+    };
+}
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="">Nome</th>
+                <th class="" style="display:block">Prezzo</th>
+                <th class="">Categoria</th>
+                <th class="">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prodotto in Model.Products)
+            {
+                <tr>
+                    <td class="">
+                        <a asp-page="Dettaglio" asp-route-id="@prodotto.Id">
+                            @prodotto.Nome
+                        </a>
+                    </td>
+                    <td>@PriceFormatter.Format(prodotto.Prezzo)</td>
+                    <td class="">@prodotto.CategoriaNome</td>
+
+                    <td><a asp-route-id="@prodotto.Id" asp-page="Modifica">
+                            <div class="btn green"><i class="fa-solid fa-pen-to-square" style="color:white"></i>
+                            </div>
+                        </a>
+
+                        <a asp-page="Elimina" asp-route-id="@prodotto.Id">
+                            <div class="btn red"><i class="fa-solid fa-trash" style="color:white"></i></div>
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <partial name="_Pagination" model="paginationModel">
+</div>

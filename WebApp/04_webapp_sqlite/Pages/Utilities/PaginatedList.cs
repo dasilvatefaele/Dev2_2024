@@ -1,3 +1,5 @@
+namespace _04_webapp_sqlite.Utilities;
+
 public class PaginatedList<T> : List<T>
 {
     public int PageIndex { get; private set; }
@@ -15,8 +17,10 @@ public class PaginatedList<T> : List<T>
         // che si riferisce alla lista stessa
     }
 
-    public bool HasPreviewPage => PageIndex >1; // restituisce true 
+    public bool HasPreviewPage => PageIndex > 1;
+    // proprietà calcolata: restituisce true 
     // se c'è una pagina precedente
-    public bool HasNextPage => PageIndex < TotalPages; // restituisce true 
+    public bool HasNextPage => PageIndex < TotalPages; 
+    // proprietà calcolata: restituisce true 
     // se c'è una pagina successiva
 }

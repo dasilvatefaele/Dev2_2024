@@ -55,6 +55,8 @@ public class Modifica : PageModel
         return Page();
     }
 
+
+
     public IActionResult OnPost()
     {
         if (!ModelState.IsValid) // se il modello non è valido

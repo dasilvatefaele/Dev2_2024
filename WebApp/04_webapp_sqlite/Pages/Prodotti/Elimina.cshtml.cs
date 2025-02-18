@@ -21,8 +21,7 @@ public class Elimina : PageModel
 
     public IActionResult OnGet(int id)
     {
-
-        var sql = "SELECT Id, Nome, Prezzo, CategoriaId FROM Prodotti WHERE id = @id";
+        var sql = "SELECT p.Id, p.Nome, p.Prezzo, c.Nome FROM Prodotti p LEFT JOIN Categorie c ON p.CategoriaId = c.Id WHERE p.Id = @id ";
         try
         {
             var Prodotti = UtilityDB.ExecuteReader(sql, reader => new ProdottoViewModel
@@ -37,14 +36,15 @@ public class Elimina : PageModel
              {
                  command.Parameters.AddWithValue("@id", id);
              });
+
             Id = Prodotti.First().Id;
             Prodotto = Prodotti.First();
+            _logger.LogInformation($"Stai per eliminare ID: {Prodotto.Id}");
         }
         catch (Exception ex)
         {
             SimpleLogger.Log(ex);
         }
-        _logger.LogInformation($"Stai per eliminare {Prodotto.Nome}");
         return Page();
     }
 

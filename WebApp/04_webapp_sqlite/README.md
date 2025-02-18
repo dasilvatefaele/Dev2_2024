@@ -792,6 +792,8 @@ Esempio di utilizzo:
 
 # Paginazione
 
+## Classe della paginazione 
+
 PaginatedList.cs
 
 ```cs
@@ -817,4 +819,199 @@ public class PaginatedList<T> : List<T>
     public bool HasNextPage => PageIndex < TotalPages; // restituisce true 
     // se c'è una pagina successiva
 }
+```
+
+## Modello della paginazione
+
+PaginationModel.cs
+
+Questo modello viene usato nelle partial view per generare i link di paginazione. Include le informazioni sulla pagina corrente, sul numero totale di pagine e una funzione per generare l'URL di ciascuna pagina.
+
+```cs
+public class PaginationModel
+{
+    public int PageIndex { get; set; }
+    public int TotalPages { get; set; }
+    public bool HasPreviewPage => PageIndex > 1;
+    public bool HasNextPage => PageIndex < TotalPages;
+    public Func<int, string> PageUrl { get; set; }
+}
+```
+
+## Front-End della partial
+
+Creiamo una partial per la paginazione
+
+```html
+@model PaginationModel
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        @if (Model.HasPreviewPage)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Model.PageUrl(Model.PageIndex - 1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item disabled">
+                <span aria-hidden="true" aria-label="Previous">&laquo;</span>
+            </li>
+        }
+
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            if (i == Model.PageIndex)
+            {
+                <li class="page-item active">
+                    <span class="page-link">@i</span>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Model.PageUrl(i)"></a>
+                </li>
+            }
+        }
+
+        @if (Model.HasNextPage)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Model.PageUrl(Model.PageIndex + 1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item disabled">
+                <span class="page-link" aria-label="Next">
+                    <span aria-hidden="true" aria-label="Previous">&raquo;</span>
+                </span>
+            </li>
+        }
+    </ul>
+</nav>
+```
+# 
+
+PaginatedIndex.cshtml.cs
+
+```cs
+namespace _04_webapp_sqlite.Prodotti;
+
+public class PaginatedIndexModel : PageModel
+{
+    public PaginatedList<ProdottoViewModel> Products { get; set; }
+    public int PageSize { get; set; } = 5; // numero di prodotti per pagina
+    public void OnGet(int? pageIndex)
+    {
+        // L'espressione sotto equivale a:
+
+        // int currentPage;
+        // if (pageIndex != null)
+        // {
+        //     currentPage = pageIndex.Value; // Estrai il valore dall'Nullable<int>
+        // }
+        // else
+        // {
+        //     currentPage = 1;
+        // }
+        
+        int currentpage = pageIndex ?? 1;
+
+        //recupera il numero totale di prodotti
+        int totalCount = UtilityDB.ExecuteScalar<int>("SELECT COUNT(*) FROM Prodotti");
+        //calcola l'offest per la query
+        int offset = (currentpage - 1) * PageSize;
+
+        // Recupera i prodotti per la pagina corrente
+        // in SQLite si usa LIMIT  e OFFSET per la paginazione
+        // limit = quanti elementi voglio
+        // offset = da dove voglio partire
+        // offset = (pagina corrente - 1) * elementi per pagina
+        // LIMIT 5 OFFSET 0 -> 5 elementi a partire dall'elemento 0     
+
+        string sql = $@"
+                        SELECT p.Id, p.Nome, p.Prezzo, c.Nome as CategoriaNome
+                        FROM Prodotti p
+                        LEFT JOIN Categorie c ON p.Categorie = c.Id
+                        ORDER BY p.Id
+                        LIMIR {PageSize} OFFSET {offset}
+                        ";
+
+        var items = UtilityDB.ExecuteReader(sql, reader => new ProdottoViewModel
+        {
+            Id = reader.GetInt32(0),
+            Nome = reader.GetString(1),
+            Prezzo = reader.GetDouble(2),
+            // se la categoria è nulla, restituiamo "Nessuna categoria"
+            CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
+        });
+
+        Products = new PaginatedList<ProdottoViewModel>(items, totalCount, currentpage, PageSize);
+    }
+}
+```
+
+## Front-end della pagina
+
+PaginatedIndex.cshtml
+
+```html
+@page "PaginatedIndex"
+@model PaginatedIndexModel
+@namespace _04_webapp_sqlite.Prodotti
+@{
+    ViewData["Title"] = "Prodotti impaginati";
+    // configuriamo il modello per la paginazione
+    PaginationModel paginationModel = new PaginationModel
+    {
+        PageIndex = Model.Products.PageIndex,
+        TotalPages = Model.Products.TotalPages,
+        PageUrl = page => Url.Page("PaginatedIndex", new { pageIndex = page })
+    };
+}
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="">Nome</th>
+                <th class="" style="display:block">Prezzo</th>
+                <th class="">Categoria</th>
+                <th class="">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prodotto in Model.Products)
+            {
+                <tr>
+                    <td class="">
+                        <a asp-page="Dettaglio" asp-route-id="@prodotto.Id">
+                            @prodotto.Nome
+                        </a>
+                    </td>
+                    <td>@PriceFormatter.Format(prodotto.Prezzo)</td>
+                    <td class="">@prodotto.CategoriaNome</td>
+
+                    <td><a asp-route-id="@prodotto.Id" asp-page="Modifica">
+                            <div class="btn green"><i class="fa-solid fa-pen-to-square" style="color:white"></i>
+                            </div>
+                        </a>
+
+                        <a asp-page="Elimina" asp-route-id="@prodotto.Id">
+                            <div class="btn red"><i class="fa-solid fa-trash" style="color:white"></i></div>
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <partial name="_Pagination" model="paginationModel">
+</div>
 ```
