@@ -348,7 +348,7 @@ Infatti, nel ciclo foreach, ciclo in Model.
 
 ---
 
-# UutilityDB
+# UtilityDB.cs
 
 Tre metodi
 
@@ -358,7 +358,9 @@ Esegue una query che non restituisce dati (INSERT, UPDATE, DELETE).
     public static int ExecuteNonQuery(string sql, Action<SqliteCommand> setupParameters = null)
 ```
 
-Esegue una query che restituisce un valore scalare (esempio un Count)
+Esegue una query che restituisce un valore scalare (esempio un Count) (valori singoli )
+
+> Ambito di utilizzo: restituire un solo valore
 
 ```cs
     public static T ExecuteScalar<T>(string sql, Action<SqliteCommand> setupParameters = null)
@@ -438,6 +440,7 @@ public static class UtilityDB
 ```
 
 SimpleLogger.cs
+
 ```cs
 public static class SimpleLogger
 {
@@ -471,3 +474,204 @@ public static class SimpleLogger
     }
 }
 ```
+
+# 17/02/2025
+
+Utilizzo della classe UtilityDB (esempio lettura `List<Categoria>`)
+
+```cs
+try
+{
+    Categorie = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new Categoria
+    {
+        Id = reader.GetInt32(0),
+        Nome = reader.GetString(1)
+    });
+}
+catch (Exception ex)
+{
+    SimpleLogger.Log(ex);
+}
+```
+
+Utilizzo della classe UtilityDB (esempio lettura `List<ProdottoViewModel>`):
+```cs
+try
+{
+    Prodotti = UtilityDB.ExecuteReader(@"SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
+    FROM Prodotti p
+    LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+    WHERE c.Id = @id", reader => new ProdottoViewModel
+    {
+        Id = reader.GetInt32(0),
+        Nome = reader.GetString(1),
+        Prezzo = reader.GetDouble(2),
+        // se la categoria è nulla, restituiamo "Nessuna categoria"
+        CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
+    },
+    command =>
+    {
+        command.Parameters.AddWithValue("@id", IdCategoria);
+    }
+    );      
+}
+catch (Exception ex)
+{
+    SimpleLogger.Log(ex);
+}
+```
+
+Esempio Inserimento prodotto (scrittura con passaggio di parametri):
+
+```cs
+var sql = @"INSERT INTO Prodotti (Nome, Prezzo, CategoriaId) VALUES (@nome, @prezzo, @categoria)";
+try
+{
+    UtilityDB.ExecuteNonQuery(sql, command =>
+    {
+        command.Parameters.AddWithValue("@nome", Prodotto.Nome);
+        command.Parameters.AddWithValue("@prezzo", Prodotto.Prezzo);
+        command.Parameters.AddWithValue("@categoria", Prodotto.CategoriaId);
+    }
+    );
+}
+catch (Exception ex)
+{
+    SimpleLogger.Log(ex);
+        }
+```
+
+Dettaglio prodotto (leggendo una lista e associando al modello il singolo oggetto):
+
+```cs
+public ProdottoViewModel? Prodotto { get; set; } = new();
+```
+
+```cs
+try
+{
+    var prodotti = UtilityDB.ExecuteReader(@"SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
+        FROM Prodotti p
+        LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+        WHERE p.Id = @id", reader => new ProdottoViewModel
+    {
+        Id = reader.GetInt32(0),
+        Nome = reader.GetString(1),
+        Prezzo = reader.GetDouble(2),
+        // se la categoria è nulla, restituiamo "Nessuna categoria"
+        CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
+    },
+    command =>
+    {
+        command.Parameters.AddWithValue("@id", id);
+    }
+    );
+
+    // inizializzo il campo 'Prodotto' della classe Dettaglio.cshtml.cs 
+    // con il primo (e unico elemento) della lista 'var prodotti' attraverso 
+    // il metodo .First()
+    Prodotto = prodotti.First(); 
+}
+catch (Exception ex)
+{
+    SimpleLogger.Log(ex);
+}
+```
+
+---
+
+Estrazione di un singolo elemento attraverso ExecuteScalar (da testare):
+
+```cs
+Prodotto = UtilityDB.ExecuteScalar<ProdottoViewModel>(@"SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
+        FROM Prodotti p
+        LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+        WHERE p.Id = @id", reader => new ProdottoViewModel
+    {
+        Id = reader.GetInt32(0),
+        Nome = reader.GetString(1),
+        Prezzo = reader.GetDouble(2),
+        // se la categoria è nulla, restituiamo "Nessuna categoria"
+        CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
+    },
+    command =>
+    {
+        command.Parameters.AddWithValue("@id", id);
+    }
+    );
+```
+
+---
+
+
+Nuova classe Dashboard che esegue le query attraverso le UtilityDB:
+
+```cs
+public void OnGet()
+    {
+        var queryCostosi = @"
+                SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
+                FROM Prodotti p
+                LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+                ORDER BY p.Prezzo DESC LIMIT 5";
+        try
+        {
+            ProdottiPiuCostosi = UtilityDB.ExecuteReader(queryCostosi, reader => new ProdottoViewModel
+            {
+                Id = reader.GetInt32(0),
+                Nome = reader.GetString(1),
+                Prezzo = reader.GetDouble(2),
+                // se la categoria è nulla, restituiamo "Nessuna categoria"
+                CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
+            });
+        }
+        catch (Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
+
+        var queryRecenti = @"
+                SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
+                FROM Prodotti p
+                LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+                ORDER BY p.Id DESC LIMIT 5";
+        try
+        {
+            ProdottiRecenti = UtilityDB.ExecuteReader(queryRecenti, reader => new ProdottoViewModel
+            {
+                Id = reader.GetInt32(0),
+                Nome = reader.GetString(1),
+                Prezzo = reader.GetDouble(2),
+                // se la categoria è nulla, restituiamo "Nessuna categoria"
+                CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
+            });
+        }
+        catch (Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
+
+        var queryCategoria = @"
+                SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
+                FROM Prodotti p
+                LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+                WHERE p.CategoriaId = 11 LIMIT 5";
+        try
+        {
+            ProdottiCategoria = UtilityDB.ExecuteReader(queryCategoria, reader => new ProdottoViewModel
+            {
+                Id = reader.GetInt32(0),
+                Nome = reader.GetString(1),
+                Prezzo = reader.GetDouble(2),
+                // se la categoria è nulla, restituiamo "Nessuna categoria"
+                CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
+            });
+        }
+        catch (Exception ex)
+        {
+            SimpleLogger.Log(ex);
+        }
+    }
+```
+
+
