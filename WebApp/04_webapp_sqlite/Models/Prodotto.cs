@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
 // Modello del prodotto
-namespace WebAppSqlite.Models;
+namespace _04_webapp_sqlite.Models;
 
 public class Prodotto
 {

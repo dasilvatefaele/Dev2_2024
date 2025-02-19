@@ -26,7 +26,7 @@
         <div class="form-control">
             <label asp-for="Prodotto.CategoriaId">Categoria</label>
             <div>
-                <select asp-for="Prodotto.CategoriaId" asp-items="Model.Categorie">
+                <select asp-for="Prodotto.CategoriaId" asp-items="Model.CategorieTendina">
                     <option value="">--- SELEZIONA CATEGORIA ---</option>
                 </select>
                 <span asp-validation-for="Prodotto.CategoriaId" class="text-danger"></span>

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebAppSqlite.Pages;
+namespace _04_webapp_sqlite.Pages;
 
 public class IndexModel : PageModel
 {

@@ -1,5 +1,5 @@
 // Modello del prodotto
-namespace WebAppSqlite.Models;
+namespace _04_webapp_sqlite.Models;
 public class ProdottoViewModel {
     // proprietà
     public int Id { get; set; }

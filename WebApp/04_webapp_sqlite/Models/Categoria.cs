@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations; // dipendenza DataAnnotations
 
-namespace WebAppSqlite.Models;
+namespace _04_webapp_sqlite.Models;
 
 public class Categoria
 {

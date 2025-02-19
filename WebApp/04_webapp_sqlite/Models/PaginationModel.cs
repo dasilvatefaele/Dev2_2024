@@ -1,5 +1,5 @@
 
-
+namespace _04_webapp_sqlite.Models;
 public class PaginationModel
 {
     public int PageIndex { get; set; }

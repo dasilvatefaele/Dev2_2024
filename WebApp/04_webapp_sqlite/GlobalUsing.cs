@@ -9,6 +9,8 @@ global using System.Diagnostics;
 global using System.Data.SQLite;
 global using System.Linq;
 
-global using WebAppSqlite.Models;
-global using WebAppSqlite.Data;
-global using WebAppSqlite.Pages;
+global using _04_webapp_sqlite.Models;
+global using _04_webapp_sqlite.Data;
+global using _04_webapp_sqlite.Pages;
+global using _04_webapp_sqlite.Utilities;
+global using _04_webapp_sqlite.Prodotti;

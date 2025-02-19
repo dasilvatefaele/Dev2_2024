@@ -1,5 +1,5 @@
 // classe di gestione del database
-namespace WebAppSqlite.Data;
+namespace _04_webapp_sqlite.Data;
 
 public static class DatabaseInitializer {
 

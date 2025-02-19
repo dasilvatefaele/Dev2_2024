@@ -6,6 +6,8 @@ public class IndexCategorieModel : PageModel
 
     #region Proprietà prodotti
     public List<Categoria>? Categorie { get; set; } = new List<Categoria>();
+    public PaginatedList<Categoria>? CategoriePaginate { get; set; }
+    public int PageSize { get; set; } = 5; // numero di prodotti per pagina
 
     public int totaleProdotti { get; set; }
     #endregion
@@ -15,11 +17,16 @@ public class IndexCategorieModel : PageModel
         _logger = logger;
     }
 
-    public void OnGet()
+    public void OnGet(int? pageIndex)
     {
+
+        int currentpage = pageIndex ?? 1;
+        int totalCount = UtilityDB.ExecuteScalar<int>("SELECT COUNT(*) FROM Categorie");
+        //calcola l'offest per la query
+        int offset = (currentpage - 1) * PageSize;
         try
         {
-            Categorie = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new Categoria
+            Categorie = UtilityDB.ExecuteReader($"SELECT * FROM Categorie LIMIT {PageSize} OFFSET {offset}", reader => new Categoria
             {
                 Id = reader.GetInt32(0),
                 Nome = reader.GetString(1)
@@ -29,6 +36,8 @@ public class IndexCategorieModel : PageModel
             //     Value = reader.GetInt32(0).ToString(),
             //     Text = reader.GetString(1)
             // });
+            CategoriePaginate = new PaginatedList<Categoria>(Categorie, totalCount, currentpage, PageSize);
+
         }
         catch (Exception ex)
         {

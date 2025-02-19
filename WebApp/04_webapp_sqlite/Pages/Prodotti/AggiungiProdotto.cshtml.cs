@@ -11,8 +11,8 @@ public class AggiungiProdottoModel : PageModel
 
     [BindProperty]
     public Prodotto Prodotto { get; set; }
-
-    public List<SelectListItem> Categorie { get; set; } = new List<SelectListItem>();
+    [BindProperty]
+    public List<SelectListItem>? CategorieTendina { get; set; } = new List<SelectListItem>();
 
 
     public AggiungiProdottoModel()
@@ -21,7 +21,7 @@ public class AggiungiProdottoModel : PageModel
         //CaricaCategorie();
          try
         {
-            Categorie = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new SelectListItem
+            CategorieTendina = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new SelectListItem
             {
                 Value = reader.GetInt32(0).ToString(),
                 Text = reader.GetString(1)
@@ -37,7 +37,7 @@ public class AggiungiProdottoModel : PageModel
     {
         try
         {
-            Categorie = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new SelectListItem
+            CategorieTendina = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new SelectListItem
             {
                 Value = reader.GetInt32(0).ToString(),
                 Text = reader.GetString(1)
@@ -55,7 +55,7 @@ public class AggiungiProdottoModel : PageModel
         {
             try
             {
-                Categorie = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new SelectListItem
+                CategorieTendina = UtilityDB.ExecuteReader("SELECT * FROM Categorie", reader => new SelectListItem
                 {
                     Value = reader.GetInt32(0).ToString(),
                     Text = reader.GetString(1)

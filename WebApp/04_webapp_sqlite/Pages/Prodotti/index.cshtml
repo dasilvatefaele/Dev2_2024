@@ -4,34 +4,20 @@
 @{
     ViewData["Title"] = "Elenco Prodotti";
     AggiungiProdottoModel CreateModel = new();
+    PaginationModel paginationModel = new PaginationModel
+    {
+        PageIndex = Model.Prodotti.PageIndex,
+        TotalPages = Model.Prodotti.TotalPages,
+        PageUrl = page => Url.Page("Index", new { pageIndex = page })
+    };
 }
 
 <h1>@ViewData["Title"]</h1>
-@* <h1>Totale prodotti: @Model.TotaleProdotti</h1>
-<h1>Nella List<>: @Model.Prodotti.Count</h1> *@
-<div class="row">
-    <div class="col-4 order-1">
-        <h5>Filtra per categoria</h5>
-        <div class="form-control">
-            <form method="post">
-                <select class="form-control" asp-for="IdCategoria" asp-items="Model.CategorieTendina">
-                    <option value="">Tutte le categoria</option>
-                </select>
-                <button class="btn btn-primary form-control" type="submit">Filtra</button>
-            </form>
-        </div>
-    </div>
-    <div class="col-4 order-1">
-        @* <h5>Filtra Recenti</h5>
-        <div class="form-control">
-            <form method="post">
-                <button></button>
-                <button class="btn btn-primary form-control" type="submit">Filtra</button>
-            </form>
-        </div> *@
-    </div>
-    <div class="col-4"></div>
+<div class="d-flex">
+    @* @await Html.PartialAsync("ProductSearch") *@
+    <partial name="ProductSearch" model="paginationModel">
 </div>
+<br>
 
 <div class="container-fluid">
     <table class="table">
@@ -84,4 +70,5 @@
             }
         </tbody>
     </table>
+    <partial name="_Pagination" model="paginationModel" />
 </div>

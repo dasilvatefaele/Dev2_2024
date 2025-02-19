@@ -1,240 +1,72 @@
-2025-02-18 10:25:33 - Exception: SQL logic error
-near "COUNT": syntax error
-Stack Trace:    at System.Data.SQLite.SQLite3.Prepare(SQLiteConnection cnn, SQLiteCommand command, String strSql, SQLiteStatement previous, UInt32 timeoutMS, String& strRemain)
-   at System.Data.SQLite.SQLiteCommand.BuildNextCommand()
-   at System.Data.SQLite.SQLiteCommand.GetStatement(Int32 index)
-   at System.Data.SQLite.SQLiteDataReader.NextResult()
-   at System.Data.SQLite.SQLiteDataReader..ctor(SQLiteCommand cmd, CommandBehavior behave)
-   at System.Data.SQLite.SQLiteCommand.ExecuteReader(CommandBehavior behavior)
-   at System.Data.SQLite.SQLiteCommand.ExecuteScalar(CommandBehavior behavior)
-   at System.Data.SQLite.SQLiteCommand.ExecuteScalar()
-   at UtilityDB.ExecuteScalar[T](String sql, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 35
-   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 95
-2025-02-18 10:25:33 - Exception: SQL logic error
-near "COUNT": syntax error
-Stack Trace:    at System.Data.SQLite.SQLite3.Prepare(SQLiteConnection cnn, SQLiteCommand command, String strSql, SQLiteStatement previous, UInt32 timeoutMS, String& strRemain)
-   at System.Data.SQLite.SQLiteCommand.BuildNextCommand()
-   at System.Data.SQLite.SQLiteCommand.GetStatement(Int32 index)
-   at System.Data.SQLite.SQLiteDataReader.NextResult()
-   at System.Data.SQLite.SQLiteDataReader..ctor(SQLiteCommand cmd, CommandBehavior behave)
-   at System.Data.SQLite.SQLiteCommand.ExecuteReader(CommandBehavior behavior)
-   at System.Data.SQLite.SQLiteCommand.ExecuteScalar(CommandBehavior behavior)
-   at System.Data.SQLite.SQLiteCommand.ExecuteScalar()
-   at UtilityDB.ExecuteScalar[T](String sql, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 35
-   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 95
-2025-02-18 10:26:32 - Exception: SQL logic error
-near "*": syntax error
-Stack Trace:    at System.Data.SQLite.SQLite3.Prepare(SQLiteConnection cnn, SQLiteCommand command, String strSql, SQLiteStatement previous, UInt32 timeoutMS, String& strRemain)
-   at System.Data.SQLite.SQLiteCommand.BuildNextCommand()
-   at System.Data.SQLite.SQLiteCommand.GetStatement(Int32 index)
-   at System.Data.SQLite.SQLiteDataReader.NextResult()
-   at System.Data.SQLite.SQLiteDataReader..ctor(SQLiteCommand cmd, CommandBehavior behave)
-   at System.Data.SQLite.SQLiteCommand.ExecuteReader(CommandBehavior behavior)
-   at System.Data.SQLite.SQLiteCommand.ExecuteScalar(CommandBehavior behavior)
-   at System.Data.SQLite.SQLiteCommand.ExecuteScalar()
-   at UtilityDB.ExecuteScalar[T](String sql, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 35
-   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 95
-2025-02-18 10:26:32 - Exception: SQL logic error
-near "*": syntax error
-Stack Trace:    at System.Data.SQLite.SQLite3.Prepare(SQLiteConnection cnn, SQLiteCommand command, String strSql, SQLiteStatement previous, UInt32 timeoutMS, String& strRemain)
-   at System.Data.SQLite.SQLiteCommand.BuildNextCommand()
-   at System.Data.SQLite.SQLiteCommand.GetStatement(Int32 index)
-   at System.Data.SQLite.SQLiteDataReader.NextResult()
-   at System.Data.SQLite.SQLiteDataReader..ctor(SQLiteCommand cmd, CommandBehavior behave)
-   at System.Data.SQLite.SQLiteCommand.ExecuteReader(CommandBehavior behavior)
-   at System.Data.SQLite.SQLiteCommand.ExecuteScalar(CommandBehavior behavior)
-   at System.Data.SQLite.SQLiteCommand.ExecuteScalar()
-   at UtilityDB.ExecuteScalar[T](String sql, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 35
-   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 95
-2025-02-18 14:34:10 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__10_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-2025-02-18 14:35:34 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__10_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-2025-02-18 14:35:39 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__10_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-2025-02-18 14:35:42 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__10_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-2025-02-18 14:35:44 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__10_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-2025-02-18 14:35:54 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__10_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-2025-02-18 14:36:07 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__10_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-2025-02-18 14:38:06 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__10_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-2025-02-18 14:41:58 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__10_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 28
-2025-02-18 14:44:15 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__14_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 14:44:46 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__14_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 14:45:58 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__14_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 14:47:22 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__14_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 14:47:43 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__14_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 14:48:15 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__14_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 14:49:00 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__14_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 15:21:56 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__14_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 15:22:04 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__14_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 15:23:54 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__14_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 15:25:58 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__14_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 15:27:19 - Exception: Specified cast is not valid.
-Stack Trace:    at System.Data.SQLite.SQLiteDataReader.VerifyType(Int32 i, DbType typ)
-   at System.Data.SQLite.SQLiteDataReader.GetString(Int32 i)
-   at _04_webapp_sqlite.Prodotti.Elimina.<>c.<OnGet>b__14_0(SQLiteDataReader reader) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 62
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 15:30:43 - Exception: SQL logic error
-no such column: CategoriaNome
-Stack Trace:    at System.Data.SQLite.SQLite3.Prepare(SQLiteConnection cnn, SQLiteCommand command, String strSql, SQLiteStatement previous, UInt32 timeoutMS, String& strRemain)
-   at System.Data.SQLite.SQLiteCommand.BuildNextCommand()
-   at System.Data.SQLite.SQLiteCommand.GetStatement(Int32 index)
-   at System.Data.SQLite.SQLiteDataReader.NextResult()
-   at System.Data.SQLite.SQLiteDataReader..ctor(SQLiteCommand cmd, CommandBehavior behave)
-   at System.Data.SQLite.SQLiteCommand.ExecuteReader(CommandBehavior behavior)
-   at System.Data.SQLite.SQLiteCommand.ExecuteReader()
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 59
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 15:33:57 - Exception: SQL logic error
-no such table: Categoria
-Stack Trace:    at System.Data.SQLite.SQLite3.Prepare(SQLiteConnection cnn, SQLiteCommand command, String strSql, SQLiteStatement previous, UInt32 timeoutMS, String& strRemain)
-   at System.Data.SQLite.SQLiteCommand.BuildNextCommand()
-   at System.Data.SQLite.SQLiteCommand.GetStatement(Int32 index)
-   at System.Data.SQLite.SQLiteDataReader.NextResult()
-   at System.Data.SQLite.SQLiteDataReader..ctor(SQLiteCommand cmd, CommandBehavior behave)
-   at System.Data.SQLite.SQLiteCommand.ExecuteReader(CommandBehavior behavior)
-   at System.Data.SQLite.SQLiteCommand.ExecuteReader()
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 59
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 15:34:57 - Exception: SQL logic error
-no such table: Categoria
-Stack Trace:    at System.Data.SQLite.SQLite3.Prepare(SQLiteConnection cnn, SQLiteCommand command, String strSql, SQLiteStatement previous, UInt32 timeoutMS, String& strRemain)
-   at System.Data.SQLite.SQLiteCommand.BuildNextCommand()
-   at System.Data.SQLite.SQLiteCommand.GetStatement(Int32 index)
-   at System.Data.SQLite.SQLiteDataReader.NextResult()
-   at System.Data.SQLite.SQLiteDataReader..ctor(SQLiteCommand cmd, CommandBehavior behave)
-   at System.Data.SQLite.SQLiteCommand.ExecuteReader(CommandBehavior behavior)
-   at System.Data.SQLite.SQLiteCommand.ExecuteReader()
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 59
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 15:35:18 - Exception: SQL logic error
-no such table: Categoria
-Stack Trace:    at System.Data.SQLite.SQLite3.Prepare(SQLiteConnection cnn, SQLiteCommand command, String strSql, SQLiteStatement previous, UInt32 timeoutMS, String& strRemain)
-   at System.Data.SQLite.SQLiteCommand.BuildNextCommand()
-   at System.Data.SQLite.SQLiteCommand.GetStatement(Int32 index)
-   at System.Data.SQLite.SQLiteDataReader.NextResult()
-   at System.Data.SQLite.SQLiteDataReader..ctor(SQLiteCommand cmd, CommandBehavior behave)
-   at System.Data.SQLite.SQLiteCommand.ExecuteReader(CommandBehavior behavior)
-   at System.Data.SQLite.SQLiteCommand.ExecuteReader()
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 59
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 15:36:02 - Exception: SQL logic error
-no such table: Categoria
-Stack Trace:    at System.Data.SQLite.SQLite3.Prepare(SQLiteConnection cnn, SQLiteCommand command, String strSql, SQLiteStatement previous, UInt32 timeoutMS, String& strRemain)
-   at System.Data.SQLite.SQLiteCommand.BuildNextCommand()
-   at System.Data.SQLite.SQLiteCommand.GetStatement(Int32 index)
-   at System.Data.SQLite.SQLiteDataReader.NextResult()
-   at System.Data.SQLite.SQLiteDataReader..ctor(SQLiteCommand cmd, CommandBehavior behave)
-   at System.Data.SQLite.SQLiteCommand.ExecuteReader(CommandBehavior behavior)
-   at System.Data.SQLite.SQLiteCommand.ExecuteReader()
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 59
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
-2025-02-18 15:36:46 - Exception: SQL logic error
-no such table: Categoria
-Stack Trace:    at System.Data.SQLite.SQLite3.Prepare(SQLiteConnection cnn, SQLiteCommand command, String strSql, SQLiteStatement previous, UInt32 timeoutMS, String& strRemain)
-   at System.Data.SQLite.SQLiteCommand.BuildNextCommand()
-   at System.Data.SQLite.SQLiteCommand.GetStatement(Int32 index)
-   at System.Data.SQLite.SQLiteDataReader.NextResult()
-   at System.Data.SQLite.SQLiteDataReader..ctor(SQLiteCommand cmd, CommandBehavior behave)
-   at System.Data.SQLite.SQLiteCommand.ExecuteReader(CommandBehavior behavior)
-   at System.Data.SQLite.SQLiteCommand.ExecuteReader()
-   at UtilityDB.ExecuteReader[T](String sql, Func`2 converter, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 59
-   at _04_webapp_sqlite.Prodotti.Elimina.OnGet(Int32 id) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Elimina.cshtml.cs:line 31
+2025-02-19 10:42:47 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:42:48 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:42:48 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:42:48 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:42:48 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:42:49 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:42:49 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:42:49 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:45:44 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:45:45 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:46:53 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:46:54 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:46:54 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:46:54 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:46:54 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:46:54 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:46:55 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 10:46:55 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69

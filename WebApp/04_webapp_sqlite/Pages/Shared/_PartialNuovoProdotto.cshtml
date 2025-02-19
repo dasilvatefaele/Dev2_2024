@@ -1,6 +1,9 @@
+@using _04_webapp_sqlite.Models;
 @{
+    List<SelectListItem> Categorie = new List<SelectListItem>();
+        Categorie = Model.CategorieTendina;
+
     Prodotto Prodotto = Model.Prodotto;
-    List<SelectListItem> Categorie = Model.Categorie;
 }
 
 
