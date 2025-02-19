@@ -1,8 +1,10 @@
-@page 
+@page "Search"
 @model SearchModel
+@namespace _04_webapp_sqlite.Prodotti
 @using _04_webapp_sqlite.Utilities;
 @using _04_webapp_sqlite.Prodotti;
 @using _04_webapp_sqlite.Models;
+@using _04_webapp_sqlite.Pages;
 @{
     ViewData["Title"] = "Cerca Prodotti";
     AggiungiProdottoModel CreateModel = new();
@@ -10,47 +12,49 @@
     {
         PageIndex = Model.Prodotti.PageIndex,
         TotalPages = Model.Prodotti.TotalPages,
-        PageUrl = page => Url.Page("Index", new { pageIndex = page })
+        PageUrl = page => Url.Page("Search", new { q = Model.SearchTerm, pageIndex = page })
     };
 }
-<h1>Cerca Prodotti</h1>
-
-<form method="get" class="mb-3">
-    <div class="input-group">
-        <input type="text" name="q" value="@Model.SearchTerm" placeholder="Inserisci il nome del prodotto..."
-            class="form-control" />
-        <button type="submit" class="btn btn-outline-primary">Cerca</button>
-    </div>
-</form>
-@if (Model.Prodotti?.Any() == true)
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Prezzo</th>
-                <th>Categoria</th>
-                <th>Azioni</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var prodotto in Model.Prodotti)
-            {
+<h1>@ViewData["Title"]</h1>
+<div class="container">
+    <form method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="q" value="@Model.SearchTerm" placeholder="Inserisci il nome del prodotto..."
+                class="form-control" />
+            <button type="submit" class="btn btn-outline-primary">Cerca</button>
+        </div>
+    </form>
+    @if (Model.Prodotti?.Any() == true)
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@prodotto.Id</td>
-                    <td>@prodotto.Nome</td>
-                    <td>@PriceFormatter.Format(prodotto.Prezzo)</td>
-                    <td>@prodotto.CategoriaNome</td>
-                    <td>
-                        <a asp-page="Dettaglio" asp-route-id="@prodotto.Id" class="btn btn-outline-info">Dettagli</a>
-                    </td>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Prezzo</th>
+                    <th>Categoria</th>
+                    <th>Azioni</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>Nessun prodotto trovato</p>
-}
+            </thead>
+            <tbody>
+                @foreach (var prodotto in Model.Prodotti)
+                {
+                    <tr>
+                        <td>@prodotto.Id</td>
+                        <td>@prodotto.Nome</td>
+                        <td>@PriceFormatter.Format(prodotto.Prezzo)</td>
+                        <td>@prodotto.CategoriaNome</td>
+                        <td>
+                            <a asp-page="Dettaglio" asp-route-id="@prodotto.Id" class="btn btn-outline-info">Dettagli</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <partial name="_Pagination" model="paginationModel" />
+        </table>
+    }
+    else
+    {
+        <p>Nessun prodotto trovato</p>
+    }
+</div>

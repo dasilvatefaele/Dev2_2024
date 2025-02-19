@@ -1,5 +1,3 @@
-using _04_webapp_sqlite.Prodotti;
-
 public class SearchModel : PageModel
 {
     //abbiamo bisogno di una proprieta pubblica
@@ -7,7 +5,7 @@ public class SearchModel : PageModel
 
     [BindProperty(SupportsGet = true)]
     public int pageIndex { get; set; } = 1;
-    public PaginatedList<ProdottoViewModel>? Prodotti { get; set; }
+    public PaginatedList<ProdottoViewModel>? Prodotti { get; set; } 
 
     public ProdottoViewModel Prodotto { get; set; } = new();
     public int PageSize { get; set; } = 5; // numero di prodotti per pagina
@@ -29,7 +27,7 @@ public class SearchModel : PageModel
             {
                 //Utilizzo di DbUtils per leggere la lista dei prodotti
                 var prodotti = UtilityDB.ExecuteReader(
-                    "SELECT p.Id, p.Nome, p.Prezzo, c.Nome as CategoriaNome FROM Prodotti p LEFT JOIN Categorie c ON p.CategoriaId = c.Id WHERE p.Nome LIKE @searchTerm",
+                    $@"SELECT p.Id, p.Nome, p.Prezzo, c.Nome as CategoriaNome FROM Prodotti p LEFT JOIN Categorie c ON p.CategoriaId = c.Id WHERE p.Nome LIKE @searchTerm LIMIT {PageSize} OFFSET {offset}",
 
                             reader => new ProdottoViewModel
                             {
@@ -43,20 +41,19 @@ public class SearchModel : PageModel
                                  cmd.Parameters.AddWithValue("@searchTerm", $"%{q}%");
                              }
                 );
-                Prodotto = prodotti.First();
-                Prodotti = new PaginatedList<ProdottoViewModel>(prodotti, totalCount,currentpage,PageSize);
+                //Prodotto = prodotti.First();
+                Prodotti = new PaginatedList<ProdottoViewModel>(prodotti, totalCount, currentpage, PageSize);
 
             }
             catch (Exception ex)
             {
                 SimpleLogger.Log(ex);
             }
-
         }
     }
-     public IActionResult OnPost(int? pageIndex)
+    public IActionResult OnPost(int? pageIndex)
     {
         //_logger.LogInformation($"Categoria scelta: {Prodotti.First().CategoriaNome}");
-        return RedirectToPage("Index", new { SearchTerm, pageIndex });
+        return RedirectToPage("Search", new { SearchTerm, pageIndex });
     }
 }

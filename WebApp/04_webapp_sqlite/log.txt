@@ -70,3 +70,7 @@ Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
 Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
    at _04_webapp_sqlite.Prodotti.IndexProdottiModel.OnGet(Nullable`1 IdCategoria, Int32 Ordine, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Index.cshtml.cs:line 69
+2025-02-19 12:37:09 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at SearchModel.OnGet(String q, Nullable`1 pageIndex) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\Search.cshtml.cs:line 44
