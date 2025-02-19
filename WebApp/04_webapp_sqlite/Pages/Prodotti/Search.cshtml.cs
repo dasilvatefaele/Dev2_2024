@@ -18,13 +18,11 @@ public class SearchModel : PageModel
         int offset = (currentpage - 1) * PageSize;
         //assegno la stringa di ricerca alla proprieta pubblica
         SearchTerm = q;
-        int totalCount = UtilityDB.ExecuteScalar<int>(@"
-                                                    SELECT COUNT(*) FROM Prodotti 
-                                                    WHERE Nome LIKE @searchTerm",
-                                                    cmd =>
-                                                    {
-                                                        cmd.Parameters.AddWithValue("@searchTerm", $"%{q}%");
-                                                    });
+        int totalCount = UtilityDB.ExecuteScalar<int>(@"SELECT COUNT(*) FROM Prodotti WHERE Nome LIKE @searchTerm",
+        cmd =>
+        {
+            cmd.Parameters.AddWithValue("@searchTerm", $"%{q}%");
+        });
 
 
         //se la stringa di ricerca non è vuota

@@ -174,7 +174,7 @@ public class Dashboard : PageModel
         var queryCostosi = @"
                 SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
                 FROM Prodotti p
-                LEFT JOIN Categorie c ON p.CategoriaId = c.Id 
+                LEFT JOIN Categorie c ON p.CategoriaId = c.Id
                 ORDER BY p.Prezzo DESC LIMIT 5";
                 // Usiamo LEFT JOIN invece che JOIN per prendere anche i prodotti che non hanno una categoria associata
         ProdottiPiuCostosi = ExecuteQuery(queryCostosi);
@@ -374,7 +374,7 @@ Esegue una query che restituisce più righe e le converte in una lista di oggett
 
 ### Delegati
 
-Uso Action per passare un metodo come parametri (in questo caso`Action<SQLiteCommand> setupParameters`). 
+Uso Action per passare un metodo come parametri (in questo caso`Action<SQLiteCommand> setupParameters`).
 
 `Invoke()` invoca il metodo passando come parametro il comando.
 
@@ -609,12 +609,12 @@ Prodotto = UtilityDB.ExecuteScalar<ProdottoViewModel>(@"SELECT p.Id, p.Nome, p.P
     }
     );
 ```
+
 ### NON FUNZIONA: motivo
 
-`ExecuteScalar` non contiene il `ExecuteReader()` ma esegue il comando di SQLite `ExecuteScalar()`, che attraverso la Query restituisce un valore numerico, tipo `int`. 
+`ExecuteScalar` non contiene il `ExecuteReader()` ma esegue il comando di SQLite `ExecuteScalar()`, che attraverso la Query restituisce un valore numerico, tipo `int`.
 
-# USO CORRETTO: 
-
+# USO CORRETTO:
 
 ```cs
 public int TotaleProdotti { get; set; }
@@ -630,7 +630,6 @@ try
             SimpleLogger.Log(ex);
         }
 ```
-
 
 ---
 
@@ -706,21 +705,24 @@ public void OnGet()
 
 ---
 
-## Implementazione Extra: 
+## Implementazione Extra:
 
 Da pagina Dettaglio, il tasto `Indietro` fa tornare alla pagina precedente alla relativa
 
 Esempio:
 
 > Front-End
+
 ```html
 <form method="post">
-        <input type="hidden" name="returnUrl" value="@HttpContext.Request.Headers["Referer"]" />
-        <button type="submit" class="btn btn-primary">Indietro</button>
-    </form>
+  <input type="hidden" name="returnUrl"
+  value="@HttpContext.Request.Headers["Referer"]" />
+  <button type="submit" class="btn btn-primary">Indietro</button>
+</form>
 ```
 
 > Back-End
+
 ```cs
 public IActionResult OnPost(string? returnUrl)
     {
@@ -733,15 +735,16 @@ public IActionResult OnPost(string? returnUrl)
     }
 ```
 
-### Spiegazione: 
+### Spiegazione:
 
-Nel tag `<form method="post">`, attraverso un input nascosto 
+Nel tag `<form method="post">`, attraverso un input nascosto
 
 ```html
-<input type="hidden" name="returnUrl" value="@HttpContext.Request.Headers["Referer"]" />
+<input type="hidden" name="returnUrl"
+value="@HttpContext.Request.Headers["Referer"]" />
 ```
 
-passiamo alla variabile stringa `returnUrl` il valore `@HttpContext.Request.Headers["Referer"]`, dove  `"Referer"` contiene l'URL della pagina da cui proviene l'utente. 
+passiamo alla variabile stringa `returnUrl` il valore `@HttpContext.Request.Headers["Referer"]`, dove `"Referer"` contiene l'URL della pagina da cui proviene l'utente.
 
 Se `returnUrl` NON è `Null` o `Empty` reindirizza verso la relativa pagina precedente:
 
@@ -752,7 +755,7 @@ return Redirect(returnUrl);
 Nel caso invece la stringa sia vuota, reindizza all'index:
 
 ```cs
-return RedirectToPage("Index"); 
+return RedirectToPage("Index");
 ```
 
 # 18/02/2025
@@ -783,16 +786,14 @@ public static class PriceFormatter
 Esempio di utilizzo:
 
 ```html
-
 <td>@PriceFormatter.Format(prodotto.Prezzo)</td>
-
 ```
 
 ---
 
 # Paginazione
 
-## Classe della paginazione 
+## Classe della paginazione
 
 PaginatedList.cs
 
@@ -814,9 +815,9 @@ public class PaginatedList<T> : List<T>
         // che si riferisce alla lista stessa
     }
 
-    public bool HasPreviewPage => PageIndex >1; // restituisce true 
+    public bool HasPreviewPage => PageIndex >1; // restituisce true
     // se c'è una pagina precedente
-    public bool HasNextPage => PageIndex < TotalPages; // restituisce true 
+    public bool HasNextPage => PageIndex < TotalPages; // restituisce true
     // se c'è una pagina successiva
 }
 ```
@@ -845,58 +846,49 @@ Creiamo una partial per la paginazione
 ```html
 @model PaginationModel
 <nav aria-label="Page navigation">
-    <ul class="pagination">
-        @if (Model.HasPreviewPage)
-        {
-            <li class="page-item">
-                <a class="page-link" href="@Model.PageUrl(Model.PageIndex - 1)" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-        }
-        else
-        {
-            <li class="page-item disabled">
-                <span aria-hidden="true" aria-label="Previous">&laquo;</span>
-            </li>
-        }
-
-        @for (int i = 1; i <= Model.TotalPages; i++)
-        {
-            if (i == Model.PageIndex)
-            {
-                <li class="page-item active">
-                    <span class="page-link">@i</span>
-                </li>
-            }
-            else
-            {
-                <li class="page-item">
-                    <a class="page-link" href="@Model.PageUrl(i)"></a>
-                </li>
-            }
-        }
-
-        @if (Model.HasNextPage)
-        {
-            <li class="page-item">
-                <a class="page-link" href="@Model.PageUrl(Model.PageIndex + 1)" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        }
-        else
-        {
-            <li class="page-item disabled">
-                <span class="page-link" aria-label="Next">
-                    <span aria-hidden="true" aria-label="Previous">&raquo;</span>
-                </span>
-            </li>
-        }
-    </ul>
+  <ul class="pagination">
+    @if (Model.HasPreviewPage) {
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="@Model.PageUrl(Model.PageIndex - 1)"
+        aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    } else {
+    <li class="page-item disabled">
+      <span aria-hidden="true" aria-label="Previous">&laquo;</span>
+    </li>
+    } @for (int i = 1; i <= Model.TotalPages; i++) { if (i == Model.PageIndex) {
+    <li class="page-item active">
+      <span class="page-link">@i</span>
+    </li>
+    } else {
+    <li class="page-item">
+      <a class="page-link" href="@Model.PageUrl(i)"></a>
+    </li>
+    } } @if (Model.HasNextPage) {
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="@Model.PageUrl(Model.PageIndex + 1)"
+        aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    } else {
+    <li class="page-item disabled">
+      <span class="page-link" aria-label="Next">
+        <span aria-hidden="true" aria-label="Previous">&raquo;</span>
+      </span>
+    </li>
+    }
+  </ul>
 </nav>
 ```
-# 
+
+#
 
 PaginatedIndex.cshtml.cs
 
@@ -920,7 +912,7 @@ public class PaginatedIndexModel : PageModel
         // {
         //     currentPage = 1;
         // }
-        
+
         int currentpage = pageIndex ?? 1;
 
         //recupera il numero totale di prodotti
@@ -933,7 +925,7 @@ public class PaginatedIndexModel : PageModel
         // limit = quanti elementi voglio
         // offset = da dove voglio partire
         // offset = (pagina corrente - 1) * elementi per pagina
-        // LIMIT 5 OFFSET 0 -> 5 elementi a partire dall'elemento 0     
+        // LIMIT 5 OFFSET 0 -> 5 elementi a partire dall'elemento 0
 
         string sql = $@"
                         SELECT p.Id, p.Nome, p.Prezzo, c.Nome as CategoriaNome
@@ -1014,4 +1006,36 @@ PaginatedIndex.cshtml
     </table>
     <partial name="_Pagination" model="paginationModel">
 </div>
+```
+
+# 19/02/2025
+
+Utility che restituisce un `.css` a seconda delle condizioni.
+
+```cs
+///<summary>
+/// Restituisce "active" se currentPage è uguale a expectedPage (ignorano il case), altrimenti una stringa vuota.
+///</summary>
+public static class FrontendUtil
+{
+    public static string ActiveClass(string currentPage, string expectedPage)
+    {
+        return currentPage.Equals(expectedPage, StringComparison.OrdinalIgnoreCase) ? "active" : "";
+    }
+}
+```
+
+Utilizzo:
+
+```html
+ <li class="nav-item">
+    <a class="nav-link @FrontendUtil.ActiveClass(ViewContext.RouteData.Values["page"]?.ToString() ?? "", "/Index")" asp-area="" asp-page="/Index">Home</a>
+</li>
+```
+
+```css
+.active{
+  text-decoration: underline;
+  color: white;
+}
 ```
