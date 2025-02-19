@@ -5,7 +5,7 @@ public class SearchModel : PageModel
 
     [BindProperty(SupportsGet = true)]
     public int pageIndex { get; set; } = 1;
-    public PaginatedList<ProdottoViewModel>? Prodotti { get; set; } 
+    public PaginatedList<ProdottoViewModel>? Prodotti { get; set; }
 
     public ProdottoViewModel Prodotto { get; set; } = new();
     public int PageSize { get; set; } = 5; // numero di prodotti per pagina
@@ -14,11 +14,18 @@ public class SearchModel : PageModel
     {
 
         int currentpage = pageIndex ?? 1;
-        int totalCount = UtilityDB.ExecuteScalar<int>("SELECT COUNT(*) FROM Prodotti");
         //calcola l'offest per la query
         int offset = (currentpage - 1) * PageSize;
         //assegno la stringa di ricerca alla proprieta pubblica
         SearchTerm = q;
+        int totalCount = UtilityDB.ExecuteScalar<int>(@"
+                                                    SELECT COUNT(*) FROM Prodotti 
+                                                    WHERE Nome LIKE @searchTerm",
+                                                    cmd =>
+                                                    {
+                                                        cmd.Parameters.AddWithValue("@searchTerm", $"%{q}%");
+                                                    });
+
 
         //se la stringa di ricerca non è vuota
         if (!string.IsNullOrWhiteSpace(q))
@@ -27,7 +34,9 @@ public class SearchModel : PageModel
             {
                 //Utilizzo di DbUtils per leggere la lista dei prodotti
                 var prodotti = UtilityDB.ExecuteReader(
-                    $@"SELECT p.Id, p.Nome, p.Prezzo, c.Nome as CategoriaNome FROM Prodotti p LEFT JOIN Categorie c ON p.CategoriaId = c.Id WHERE p.Nome LIKE @searchTerm LIMIT {PageSize} OFFSET {offset}",
+                    $@"SELECT p.Id, p.Nome, p.Prezzo, c.Nome as CategoriaNome 
+                    FROM Prodotti p LEFT JOIN Categorie c ON p.CategoriaId = c.Id 
+                    WHERE p.Nome LIKE @searchTerm LIMIT {PageSize} OFFSET {offset}",
 
                             reader => new ProdottoViewModel
                             {
@@ -49,6 +58,10 @@ public class SearchModel : PageModel
             {
                 SimpleLogger.Log(ex);
             }
+        }
+        else
+        {
+            Prodotti = new PaginatedList<ProdottoViewModel>(new List<ProdottoViewModel>(), 0, 1, PageSize);
         }
     }
     public IActionResult OnPost(int? pageIndex)
