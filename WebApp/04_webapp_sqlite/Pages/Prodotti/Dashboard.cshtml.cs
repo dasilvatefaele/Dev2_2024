@@ -19,9 +19,12 @@ public class Dashboard : PageModel
     public void OnGet()
     {
         var queryCostosi = @"
-                SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
+                SELECT p.Id, p.Nome, p.Prezzo, 
+                c.Nome as Categoria,
+                f.Nome as Fornitore
                 FROM Prodotti p
                 LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+                LEFT JOIN Fornitori f ON p.FornitoreId = f.Id
                 ORDER BY p.Prezzo DESC LIMIT 5";
 
         try
@@ -32,7 +35,8 @@ public class Dashboard : PageModel
                 Nome = reader.GetString(1),
                 Prezzo = reader.GetDouble(2),
                 // se la categoria è nulla, restituiamo "Nessuna categoria"
-                CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
+                CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3),
+                FornitoreNome = reader.IsDBNull(4) ? "Nessun fornitore" : reader.GetString(4)
             });
         }
         catch (Exception ex)
@@ -41,9 +45,12 @@ public class Dashboard : PageModel
         }
 
         var queryRecenti = @"
-                SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
+                SELECT p.Id, p.Nome, p.Prezzo, 
+                c.Nome as Categoria,
+                f.Nome as Fornitore
                 FROM Prodotti p
                 LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+                LEFT JOIN Fornitori f ON p.FornitoreId = f.Id
                 ORDER BY p.Id DESC LIMIT 5";
 
         try
@@ -54,7 +61,8 @@ public class Dashboard : PageModel
                 Nome = reader.GetString(1),
                 Prezzo = reader.GetDouble(2),
                 // se la categoria è nulla, restituiamo "Nessuna categoria"
-                CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
+                CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3),
+                FornitoreNome = reader.IsDBNull(4) ? "Nessun fornitore" : reader.GetString(4)
             });
         }
         catch (Exception ex)
@@ -62,11 +70,13 @@ public class Dashboard : PageModel
             SimpleLogger.Log(ex);
         }
 
-        var queryCategoria = @"
-                SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
+        var queryCategoria = @"SELECT p.Id, p.Nome, p.Prezzo, 
+                c.Nome as Categoria,
+                f.Nome as Fornitore
                 FROM Prodotti p
                 LEFT JOIN Categorie c ON p.CategoriaId = c.Id
-                WHERE p.CategoriaId = 11 LIMIT 5";
+                LEFT JOIN Fornitori f ON p.FornitoreId = f.Id
+                WHERE p.CategoriaId = 3 LIMIT 5";
 
         try
         {
@@ -76,7 +86,8 @@ public class Dashboard : PageModel
                 Nome = reader.GetString(1),
                 Prezzo = reader.GetDouble(2),
                 // se la categoria è nulla, restituiamo "Nessuna categoria"
-                CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
+                CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3),
+                FornitoreNome = reader.IsDBNull(4) ? "Nessun fornitore" : reader.GetString(4)
             });
         }
         catch (Exception ex)

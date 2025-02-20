@@ -31,7 +31,13 @@
                     <option value="">--- SELEZIONA CATEGORIA ---</option>
                 </select>
                 <span asp-validation-for="Prodotto.CategoriaId" class="text-danger"></span>
-
+            </div>
+            <label asp-for="Prodotto.CategoriaId">Categoria</label>
+            <div>
+                <select asp-for="Prodotto.FornitoreId" class="form-control" asp-items="Model.FornitoriSelectList">
+                    <option value="">--- SELEZIONA FORNITORE ---</option>
+                </select>
+                <span asp-validation-for="Prodotto.FornitoreId" class="text-danger"></span>
             </div>
         </div>
         <div>

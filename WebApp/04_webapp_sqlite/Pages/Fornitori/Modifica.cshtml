@@ -1,0 +1,31 @@
+@page
+@model Modifica
+@namespace _04_webapp_sqlite.Fornitori
+@{
+    ViewData["Title"] = "Modifica Fornitore";
+}
+<h1>@ViewData["Title"]</h1>
+
+
+<div class="container">
+    @section Scripts
+    {
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <form method="post">
+        <input type="hidden" asp-for="Fornitore.Id"> <!-- rimandargli indietro -->
+        <div class="form-control">
+            <label asp-for="Fornitore.Nome">Nome</label>
+            <input type="text" class="form-control" asp-for="Fornitore.Nome" />
+            <span asp-validation-for="Fornitore.Nome" class="text-danger"></span>
+             <label asp-for="Fornitore.Contatto">Contatto</label>
+            <input type="email" class="form-control" asp-for="Fornitore.Contatto" />
+            <span asp-validation-for="Fornitore.Contatto" class="text-danger"></span>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary my-3">Modifica</button>
+            <a asp-page="/Fornitori/Index"><button class="btn btn-primary my-3">Torna Indietro</button></a>
+        </div>
+    </form>
+</div>

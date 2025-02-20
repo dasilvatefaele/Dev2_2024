@@ -1,0 +1,26 @@
+@page
+@model CreateModel
+@namespace _04_webapp_sqlite.Fornitori
+@{
+    ViewData["Title"] = "Aggiungi Fornitore";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div class="container">
+     @section Scripts
+    {
+        <partial name="_ValidationScriptsPartial"/>
+    }
+    <form method="post">
+        <div class="form-control">
+            <label asp-for="Fornitore.Nome">Nome</label>
+            <input type="text" class="form-control" asp-for="Fornitore.Nome" />
+             <label asp-for="Fornitore.Nome">Contatto</label>
+            <input type="email" class="form-control" asp-for="Fornitore.Contatto" />
+            <span asp-validation-for="Fornitore.Contatto" class="text-danger"></span>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary my-3">Aggingi</button>
+        </div>
+    </form>
+</div>

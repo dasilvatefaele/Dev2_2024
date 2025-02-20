@@ -15,3 +15,4 @@ global using _04_webapp_sqlite.Data;
 global using _04_webapp_sqlite.Pages;
 global using _04_webapp_sqlite.Utilities;
 global using _04_webapp_sqlite.Prodotti;
+global using _04_webapp_sqlite.Fornitori;

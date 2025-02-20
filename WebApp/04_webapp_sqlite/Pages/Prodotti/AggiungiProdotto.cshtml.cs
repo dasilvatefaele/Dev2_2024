@@ -13,6 +13,7 @@ public class AggiungiProdottoModel : PageModel
     public Prodotto Prodotto { get; set; }
     [BindProperty]
     public List<SelectListItem>? CategorieTendina { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> FornitoriSelectList { get; set; } = new List<SelectListItem>();
 
 
     public AggiungiProdottoModel()
@@ -26,6 +27,12 @@ public class AggiungiProdottoModel : PageModel
                 Value = reader.GetInt32(0).ToString(),
                 Text = reader.GetString(1)
             });
+
+            FornitoriSelectList = UtilityDB.ExecuteReader("SELECT * FROM Fornitori", reader => new SelectListItem
+                {
+                    Value = reader.GetInt32(0).ToString(),
+                    Text = reader.GetString(1)
+                });
         }
         catch (Exception ex)
         {
@@ -42,6 +49,11 @@ public class AggiungiProdottoModel : PageModel
                 Value = reader.GetInt32(0).ToString(),
                 Text = reader.GetString(1)
             });
+            FornitoriSelectList = UtilityDB.ExecuteReader("SELECT * FROM Fornitori", reader => new SelectListItem
+                {
+                    Value = reader.GetInt32(0).ToString(),
+                    Text = reader.GetString(1)
+                });
         }
         catch (Exception ex)
         {
@@ -60,6 +72,11 @@ public class AggiungiProdottoModel : PageModel
                     Value = reader.GetInt32(0).ToString(),
                     Text = reader.GetString(1)
                 });
+                FornitoriSelectList = UtilityDB.ExecuteReader("SELECT * FROM Fornitori", reader => new SelectListItem
+                {
+                    Value = reader.GetInt32(0).ToString(),
+                    Text = reader.GetString(1)
+                });
             }
             catch (Exception ex)
             {
@@ -69,7 +86,7 @@ public class AggiungiProdottoModel : PageModel
             return Page();
         }
 
-        var sql = @"INSERT INTO Prodotti (Nome, Prezzo, CategoriaId) VALUES (@nome, @prezzo, @categoria)";
+        var sql = @"INSERT INTO Prodotti (Nome, Prezzo, CategoriaId, FornitoreId) VALUES (@nome, @prezzo, @categoria, @fornitore)";
 
         try
         {
@@ -78,6 +95,7 @@ public class AggiungiProdottoModel : PageModel
                 command.Parameters.AddWithValue("@nome", Prodotto.Nome);
                 command.Parameters.AddWithValue("@prezzo", Prodotto.Prezzo);
                 command.Parameters.AddWithValue("@categoria", Prodotto.CategoriaId);
+                command.Parameters.AddWithValue("@fornitore", Prodotto.FornitoreId);
             }
             );
         }

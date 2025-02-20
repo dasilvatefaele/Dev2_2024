@@ -33,6 +33,7 @@
                     <th>Nome</th>
                     <th>Prezzo</th>
                     <th>Categoria</th>
+                    <th>Fornitore</th>
                     <th>Azioni</th>
                 </tr>
             </thead>
@@ -44,6 +45,7 @@
                         <td>@prodotto.Nome</td>
                         <td>@PriceFormatter.Format(prodotto.Prezzo)</td>
                         <td>@prodotto.CategoriaNome</td>
+                        <td>@prodotto.FornitoreNome</td>
                         <td>
                             <a asp-page="Dettaglio" asp-route-id="@prodotto.Id" class="btn btn-outline-info">Dettagli</a>
                         </td>

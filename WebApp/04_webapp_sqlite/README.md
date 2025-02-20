@@ -33,6 +33,8 @@ Ne esistono diversi, come
 ecc...
 
 ```c#
+namespace _04_webapp_sqlite.Models;
+
 public class Prodotto
 {
     public int Id { get; set; }
@@ -42,11 +44,13 @@ public class Prodotto
     public string Nome { get; set; }
 
     [Required(ErrorMessage = "Il prezzo è obbligatorio.")]
-    [Range (0.01, double.MaxValue, ErrorMessage = "Il prezzo deve essere maggioe di ")]
+    [Range (0.01, double.MaxValue, ErrorMessage = "Il prezzo deve essere maggiore di 0")]
     public double Prezzo { get; set; }
 
     [Required(ErrorMessage = "La categoria è obbligatoria.")]
     public int CategoriaId { get; set; }
+    [Required(ErrorMessage = "Il fornitore è obbligatorio.")]
+    public int FornitoreId { get; set; }
 }
 ```
 
@@ -1253,16 +1257,23 @@ Aggiungo il campo alla colonna
 
 # TODO:
 
-- [ ] Gestione CRUD dei prodotti <u>considerando la modifica ai due modelli</u> (`Prodotto.cs` e `ProdottoView.cs`)
+- [x] Gestione CRUD dei prodotti <u>considerando la modifica ai due modelli</u> (`Prodotto.cs` e `ProdottoView.cs`)
 
-- [ ] Creazione di una pagina `Dettaglio Fornitore` che esporrà il contatto del fornitore. La pagina deve essere accessibile tramite link da Prodotti/Index.
+- [x] Creazione di una pagina `Dettaglio Fornitore` che esporrà il contatto del fornitore. 
+- [x] Creazione di una pagina `Lista Fornitori`, con link a `Dettaglio Fornitore`
+- [x] Implementae operazioni CRUD sui Fornitori
 
-- [ ] Creazione di una pagina `Lista Fornitori`, con link a `Dettaglio Fornitore`
-per accedere ad informazioni aggiuntive.
 
-Se richiesto:
+- [ ] La pagina deve essere accessibile tramite link da Prodotti/Index. 
+*NOTA* : il modello ProdottoViewModel possiede il `Nome` del fornitore ma non il suo `Id`
+chè è richiesto per eseguire la query di `Fornitori/Dettaglio.cshtmlcs`.
 
-- [ ] Implementae operazioni CRUD sui Fornitori
+Possibile patch: discrinare nell OnGet se Id è null, esegui una query che cerca per nome
+e espone i dati dell'oggetto trovato
+
+
+
+
 
 
 

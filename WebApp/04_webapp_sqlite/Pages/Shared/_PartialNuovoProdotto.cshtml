@@ -3,6 +3,9 @@
     List<SelectListItem> Categorie = new List<SelectListItem>();
         Categorie = Model.CategorieTendina;
 
+        List<SelectListItem> Fornitori = new List<SelectListItem>();
+        Fornitori = Model.FornitoriSelectList;
+
     Prodotto Prodotto = Model.Prodotto;
 }
 
@@ -29,8 +32,13 @@
 </td>
 
 <td>
-    
+    <select asp-for="@Prodotto.FornitoreId" class="form-control" asp-items="@Fornitori">
+        <option value="">SCEGLI FORNITORE</option>
+    </select>
+    <span asp-validation-for="@Prodotto.FornitoreId" class="text-danger"></span>
 </td>
+
+
 
 <td>
     <button type="submit" class="btn btn-primary" >Aggingi</button>

@@ -21,7 +21,14 @@ public class Elimina : PageModel
 
     public IActionResult OnGet(int id)
     {
-        var sql = "SELECT p.Id, p.Nome, p.Prezzo, c.Nome FROM Prodotti p LEFT JOIN Categorie c ON p.CategoriaId = c.Id WHERE p.Id = @id ";
+        var sql = @"
+        SELECT p.Id, p.Nome, p.Prezzo, 
+        c.Nome as Categoria,
+        f.Nome as Fornitore
+        FROM Prodotti p
+        LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+        LEFT JOIN Fornitori f ON p.FornitoreId = f.Id 
+        WHERE p.Id = @id ";
         try
         {
             var Prodotti = UtilityDB.ExecuteReader(sql, reader => new ProdottoViewModel

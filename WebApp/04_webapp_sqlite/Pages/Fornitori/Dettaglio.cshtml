@@ -1,0 +1,53 @@
+@page "Dettaglio"
+@model Dettaglio
+@namespace _04_webapp_sqlite.Fornitori
+@{
+    ViewData["Title"] = "Dettaglio prodotto";
+    AggiungiProdottoModel CreateModel = new();
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="container-fluid">
+        <table class="table table-hover">
+        <thead>
+            <tr>
+                @* <th scope="col">Id</th> *@
+                <th scope="col">Nome</th>
+                <th scope="col">Contatto</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                @if (Model != null)
+                {
+                
+                        <tr>
+                            @* <td>@Model.Fornitore.Id</td> *@
+                            <td>@Model.Fornitore.Nome</td>
+                            <td>@Model.Fornitore.Contatto</td>
+                            <td><a asp-route-id="@Model.Fornitore.Id" asp-page="Modifica">
+                                    <div class="btn green"><i class="fa-solid fa-pen-to-square" style="color:white"></i>
+                                    </div>
+                                </a>
+                                <a asp-page="Elimina" asp-route-id="@Model.Fornitore.Id">
+                                    <div class="btn red"><i class="fa-solid fa-trash" style="color:white"></i></div>
+                                </a>
+                            </td>
+
+                        </tr>
+                    
+                }
+            }
+        </tbody>
+    </table>
+
+        </tbody>
+    </table>
+    <form method="post">
+        <input type="hidden" name="returnUrl" value="@HttpContext.Request.Headers["Referer"]" />
+        <button type="submit" class="btn btn-primary">Indietro</button>
+    </form>
+    @* <a asp-page="/Prodotti/Index"></a> *@
+</div>

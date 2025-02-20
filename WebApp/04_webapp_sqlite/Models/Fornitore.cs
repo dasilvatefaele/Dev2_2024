@@ -1,6 +1,6 @@
 namespace _04_webapp_sqlite.Models;
 
-public class Fornitori
+public class Fornitore
 {
     public int Id { get; set; }
     public string Nome { get; set; }
