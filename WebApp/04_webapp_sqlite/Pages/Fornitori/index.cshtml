@@ -11,12 +11,16 @@
     };
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<div class="container-fluid">
-    <div>
-        <a asp-area="" asp-page="Create" class="btn btn-primary green"><i class="fa-solid fa-plus text-white"></i>
-            Crea</a>
+<div class="container-fluid my-5">
+    <div class="d-flex justify-content-center">
+        <div>
+            <h1>@ViewData["Title"]</h1>
+             <div class="d-flex my-3 d-flex justify-content-center">
+                <a asp-area="" asp-page="Create" class="btn btn-primary green w-100"><i
+                        class="fa-solid fa-plus text-white"></i>
+                    Crea</a>
+            </div>
+        </div>
     </div>
     <table class="table table-hover">
         <thead>
@@ -35,9 +39,9 @@
                     {
                         <tr>
                             @* <td>@fornitore.Id</td> *@
-                            
-                                <td><a asp-page="Dettaglio" asp-route-id="@fornitore.Id">@fornitore.Nome</a></td>
-                            
+
+                            <td><a asp-page="Dettaglio" asp-route-id="@fornitore.Id">@fornitore.Nome</a></td>
+
                             <td>@fornitore.Contatto</td>
                             <td><a asp-route-id="@fornitore.Id" asp-page="Modifica">
                                     <div class="btn green"><i class="fa-solid fa-pen-to-square" style="color:white"></i>

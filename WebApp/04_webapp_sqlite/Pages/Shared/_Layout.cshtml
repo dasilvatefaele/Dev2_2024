@@ -22,26 +22,23 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
+                        @* <li class="nav-item">
                             <a class="nav-link @FrontendUtil.ActiveClass(ViewContext.RouteData.Values["page"]?.ToString() ?? "", "/Index")" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link @FrontendUtil.ActiveClass(ViewContext.RouteData.Values["page"]?.ToString() ?? "", "/Privacy")" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
+                        </li> *@
                         <li class="nav-item">
                             <a class="nav-link @FrontendUtil.ActiveClass(ViewContext.RouteData.Values["page"]?.ToString() ?? "", "/Prodotti/Index")" asp-area="" asp-page="/Prodotti/Index">Prodotti</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link @FrontendUtil.ActiveClass(ViewContext.RouteData.Values["page"]?.ToString() ?? "", "/Categorie/Index")" asp-area="" asp-page="/Categorie/Index">Categorie</a>
                         </li>
-                         <li class="nav-item">
-                            <a class="nav-link @FrontendUtil.ActiveClass(ViewContext.RouteData.Values["page"]?.ToString() ?? "", "/Prodotti/Dashboard")" asp-area="" asp-page="/Prodotti/Dashboard">Dashboard</a>
-                        </li>
-                         @* <li class="nav-item">
-                            <a class="nav-link @FrontendUtil.ActiveClass(ViewContext.RouteData.Values["page"]?.ToString() ?? "", "/Prodotti/PaginatedIndex")" asp-area="" asp-page="/Prodotti/PaginatedIndex">Paginated</a>
-                        </li> *@
                         <li class="nav-item">
                             <a class="nav-link @FrontendUtil.ActiveClass(ViewContext.RouteData.Values["page"]?.ToString() ?? "", "/Fornitori/Index")" asp-area="" asp-page="/Fornitori/Index">Fornitori</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link @FrontendUtil.ActiveClass(ViewContext.RouteData.Values["page"]?.ToString() ?? "", "/Prodotti/Dashboard")" asp-area="" asp-page="/Prodotti/Dashboard">Dashboard</a>
                         </li>
                     </ul>
                 </div>
