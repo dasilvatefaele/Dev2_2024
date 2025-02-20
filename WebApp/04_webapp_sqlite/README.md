@@ -1328,7 +1328,174 @@ public void OnGet(int id = -1, string nomefornitore = null)
         }
     }
 ```
+# 20/02/2025 parte 2
 
+# Protocollo
+Insieme di regole che gestisce la trasmissione di dati.
+
+## Il più classico è il TCP/IP:
+
+Protocollo di rete che permette la connessione tra due computer che utilizza due protocolli
+
+## TCP 
+
+Transmission Control Protocol: si occupa trasmissione del messaggio
+
+## IP 
+
+Protocollo di rete: identificazione dell'indirizzo del computer tramite schede di rete, normalmente è dinamico
+
+# HTTP (HyperText Transfer Protocol)
+
+Permette di trasmettere documenti html tra un Client e un Server
+
+
+# HTTPS
+
+HyperText Transfer Protocol Secure.
+Ha un layer (strato) aggiuntivo di sicurezza.
+
+
+# FTP
+
+File Transfer Protocol
+Permettono di inviare e riceve file al/dal server.
+Protocollo per trasferire i file 
+
+# Client FTP
+
+E' uno spazio remoto che permette di salvare i file in remoto, in modo che sia accessibile sempre da qualsiasi computer. I file vengono immagazzinati come in un computer
+è un programma simile ad un browser che vede i file 
+
+# SMTP
+
+Simple mail transfer protocol
+
+Permette di trasmettere mail tra Client e un Server. Il più complesso di tutti perché protegge la perdita di pacchetti di dati.
+
+# SMTPS
+
+Simple mail transfer protocol secure
+
+# POP3
+
+Protocollo per riceve le mail 
+
+# PORTE
+
+#### Porte standard:
+
+Le porte sono in linea di massima maggiormente hardware.
+
+- 3000, 80, 443, 21, 25 ecc...
+
+> Esempi:
+
+PROTOCOLLO|PORTA
+-|-
+HTTP    |   80
+HTTPS   |   443
+FTP     |   21
+SMTP    |   25
+POP3    |   110
+SMTPS   |   550
+WEBAPP  |   3000
+
+#### EndPoint: 
+Indirizzi ai quali posso recuperare delle informazioni (il server mi rende disponibile dei dati)
+
+#### PortForwarding:
+
+Permette l'accesso a servizi di rete da remoto (tunneling tra due computer per permettere l'accesso ai servizi di rete da remoto). Negli anni 90', `Naspter` o `SoulSeek` erano applicazione che, sempre passando attraverso un server, permettevano la comunicazione `Peer to Peer`. 
+
+---
+
+Attraverso terminale 
+
+```bash
+ipconfig
+```
+
+```
+...
+Scheda LAN wireless Wi-Fi:
+
+   Suffisso DNS specifico per connessione:
+   Indirizzo IPv6 locale rispetto al collegamento . : fe80::2178:1555:8e83:7cdd%9
+   Indirizzo IPv4. . . . . . . . . . . . : 192.168.201.16
+   Subnet mask . . . . . . . . . . . . . : 255.255.255.0
+   Gateway predefinito . . . . . . . . . : 192.168.201.1
+```
+
+dove 
+```
+Indirizzo IPv6 locale rispetto al collegamento . : fe80::2178:1555:8e83:7cdd%9
+Indirizzo IPv4. . . . . . . . . . . . : 192.168.201.16
+```
+
+---
+
+`Indirizzo IPv6` - identifica la scheda della macchina, creato per sopperire alla mancanza di IP 
+
+`Indirizzo IPv4` - identifica i computer all'interno di una rete locale (generato da DHCP)
+
+#### DHCP 
+
+Dynamic Host Configuration Protocol - Assegna dinamicamente gli indirizzi IP (assegna quelli liberi)
+
+```
+Subnet mask . . . . . . . . . . . . . : 255.255.255.0
+```
+---
+
+`Subnet mask` - serve per ottimizzare l'utilizzo degli indirizzi IP (in caso di )
+
+
+```
+ Gateway predefinito . . . . . . . . . : 192.168.201.1
+ ```
+
+ `Gateway predefinito` - Eredita i primi 3 blocchi dell'indirizzo IP.
+ Viene ricevuto tramite un servizio `DHCP` Dynamic Host Configuration Protocol
+
+ `DNS` - trasforma/converte un indirizzo "www.abcd.com" ad un indirizzo numerico
+
+ `ISP` - (Internet Server Provider)
+
+`192.168.0.1` o
+ `192.168.1.1` indirizzo del router
+
+#### NAT 
+
+Serve per mappare degli indirizzi (Network Address Translation)
+
+---
+
+# Ping 
+
+Serve per testare la comunicazione tra due computer attraverso server.
+
+in questo
+
+```bash
+ping 192.168.201.28
+```
+
+Risposta
+
+```
+Esecuzione di Ping 192.168.201.28 con 32 byte di dati:
+Risposta da 192.168.201.28: byte=32 durata=3ms TTL=128
+Risposta da 192.168.201.28: byte=32 durata=4ms TTL=128
+Risposta da 192.168.201.28: byte=32 durata=3ms TTL=128
+Risposta da 192.168.201.28: byte=32 durata=4ms TTL=128       
+
+Statistiche Ping per 192.168.201.28:
+    Pacchetti: Trasmessi = 4, Ricevuti = 4,
+    Persi = 0 (0% persi),
+Tempo approssimativo percorsi andata/ritorno in millisecondi:
+    Minimo = 3ms, Massimo =  4ms, Medio =  3ms
+```
 
 
 
