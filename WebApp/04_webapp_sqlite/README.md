@@ -1039,3 +1039,230 @@ Utilizzo:
   color: white;
 }
 ```
+
+
+# 20/02/2025
+
+Implementazione fornitori:
+
+> Note: non essendo stati esplicitati i campi necessari, la classe fornitori conterrà 
+solo i campi Id, Nome, Contatto
+
++ 1 Creazione del modello
+
+Modello fornitori `Fornitori.cs`
+```cs
+namespace _04_webapp_sqlite.Models;
+
+public class Fornitori
+{
+    public int Id { get; set; }
+    public string Nome { get; set; }
+    [Required]
+    [EmailAddress]
+    public string Contatto { get; set; }
+}
+```
+
+Modifico modello Prodotti e ProdottoViewModel per contenere anche Id del fornitore
+
+Prodotto.cs
+
+```cs
+using System.ComponentModel.DataAnnotations;
+
+// Modello del prodotto
+namespace _04_webapp_sqlite.Models;
+
+public class Prodotto
+{
+    public int Id { get; set; }
+
+    [Required(ErrorMessage = "Il nome del prodotto è obbligatorio.")]
+    [StringLength(100, ErrorMessage = "Il nome non può superare i 100 caratteri.")]
+    public string Nome { get; set; }
+
+    [Required(ErrorMessage = "Il prezzo è obbligatorio.")]
+    [Range (0.01, double.MaxValue, ErrorMessage = "Il prezzo deve essere maggiore di 0")]
+    public double Prezzo { get; set; }
+
+    [Required(ErrorMessage = "La categoria è obbligatoria.")]
+    public int CategoriaId { get; set; }
+    public int FornitorieId { get; set; }
+}
+```
+
+ProdottoViewModel.cs
+
+```cs
+namespace _04_webapp_sqlite.Models;
+public class ProdottoViewModel {
+    // proprietà
+    public int Id { get; set; }
+    public string? Nome { get; set; }
+    public double Prezzo { get; set; }
+    public string? CategoriaNome { get; set; }
+    // Attraverso la LEFT JOIN sarà collegato il nome del fornitore
+    // attraverso il suo Id
+    public string? FornitoreNome { get; set; } 
+}
+```
+
++ 2 Creazione della tabella Fornitori in `DatabaseInitializer.cs`
+
+```cs
+// Se la tabella non esistente creo la tabella la creo tramite query e ExecuteNonQuery
+string createFornitoriTabella = @"CREATE TABLE IF NOT EXISTS Fornitori (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Nome TEXT NOT NULL,
+    Contatto TEXT NOT NULL";
+    
+// Eseguo il comando SQL
+UtilityDB.ExecuteNonQuery(createFornitoriTabella);
+```
+
+Modifico la query di creazione dei prodotti per ospitare i fornitori (sarà necessario eliminare il Database per re-Inizializzarlo con le nuove tabelle)
+
+```cs
+var createProdottiTabella = @"
+                CREATE TABLE IF NOT EXISTS Prodotti (
+                Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                Nome TEXT NOT NULL,
+                Prezzo REAL NOT NULL,
+                CategoriaId INTEGER NOT NULL,
+                FornitoreId INTEGER NOT NULL,
+                FOREIGN KEY(CategoriaId) REFERENCES Categorie(Id),
+                FOREIGN KEY(FornitoreId) REFERENCES Fornitori(Id)
+                );";
+
+// lanciare il comando sulla connessione
+using (var command = new SQLiteCommand(createCategorieTabella, connection)) {
+    // eseguiamo il comando
+    command.ExecuteNonQuery();
+};
+```
+
+> NOTA: necessario creare prima la tabella dei fornitori e delle categorie dal momento
+che i prodotti faranno riferimento all'Id delle due tabelle
+
++ 3 Seeding dei fornitori
+
+```cs
+// Leggo il numero di elementi nella tabella Fornitori del DB
+var countFornitori = UtilityDB.ExecuteScalar<int>("SELECT COUNT (*) FROM Fornitori");
+// Se la tabella è vuota eseguo il seeding
+if (countFornitori == 0)
+{
+   string seedingFornitori = @"
+    INSERT INTO Fornitori (Nome, Contatto) VALUES
+    ('Nike', 'fornitore@nike.com'),
+    ('Ikea', 'fornitore@ikea.com'),
+    ('Apple', 'fornitore@apple.com'),
+    ('Mulino Bianco', 'fornitore@mulinobianco.com'),
+    ('Brico', 'fornitore@brico.com'),
+    ('Samsung', 'fornitore@samsung.com'),
+    ('Zara', 'fornitore@zara.com')
+    ";
+    // Eseguo il comando SQL
+    UtilityDB.ExecuteNonQuery(seedingFornitori); 
+}
+
++ 4 Seeding dei prodotti con collegamento alla tabella fornitori
+
+```cs
+
+var countProdotti = (long)countProdottiCommand.ExecuteScalar();
+// se non ci sono prodotti li creiamo
+if (countProdotti == 0){
+    var insertProdotti = @"
+        INSERT INTO Prodotti (Nome, Prezzo, CategoriaId, FornitoreId) VALUES
+        ('Smartphone', 500, (SELECT Id FROM Categorie WHERE Nome = 'Elettronica'), (SELECT Id FROM Fornitori WHERE Nome = 'Apple')),
+        ('Tablet', 300, (SELECT Id FROM Categorie WHERE Nome = 'Elettronica'), (SELECT Id FROM Fornitori WHERE Nome = 'Apple')),
+        ('TV', 700, (SELECT Id FROM Categorie WHERE Nome = 'Elettronica'), (SELECT Id FROM Fornitori WHERE Nome = 'Samsung')),
+        ('Cuffie', 100, (SELECT Id FROM Categorie WHERE Nome = 'Elettronica'), (SELECT Id FROM Fornitori WHERE Nome = 'Samsung')),
+        ('Maglietta', 20, (SELECT Id FROM Categorie WHERE Nome = 'Abbigliamento'), (SELECT Id FROM Fornitori WHERE Nome = 'Zara')),
+        ('Pantaloni', 40, (SELECT Id FROM Categorie WHERE Nome = 'Abbigliamento'), (SELECT Id FROM Fornitori WHERE Nome = 'Zara')),
+        ('Scarpe', 50, (SELECT Id FROM Categorie WHERE Nome = 'Abbigliamento'), (SELECT Id FROM Fornitori WHERE Nome = 'Zara')),
+        ('Cappotto', 100, (SELECT Id FROM Categorie WHERE Nome = 'Abbigliamento'), (SELECT Id FROM Fornitori WHERE Nome = 'Zara')),
+        ('Divano', 300, (SELECT Id FROM Categorie WHERE Nome = 'Casa'), (SELECT Id FROM Fornitori WHERE Nome = 'Ikea')),
+        ('Tavolo', 150, (SELECT Id FROM Categorie WHERE Nome = 'Casa'), (SELECT Id FROM Fornitori WHERE Nome = 'Ikea')),
+        ('Sedia', 50, (SELECT Id FROM Categorie WHERE Nome = 'Casa'), (SELECT Id FROM Fornitori WHERE Nome = 'Ikea')),
+        ('Letto', 200, (SELECT Id FROM Categorie WHERE Nome = 'Casa'), (SELECT Id FROM Fornitori WHERE Nome = 'Ikea')),
+        ('Rasaerba', 200, (SELECT Id FROM Categorie WHERE Nome = 'Giardinaggio'), (SELECT Id FROM Fornitori WHERE Nome = 'Brico')),
+        ('Soffiatore', 100, (SELECT Id FROM Categorie WHERE Nome = 'Giardinaggio'), (SELECT Id FROM Fornitori WHERE Nome = 'Brico')),
+        ('Tagliaerba', 150, (SELECT Id FROM Categorie WHERE Nome = 'Giardinaggio'), (SELECT Id FROM Fornitori WHERE Nome = 'Brico')),
+        ('Tosaerba', 250, (SELECT Id FROM Categorie WHERE Nome = 'Giardinaggio'), (SELECT Id FROM Fornitori WHERE Nome = 'Brico')),
+        ('Pallone', 10, (SELECT Id FROM Categorie WHERE Nome = 'Sport'), (SELECT Id FROM Fornitori WHERE Nome = 'Nike')),
+        ('Scarpe da calcio', 50, (SELECT Id FROM Categorie WHERE Nome = 'Sport'), (SELECT Id FROM Fornitori WHERE Nome = 'Nike')),
+        ('Rete da calcio', 100, (SELECT Id FROM Categorie WHERE Nome = 'Sport'), (SELECT Id FROM Fornitori WHERE Nome = 'Nike')),
+        ('Pallavolo', 20, (SELECT Id FROM Categorie WHERE Nome = 'Sport'), (SELECT Id FROM Fornitori WHERE Nome = 'Nike'));
+    ";
+    using (var command = new SQLiteCommand(insertProdotti, connection)) {
+        command.ExecuteNonQuery();                
+    }
+}
+```
+
++ 5 Distrubuzione dei dati
+
+Distribuzione dei dati del modello aggiornato da DB in Index.cshtml.cs 
+
+```cs
+List<ProdottoViewModel> items = UtilityDB.ExecuteReader($@"
+                SELECT p.Id, p.Nome, p.Prezzo, 
+                c.Nome as Categoria,
+                f.Nome as Fornitore
+                FROM Prodotti p
+                LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+                LEFT JOIN Fornitori f ON p.FornitoreId = f.Id
+                ORDER BY p.Nome LIMIT {PageSize} OFFSET {offset}", reader => new ProdottoViewModel
+                {
+                    Id = reader.GetInt32(0),
+                    Nome = reader.GetString(1),
+                    Prezzo = reader.GetDouble(2),
+                    // se la categoria è nulla, restituiamo "Nessuna categoria"
+                    CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3),
+                    FornitoreNome = reader.IsDBNull(4) ? "Nessun fornitore" : reader.GetString(4),
+                });
+
+Prodotti = new PaginatedList<ProdottoViewModel>(items, totalCount, currentpage, PageSize);
+```
+
++ 6 Visualizzazione del campo fornitore in `Prodotti/Index`
+
+Aggiungo la colonna Fornitori alla tabella 
+
+```html
+<th class="">Fornitore</th>
+```
+
+Aggiungo il campo alla colonna 
+
+```html
+@foreach (var prodotto in Model.Prodotti)
+{
+    <tr>
+        ...
+        <td class="">@prodotto.FornitoreNome</td>
+        ...
+    </tr>
+}
+```
+
+---
+
+# TODO:
+
+- [ ] Gestione CRUD dei prodotti <u>considerando la modifica ai due modelli</u> (`Prodotto.cs` e `ProdottoView.cs`)
+
+- [ ] Creazione di una pagina `Dettaglio Fornitore` che esporrà il contatto del fornitore. La pagina deve essere accessibile tramite link da Prodotti/Index.
+
+- [ ] Creazione di una pagina `Lista Fornitori`, con link a `Dettaglio Fornitore`
+per accedere ad informazioni aggiuntive.
+
+Se richiesto:
+
+- [ ] Implementae operazioni CRUD sui Fornitori
+
+
+

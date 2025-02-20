@@ -40,6 +40,9 @@
                          <li class="nav-item">
                             <a class="nav-link @FrontendUtil.ActiveClass(ViewContext.RouteData.Values["page"]?.ToString() ?? "", "/Prodotti/PaginatedIndex")" asp-area="" asp-page="/Prodotti/PaginatedIndex">Paginated</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link @FrontendUtil.ActiveClass(ViewContext.RouteData.Values["page"]?.ToString() ?? "", "/Fornitori/Index")" asp-area="" asp-page="/Fornitori/Index">Fornitori</a>
+                        </li>
                     </ul>
                 </div>
             </div>

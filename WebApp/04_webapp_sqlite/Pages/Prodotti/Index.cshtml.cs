@@ -1,4 +1,4 @@
-using  _04_webapp_sqlite.Utilities;
+using _04_webapp_sqlite.Utilities;
 
 namespace _04_webapp_sqlite.Prodotti;
 
@@ -12,9 +12,9 @@ public class IndexProdottiModel : PageModel
 
     public List<SelectListItem>? CategorieTendina { get; set; } = new List<SelectListItem>();
 
-     public int PageSize { get; set; } = 5; // numero di prodotti per pagina
+    public int PageSize { get; set; } = 5; // numero di prodotti per pagina
 
-    
+
 
     public int TotaleProdotti { get; set; }
 
@@ -23,19 +23,19 @@ public class IndexProdottiModel : PageModel
 
     [BindProperty(SupportsGet = true)]
     public int Ordine { get; set; }
-    
+
     [BindProperty(SupportsGet = true)]
     public int pageIndex { get; set; } = 1;
 
     public IndexProdottiModel(ILogger<IndexProdottiModel> logger)
     {
         _logger = logger;
-       
+
     }
 
     public void OnGet(int? IdCategoria, int Ordine, int? pageIndex)
     {
-        
+
         int currentpage = pageIndex ?? 1;
         int totalCount = UtilityDB.ExecuteScalar<int>("SELECT COUNT(*) FROM Prodotti");
         //calcola l'offest per la query
@@ -44,16 +44,21 @@ public class IndexProdottiModel : PageModel
         {
             if (IdCategoria.HasValue)
             {
-                List<ProdottoViewModel> items = UtilityDB.ExecuteReader($@"SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
+                List<ProdottoViewModel> items = UtilityDB.ExecuteReader($@"
+                SELECT p.Id, p.Nome, p.Prezzo, 
+                c.Nome as Categoria,
+                f.Nome as Fornitore
                 FROM Prodotti p
                 LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+                LEFT JOIN Fornitori f ON p.FornitoreId = f.Id
                 WHERE c.Id = @id LIMIT {PageSize} OFFSET {offset}", reader => new ProdottoViewModel
                 {
                     Id = reader.GetInt32(0),
                     Nome = reader.GetString(1),
                     Prezzo = reader.GetDouble(2),
                     // se la categoria è nulla, restituiamo "Nessuna categoria"
-                    CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
+                    CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3),
+                    FornitoreNome = reader.IsDBNull(4) ? "Nessun fornitore" : reader.GetString(4)
                 },
                 command =>
                 {
@@ -70,16 +75,21 @@ public class IndexProdottiModel : PageModel
             }
             else
             {
-                List<ProdottoViewModel> items = UtilityDB.ExecuteReader($@"SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
+                List<ProdottoViewModel> items = UtilityDB.ExecuteReader($@"
+                SELECT p.Id, p.Nome, p.Prezzo, 
+                c.Nome as Categoria,
+                f.Nome as Fornitore
                 FROM Prodotti p
                 LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+                LEFT JOIN Fornitori f ON p.FornitoreId = f.Id
                 ORDER BY p.Nome LIMIT {PageSize} OFFSET {offset}", reader => new ProdottoViewModel
                 {
                     Id = reader.GetInt32(0),
                     Nome = reader.GetString(1),
                     Prezzo = reader.GetDouble(2),
                     // se la categoria è nulla, restituiamo "Nessuna categoria"
-                    CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
+                    CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3),
+                    FornitoreNome = reader.IsDBNull(4) ? "Nessun fornitore" : reader.GetString(4)
                 });
 
                 Prodotti = new PaginatedList<ProdottoViewModel>(items, totalCount, currentpage, PageSize);
@@ -99,59 +109,72 @@ public class IndexProdottiModel : PageModel
         #region lambda
         if (Ordine == 0)
         {
-            List<ProdottoViewModel> items = UtilityDB.ExecuteReader($@"SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
-                FROM Prodotti p
-                LEFT JOIN Categorie c ON p.CategoriaId = c.Id
-                ORDER BY p.Prezzo LIMIT {PageSize} OFFSET {offset}", reader => new ProdottoViewModel
-                {
-                    Id = reader.GetInt32(0),
-                    Nome = reader.GetString(1),
-                    Prezzo = reader.GetDouble(2),
-                    // se la categoria è nulla, restituiamo "Nessuna categoria"
-                    CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
-                });
+            List<ProdottoViewModel> items = UtilityDB.ExecuteReader($@"SELECT p.Id, p.Nome, p.Prezzo, 
+            c.Nome as Categoria,
+            f.Nome as Fornitore
+            FROM Prodotti p
+            LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+            LEFT JOIN Fornitori f ON p.FornitoreId = f.Id
+            ORDER BY p.Prezzo LIMIT {PageSize} OFFSET {offset}", reader => new ProdottoViewModel
+            {
+                Id = reader.GetInt32(0),
+                Nome = reader.GetString(1),
+                Prezzo = reader.GetDouble(2),
+                // se la categoria è nulla, restituiamo "Nessuna categoria"
+                CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3),
+                FornitoreNome = reader.IsDBNull(4) ? "Nessun fornitore" : reader.GetString(4)
 
-                Prodotti = new PaginatedList<ProdottoViewModel>(items, totalCount, currentpage, PageSize);
+            });
+
+            Prodotti = new PaginatedList<ProdottoViewModel>(items, totalCount, currentpage, PageSize);
         }
         else if (Ordine == 1)
         {
-            List<ProdottoViewModel> items = UtilityDB.ExecuteReader($@"SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
-                FROM Prodotti p
-                LEFT JOIN Categorie c ON p.CategoriaId = c.Id
-                ORDER BY p.Prezzo DESC LIMIT {PageSize} OFFSET {offset}", reader => new ProdottoViewModel
-                {
-                    Id = reader.GetInt32(0),
-                    Nome = reader.GetString(1),
-                    Prezzo = reader.GetDouble(2),
-                    // se la categoria è nulla, restituiamo "Nessuna categoria"
-                    CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
-                });
+            List<ProdottoViewModel> items = UtilityDB.ExecuteReader($@"SELECT p.Id, p.Nome, p.Prezzo, 
+            c.Nome as Categoria,
+            f.Nome as Fornitore
+            FROM Prodotti p
+            LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+            LEFT JOIN Fornitori f ON p.FornitoreId = f.Id
+            ORDER BY p.Prezzo DESC LIMIT {PageSize} OFFSET {offset}", reader => new ProdottoViewModel
+            {
+                Id = reader.GetInt32(0),
+                Nome = reader.GetString(1),
+                Prezzo = reader.GetDouble(2),
+                // se la categoria è nulla, restituiamo "Nessuna categoria"
+                CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3),
+                FornitoreNome = reader.IsDBNull(4) ? "Nessun fornitore" : reader.GetString(4)
+            });
 
-                Prodotti = new PaginatedList<ProdottoViewModel>(items, totalCount, currentpage, PageSize);
+            Prodotti = new PaginatedList<ProdottoViewModel>(items, totalCount, currentpage, PageSize);
         }
         else
         {
-            List<ProdottoViewModel> items = UtilityDB.ExecuteReader($@"SELECT p.Id, p.Nome, p.Prezzo, c.Nome as Categoria
-                FROM Prodotti p
-                LEFT JOIN Categorie c ON p.CategoriaId = c.Id
-                ORDER BY p.Id LIMIT {PageSize} OFFSET {offset}", reader => new ProdottoViewModel
-                {
-                    Id = reader.GetInt32(0),
-                    Nome = reader.GetString(1),
-                    Prezzo = reader.GetDouble(2),
-                    // se la categoria è nulla, restituiamo "Nessuna categoria"
-                    CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3)
-                });
+            List<ProdottoViewModel> items = UtilityDB.ExecuteReader($@"SELECT p.Id, p.Nome, p.Prezzo, 
+            c.Nome as Categoria,
+            f.Nome as Fornitore
+            FROM Prodotti p
+            LEFT JOIN Categorie c ON p.CategoriaId = c.Id
+            LEFT JOIN Fornitori f ON p.FornitoreId = f.Id
+            ORDER BY p.Id LIMIT {PageSize} OFFSET {offset}", reader => new ProdottoViewModel
+            {
+                Id = reader.GetInt32(0),
+                Nome = reader.GetString(1),
+                Prezzo = reader.GetDouble(2),
+                // se la categoria è nulla, restituiamo "Nessuna categoria"
+                CategoriaNome = reader.IsDBNull(3) ? "Nessuna categoria" : reader.GetString(3),
+                FornitoreNome = reader.IsDBNull(4) ? "Nessun fornitore" : reader.GetString(4)
+            });
 
-                Prodotti = new PaginatedList<ProdottoViewModel>(items, totalCount, currentpage, PageSize);
+            Prodotti = new PaginatedList<ProdottoViewModel>(items, totalCount, currentpage, PageSize);
         }
-#endregion
+        #endregion
         try
         {
             TotaleProdotti = UtilityDB.ExecuteScalar<int>("SELECT COUNT (*) FROM Prodotti");
         }
 
-        catch(Exception ex)
+        catch (Exception ex)
         {
             SimpleLogger.Log(ex);
         }

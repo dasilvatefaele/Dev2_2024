@@ -34,16 +34,12 @@
                     </a>
                 </th>
                 <th class="">Categoria</th>
+                <th class="">Fornitore</th>
                 <th class="">Actions</th>
                 @* <th class="">Action 2</th> *@
             </tr>
         </thead>
         <tbody>
-            <form method="post" asp-page="AggiungiProdotto">
-                <tr>
-                    <partial name="_PartialNuovoProdotto" model="@CreateModel" />
-                </tr>
-            </form>
             @foreach (var prodotto in Model.Prodotti)
             {
                 <tr>
@@ -57,6 +53,8 @@
                     <td>@PriceFormatter.Format(prodotto.Prezzo)</td>
                     <td class="">@prodotto.CategoriaNome</td>
 
+                    <td class="">@prodotto.FornitoreNome</td>
+
                     <td><a asp-route-id="@prodotto.Id" asp-page="Modifica">
                             <div class="btn green"><i class="fa-solid fa-pen-to-square" style="color:white"></i>
                             </div>
@@ -68,6 +66,11 @@
                     </td>
                 </tr>
             }
+         <form method="post" asp-page="AggiungiProdotto">
+                <tr>
+                    <partial name="_PartialNuovoProdotto" model="@CreateModel" />
+                </tr>
+            </form>
         </tbody>
     </table>
     <partial name="_Pagination" model="paginationModel" />
