@@ -10,6 +10,7 @@
         TotalPages = Model.Prodotti.TotalPages,
         PageUrl = page => Url.Page("Index", new { pageIndex = page })
     };
+
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -52,7 +53,14 @@
                     @* <td class="">@prodotto.Prezzo.ToString("F2") €</td> *@
                     <td>@PriceFormatter.Format(prodotto.Prezzo)</td>
                     <td class="">@prodotto.CategoriaNome</td>
-                    <td class="">@prodotto.FornitoreNome</td>
+
+
+                    <td>
+                        <a asp-page="/Fornitori/Dettaglio" asp-route-nomefornitore="@prodotto.FornitoreNome">
+                            @prodotto.FornitoreNome
+                        </a>   
+                    </td>
+
                     <td><a asp-route-id="@prodotto.Id" asp-page="Modifica">
                             <div class="btn green"><i class="fa-solid fa-pen-to-square" style="color:white"></i>
                             </div>

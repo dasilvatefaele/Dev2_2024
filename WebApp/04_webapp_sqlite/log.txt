@@ -1,0 +1,4 @@
+2025-02-20 12:40:30 - Exception: Sequence contains no elements
+Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at _04_webapp_sqlite.Fornitori.Dettaglio.OnGet(Int32 id, String nomefornitore) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Fornitori\Dettaglio.cshtml.cs:line 31

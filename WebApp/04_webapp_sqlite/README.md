@@ -1264,12 +1264,70 @@ Aggiungo il campo alla colonna
 - [x] Implementae operazioni CRUD sui Fornitori
 
 
-- [ ] La pagina deve essere accessibile tramite link da Prodotti/Index. 
+- [x] La pagina deve essere accessibile tramite link da Prodotti/Index. 
 *NOTA* : il modello ProdottoViewModel possiede il `Nome` del fornitore ma non il suo `Id`
 chè è richiesto per eseguire la query di `Fornitori/Dettaglio.cshtmlcs`.
 
-Possibile patch: discrinare nell OnGet se Id è null, esegui una query che cerca per nome
+*Possibile Patch*: discrinare nell OnGet se Id è null, esegui una query che cerca per nome
 e espone i dati dell'oggetto trovato
+
+#### SOLUZIONE:
+
+Link e passaggio della variabile per l'OnGet
+
+```html
+<a asp-page="/Fornitori/Dettaglio" asp-route-nomefornitore="@prodotto.FornitoreNome">
+    @prodotto.FornitoreNome
+</a> 
+```
+
+Dettaglio.cs di Fornitori
+
+```cs
+public void OnGet(int id = -1, string nomefornitore = null)
+    {
+        if (id != -1)
+        {
+            try
+            {
+                var fornitori = UtilityDB.ExecuteReader($"SELECT Id, Nome, Contatto FROM Fornitori f WHERE f.Id = @id", reader => new Fornitore
+                {
+                    Id = reader.GetInt32(0),
+                    Nome = reader.GetString(1),
+                    Contatto = reader.GetString(2)
+                }, cmd =>
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                });
+                Fornitore = fornitori.First();
+            }
+            catch (Exception ex)
+            {
+                SimpleLogger.Log(ex);
+            }
+        }
+        else if (nomefornitore != null)
+        {
+            try
+            {
+                var fornitori = UtilityDB.ExecuteReader($"SELECT Id, Nome, Contatto FROM Fornitori f WHERE f.Nome = @Nome", reader => new Fornitore
+                {
+                    Id = reader.GetInt32(0),
+                    Nome = reader.GetString(1),
+                    Contatto = reader.GetString(2)
+                }, cmd =>
+                {
+                    cmd.Parameters.AddWithValue("@Nome", nomefornitore);
+                });
+                Fornitore = fornitori.First();
+            }
+            catch (Exception ex)
+            {
+                SimpleLogger.Log(ex);
+            }
+        }
+    }
+```
 
 
 
