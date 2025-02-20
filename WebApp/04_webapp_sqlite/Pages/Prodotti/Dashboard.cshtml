@@ -4,17 +4,19 @@
 @{
     ViewData["Title"] = "Dashboard";
 }
-<h1>@ViewData["Title"]</h1>
-<div class="container-fluid">
+<div class="container-fluid my-5">
+    <div class="mb-4">
+        <h1>@ViewData["Title"]</h1>
+    </div>
     <div class="row">
         <div class="col-4">
             <partial name="_ProdottiPiuCostosi" model="Model.ProdottiPiuCostosi" />
-        </div> 
+        </div>
         <div class="col-4">
             <partial name="_ProdottiRecenti" model="Model.ProdottiRecenti" />
         </div>
-        <div class="col-4"> 
-             <partial name="_ProdottiCategoriaSpecifica" model="Model.ProdottiCategoria" /> 
+        <div class="col-4">
+            <partial name="_ProdottiCategoriaSpecifica" model="Model.ProdottiCategoria" />
         </div>
     </div>
 </div>

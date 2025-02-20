@@ -14,6 +14,7 @@
         TotalPages = Model.Prodotti.TotalPages,
         PageUrl = page => Url.Page("Search", new { q = Model.SearchTerm, pageIndex = page })
     };
+
 }
 <h1>@ViewData["Title"]</h1>
 <div class="container">
@@ -45,7 +46,10 @@
                         <td>@prodotto.Nome</td>
                         <td>@PriceFormatter.Format(prodotto.Prezzo)</td>
                         <td>@prodotto.CategoriaNome</td>
-                        <td>@prodotto.FornitoreNome</td>
+                        <td><a asp-page="/Fornitori/Dettaglio" asp-route-nomefornitore="@prodotto.FornitoreNome">
+                            @prodotto.FornitoreNome
+                            </a>
+                        </td>
                         <td>
                             <a asp-page="Dettaglio" asp-route-id="@prodotto.Id" class="btn btn-outline-info">Dettagli</a>
                         </td>
