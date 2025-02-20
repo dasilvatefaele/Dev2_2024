@@ -37,7 +37,7 @@ public class PaginatedIndexModel : PageModel
         int offset = (currentpage - 1) * PageSize;
 
         // Recupera i prodotti per la pagina corrente
-        // in SQLite si usa LIMIT  e OFFSET per la paginazione
+        // in Sqlite si usa LIMIT  e OFFSET per la paginazione
         // limit = quanti elementi voglio
         // offset = da dove voglio partire
         // offset = (pagina corrente - 1) * elementi per pagina

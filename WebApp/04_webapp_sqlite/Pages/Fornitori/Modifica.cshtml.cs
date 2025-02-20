@@ -2,7 +2,7 @@
 // using Microsoft.AspNetCore.Mvc.RazorPages;
 // using Microsoft.AspNetCore.Mvc.Rendering;
 // using System.Data.SqlClient;
-// using System.Data.SQLite;
+// using System.Data.Sqlite;
 
 namespace _04_webapp_sqlite.Fornitori;
 public class Modifica : PageModel

@@ -1,9 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Data.SqlClient;
-using System.Data.SQLite;
-
 namespace _04_webapp_sqlite.Fornitori;
 public class CreateModel : PageModel
 {

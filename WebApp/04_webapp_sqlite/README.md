@@ -208,7 +208,7 @@ public class Dashboard : PageModel
         {
 
             connection.Open();
-            using (var command = new SQLiteCommand(query, connection))
+            using (var command = new SqliteCommand(query, connection))
             {
                 using (var reader = command.ExecuteReader())
                 {
@@ -373,12 +373,12 @@ Esegue una query che restituisce un valore scalare (esempio un Count) (valori si
 Esegue una query che restituisce più righe e le converte in una lista di oggetti di tipo T.
 
 ```cs
-    public static List<T> ExecuteReader<T>(string sql, Func<Sqlitereader, T> converter, Action<SQLiteCommand> setupParameters)
+    public static List<T> ExecuteReader<T>(string sql, Func<Sqlitereader, T> converter, Action<SqliteCommand> setupParameters)
 ```
 
 ### Delegati
 
-Uso Action per passare un metodo come parametri (in questo caso`Action<SQLiteCommand> setupParameters`).
+Uso Action per passare un metodo come parametri (in questo caso`Action<SqliteCommand> setupParameters`).
 
 `Invoke()` invoca il metodo passando come parametro il comando.
 
@@ -432,11 +432,11 @@ public static class UtilityDB
     /// <param name="converter">Funzione per convertire una riga (<see cref="SqliteDataReader"/>) in un oggetto di tipo T.</param>
     /// <param name="setupParameters">Opzionale: callback per aggiungere parametri al comando.</param>
     /// <returns>Una lista di oggetti di tipo T.</returns>
-    public static List<T> ExecuteReader<T>(string sql, Func<Sqlitereader, T> converter, Action<SQLiteCommand> setupParameters)
+    public static List<T> ExecuteReader<T>(string sql, Func<Sqlitereader, T> converter, Action<SqliteCommand> setupParameters)
     {
         var list = new List<T>();
         using var connection = DatabaseInitializer.GetConnection();
-        using var command = new SQLiteCommand(sql, connection);
+        using var command = new SqliteCommand(sql, connection);
         setupParameters?.Invoke(command);
         using var reader = command.ExecuteReader();
         while (reader.Read())
@@ -616,7 +616,7 @@ Prodotto = UtilityDB.ExecuteScalar<ProdottoViewModel>(@"SELECT p.Id, p.Nome, p.P
 
 ### NON FUNZIONA: motivo
 
-`ExecuteScalar` non contiene il `ExecuteReader()` ma esegue il comando di SQLite `ExecuteScalar()`, che attraverso la Query restituisce un valore numerico, tipo `int`.
+`ExecuteScalar` non contiene il `ExecuteReader()` ma esegue il comando di Sqlite `ExecuteScalar()`, che attraverso la Query restituisce un valore numerico, tipo `int`.
 
 # USO CORRETTO:
 
@@ -925,7 +925,7 @@ public class PaginatedIndexModel : PageModel
         int offset = (currentpage - 1) * PageSize;
 
         // Recupera i prodotti per la pagina corrente
-        // in SQLite si usa LIMIT  e OFFSET per la paginazione
+        // in Sqlite si usa LIMIT  e OFFSET per la paginazione
         // limit = quanti elementi voglio
         // offset = da dove voglio partire
         // offset = (pagina corrente - 1) * elementi per pagina
@@ -1140,7 +1140,7 @@ var createProdottiTabella = @"
                 );";
 
 // lanciare il comando sulla connessione
-using (var command = new SQLiteCommand(createCategorieTabella, connection)) {
+using (var command = new SqliteCommand(createCategorieTabella, connection)) {
     // eseguiamo il comando
     command.ExecuteNonQuery();
 };
@@ -1201,7 +1201,7 @@ if (countProdotti == 0){
         ('Rete da calcio', 100, (SELECT Id FROM Categorie WHERE Nome = 'Sport'), (SELECT Id FROM Fornitori WHERE Nome = 'Nike')),
         ('Pallavolo', 20, (SELECT Id FROM Categorie WHERE Nome = 'Sport'), (SELECT Id FROM Fornitori WHERE Nome = 'Nike'));
     ";
-    using (var command = new SQLiteCommand(insertProdotti, connection)) {
+    using (var command = new SqliteCommand(insertProdotti, connection)) {
         command.ExecuteNonQuery();                
     }
 }

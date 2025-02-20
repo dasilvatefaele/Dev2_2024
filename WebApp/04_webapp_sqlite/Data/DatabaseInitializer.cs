@@ -47,7 +47,7 @@ public static class DatabaseInitializer
 
             // lanciare il comando sulla connessione
             UtilityDB.ExecuteNonQuery(createCategorieTabella);
-            // using (var command = new SQLiteCommand(createCategorieTabella, connection))
+            // using (var command = new SqliteCommand(createCategorieTabella, connection))
             // {
             //     // eseguiamo il comando
             //     command.ExecuteNonQuery();
@@ -59,7 +59,7 @@ public static class DatabaseInitializer
 
             // lanciare il comando sulla connessione
             UtilityDB.ExecuteNonQuery(createProdottiTabella);
-            // using (var command = new SQLiteCommand(createProdottiTabella, connection))
+            // using (var command = new SqliteCommand(createProdottiTabella, connection))
             // {
             //     // eseguiamo il comando
             //     command.ExecuteNonQuery();
@@ -90,7 +90,7 @@ public static class DatabaseInitializer
                 ";
                 // lanciamo il comando
                 UtilityDB.ExecuteNonQuery(insertCategorie);
-                // using (var command = new SQLiteCommand(insertCategorie, connection))
+                // using (var command = new SqliteCommand(insertCategorie, connection))
                 // {
                 //     command.ExecuteNonQuery();
                 // }
@@ -119,7 +119,7 @@ public static class DatabaseInitializer
             // seeding dei Prodotti (se non ci sono prodotti)
             var selectProdotti = "SELECT COUNT(*) FROM Prodotti";
             // creiamo il comando
-            // var countProdottiCommand = new SQLiteCommand(selectProdotti, connection);
+            // var countProdottiCommand = new SqliteCommand(selectProdotti, connection);
             // eseguiamo il comando
             var countProdotti = UtilityDB.ExecuteScalar<int>(selectProdotti);
             // se non ci sono prodotti li creiamo
@@ -152,7 +152,7 @@ public static class DatabaseInitializer
                 ";
                 // lanciamo il comando
                 UtilityDB.ExecuteNonQuery(insertProdotti);
-                // using (var command = new SQLiteCommand(insertProdotti, connection))
+                // using (var command = new SqliteCommand(insertProdotti, connection))
                 // {
                 //     command.ExecuteNonQuery();
                 // }
@@ -163,8 +163,8 @@ public static class DatabaseInitializer
     }
 
     // metodo per ottenere la connessione al database da usare all'interno dell'applicazione per eseguire le query
-    public static SQLiteConnection GetConnection()
+    public static SqliteConnection GetConnection()
     {
-        return new SQLiteConnection(_connectionString);
+        return new SqliteConnection(_connectionString);
     }
 }
