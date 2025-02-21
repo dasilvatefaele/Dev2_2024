@@ -8,7 +8,9 @@ class Program
         Console.Clear();
         var catalogo = LoadChaves();
 
-        Console.WriteLine($"{catalogo.Count}");
+        InitializeData();
+
+        Console.WriteLine($"(Numero de chaves no catalogo: {catalogo.Count})\n");
         bool run = true;
 
         while (run)
@@ -24,20 +26,29 @@ class Program
                 ProcuraPorID(catalogo);
             }
         }
-
-
-
-
     }
-public static bool Exit()
-{
-    Console.Clear();
-                    Color.DarkGray();
-                    Console.WriteLine("© 2025 GOLD DIGITAL CATALOGUE for NEGUEHT by TEFHAEL");
-                    Color.Reset();
-                    Thread.Sleep(1000);
-                    return false;
-}
+
+    public static void InitializeData()
+    {
+        string path = "bin/Debug/net8.0/Data";
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+            //todo: copiare json nella cartella
+            // creare la copia di un file
+            // string copyPath = Path.Combine (dir, "text.txt");
+            // File.Copy(path, copyPath);
+        }
+    }
+    public static bool Exit()
+    {
+        Console.Clear();
+        Color.DarkGray();
+        Console.WriteLine("© 2025 GOLD DIGITAL CATALOGUE for NEGUEHT by TEFHAEL");
+        Color.Reset();
+        Thread.Sleep(1000);
+        return false;
+    }
     public static List<Chave> LoadChaves()
     {
         string path = @"Data/chaves_list.json";
