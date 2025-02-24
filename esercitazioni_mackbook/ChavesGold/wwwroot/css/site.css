@@ -76,6 +76,15 @@ button {
   color: white;
 }
 
+a {
+  text-decoration: none;
+  color: white
+}
+
+a:hover{
+  text-decoration: underline;
+  color: white;
+}
 .fade {
   opacity: 0;
   animation: fadeIn 1s ease-in-out forwards;

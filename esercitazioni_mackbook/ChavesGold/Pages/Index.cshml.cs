@@ -14,7 +14,8 @@ public class IndexModel : PageModel
     [BindProperty]
     public string SearchTerm { get; set; }
 
-    bool found = false;
+    [BindProperty]
+    public bool NoFound { get; set; }
 
     public IndexModel(ILogger<IndexModel> logger)
     {
@@ -23,10 +24,13 @@ public class IndexModel : PageModel
 
     public void OnGet(string? searchTerm)
     {
+        NoFound = true;
         Chaves = LoadChaves();
         _logger.LogInformation($"Found key: {Chaves.Count}");
+
         if (!string.IsNullOrEmpty(searchTerm))
         {
+            NoFound = false;
             ChavesFound = Chaves.Where(chave => chave.Id == searchTerm).ToList();
         }
 

@@ -1,13 +1,19 @@
+@{
+    bool found = false;
+}
 <table class="table text-white">
-        <thead>
-            <tr>
-                <th class="">Id</th>
-                <th class="">Nome</th>
-                <th class="">Codigo</th>
-                <th class="">Pagina</th>
-            </tr>
-        </thead>
-        <tbody>
+    <thead>
+        <tr>
+            <th class="">ID</th>
+            <th class="">Nome</th>
+            <th class="">Codigo</th>
+            <th class="">Pagina</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            found = true;
             @foreach (var c in Model)
             {
                 <tr>
@@ -17,5 +23,7 @@
                     <td>@c.Pagina</td>
                 </tr>
             }
-           
-        </tbody>
+        }
+    </tbody>
+    </thead>
+</table>
