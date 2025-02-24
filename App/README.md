@@ -200,7 +200,7 @@ docker build -t <NomeApp> .
 ESEGUO IL CONTAINER
 
 ```powershell
-docker run docker 
+docker run <NomeApp> 
 ```
 
 memo per accessi a gruppo docker: 

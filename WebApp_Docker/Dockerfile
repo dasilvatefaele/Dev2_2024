@@ -20,7 +20,7 @@ COPY . ./
 # -c Release : ottimizzazione del codiceper la produzione
 # -o /out: indica la destinazione dentro il Container 
 # --no-restore : serve a non ripristinare le dipendenze ogni volta
-RUN dotnet publish -c Release -o /out --no-restore
+RUN dotnet publish -c Release -o out --no-restore
 
 # Usa l'immagine runtime di .NET 8 in modo da avere un'immagine più leggera
 # AS runtime (di default: da provare velocità-dimensione)
