@@ -157,6 +157,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "38_chat", "esercitazioni\38
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "38_chat_server", "esercitazioni\38_chat_server\38_chat_server.csproj", "{C4E906B9-C72E-4AA5-A5CF-71D3158C293A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet.Docker", "App\DotNet.Docker.csproj", "{3A52DF3A-39E4-4257-B423-BAE82547FE9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -478,6 +480,10 @@ Global
 		{C4E906B9-C72E-4AA5-A5CF-71D3158C293A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4E906B9-C72E-4AA5-A5CF-71D3158C293A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4E906B9-C72E-4AA5-A5CF-71D3158C293A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A52DF3A-39E4-4257-B423-BAE82547FE9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A52DF3A-39E4-4257-B423-BAE82547FE9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A52DF3A-39E4-4257-B423-BAE82547FE9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A52DF3A-39E4-4257-B423-BAE82547FE9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CA0EEA04-5509-4E23-88B4-B86FE7EC9D43} = {90B3EDF4-18E8-4CD1-B6C3-21E6AB4AEB0F}

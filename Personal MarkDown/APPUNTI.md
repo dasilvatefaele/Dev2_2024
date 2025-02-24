@@ -1,9 +1,8 @@
 DIPENDENZE FREQUENTI
+
 ```
 dotnet add package Newtonsoft.Json
-
 ```
-
 
 # Strutture Di Dati e Metodi
 
@@ -1180,15 +1179,14 @@ Directory.CreateDirectory(tempDir);
 4. Creare branch e verificare di essere in un branch
 
 5. Committare le modifiche sul proprio branch 
-
+   
    Merge Individuale: 
-
 - dev si sposta sul main 
 
 - digita il merge del branch modificato
 
 - push 
-
+  
    Pull Request 
 
 - Sul proprio branch, dev fa il pull del main (o del branch da incorporare)
@@ -1217,21 +1215,11 @@ DIEGO: README.MD
 
 GIORGIO: DATABASE
 
-
-
-
-
-
-
 Git Shash
-
-
 
 comando che consente di saklvare temporaneamente le modifiche non commitate nel repository Git senza applicarle diretamente al branch
 
 (salvato in locale)
-
-
 
 utile per passare ad un alro branch senza dover committare modifiche
 
@@ -1239,45 +1227,42 @@ Salvare il lavoro in corso per risolvere un conflitto o aggiornre il branch
 
 mantenere pulito il tuo storico di commit
 
-
-
 comandi di base
 
 ``````
 git stash save "Nome dello stash"
-```
 
+```
 non tracciati
-
 ```
+
 git stash -u
-```
 
+```
 Spplicare uno stash salvato
-
 ```
+
 git stash apply
-```
 
+```
 rimuovere
-
 ```
+
 git stash drop
-```
 
+```
 cancellare tutti gli stash
-
 ```
+
 git stash clear
-```
 
+```
 Procedimento
-
 ```
+
 git stash -m "pausa"
 git checkout nuovo-branch
 git stash pop
-
 
 ```
 
