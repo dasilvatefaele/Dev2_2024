@@ -1,0 +1,33 @@
+﻿@page
+@using ChavesGold.Pages;
+@model IndexModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@* <div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div> *@
+
+
+
+<div class="container">
+    <form method="post">
+        <div class="card glass-effect">
+            <div class="d-flex justify-content-center mb-2">
+                <label>
+                    <h1> ID CHAVE</h1>
+                </label>
+            </div>
+            <div class="d-flex justify-content-center">
+                <input type="text" asp-for="SearchTerm" class="form-control d-inline"
+                    style="width:100%; display: inline;"></input>
+                <button type="submit" class="ms-2" style="display-inline; width: max-width:;">Procura</button>
+            </div>
+    </form>
+    <div class="fade">
+        <partial name="_ShowKey" model="Model.ChavesFound">
+    </div>
+</div>
+</div>

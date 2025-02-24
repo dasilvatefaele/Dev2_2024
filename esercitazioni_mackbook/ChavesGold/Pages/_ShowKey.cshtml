@@ -1,0 +1,21 @@
+<table class="table text-white">
+        <thead>
+            <tr>
+                <th class="">Id</th>
+                <th class="">Nome</th>
+                <th class="">Codigo</th>
+                <th class="">Pagina</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in Model)
+            {
+                <tr>
+                    <td>@c.Id</td>
+                    <td>@c.Nome</td>
+                    <td>@c.Codigo</td>
+                    <td>@c.Pagina</td>
+                </tr>
+            }
+           
+        </tbody>
