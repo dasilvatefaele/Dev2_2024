@@ -1,0 +1,13 @@
+# usa immagine uffciale Nginx
+FROM nginx:latest
+
+#copia i file html nella cartella di Nginx
+COPY index.html /usr/share/nginx/html/index.html
+
+# esponi la porta 80 per il server web
+EXPOSE 80
+
+#avvia
+# -g "daemon off"; serve a far partire Nginx in primo piano
+CMD ["nginx", "-g", "daemon off;"]
+

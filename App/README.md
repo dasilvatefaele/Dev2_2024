@@ -208,3 +208,74 @@ memo per accessi a gruppo docker:
 ```powershell
 lusrmgr.msc
 ```
+---
+---
+---
+
+# Esempio pratico
+
+
+File: `Dev2_2024\Assignment\12_html_css`
+
+```dockerfile
+# usa immagine uffciale Nginx
+FROM nginx:latest
+
+#copia i file html nella cartella di Nginx
+COPY index.html /usr/share/nginx/html/index.html
+
+# esponi la porta 80 per il server web
+EXPOSE 80
+
+#avvia
+# -g "daemon off"; serve a far partire Nginx in primo piano
+CMD ["nginx", "-g", "daemon off;"]
+```
+---
+
+# Esecuzione:
+
+```powershell
+docker build -t <NomeApp> .
+```
+
+```powershell
+docker run -p 8080:80 <NomeApp>
+```
+
+```url
+http://localhost:8080/
+```
+
+---
+# Login su Docker Hub per il Registry
+
+```powershell
+docker login
+```
+
+> NOTA: se autenticato su GitHub avviene in automatico
+
+## Creazione di un Registry
+```powershell
+docker tag <NomeApp> <username>/<NomeApp>:latest
+```
+
+## Push
+```powershell
+docker push dasilvatefaele/12_html_css:latest
+```
+
+---
+
+# Passo successivo
+
+## Configurare Azure
+
+Installare Azure CLI on Windows
+
+```url
+https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?pivots=msi#install-or-update
+```
+
+
