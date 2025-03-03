@@ -277,5 +277,7 @@ Installare Azure CLI on Windows
 ```url
 https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?pivots=msi#install-or-update
 ```
+---
 
+# 27/02/2025
 
