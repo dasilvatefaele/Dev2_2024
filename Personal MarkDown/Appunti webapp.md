@@ -48,15 +48,15 @@ Obiettivo
 
 
 # da vedere:
-- [ ] SQL (creare tabelle, operazioni CRUD, JOIN, Paginazione, 
+- [x] SQL (creare tabelle, operazioni CRUD, JOIN, Paginazione, 
       OFFSET, parametri, Seeding, evitare le Injection) (rendere le query più sicure)
-- [ ] data-notation / o decorator (tecniche di validazioni degli inserimenti)
-- [ ] classi utilities per il front-end (active-class)
-- [ ] integrazione partial views (front-end modulare)
-- [ ] classe utilities per il database
-- [ ] classe degli errori
-- [ ] razor - webapp
-- [ ] global using
-- [ ] try-catch
-- [ ] viewbag
-- [ ] culture
+- [x] data-notation / o decorator (tecniche di validazioni degli inserimenti)
+- [x] classi utilities per il front-end (active-class)
+- [x] integrazione partial views (front-end modulare)
+- [x] classe utilities per il database
+- [x] classe degli errori
+- [x] razor - webapp
+- [x] global using
+- [x] try-catch
+- [x] viewbag
+- [x] culture
