@@ -32,13 +32,13 @@ Ricerca impostazione dalla barra di ricerca| `ctrl + P + > [impostazione]`|🔴
 *Dominio*|*Comando nel terminale*|*C#*
 --|--|--
  JSON | `dotnet add package Newtonsoft.Json`| `using Newtonsoft.Json`
- SQLite | `dotnet add package System.Data.SQLite`| `using System.Data.SQLite`
+ SQLite | `dotnet add package Microsoft.Data.Sqlite`| `using Microsoft.Data.Sqlite`
 
  # Librerie interne frequenti
 
  *Dominio*|*Comando*
 --|--
  JSON | `dotnet add package Newtonsoft.Json`
- SQLite | `dotnet add package System.Data.SQLite`
+ SQLite | `dotnet add package Microsoft.Data.Sqlite`
 
 

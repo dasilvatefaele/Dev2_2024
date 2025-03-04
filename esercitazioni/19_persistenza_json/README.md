@@ -218,4 +218,60 @@ dynamic objArray = JsonConvert.DeserializeObject(newJson);
 Console.WriteLine($"estraggo da {path8} il nome dal secondo array: {objArray[1].nome}");
 ```
 
-#### !!! NOTA !!! : Da completare
+---
+
+# Serializzazione e deserializzazione di modelli
+
+
+## Classe
+
+```cs
+public class Chave
+{
+    public string Id { get; set; }
+    public string Nome { get; set; }
+    public string Codigo { get; set; }
+    public string Pagina { get; set; }
+}
+```
+
+## Json
+
+> esempio path = @"Data/chaves_list.json"
+```json
+[
+    {
+        "Id": "1071",
+        "Nome": "AGL Fech Elétrica",
+        "Codigo": "GYA001071",
+        "Pagina": "1.1"
+    },
+    {
+        "Id": "1105",
+        "Nome": "AL Fech.",
+        "Codigo": "GYA001105",
+        "Pagina": "1.1"
+    },
+    {
+        "Id": "31",
+        "Nome": "Aliança Gde. L.Y.",
+        "Codigo": "GYA000031",
+        "Pagina": "1.1"
+    },
+    {
+        "Id": "62",
+        "Nome": "Aliança Pacific",
+        "Codigo": "GYA000062",
+        "Pagina": "1.1"
+    }
+]
+```
+
+## Deserializzazione
+
+```cs
+string path = @"Data/chaves_list.json";
+var json = File.ReadAllText(path); 
+// var json = System.IO.File.ReadAllText(path) // se File è una classe già usata nell'archetipo
+var JsonConvert.DeserializeObject<List<Chave>>(json);
+```

@@ -35,11 +35,11 @@ Console.Clear();
 
 // Stampo lista partecipanti
 Console.WriteLine("Lista partecipanti:\n");
-foreach(var partecipante in nomePartecipanteList)
-{
-    Console.WriteLine(partecipante);
-}
-
+// foreach(var partecipante in nomePartecipanteList)
+// {
+//     Console.WriteLine(partecipante);
+// }
+nomePartecipanteList.ForEach(n => Console.WriteLine(n));
 
 do
 {
@@ -94,16 +94,16 @@ if (risposta == "SI")
                 Console.Clear();
                 // Stampo lista partecipanti
                 Console.WriteLine("Lista partecipanti:\n");
-                foreach(var partecipante in nomePartecipanteList)
-                {
-                    Console.WriteLine(partecipante);
-                }
+                // foreach(var partecipante in nomePartecipanteList)
+                // {
+                //     Console.WriteLine(partecipante);
+                // }
+                nomePartecipanteList.ForEach(n => Console.WriteLine(n));
 
                 // Dialogo
                 Console.WriteLine("\nInserisci il nome del nuovo partecipante:");
                 Console.Write("> ");
-                string nuovoPartecipante = Console.ReadLine();
-                nomePartecipanteList.Add(nuovoPartecipante);
+                nomePartecipanteList.Add(Console.ReadLine());
 
             break;
 
@@ -112,10 +112,11 @@ if (risposta == "SI")
                 Console.Clear();
                 // Stampo lista partecipanti
                 Console.WriteLine("Lista partecipanti:\n");
-                foreach(var partecipante in nomePartecipanteList)
-                {
-                    Console.WriteLine(partecipante);
-                }
+                // foreach(var partecipante in nomePartecipanteList)
+                // {
+                //     Console.WriteLine(partecipante);
+                // }
+                nomePartecipanteList.ForEach(n => Console.WriteLine(n));
 
                 do
                 {
@@ -124,12 +125,7 @@ if (risposta == "SI")
                     Console.Write("> ");
                     string partecipante = Console.ReadLine();
 
-                    if (nomePartecipanteList.Contains(partecipante))
-                    {
-                        nomePartecipanteList.Remove(partecipante);
-                        Console.WriteLine($"{partecipante} è stato eliminato dalla lista.");
-                    }
-                    else
+                    if (!nomePartecipanteList.Remove(partecipante))
                     {
                         Console.WriteLine($"{partecipante} non c'è nella lista.");
                         Console.WriteLine("Vuoi riprovare?[si/no]");
@@ -145,22 +141,26 @@ if (risposta == "SI")
                             ritenta = false;
                         }
                     }
+                    else
+                    {
+                        Console.WriteLine($"{partecipante} è stato eliminato dalla lista.");
+                    }
                 }while(ritenta==true);
             break;
 
             default:
             break;
-            
+
         }
 
-        
+
 
         // Dialogo
         Console.WriteLine("Vuoi continuare ad editare la lista?");
         Console.Write("> ");
         string risposta3 = Console.ReadLine();
         risposta3 = risposta3.ToUpper();
-        
+
 
         if (risposta3 == "SI")
         {
@@ -170,10 +170,11 @@ if (risposta == "SI")
 
             // Stampo lista partecipanti
             Console.WriteLine("Lista partecipanti:\n");
-            foreach(var partecipante in nomePartecipanteList)
-            {
-                Console.WriteLine(partecipante);
-            }
+            // foreach(var partecipante in nomePartecipanteList)
+            // {
+            //     Console.WriteLine(partecipante);
+            // }
+            nomePartecipanteList.ForEach(n => Console.WriteLine(n));
         }
         else
         {
@@ -182,17 +183,18 @@ if (risposta == "SI")
 
 
     }while (risposta != "INSERIRE" && risposta != "ELIMINARE" || esci == true);
-    
+
 }
 
 Console.Clear();
 
 // Stampo lista partecipanti
 Console.WriteLine("Lista partecipanti:\n");
-foreach(var partecipante in nomePartecipanteList)
-{
-    Console.WriteLine(partecipante);
-}
+// foreach(var partecipante in nomePartecipanteList)
+// {
+//     Console.WriteLine(partecipante);
+// }
+nomePartecipanteList.ForEach(n => Console.WriteLine(n));
 
 //Inserimento numero di squadre
 do
@@ -219,9 +221,9 @@ for (int i = 0; i < nSquadre; i++)  // ciclo per ogni squadra
 
     for (int j = 0; j < partecipantiPerSquadra; j++)  // ciclo per ogni partecipante per squadra
     {
-        estrazione = random.Next(nomePartecipanteList.Count);     
+        estrazione = random.Next(nomePartecipanteList.Count);
         dictSquadre[i+1].Add(nomePartecipanteList[estrazione]);
-        nomePartecipanteList.RemoveAt(estrazione);    
+        nomePartecipanteList.RemoveAt(estrazione);
     }
 
     if (partecipantiInPiu > 0)      // se ci sono partecipanti in più, distribuiscili in un'estrazione dedicata
@@ -229,7 +231,7 @@ for (int i = 0; i < nSquadre; i++)  // ciclo per ogni squadra
         estrazione = random.Next(nomePartecipanteList.Count);;
         dictSquadre[i+1].Add(nomePartecipanteList[estrazione]);
         nomePartecipanteList.RemoveAt(estrazione);
-        partecipantiInPiu--; 
+        partecipantiInPiu--;
     }
 
 }
@@ -240,11 +242,13 @@ Console.Clear();
 
 
 // Stampa le squadre
-foreach (var squadra in dictSquadre)
-{
-    Console.Write($"Squadra {squadra.Key}: ");
-    Console.WriteLine(string.Join(", ", squadra.Value));
-}
+// foreach (var squadra in dictSquadre)
+// {
+//     Console.Write($"Squadra {squadra.Key}: ");
+//     Console.WriteLine(string.Join(", ", squadra.Value));
+// }
+
+dictSquadre.ToList().ForEach(s => Console.WriteLine($"Squadra {s.Key}: {string.Join(", ", s.Value)}"));
 
 
 Console.WriteLine("Hai estratto tutti i partecipanti.");
