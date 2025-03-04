@@ -77,11 +77,12 @@
                     </td>
                 </tr>
             }
-            <form method="post" asp-page="AggiungiProdotto">
+            @* <form method="post" asp-page="AggiungiProdotto">
                 <tr>
                     <partial name="_PartialNuovoProdotto" model="@CreateModel" />
                 </tr>
-            </form>
+            </form> *@
+            
         </tbody>
     </table>
     <partial name="_Pagination" model="paginationModel" />

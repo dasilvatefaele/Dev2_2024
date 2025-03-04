@@ -8,7 +8,10 @@
 
     Prodotto Prodotto = Model.Prodotto;
 }
-
+ @section Scripts
+    {
+        <partial name="_ValidationScriptsPartial"/>
+    }
 
     @* <th scope="row">
         #
@@ -19,7 +22,7 @@
 </td>
 
 <td>
-    <input type="number" class="form-control" asp-for="@Prodotto.Prezzo" />
+    <input type="text" class="form-control" asp-for="@Prodotto.Prezzo" />
     <span asp-validation-for="@Prodotto.Prezzo" class="text-danger"></span>
 </td>
 

@@ -10,6 +10,7 @@
 // {
 //     public static string Format (double price)
 //     {
+//         CultureInfo.CurrentCulture = new CultureInfo("it-IT");
 //         return price.ToString("C", CultureInfo.CurrentCulture);
 //     }
 // }

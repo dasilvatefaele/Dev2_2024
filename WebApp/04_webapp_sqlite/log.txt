@@ -2,3 +2,20 @@
 Stack Trace:    at System.Linq.ThrowHelper.ThrowNoElementsException()
    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
    at _04_webapp_sqlite.Fornitori.Dettaglio.OnGet(Int32 id, String nomefornitore) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Fornitori\Dettaglio.cshtml.cs:line 31
+2025-03-04 14:55:01 - Exception: SQLite Error 19: 'FOREIGN KEY constraint failed'.
+Stack Trace:    at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at UtilityDB.ExecuteNonQuery(String sql, Action`1 setupParameters) in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Utilities\UtilityDB.cs:line 17
+   at _04_webapp_sqlite.Prodotti.AggiungiProdottoModel.OnPost() in C:\Users\39347\Documents\Dev2_2024\WebApp\04_webapp_sqlite\Pages\Prodotti\AggiungiProdotto.cshtml.cs:line 86
+2025-03-04 15:09:33 - Exception: Value must be set.
+Stack Trace:    at Microsoft.Data.Sqlite.SqliteParameter.Bind(sqlite3_stmt stmt, sqlite3 handle)
+   at Microsoft.Data.Sqlite.SqliteParameterCollection.Bind(sqlite3_stmt stmt, sqlite3 handle)
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at UtilityDB.ExecuteNonQuery(String sql, Action`1 setupParameters)
+   at _04_webapp_sqlite.Prodotti.AggiungiProdottoModel.OnPost(String prezzoconvert)

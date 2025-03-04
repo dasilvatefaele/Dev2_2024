@@ -1,21 +1,16 @@
-// using Microsoft.AspNetCore.Mvc;
-// using Microsoft.AspNetCore.Mvc.RazorPages;
-// using Microsoft.AspNetCore.Mvc.Rendering;
-// using System.Data.SqlClient;
-// using System.Data.Sqlite;
-
 namespace _04_webapp_sqlite.Prodotti;
 public class AggiungiProdottoModel : PageModel
 {
     private readonly ILogger<AggiungiProdottoModel> _logger;
 
     [BindProperty]
-    public Prodotto Prodotto { get; set; }
+    public Prodotto Prodotto { get; set; } 
+
+
+
     [BindProperty]
     public List<SelectListItem>? CategorieTendina { get; set; } = new List<SelectListItem>();
     public List<SelectListItem> FornitoriSelectList { get; set; } = new List<SelectListItem>();
-
-
     public AggiungiProdottoModel()
     {
         Prodotto = new Prodotto();
@@ -29,10 +24,10 @@ public class AggiungiProdottoModel : PageModel
             });
 
             FornitoriSelectList = UtilityDB.ExecuteReader("SELECT * FROM Fornitori", reader => new SelectListItem
-                {
-                    Value = reader.GetInt32(0).ToString(),
-                    Text = reader.GetString(1)
-                });
+            {
+                Value = reader.GetInt32(0).ToString(),
+                Text = reader.GetString(1)
+            });
         }
         catch (Exception ex)
         {
@@ -63,6 +58,10 @@ public class AggiungiProdottoModel : PageModel
 
     public IActionResult OnPost()
     {
+        //Console.WriteLine($"Valore ricevuto: {prezzoconvert}");
+
+        
+
         if (!ModelState.IsValid)
         {
             try
@@ -96,8 +95,7 @@ public class AggiungiProdottoModel : PageModel
                 command.Parameters.AddWithValue("@prezzo", Prodotto.Prezzo);
                 command.Parameters.AddWithValue("@categoria", Prodotto.CategoriaId);
                 command.Parameters.AddWithValue("@fornitore", Prodotto.FornitoreId);
-            }
-            );
+            });
         }
         catch (Exception ex)
         {
@@ -106,4 +104,3 @@ public class AggiungiProdottoModel : PageModel
         return RedirectToPage("Index");
     }
 }
-

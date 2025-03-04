@@ -11,8 +11,10 @@ public class Prodotto
     [StringLength(100, ErrorMessage = "Il nome non può superare i 100 caratteri.")]
     public string Nome { get; set; }
 
-    [Required(ErrorMessage = "Il prezzo è obbligatorio.")]
+    [Required(ErrorMessage = "Necessario inserire il prezzo")]
     [Range (0.01, double.MaxValue, ErrorMessage = "Il prezzo deve essere maggiore di 0")]
+    // se contiene una punto stampa il prezzo deve esser separato da una virgola
+    // [RegularExpression(@"^\d+(\,\d{1,2})?$", ErrorMessage = "Il prezzo deve essere un numero con al massimo 2 decimali.")]
     public double Prezzo { get; set; }
 
     [Required(ErrorMessage = "La categoria è obbligatoria.")]
